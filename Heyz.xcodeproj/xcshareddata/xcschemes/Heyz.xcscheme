@@ -20,20 +20,6 @@
                ReferencedContainer = "container:Heyz.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BB303DB918B863E300B6EBC9"
-               BuildableName = "HeyzTests.xctest"
-               BlueprintName = "HeyzTests"
-               ReferencedContainer = "container:Heyz.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -42,16 +28,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BB303DB918B863E300B6EBC9"
-               BuildableName = "HeyzTests.xctest"
-               BlueprintName = "HeyzTests"
-               ReferencedContainer = "container:Heyz.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
