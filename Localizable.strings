@@ -1,0 +1,29 @@
+/* 
+  Localizable.strings
+  Events
+
+  Created by Jimmy on 17/09/14.
+  Copyright (c) 2014 Teknowledge Software. All rights reserved.
+*/
+
+"APP_NAME" = "EventApp";
+
+/**
+ *  application service url
+ */
+"APPLICATION_URL"           =   "http://myapptemplates.com/";
+//"http://hingex.com/";
+
+//web service methods
+"GETEVENTS_METHOD"          =   "events/api/getEvents";
+"GETUSERTICKETS_METHOD"     =   "events/api/getUserTickets";
+"BOOKTICKET_METHOD"         =   "events/api/getUserTickets/bookTicket";
+"CHECKBOOK_METHOD"          =   "events/api/getUserTickets/checkBook";
+"GETEVENTSBYMONTH_METHOD"   =   "events/api/getEventsByMonth";
+"GETFEEDS_METHOD"           =   "events/webservices/tweet-fb.php";
+"LOGIN_METHOD"              =   "events/api/Login";
+"REGISTER_METHOD"           =   "events/api/Register";
+
+
+//About View contents
+"CONTENT_ABOUTVIEW"         =   "Milan Fashion Week is an innovative calendar that coordinates the Milanese showroom openings for sales of MAIN COLLECTION Men, women and children with the aim of responding to the changing demands of the market and an audience of industry professionals increasingly demanding.\n\nMilan Fashion Main collects in an official list of appointments exhibition and sale of the major brands of prêt-à-porter presented in the showrooms of designers and fashion companies. Two annual events : Fall ( January / February ) and Summer ( June / July ) .\n\nSupporting Milan Fashion Week, the National Chamber of Italian Fashion strengthens leadership, confirming Milan as an essential reference for the sector , both in terms of creativity and quality , and in terms of trade and business. Milan is in fact a unique worldwide with more than 1,000 showrooms (mono and multi brand ).\n\nA major media campaign requires the presence of the calendar of Milano Moda Week on the most popular Italian newspapers and magazines on foreigners, as well as banners on websites and portals of national and international information.\n\nAn effective campaign online marketing and advertising channels on YouTube, Google AdWords and Facebook strengthens the communication event. On the website of the CNMI is a large area dedicated to this event, which proves to be a great platform support for both international buyers to the showrooms participating in the initiative.\n\nYou can visit virtually every showroom , a preview of the collections presented the lookbook, download the press release and the press release.";
