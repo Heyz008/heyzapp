@@ -1,20 +1,20 @@
 //
 //  ProgramViewController.m
-//  Events
+//  Heyz
 //
-//  Created by Shabbir Hasan Zaheb on 22/02/14.
-//  Copyright (c) 2014 Teknowledge Software. All rights reserved.
+//  Created by Joshua Jiang on 2015-01-24.
+//  Copyright (c) 2015 Teknowledge Software. All rights reserved.
 //
 
 #import "ProgramViewController.h"
-#import "ProgramCustomCell.h"
+#import "ProgramViewController.h"
+#import "ProgramMainCell.h"
 #import "EventList.h"
 #import "MyEventTickets.h"
 #import "AboutViewController.h"
 #import "UIImageView+WebCache.h"
 
 @interface ProgramViewController (){
-    
     NSMutableArray *arrayEventList;
 }
 
@@ -22,53 +22,40 @@
 
 @implementation ProgramViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+static NSString * const reuseIdentifier = @"Cell";
 
-#pragma mark - View Life Cycle
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // Uncomment the following line to preserve selection between presentations
+    // self.clearsSelectionOnViewWillAppear = NO;
+    
+    // Register cell classes
+    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    
+    // Do any additional setup after loading the view.
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
     
-    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
-
     [Utility afterDelay:0.01 withCompletion:^{
         [DSBezelActivityView newActivityViewForView:self.view.window];
         [self getEventListFromServer];
     }];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/**
- *  getEventListFromServer
- *
- *  @return This method will get events data from server and store all data in EventList modal class.
- */
-
 #pragma mark - Get All Event's from server
 -(void)getEventListFromServer
 {
     NSDictionary *dictOfEventRequestParameter = [[NSDictionary alloc] initWithObjectsAndKeys:[Utility getNSUserDefaultValue:KUSERID],@"user_id", nil];
-
+    
     [Utility GetDataForMethod:NSLocalizedString(@"GETEVENTS_METHOD", @"GETEVENTS_METHOD") parameters:dictOfEventRequestParameter key:@"" withCompletion:^(id response){
         
         [DSBezelActivityView removeViewAnimated:NO];
@@ -79,7 +66,7 @@
                 if ([[[response objectAtIndex:0] objectForKey:@"status"] intValue] == 0) {
                     [Utility alertNotice:@"" withMSG:[[response objectAtIndex:0] objectForKey:@"message"] cancleButtonTitle:@"OK" otherButtonTitle:nil];
                     gArrayEvents = [[NSMutableArray alloc] initWithArray:arrayEventList];
-                    [self.tableView reloadData];
+                    [self.collectionView reloadData];
                     return ;
                     
                 }
@@ -132,7 +119,7 @@
          */
         gArrayEvents = [[NSMutableArray alloc] initWithArray:arrayEventList];
         
-        [self.tableView reloadData];
+        [self.collectionView reloadData];
         
     }WithFailure:^(NSString *error)
      {
@@ -141,48 +128,39 @@
      }];
 }
 
-#pragma mark - Table view data source
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Return the number of sections.
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
+
+#pragma mark <UICollectionViewDataSource>
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-     return [arrayEventList count];
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    
+    return [arrayEventList count];
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 162;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"ProgramCustomCell";
-    ProgramCustomCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    if(!cell)
-    {
-        cell = [[ProgramCustomCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-    }
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifier = @"ProgramMainCell";
+    ProgramMainCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    
     EventList *obj = [arrayEventList objectAtIndex:indexPath.row];
-
-    cell.lblDateTime.text   =   [Utility compareDates:obj.eventStartDateTime date:[NSDate date]];
-    cell.lblEventName.text  =   obj.eventName;
-    cell.lblEventDesc.text  =   [obj.eventDescription stringByConvertingHTMLToPlainText];
-    cell.lblEventDesc.text  =   [Utility TrimString:cell.lblEventDesc.text];
     
     if ([obj.eventImageURL length]>0) {
-        [cell.imgEventImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",obj.eventImageURL]] placeholderImage:nil];
-        [cell.imgEventImage setContentMode:UIViewContentModeScaleAspectFit];
-        [cell.imgEventImage setClipsToBounds:YES];
+        [cell.eventImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",obj.eventImageURL]] placeholderImage:nil];
+        [cell.eventImage setContentMode:UIViewContentModeScaleAspectFit];
+        [cell.eventImage setClipsToBounds:YES];
     }
-    
-    cell.imgEventImage.contentMode = UIViewContentModeScaleAspectFill;
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }
@@ -191,14 +169,50 @@
 // In a story board-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    
-    NSIndexPath *selectedRowIndex = [self.tableView indexPathForSelectedRow];
+    //    // Get the new view controller using [segue destinationViewController].
+    //    // Pass the selected object to the new view controller.
+    //
+    ProgramMainCell *cell = (ProgramMainCell *)sender;
+    NSIndexPath *selectedRowIndex = [self.collectionView indexPathForCell:cell];
     AboutViewController *aboutVwController = [segue destinationViewController];
     EventList *obj  =   [arrayEventList objectAtIndex:selectedRowIndex.row];
     
     aboutVwController.eventObj  =   obj;
 }
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
+
+#pragma mark <UICollectionViewDelegate>
+
+/*
+ // Uncomment this method to specify if the specified item should be highlighted during tracking
+ - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+	return YES;
+ }
+ */
+
+/*
+ // Uncomment this method to specify if the specified item should be selected
+ - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+ return YES;
+ }
+ */
+
+/*
+ // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
+ - (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
+	return NO;
+ }
+ 
+ - (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+	return NO;
+ }
+ 
+ - (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+	
+ }
+ */
 
 @end

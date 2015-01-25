@@ -1,5 +1,5 @@
 //
-//  ProgramViewController.h
+//  ProgramMainCell.h
 //  Heyz
 //
 //  Created by Joshua Jiang on 2015-01-24.
@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ProgramViewController : UICollectionViewController<UICollectionViewDataSource, UICollectionViewDelegate>
+@interface ProgramMainCell : UICollectionViewCell
+
+@property (strong, nonatomic) IBOutlet UIImageView *eventImage;
 
 @end

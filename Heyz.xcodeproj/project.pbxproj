@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		207208A61A7432BB008F167D /* ProgramViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 207208A51A7432BB008F167D /* ProgramViewController.m */; };
+		207208A91A7432F5008F167D /* ProgramMainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 207208A81A7432F5008F167D /* ProgramMainCell.m */; };
+		207208AD1A7435DB008F167D /* CHTCollectionViewWaterfallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 207208AC1A7435DB008F167D /* CHTCollectionViewWaterfallLayout.m */; };
 		711221DC18BC62DD00E77A4A /* NSDate+convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 711221D318BC62DD00E77A4A /* NSDate+convenience.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		711221DD18BC62DD00E77A4A /* NSMutableArray+convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 711221D518BC62DD00E77A4A /* NSMutableArray+convenience.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		711221DE18BC62DD00E77A4A /* UIColor+expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 711221D718BC62DD00E77A4A /* UIColor+expanded.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -209,7 +212,6 @@
 		BB303E2B18B879AA00B6EBC9 /* Twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = BB303E1D18B879AA00B6EBC9 /* Twitter.png */; };
 		BB303E2C18B879AA00B6EBC9 /* Twitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB303E1E18B879AA00B6EBC9 /* Twitter@2x.png */; };
 		BB303E3018B87FCE00B6EBC9 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB303E2F18B87FCE00B6EBC9 /* TabBarViewController.m */; };
-		BB303E3418B8802E00B6EBC9 /* ProgramViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB303E3318B8802E00B6EBC9 /* ProgramViewController.m */; };
 		BB303E4018B88D4C00B6EBC9 /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB303E3F18B88D4C00B6EBC9 /* FeedViewController.m */; };
 		BB62B11E18B8B529000DBDBC /* Action3.png in Resources */ = {isa = PBXBuildFile; fileRef = BB62B11818B8B529000DBDBC /* Action3.png */; };
 		BB62B11F18B8B529000DBDBC /* Action3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB62B11918B8B529000DBDBC /* Action3@2x.png */; };
@@ -233,6 +235,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		207208A41A7432BB008F167D /* ProgramViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramViewController.h; sourceTree = "<group>"; };
+		207208A51A7432BB008F167D /* ProgramViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgramViewController.m; sourceTree = "<group>"; };
+		207208A71A7432F5008F167D /* ProgramMainCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramMainCell.h; sourceTree = "<group>"; };
+		207208A81A7432F5008F167D /* ProgramMainCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgramMainCell.m; sourceTree = "<group>"; };
+		207208AB1A7435DB008F167D /* CHTCollectionViewWaterfallLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTCollectionViewWaterfallLayout.h; sourceTree = "<group>"; };
+		207208AC1A7435DB008F167D /* CHTCollectionViewWaterfallLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTCollectionViewWaterfallLayout.m; sourceTree = "<group>"; };
 		711221D218BC62DD00E77A4A /* NSDate+convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+convenience.h"; sourceTree = "<group>"; };
 		711221D318BC62DD00E77A4A /* NSDate+convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+convenience.m"; sourceTree = "<group>"; };
 		711221D418BC62DD00E77A4A /* NSMutableArray+convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+convenience.h"; sourceTree = "<group>"; };
@@ -515,8 +523,6 @@
 		BB303E1E18B879AA00B6EBC9 /* Twitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Twitter@2x.png"; sourceTree = "<group>"; };
 		BB303E2E18B87FCE00B6EBC9 /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
 		BB303E2F18B87FCE00B6EBC9 /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
-		BB303E3218B8802E00B6EBC9 /* ProgramViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramViewController.h; sourceTree = "<group>"; };
-		BB303E3318B8802E00B6EBC9 /* ProgramViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgramViewController.m; sourceTree = "<group>"; };
 		BB303E3E18B88D4C00B6EBC9 /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
 		BB303E3F18B88D4C00B6EBC9 /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
 		BB62B11818B8B529000DBDBC /* Action3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Action3.png; sourceTree = "<group>"; };
@@ -561,6 +567,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		207208AA1A7435B0008F167D /* CHTCollectionViewWatefallLayout */ = {
+			isa = PBXGroup;
+			children = (
+				207208AB1A7435DB008F167D /* CHTCollectionViewWaterfallLayout.h */,
+				207208AC1A7435DB008F167D /* CHTCollectionViewWaterfallLayout.m */,
+			);
+			name = CHTCollectionViewWatefallLayout;
+			sourceTree = "<group>";
+		};
 		711221D118BC62DD00E77A4A /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -629,6 +644,8 @@
 			children = (
 				7122DB0618BB1F5C00C044E8 /* ProgramCustomCell.h */,
 				7122DB0718BB1F5C00C044E8 /* ProgramCustomCell.m */,
+				207208A71A7432F5008F167D /* ProgramMainCell.h */,
+				207208A81A7432F5008F167D /* ProgramMainCell.m */,
 			);
 			path = ProgramCustomCell;
 			sourceTree = "<group>";
@@ -913,6 +930,7 @@
 		BB303D8D18B863E300B6EBC9 = {
 			isa = PBXGroup;
 			children = (
+				207208AA1A7435B0008F167D /* CHTCollectionViewWatefallLayout */,
 				79A5E24619C9064E009D4018 /* Localizable.strings */,
 				BB303D9F18B863E300B6EBC9 /* Events */,
 				BB303DC118B863E300B6EBC9 /* EventsTests */,
@@ -1131,8 +1149,8 @@
 			isa = PBXGroup;
 			children = (
 				7122DB0518BB1F5C00C044E8 /* ProgramCustomCell */,
-				BB303E3218B8802E00B6EBC9 /* ProgramViewController.h */,
-				BB303E3318B8802E00B6EBC9 /* ProgramViewController.m */,
+				207208A41A7432BB008F167D /* ProgramViewController.h */,
+				207208A51A7432BB008F167D /* ProgramViewController.m */,
 			);
 			path = ProgramViewController;
 			sourceTree = "<group>";
@@ -1428,6 +1446,7 @@
 				BB62B12B18B8C07C000DBDBC /* MyProgramViewController.m in Sources */,
 				711221DC18BC62DD00E77A4A /* NSDate+convenience.m in Sources */,
 				79691CA918EFFF1F00ABD52D /* NSObject+SBJSON.m in Sources */,
+				207208AD1A7435DB008F167D /* CHTCollectionViewWaterfallLayout.m in Sources */,
 				711221DE18BC62DD00E77A4A /* UIColor+expanded.m in Sources */,
 				793508D7192134F90001CC34 /* MMdbsupport.m in Sources */,
 				790AE0B518F9862500FBE2F2 /* RegistrationViewController.m in Sources */,
@@ -1448,7 +1467,6 @@
 				7122DB4118BB6E9000C044E8 /* MyProgramCustomCell.m in Sources */,
 				793508D3192132400001CC34 /* Events.xcdatamodeld in Sources */,
 				7112224118BCD7E800E77A4A /* MoreViewController.m in Sources */,
-				BB303E3418B8802E00B6EBC9 /* ProgramViewController.m in Sources */,
 				79691CB418EFFFF700ABD52D /* Utility.m in Sources */,
 				7920A7B11921F1B0001808B6 /* TSMiniWebBrowser.m in Sources */,
 				7112222E18BCC69300E77A4A /* AboutCustomCell2.m in Sources */,
@@ -1459,8 +1477,10 @@
 				799499EE190985A6008AC6BD /* AbouViewControllers.m in Sources */,
 				798D9E1018F15F1400A69513 /* SDWebImageDecoder.m in Sources */,
 				79A36D871959DC7700C05F43 /* ProgramDescriptionViewController.m in Sources */,
+				207208A91A7432F5008F167D /* ProgramMainCell.m in Sources */,
 				711221DF18BC62DD00E77A4A /* UIView+convenience.m in Sources */,
 				79691D1118F0175600ABD52D /* EventList.m in Sources */,
+				207208A61A7432BB008F167D /* ProgramViewController.m in Sources */,
 				798D9E2618F15F2000A69513 /* UIImageView+WebCache.m in Sources */,
 				79691CAA18EFFF1F00ABD52D /* NSString+SBJSON.m in Sources */,
 				798D9E0818F15F0400A69513 /* SDImageCache.m in Sources */,
