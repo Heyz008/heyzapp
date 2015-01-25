@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CHTCollectionViewWaterfallLayout.h"
 
-@interface ProgramViewController : UICollectionViewController<UICollectionViewDataSource, UICollectionViewDelegate>
+@interface ProgramViewController : UICollectionViewController<UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout>
 
 @end

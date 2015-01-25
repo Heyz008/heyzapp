@@ -11,5 +11,6 @@
 @interface ProgramMainCell : UICollectionViewCell
 
 @property (strong, nonatomic) IBOutlet UIImageView *eventImage;
+@property (strong, nonatomic) IBOutlet UILabel *eventDescription;
 
 @end

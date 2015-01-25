@@ -1198,16 +1198,16 @@
             </objects>
             <point key="canvasLocation" x="-1175" y="-1704"/>
         </scene>
-        <!--Program View Controller-->
+        <!--Events-->
         <scene sceneID="5oG-Qq-mgj">
             <objects>
                 <collectionViewController id="12N-nd-AIZ" customClass="ProgramViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="3BS-el-C8c">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.92171717171717171" green="0.92171717171717171" blue="0.92171717171717171" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="s7b-BR-ife">
-                            <size key="itemSize" width="246" height="223"/>
+                            <size key="itemSize" width="140" height="202"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1217,17 +1217,26 @@
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="246" height="223"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="140" height="202"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="cca-GP-jtk">
-                                            <rect key="frame" x="0.0" y="0.0" width="246" height="223"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7Yj-b7-hW2">
+                                            <rect key="frame" x="8" y="145" width="124" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="cca-GP-jtk">
+                                            <rect key="frame" x="0.0" y="0.0" width="140" height="140"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" red="0.92171717171717171" green="0.42538099093179566" blue="0.46247886125020443" alpha="1" colorSpace="calibratedRGB"/>
                                         </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
+                                    <outlet property="eventDescription" destination="7Yj-b7-hW2" id="lcC-Lk-qfg"/>
                                     <outlet property="eventImage" destination="cca-GP-jtk" id="bKq-O9-yzg"/>
                                 </connections>
                             </collectionViewCell>
@@ -1237,7 +1246,7 @@
                             <outlet property="delegate" destination="12N-nd-AIZ" id="yvY-VR-i4b"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="4CP-4D-mRG"/>
+                    <navigationItem key="navigationItem" title="Events" id="4CP-4D-mRG"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bvz-YP-21K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

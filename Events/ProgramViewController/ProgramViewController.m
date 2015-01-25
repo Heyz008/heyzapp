@@ -13,9 +13,12 @@
 #import "MyEventTickets.h"
 #import "AboutViewController.h"
 #import "UIImageView+WebCache.h"
+#import "CHTCollectionViewWaterfallLayout.h"
 
 @interface ProgramViewController (){
     NSMutableArray *arrayEventList;
+    NSArray *images;
+    NSArray *descriptions;
 }
 
 @end
@@ -30,8 +33,23 @@ static NSString * const reuseIdentifier = @"Cell";
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;
     
+    images = [NSArray arrayWithObjects:@"1.jpg", @"2.jpg", @"3.jpg", @"5.jpg", @"4.jpg", nil];
+    descriptions = [NSArray arrayWithObjects:@"I knew there was also an ABC party and one of those stupid", @"like the description", @"fringe guests", @"I just want to throw a kick-ass party, and when it comes down to it", @"account", nil];
+    
     // Register cell classes
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    
+    CHTCollectionViewWaterfallLayout *layout = [[CHTCollectionViewWaterfallLayout alloc] init];
+    
+    layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10); //set spacing from edge of screen, 10px from each edge
+    layout.minimumColumnSpacing = 7; // space between columns
+    layout.minimumInteritemSpacing = 7; // space between rows
+    layout.columnCount = 2;
+    
+    self.collectionView.collectionViewLayout = layout;
+    self.collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    self.collectionView.dataSource = self;
+    self.collectionView.delegate = self;
     
     // Do any additional setup after loading the view.
 }
@@ -147,7 +165,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return [arrayEventList count];
+    return [images count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -156,13 +174,31 @@ static NSString * const reuseIdentifier = @"Cell";
     
     EventList *obj = [arrayEventList objectAtIndex:indexPath.row];
     
-    if ([obj.eventImageURL length]>0) {
-        [cell.eventImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",obj.eventImageURL]] placeholderImage:nil];
-        [cell.eventImage setContentMode:UIViewContentModeScaleAspectFit];
-        [cell.eventImage setClipsToBounds:YES];
-    }
+//    if ([obj.eventImageURL length]>0) {
+//        [cell.eventImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",obj.eventImageURL]] placeholderImage:nil];
+//        [cell.eventImage setContentMode:UIViewContentModeScaleAspectFit];
+//        [cell.eventImage setClipsToBounds:YES];
+//    }
+    cell.eventImage.image = [UIImage imageNamed:[images objectAtIndex:indexPath.row]];
+    cell.eventDescription.text = [descriptions objectAtIndex:indexPath.row];
+    CGRect labelFrame = cell.eventDescription.frame;
+    labelFrame.size.height = [self getLabelHeight:labelFrame.size.width withText:cell.eventDescription.text];
+    cell.eventDescription.frame = labelFrame;
+    
+    cell.backgroundColor = [UIColor whiteColor];
+    cell.layer.borderWidth=1.0f;
+    cell.layer.borderColor=[UIColor colorWithRed:222.0/255 green:222.0/255 blue:222.0/255 alpha:1.0f].CGColor;
     
     return cell;
+}
+
+-(CGFloat)getLabelHeight:(CGFloat)labelWidth withText:(NSString*)text {
+    CGSize maximumLabelSize = CGSizeMake(labelWidth, FLT_MAX);
+    
+    CGSize expectedLabelSize = [text sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:maximumLabelSize lineBreakMode:NSLineBreakByCharWrapping];
+    
+    //adjust the label the the new height.
+    return expectedLabelSize.height;
 }
 
 #pragma mark - Navigation
@@ -180,9 +216,12 @@ static NSString * const reuseIdentifier = @"Cell";
     aboutVwController.eventObj  =   obj;
 }
 
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
+    return CGSizeMake(100, 100 + [self getLabelHeight:140 withText:[descriptions objectAtIndex:indexPath.row]]);
 }
+
 
 #pragma mark <UICollectionViewDelegate>
 

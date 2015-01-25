@@ -10,6 +10,11 @@
 		207208A61A7432BB008F167D /* ProgramViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 207208A51A7432BB008F167D /* ProgramViewController.m */; };
 		207208A91A7432F5008F167D /* ProgramMainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 207208A81A7432F5008F167D /* ProgramMainCell.m */; };
 		207208AD1A7435DB008F167D /* CHTCollectionViewWaterfallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 207208AC1A7435DB008F167D /* CHTCollectionViewWaterfallLayout.m */; };
+		207208B31A7572DA008F167D /* 5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 207208AE1A7572DA008F167D /* 5.jpg */; };
+		207208B41A7572DA008F167D /* 4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 207208AF1A7572DA008F167D /* 4.jpg */; };
+		207208B51A7572DA008F167D /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 207208B01A7572DA008F167D /* 1.jpg */; };
+		207208B61A7572DA008F167D /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 207208B11A7572DA008F167D /* 2.jpg */; };
+		207208B71A7572DA008F167D /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 207208B21A7572DA008F167D /* 3.jpg */; };
 		711221DC18BC62DD00E77A4A /* NSDate+convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 711221D318BC62DD00E77A4A /* NSDate+convenience.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		711221DD18BC62DD00E77A4A /* NSMutableArray+convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 711221D518BC62DD00E77A4A /* NSMutableArray+convenience.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		711221DE18BC62DD00E77A4A /* UIColor+expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 711221D718BC62DD00E77A4A /* UIColor+expanded.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -241,6 +246,11 @@
 		207208A81A7432F5008F167D /* ProgramMainCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgramMainCell.m; sourceTree = "<group>"; };
 		207208AB1A7435DB008F167D /* CHTCollectionViewWaterfallLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTCollectionViewWaterfallLayout.h; sourceTree = "<group>"; };
 		207208AC1A7435DB008F167D /* CHTCollectionViewWaterfallLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTCollectionViewWaterfallLayout.m; sourceTree = "<group>"; };
+		207208AE1A7572DA008F167D /* 5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 5.jpg; sourceTree = "<group>"; };
+		207208AF1A7572DA008F167D /* 4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 4.jpg; sourceTree = "<group>"; };
+		207208B01A7572DA008F167D /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
+		207208B11A7572DA008F167D /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
+		207208B21A7572DA008F167D /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
 		711221D218BC62DD00E77A4A /* NSDate+convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+convenience.h"; sourceTree = "<group>"; };
 		711221D318BC62DD00E77A4A /* NSDate+convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+convenience.m"; sourceTree = "<group>"; };
 		711221D418BC62DD00E77A4A /* NSMutableArray+convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+convenience.h"; sourceTree = "<group>"; };
@@ -1027,6 +1037,11 @@
 		BB303DD118B86B3400B6EBC9 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				207208AE1A7572DA008F167D /* 5.jpg */,
+				207208AF1A7572DA008F167D /* 4.jpg */,
+				207208B01A7572DA008F167D /* 1.jpg */,
+				207208B11A7572DA008F167D /* 2.jpg */,
+				207208B21A7572DA008F167D /* 3.jpg */,
 				7972E964195355A300F25E4D /* New */,
 				793AACAE193CF5C800B604EE /* App-Icon */,
 				7920A7B619220B39001808B6 /* instagram_logo.png */,
@@ -1293,6 +1308,7 @@
 				7122DB4618BB7D8600C044E8 /* Segmented_middle@2x.png in Resources */,
 				BB62B11F18B8B529000DBDBC /* Action3@2x.png in Resources */,
 				79383A631906135A00A1DBBC /* share2@2x.png in Resources */,
+				207208B71A7572DA008F167D /* 3.jpg in Resources */,
 				BB303E2918B879AA00B6EBC9 /* strip.png in Resources */,
 				BB303E0D18B86B3400B6EBC9 /* Rettangolo.png in Resources */,
 				BB303DFD18B86B3400B6EBC9 /* Listred.png in Resources */,
@@ -1301,6 +1317,7 @@
 				7122DB2918BB4BDB00C044E8 /* feedviewCell6.png in Resources */,
 				7972E97C195355B100F25E4D /* white-cell@2x.png in Resources */,
 				BB303E0418B86B3400B6EBC9 /* Livello3@2x.png in Resources */,
+				207208B51A7572DA008F167D /* 1.jpg in Resources */,
 				711221EC18BC94F900E77A4A /* RedDot@2x.png in Resources */,
 				BB303E0918B86B3400B6EBC9 /* Program.png in Resources */,
 				BB303E2718B879AA00B6EBC9 /* Reload.png in Resources */,
@@ -1335,6 +1352,7 @@
 				BB303DB518B863E300B6EBC9 /* Images.xcassets in Resources */,
 				BB303E2418B879AA00B6EBC9 /* nearby@2x.png in Resources */,
 				BB303E2B18B879AA00B6EBC9 /* Twitter.png in Resources */,
+				207208B41A7572DA008F167D /* 4.jpg in Resources */,
 				BB62B12118B8B529000DBDBC /* Next@2x.png in Resources */,
 				BB303DF118B86B3400B6EBC9 /* About.png in Resources */,
 				7122DB4818BB7D8600C044E8 /* Segmented_left@2x.png in Resources */,
@@ -1353,9 +1371,11 @@
 				BB303DFF18B86B3400B6EBC9 /* Livello1.png in Resources */,
 				BB303E0A18B86B3400B6EBC9 /* Program@2x.png in Resources */,
 				BB857F4618B8928700B366D8 /* secondpic@2x.png in Resources */,
+				207208B31A7572DA008F167D /* 5.jpg in Resources */,
 				BB303DA418B863E300B6EBC9 /* InfoPlist.strings in Resources */,
 				BB303DFB18B86B3400B6EBC9 /* List.png in Resources */,
 				7112220518BCA62300E77A4A /* share.png in Resources */,
+				207208B61A7572DA008F167D /* 2.jpg in Resources */,
 				BB303DF518B86B3400B6EBC9 /* Action.png in Resources */,
 				7972E977195355B100F25E4D /* icon-feed-instagram.png in Resources */,
 				7920A7B919220B39001808B6 /* instagram_logo@2x.png in Resources */,
