@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		697E172E1A76F04800ECC9ED /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 697E172D1A76F04800ECC9ED /* Firebase.framework */; };
+		697E17301A76F0B800ECC9ED /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 697E172F1A76F0B800ECC9ED /* libicucore.dylib */; };
+		697E17321A76F0D700ECC9ED /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 697E17311A76F0D700ECC9ED /* libc++.dylib */; };
+		697E17341A76F0ED00ECC9ED /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 697E17331A76F0ED00ECC9ED /* CFNetwork.framework */; };
+		697E17361A76F10000ECC9ED /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 697E17351A76F10000ECC9ED /* Security.framework */; };
+		697E17381A76F10D00ECC9ED /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 697E17371A76F10D00ECC9ED /* SystemConfiguration.framework */; };
+		69F637A61A76D95200709137 /* ChatComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F637A31A76D95200709137 /* ChatComposeViewController.swift */; };
+		69F637A71A76D95200709137 /* ChatDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F637A41A76D95200709137 /* ChatDetailViewController.swift */; };
+		69F637A81A76D95200709137 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F637A51A76D95200709137 /* ChatViewController.swift */; };
 		711221DC18BC62DD00E77A4A /* NSDate+convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 711221D318BC62DD00E77A4A /* NSDate+convenience.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		711221DD18BC62DD00E77A4A /* NSMutableArray+convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 711221D518BC62DD00E77A4A /* NSMutableArray+convenience.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		711221DE18BC62DD00E77A4A /* UIColor+expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 711221D718BC62DD00E77A4A /* UIColor+expanded.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -233,6 +242,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		697E172D1A76F04800ECC9ED /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Firebase.framework; sourceTree = "<group>"; };
+		697E172F1A76F0B800ECC9ED /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		697E17311A76F0D700ECC9ED /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		697E17331A76F0ED00ECC9ED /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		697E17351A76F10000ECC9ED /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		697E17371A76F10D00ECC9ED /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		697E173D1A76F78E00ECC9ED /* Heyz-Swift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Heyz-Swift-Bridging-Header.h"; sourceTree = "<group>"; };
+		69F637A31A76D95200709137 /* ChatComposeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatComposeViewController.swift; sourceTree = "<group>"; };
+		69F637A41A76D95200709137 /* ChatDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatDetailViewController.swift; sourceTree = "<group>"; };
+		69F637A51A76D95200709137 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		711221D218BC62DD00E77A4A /* NSDate+convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+convenience.h"; sourceTree = "<group>"; };
 		711221D318BC62DD00E77A4A /* NSDate+convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+convenience.m"; sourceTree = "<group>"; };
 		711221D418BC62DD00E77A4A /* NSMutableArray+convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+convenience.h"; sourceTree = "<group>"; };
@@ -536,11 +555,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				697E17381A76F10D00ECC9ED /* SystemConfiguration.framework in Frameworks */,
+				697E17361A76F10000ECC9ED /* Security.framework in Frameworks */,
+				697E17341A76F0ED00ECC9ED /* CFNetwork.framework in Frameworks */,
+				697E17321A76F0D700ECC9ED /* libc++.dylib in Frameworks */,
+				697E17301A76F0B800ECC9ED /* libicucore.dylib in Frameworks */,
 				793508DB192137E30001CC34 /* libsqlite3.0.dylib in Frameworks */,
 				793508D9192135FE0001CC34 /* CoreData.framework in Frameworks */,
 				798D9E2818F15F8300A69513 /* ImageIO.framework in Frameworks */,
 				7122DC1718BDFB7B00DC9925 /* MapKit.framework in Frameworks */,
 				79691D0A18F00DD400ABD52D /* libz.dylib in Frameworks */,
+				697E172E1A76F04800ECC9ED /* Firebase.framework in Frameworks */,
 				7122DC1918BDFB8100DC9925 /* CoreLocation.framework in Frameworks */,
 				BB303D9C18B863E300B6EBC9 /* CoreGraphics.framework in Frameworks */,
 				BB303D9E18B863E300B6EBC9 /* UIKit.framework in Frameworks */,
@@ -561,6 +586,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		69F637A21A76D95200709137 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				69F637A31A76D95200709137 /* ChatComposeViewController.swift */,
+				69F637A41A76D95200709137 /* ChatDetailViewController.swift */,
+				69F637A51A76D95200709137 /* ChatViewController.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
 		711221D118BC62DD00E77A4A /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -913,6 +948,7 @@
 		BB303D8D18B863E300B6EBC9 = {
 			isa = PBXGroup;
 			children = (
+				697E172D1A76F04800ECC9ED /* Firebase.framework */,
 				79A5E24619C9064E009D4018 /* Localizable.strings */,
 				BB303D9F18B863E300B6EBC9 /* Events */,
 				BB303DC118B863E300B6EBC9 /* EventsTests */,
@@ -933,6 +969,11 @@
 		BB303D9818B863E300B6EBC9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				697E17371A76F10D00ECC9ED /* SystemConfiguration.framework */,
+				697E17351A76F10000ECC9ED /* Security.framework */,
+				697E17331A76F0ED00ECC9ED /* CFNetwork.framework */,
+				697E17311A76F0D700ECC9ED /* libc++.dylib */,
+				697E172F1A76F0B800ECC9ED /* libicucore.dylib */,
 				793508DA192137E30001CC34 /* libsqlite3.0.dylib */,
 				793508D8192135FE0001CC34 /* CoreData.framework */,
 				798D9E2718F15F8300A69513 /* ImageIO.framework */,
@@ -950,6 +991,7 @@
 		BB303D9F18B863E300B6EBC9 /* Events */ = {
 			isa = PBXGroup;
 			children = (
+				69F637A21A76D95200709137 /* Chat */,
 				793508D0192132240001CC34 /* core data stack */,
 				79BD13B91908399100424DBA /* About new */,
 				79691D0B18F00F5800ABD52D /* Modal Classes */,
@@ -972,6 +1014,7 @@
 				BB303DB218B863E300B6EBC9 /* ViewController.m */,
 				BB303DB418B863E300B6EBC9 /* Images.xcassets */,
 				BB303DA018B863E300B6EBC9 /* Supporting Files */,
+				697E173D1A76F78E00ECC9ED /* Heyz-Swift-Bridging-Header.h */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -1419,6 +1462,8 @@
 				79691D0318F00C8700ABD52D /* ASIHTTPRequest.m in Sources */,
 				7122DB1218BB1F7300C044E8 /* FeedCustomCell.m in Sources */,
 				711221E418BC93D000E77A4A /* EventCalCell.m in Sources */,
+				69F637A81A76D95200709137 /* ChatViewController.swift in Sources */,
+				69F637A71A76D95200709137 /* ChatDetailViewController.swift in Sources */,
 				79504C49191F8B1F00EF3103 /* CustomPickerView.m in Sources */,
 				7112220D18BCAEFF00E77A4A /* AboutViewController.m in Sources */,
 				79691D0218F00C8700ABD52D /* ASIAuthenticationDialog.m in Sources */,
@@ -1464,6 +1509,7 @@
 				798D9E2618F15F2000A69513 /* UIImageView+WebCache.m in Sources */,
 				79691CAA18EFFF1F00ABD52D /* NSString+SBJSON.m in Sources */,
 				798D9E0818F15F0400A69513 /* SDImageCache.m in Sources */,
+				69F637A61A76D95200709137 /* ChatComposeViewController.swift in Sources */,
 				798D9E0518F15EF800A69513 /* SDWebImageDownloaderOperation.m in Sources */,
 				790013C618F5C04D00AF682C /* FeedDetailViewController.m in Sources */,
 				7112222F18BCC69300E77A4A /* AboutCustomCell3.m in Sources */,
@@ -1607,10 +1653,16 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: George Hartley (MN5U5RDRGQ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: George Hartley (MN5U5RDRGQ)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Events/Heyz-Prefix.pch";
 				INFOPLIST_FILE = "Events/Heyz-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Heyz;
 				PROVISIONING_PROFILE = "E3CA86FE-1774-4F4F-B35E-B3E4F7166805";
 				WRAPPER_EXTENSION = app;
@@ -1623,10 +1675,16 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: George Hartley (MN5U5RDRGQ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: George Hartley (MN5U5RDRGQ)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Events/Heyz-Prefix.pch";
 				INFOPLIST_FILE = "Events/Heyz-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Heyz;
 				PROVISIONING_PROFILE = "E3CA86FE-1774-4F4F-B35E-B3E4F7166805";
 				WRAPPER_EXTENSION = app;
