@@ -205,10 +205,10 @@ static NSString * const reuseIdentifier = @"Cell";
 // In a story board-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    //    // Get the new view controller using [segue destinationViewController].
-    //    // Pass the selected object to the new view controller.
-    //
-    ProgramMainCell *cell = (ProgramMainCell *)sender;
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    
+    ProgramMainCell *cell = (ProgramMainCell*)sender;
     NSIndexPath *selectedRowIndex = [self.collectionView indexPathForCell:cell];
     AboutViewController *aboutVwController = [segue destinationViewController];
     EventList *obj  =   [arrayEventList objectAtIndex:selectedRowIndex.row];
