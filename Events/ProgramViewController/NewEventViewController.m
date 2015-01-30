@@ -31,7 +31,7 @@
 }
 
 - (IBAction)cancleButtonTapped:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (IBAction)createEvent:(id)sender {
