@@ -14,6 +14,7 @@
 #import "AboutViewController.h"
 #import "UIImageView+WebCache.h"
 #import "CHTCollectionViewWaterfallLayout.h"
+#import "NewEventViewController.h"
 
 @interface ProgramViewController (){
     NSMutableArray *arrayEventList;
@@ -207,13 +208,15 @@ static NSString * const reuseIdentifier = @"Cell";
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:@"EventDetailsPush"]) {
+        ProgramMainCell *cell = (ProgramMainCell*)sender;
+        NSIndexPath *selectedRowIndex = [self.collectionView indexPathForCell:cell];
+        AboutViewController *aboutVwController = [segue destinationViewController];
+        EventList *obj  =   [arrayEventList objectAtIndex:selectedRowIndex.row];
+        
+        aboutVwController.eventObj  =   obj;
+    }
     
-    ProgramMainCell *cell = (ProgramMainCell*)sender;
-    NSIndexPath *selectedRowIndex = [self.collectionView indexPathForCell:cell];
-    AboutViewController *aboutVwController = [segue destinationViewController];
-    EventList *obj  =   [arrayEventList objectAtIndex:selectedRowIndex.row];
-    
-    aboutVwController.eventObj  =   obj;
 }
 
 
