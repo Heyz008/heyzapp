@@ -13,16 +13,58 @@ class ChatDetailViewController: UIViewController {
     @IBOutlet var tblForChats : UITableView!
     @IBOutlet var chatComposeView : UIView!
     @IBOutlet var txtFldMessage : UITextField!
-    var messages : NSMutableArray!
+    
+    var sender: FAuthData?
+    var receiver: String! = "simplelogin:3"
+    var messages: NSMutableArray!
+    var senderImageUrl: String!
+    var ref: Firebase!
+    var senderRef: Firebase!
+    var receiverRef: Firebase!
+    
+    func setupFirebase(){
+        
+        senderRef = ref.childByAppendingPath("messages/\(sender?.uid)")
+        receiverRef = ref.childByAppendingPath("messages/\(receiver)")
+        
+        senderRef.observeEventType(FEventType.ChildAdded, withBlock: { (snapshot) in
+            let text = snapshot.value["text"] as? String
+            let sender = snapshot.value["sender"] as? String
+            let imageURL = snapshot.value["imageURL"] as? String
+            let message = Message(text: text, sender: sender, imageURL: imageURL)
 
+            self.addMessage(message, ofType: "1")
+            self.tblForChats.reloadData()
+            
+            var indexPath = NSIndexPath(forRow: self.messages.count - 1, inSection: 0)
+            self.tblForChats.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
+            
+        })
+    }
+    
+    func sendMessage(message: Message){
+        
+        receiverRef.childByAutoId().setValue([
+            "text": message.getText(),
+            "sender": message.getSender(),
+//            "imageURL": message.getImageURL(),
+            "date": message.getDate()
+        ])
+    }
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         // Custom initialization
+        
+//        self.avatars = [:]
+        
     }
 
     required init(coder aDecoder: NSCoder)
     {
         super.init(coder: aDecoder)
+        
+//        self.avatars = [String: UIImage]()
     }
     
     override func viewDidLoad() {
@@ -30,8 +72,8 @@ class ChatDetailViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("willShowKeyBoard:"), name:UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("willHideKeyBoard:"), name:UIKeyboardWillHideNotification, object: nil)
         messages = NSMutableArray()
-        self.addMessage("Its actually pretty good!", ofType: "1")
-        self.addMessage("What do you think of this tool!", ofType: "2")
+        
+        setupFirebase()
         
     }
 
@@ -41,7 +83,7 @@ class ChatDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func addMessage(message: String, ofType msgType:String) {
+    func addMessage(message: Message, ofType msgType:String) {
         messages.addObject(["message":message, "type":msgType])
     }
     
@@ -55,19 +97,20 @@ class ChatDetailViewController: UIViewController {
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        var messageDic = messages.objectAtIndex(indexPath.row) as [String : String];
-        var msg = messageDic["message"] as NSString!
-        var sizeOFStr = self.getSizeOfString(msg)
-        return sizeOFStr.height + 70
+        var messageDic: AnyObject = messages.objectAtIndex(indexPath.row)
+        var msg = messageDic["message"] as Message
+        var text = msg.getText()
+        var sizeOFStr = self.getSizeOfString(text)
+        return sizeOFStr.height + 50
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         var cell : UITableViewCell!
-        var messageDic = messages.objectAtIndex(indexPath.row) as [String : String];
-        NSLog(messageDic["message"]!, 1)
+        var messageDic: AnyObject = messages.objectAtIndex(indexPath.row)
         var msgType = messageDic["type"] as NSString!
-        var msg = messageDic["message"] as NSString!
-        var sizeOFStr = self.getSizeOfString(msg)
+        var msg = messageDic["message"] as Message
+        var text = msg.getText()
+        var sizeOFStr = self.getSizeOfString(text)
         
         if (msgType.isEqualToString("1")){
             cell = tblForChats.dequeueReusableCellWithIdentifier("ChatSentCell") as UITableViewCell
@@ -78,10 +121,10 @@ class ChatDetailViewController: UIViewController {
             chatImage.image = UIImage(named: "chat_new_receive")?.stretchableImageWithLeftCapWidth(40,topCapHeight: 20);
             textLable.frame = CGRectMake(textLable.frame.origin.x, textLable.frame.origin.y, textLable.frame.size.width, sizeOFStr.height)
             profileImage.center = CGPointMake(profileImage.center.x, textLable.frame.origin.y + textLable.frame.size.height - profileImage.frame.size.height/2 + 10)
-            textLable.text = msg
+            textLable.text = text
         } else {
             cell = tblForChats.dequeueReusableCellWithIdentifier("ChatReceivedCell") as UITableViewCell
-            var deliveredLabel = cell.viewWithTag(13) as UILabel
+            // var deliveredLabel = cell.viewWithTag(13) as UILabel
             var textLable = cell.viewWithTag(12) as UILabel
             var timeLabel = cell.viewWithTag(11) as UILabel
             var chatImage = cell.viewWithTag(1) as UIImageView
@@ -92,8 +135,8 @@ class ChatDetailViewController: UIViewController {
             textLable.frame = CGRectMake(36 + distanceFactor, textLable.frame.origin.y, textLable.frame.size.width, sizeOFStr.height)
             profileImage.center = CGPointMake(profileImage.center.x, textLable.frame.origin.y + textLable.frame.size.height - profileImage.frame.size.height/2 + 10)
             timeLabel.frame = CGRectMake(36 + distanceFactor, timeLabel.frame.origin.y, timeLabel.frame.size.width, timeLabel.frame.size.height)
-            deliveredLabel.frame = CGRectMake(deliveredLabel.frame.origin.x, textLable.frame.origin.y + textLable.frame.size.height + 20, deliveredLabel.frame.size.width, deliveredLabel.frame.size.height)
-            textLable.text = msg
+            // deliveredLabel.frame = CGRectMake(deliveredLabel.frame.origin.x, textLable.frame.origin.y + textLable.frame.size.height + 20, deliveredLabel.frame.size.width, deliveredLabel.frame.size.height)
+            textLable.text = text
         }
         return cell
     }
@@ -114,8 +157,12 @@ class ChatDetailViewController: UIViewController {
             
             self.tblForChats.frame = CGRectMake(self.tblForChats.frame.origin.x, self.tblForChats.frame.origin.y, self.tblForChats.frame.size.width, self.tblForChats.frame.size.height - keyboardFrame.size.height+49);
             }, completion: nil)
-        var indexPath = NSIndexPath(forRow:messages.count-1, inSection: 0)
-        tblForChats.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
+        
+        if messages.count > 0 {
+            var indexPath = NSIndexPath(forRow:messages.count-1, inSection: 0)
+            tblForChats.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
+        }
+        
         
     }
     
@@ -143,14 +190,19 @@ class ChatDetailViewController: UIViewController {
     }
     
     @IBAction func postBtnTapped() {
-    
-        self.addMessage(txtFldMessage.text, ofType: "1")
-        self.addMessage(txtFldMessage.text, ofType: "2")
+        
+        let senderId = sender?.uid
+        println(sender?.provider)
+        let text = txtFldMessage.text
+        let message = Message(text: text, sender: senderId, imageURL: nil)
+        self.addMessage(message, ofType: "2")
         txtFldMessage.text = "";
         tblForChats.reloadData()
         
         var indexPath = NSIndexPath(forRow:messages.count-1, inSection: 0)
         tblForChats.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
+        
+        sendMessage(message)
     }
     
     func getSizeOfString(postTitle: NSString) -> CGSize {

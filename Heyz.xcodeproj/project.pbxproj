@@ -7,12 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		697E172E1A76F04800ECC9ED /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 697E172D1A76F04800ECC9ED /* Firebase.framework */; };
 		697E17301A76F0B800ECC9ED /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 697E172F1A76F0B800ECC9ED /* libicucore.dylib */; };
 		697E17321A76F0D700ECC9ED /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 697E17311A76F0D700ECC9ED /* libc++.dylib */; };
 		697E17341A76F0ED00ECC9ED /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 697E17331A76F0ED00ECC9ED /* CFNetwork.framework */; };
 		697E17361A76F10000ECC9ED /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 697E17351A76F10000ECC9ED /* Security.framework */; };
 		697E17381A76F10D00ECC9ED /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 697E17371A76F10D00ECC9ED /* SystemConfiguration.framework */; };
+		69C422161A78524B00011D1D /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C422151A78524B00011D1D /* UserManager.swift */; };
+		69C422181A7852C400011D1D /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C422171A7852C400011D1D /* SigninViewController.swift */; };
+		69C4221A1A79CCBB00011D1D /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C422191A79CCBB00011D1D /* SignupViewController.swift */; };
+		69C4221C1A7AD82700011D1D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C4221B1A7AD82700011D1D /* Message.swift */; };
+		69C422241A7AED7500011D1D /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69C422231A7AED7500011D1D /* Firebase.framework */; };
+		69C422261A7AED9600011D1D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69C422251A7AED9600011D1D /* AudioToolbox.framework */; };
 		69F637A61A76D95200709137 /* ChatComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F637A31A76D95200709137 /* ChatComposeViewController.swift */; };
 		69F637A71A76D95200709137 /* ChatDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F637A41A76D95200709137 /* ChatDetailViewController.swift */; };
 		69F637A81A76D95200709137 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F637A51A76D95200709137 /* ChatViewController.swift */; };
@@ -242,13 +247,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		697E172D1A76F04800ECC9ED /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Firebase.framework; sourceTree = "<group>"; };
 		697E172F1A76F0B800ECC9ED /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		697E17311A76F0D700ECC9ED /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		697E17331A76F0ED00ECC9ED /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		697E17351A76F10000ECC9ED /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		697E17371A76F10D00ECC9ED /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		697E173D1A76F78E00ECC9ED /* Heyz-Swift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Heyz-Swift-Bridging-Header.h"; sourceTree = "<group>"; };
+		69C422151A78524B00011D1D /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserManager.swift; path = "User Login & Register/UserManager.swift"; sourceTree = "<group>"; };
+		69C422171A7852C400011D1D /* SigninViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SigninViewController.swift; path = "User Login & Register/SigninViewController.swift"; sourceTree = "<group>"; };
+		69C422191A79CCBB00011D1D /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignupViewController.swift; path = "User Login & Register/SignupViewController.swift"; sourceTree = "<group>"; };
+		69C4221B1A7AD82700011D1D /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		69C422231A7AED7500011D1D /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Firebase.framework; path = Frameworks/Firebase.framework; sourceTree = "<group>"; };
+		69C422251A7AED9600011D1D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		69F637A31A76D95200709137 /* ChatComposeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatComposeViewController.swift; sourceTree = "<group>"; };
 		69F637A41A76D95200709137 /* ChatDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatDetailViewController.swift; sourceTree = "<group>"; };
 		69F637A51A76D95200709137 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -555,6 +565,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69C422261A7AED9600011D1D /* AudioToolbox.framework in Frameworks */,
 				697E17381A76F10D00ECC9ED /* SystemConfiguration.framework in Frameworks */,
 				697E17361A76F10000ECC9ED /* Security.framework in Frameworks */,
 				697E17341A76F0ED00ECC9ED /* CFNetwork.framework in Frameworks */,
@@ -565,7 +576,7 @@
 				798D9E2818F15F8300A69513 /* ImageIO.framework in Frameworks */,
 				7122DC1718BDFB7B00DC9925 /* MapKit.framework in Frameworks */,
 				79691D0A18F00DD400ABD52D /* libz.dylib in Frameworks */,
-				697E172E1A76F04800ECC9ED /* Firebase.framework in Frameworks */,
+				69C422241A7AED7500011D1D /* Firebase.framework in Frameworks */,
 				7122DC1918BDFB8100DC9925 /* CoreLocation.framework in Frameworks */,
 				BB303D9C18B863E300B6EBC9 /* CoreGraphics.framework in Frameworks */,
 				BB303D9E18B863E300B6EBC9 /* UIKit.framework in Frameworks */,
@@ -586,12 +597,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		69C422121A78364F00011D1D /* User Login & Register */ = {
+			isa = PBXGroup;
+			children = (
+				69C422171A7852C400011D1D /* SigninViewController.swift */,
+				69C422151A78524B00011D1D /* UserManager.swift */,
+				69C422191A79CCBB00011D1D /* SignupViewController.swift */,
+			);
+			name = "User Login & Register";
+			sourceTree = "<group>";
+		};
+		69C4221D1A7AED2200011D1D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				69C422251A7AED9600011D1D /* AudioToolbox.framework */,
+				69C422231A7AED7500011D1D /* Firebase.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		69F637A21A76D95200709137 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
 				69F637A31A76D95200709137 /* ChatComposeViewController.swift */,
 				69F637A41A76D95200709137 /* ChatDetailViewController.swift */,
 				69F637A51A76D95200709137 /* ChatViewController.swift */,
+				69C4221B1A7AD82700011D1D /* Message.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -948,7 +979,7 @@
 		BB303D8D18B863E300B6EBC9 = {
 			isa = PBXGroup;
 			children = (
-				697E172D1A76F04800ECC9ED /* Firebase.framework */,
+				69C4221D1A7AED2200011D1D /* Frameworks */,
 				79A5E24619C9064E009D4018 /* Localizable.strings */,
 				BB303D9F18B863E300B6EBC9 /* Events */,
 				BB303DC118B863E300B6EBC9 /* EventsTests */,
@@ -991,6 +1022,7 @@
 		BB303D9F18B863E300B6EBC9 /* Events */ = {
 			isa = PBXGroup;
 			children = (
+				69C422121A78364F00011D1D /* User Login & Register */,
 				69F637A21A76D95200709137 /* Chat */,
 				793508D0192132240001CC34 /* core data stack */,
 				79BD13B91908399100424DBA /* About new */,
@@ -1265,6 +1297,19 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
+				es,
+				fr,
+				he,
+				it,
+				nl,
+				pl,
+				pt,
+				ro,
+				ru,
+				tr,
+				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = BB303D8D18B863E300B6EBC9;
 			productRefGroup = BB303D9718B863E300B6EBC9 /* Products */;
@@ -1440,6 +1485,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69C4221A1A79CCBB00011D1D /* SignupViewController.swift in Sources */,
 				7122DC1518BDE6D900DC9925 /* VRGCalendarView.m in Sources */,
 				BB303E3018B87FCE00B6EBC9 /* TabBarViewController.m in Sources */,
 				7986DCCF19C9E92A00EE4DD7 /* LocalizeHelper.m in Sources */,
@@ -1458,6 +1504,7 @@
 				798D9E1118F15F1400A69513 /* SDWebImagePrefetcher.m in Sources */,
 				798D9E2018F15F2000A69513 /* NSData+ImageContentType.m in Sources */,
 				791E3DEA18F320A300220BDE /* GTMNSString+HTML.m in Sources */,
+				69C4221C1A7AD82700011D1D /* Message.swift in Sources */,
 				79691D0618F00C8700ABD52D /* ASIDownloadCache.m in Sources */,
 				79691D0318F00C8700ABD52D /* ASIHTTPRequest.m in Sources */,
 				7122DB1218BB1F7300C044E8 /* FeedCustomCell.m in Sources */,
@@ -1468,6 +1515,7 @@
 				7112220D18BCAEFF00E77A4A /* AboutViewController.m in Sources */,
 				79691D0218F00C8700ABD52D /* ASIAuthenticationDialog.m in Sources */,
 				798D9E2418F15F2000A69513 /* MKAnnotationView+WebCache.m in Sources */,
+				69C422181A7852C400011D1D /* SigninViewController.swift in Sources */,
 				79691D0818F00C8700ABD52D /* ASIInputStream.m in Sources */,
 				7122DB0818BB1F5C00C044E8 /* ProgramCustomCell.m in Sources */,
 				BB62B12B18B8C07C000DBDBC /* MyProgramViewController.m in Sources */,
@@ -1477,6 +1525,7 @@
 				793508D7192134F90001CC34 /* MMdbsupport.m in Sources */,
 				790AE0B518F9862500FBE2F2 /* RegistrationViewController.m in Sources */,
 				791E3DED18F3277A00220BDE /* Feeds.m in Sources */,
+				69C422161A78524B00011D1D /* UserManager.swift in Sources */,
 				7122DB1518BB1F7300C044E8 /* ThirdFeedCustomCell.m in Sources */,
 				798D9E2118F15F2000A69513 /* UIImage+MultiFormat.m in Sources */,
 				79691D2618F037A200ABD52D /* LocationManager.m in Sources */,
@@ -1650,21 +1699,26 @@
 		BB303DCC18B863E300B6EBC9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: George Hartley (MN5U5RDRGQ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: George Hartley (MN5U5RDRGQ)";
+				DEFINES_MODULE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Events/Heyz-Prefix.pch";
 				INFOPLIST_FILE = "Events/Heyz-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Heyz;
 				PROVISIONING_PROFILE = "E3CA86FE-1774-4F4F-B35E-B3E4F7166805";
+				SWIFT_OBJC_BRIDGING_HEADER = "Events/Heyz-Swift-Bridging-Header.h";
+				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1672,21 +1726,26 @@
 		BB303DCD18B863E300B6EBC9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: George Hartley (MN5U5RDRGQ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: George Hartley (MN5U5RDRGQ)";
+				DEFINES_MODULE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Events/Heyz-Prefix.pch";
 				INFOPLIST_FILE = "Events/Heyz-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Heyz;
 				PROVISIONING_PROFILE = "E3CA86FE-1774-4F4F-B35E-B3E4F7166805";
+				SWIFT_OBJC_BRIDGING_HEADER = "Events/Heyz-Swift-Bridging-Header.h";
+				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

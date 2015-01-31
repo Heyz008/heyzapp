@@ -18,6 +18,10 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
     
+    let firebaseURL = "https://heyz.firebaseio.com"
+    var user: FAuthData?
+    var ref: Firebase!
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         // Custom initialization
@@ -37,8 +41,20 @@ class ChatViewController: UIViewController {
         self.tabBarController?.tabBar.tintColor = UIColor.greenColor()
         // self.performSegueWithIdentifier("loginSegue", sender: nil)
         
-       // Do any additional setup after loading the view.
+        // TODO: make this for the overall app
+        ref = Firebase(url: firebaseURL)
+        
+        ref.observeAuthEventWithBlock({ authData in
+            if authData != nil {
+                self.user = authData
+            } else {
+                self.performSegueWithIdentifier("loginSegue", sender: self)
+            }
+        })
+        
     }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -50,7 +66,12 @@ class ChatViewController: UIViewController {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        switch segmentedControl.selectedSegmentIndex{
+        case 0:
+            return 0
+        default:
+            return 1
+        }
     }
     
     func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
@@ -74,6 +95,19 @@ class ChatViewController: UIViewController {
 
     @IBAction func indexChanged(sender: UISegmentedControl) {
         self.tableView.reloadData()
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "slideToChat"{
+            var messageVC = segue.destinationViewController as ChatDetailViewController
+            if let authData = user as FAuthData!{
+                messageVC.sender = authData
+                messageVC.ref = ref
+                //            messageVC.sender = authData.providerData[]
+            }
+        }
+        
     }
     
     
