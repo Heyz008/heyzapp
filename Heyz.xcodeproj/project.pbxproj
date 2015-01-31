@@ -16,6 +16,7 @@
 		207208B61A7572DA008F167D /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 207208B11A7572DA008F167D /* 2.jpg */; };
 		207208B71A7572DA008F167D /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 207208B21A7572DA008F167D /* 3.jpg */; };
 		207208BA1A7B2AB4008F167D /* NewEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 207208B91A7B2AB4008F167D /* NewEventViewController.m */; };
+		207208BE1A7D7C76008F167D /* CountryPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 207208BD1A7D7C76008F167D /* CountryPicker.m */; };
 		711221DC18BC62DD00E77A4A /* NSDate+convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 711221D318BC62DD00E77A4A /* NSDate+convenience.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		711221DD18BC62DD00E77A4A /* NSMutableArray+convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 711221D518BC62DD00E77A4A /* NSMutableArray+convenience.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		711221DE18BC62DD00E77A4A /* UIColor+expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 711221D718BC62DD00E77A4A /* UIColor+expanded.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -254,6 +255,8 @@
 		207208B21A7572DA008F167D /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
 		207208B81A7B2AB4008F167D /* NewEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewEventViewController.h; sourceTree = "<group>"; };
 		207208B91A7B2AB4008F167D /* NewEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewEventViewController.m; sourceTree = "<group>"; };
+		207208BC1A7D7C76008F167D /* CountryPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountryPicker.h; sourceTree = "<group>"; };
+		207208BD1A7D7C76008F167D /* CountryPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountryPicker.m; sourceTree = "<group>"; };
 		711221D218BC62DD00E77A4A /* NSDate+convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+convenience.h"; sourceTree = "<group>"; };
 		711221D318BC62DD00E77A4A /* NSDate+convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+convenience.m"; sourceTree = "<group>"; };
 		711221D418BC62DD00E77A4A /* NSMutableArray+convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+convenience.h"; sourceTree = "<group>"; };
@@ -587,6 +590,15 @@
 				207208AC1A7435DB008F167D /* CHTCollectionViewWaterfallLayout.m */,
 			);
 			name = CHTCollectionViewWatefallLayout;
+			sourceTree = "<group>";
+		};
+		207208BB1A7D7C66008F167D /* CountryPicker */ = {
+			isa = PBXGroup;
+			children = (
+				207208BC1A7D7C76008F167D /* CountryPicker.h */,
+				207208BD1A7D7C76008F167D /* CountryPicker.m */,
+			);
+			name = CountryPicker;
 			sourceTree = "<group>";
 		};
 		711221D118BC62DD00E77A4A /* Calendar */ = {
@@ -943,6 +955,7 @@
 		BB303D8D18B863E300B6EBC9 = {
 			isa = PBXGroup;
 			children = (
+				207208BB1A7D7C66008F167D /* CountryPicker */,
 				207208AA1A7435B0008F167D /* CHTCollectionViewWatefallLayout */,
 				79A5E24619C9064E009D4018 /* Localizable.strings */,
 				BB303D9F18B863E300B6EBC9 /* Events */,
@@ -1513,6 +1526,7 @@
 				798D9E0518F15EF800A69513 /* SDWebImageDownloaderOperation.m in Sources */,
 				790013C618F5C04D00AF682C /* FeedDetailViewController.m in Sources */,
 				7112222F18BCC69300E77A4A /* AboutCustomCell3.m in Sources */,
+				207208BE1A7D7C76008F167D /* CountryPicker.m in Sources */,
 				798D9E2218F15F2000A69513 /* UIImage+GIF.m in Sources */,
 				7916556819044E6900F4D9D3 /* MyEventTickets.m in Sources */,
 				798D9E0418F15EF800A69513 /* SDWebImageDownloader.m in Sources */,
