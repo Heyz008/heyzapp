@@ -1039,7 +1039,7 @@
                                             <action selector="categorySelect:" destination="TpK-UY-rjh" eventType="touchUpInside" id="26d-Xv-rUD"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Flc-Zp-qdN">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Flc-Zp-qdN">
                                         <rect key="frame" x="104" y="465" width="197" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -1096,13 +1096,11 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="4V9-mU-N63">
-                                        <rect key="frame" x="104" y="340" width="197" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="gBY-cq-zfB">
-                                        <rect key="frame" x="104" y="382" width="197" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -1114,6 +1112,25 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VSw-wT-Lm5">
+                                        <rect key="frame" x="104" y="344" width="197" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ihy-xL-9Y1">
+                                        <rect key="frame" x="104" y="386" width="197" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="d8y-ng-bv7">
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
                                 </subviews>
                             </scrollView>
                         </subviews>
@@ -1133,6 +1150,7 @@
                         <outlet property="eventAddress" destination="CH3-B8-kSK" id="P0R-UN-747"/>
                         <outlet property="eventCategoryButton" destination="Bdo-Bu-Ttn" id="M4y-Pw-Zxh"/>
                         <outlet property="eventCategoryLabel" destination="Flc-Zp-qdN" id="iaa-vp-OOk"/>
+                        <outlet property="eventCategoryTextField" destination="d8y-ng-bv7" id="I9U-se-Tmw"/>
                         <outlet property="eventCity" destination="Yiy-Ak-syL" id="ckJ-Pc-MSp"/>
                         <outlet property="eventCountryButton" destination="u6l-um-WXd" id="yYz-ui-3y7"/>
                         <outlet property="eventCountryLabel" destination="hMR-fk-7xT" id="roA-oy-d4Z"/>
@@ -1141,6 +1159,7 @@
                         <outlet property="eventDescription" destination="kjz-J0-otT" id="gzF-s1-1Or"/>
                         <outlet property="eventFromButton" destination="bz1-86-3FT" id="o9I-Q8-lCb"/>
                         <outlet property="eventFromLabel" destination="4V9-mU-N63" id="W0P-4l-hkB"/>
+                        <outlet property="eventFromName" destination="VSw-wT-Lm5" id="fgU-ML-SPM"/>
                         <outlet property="eventImage" destination="KYd-9g-MKA" id="CQt-ME-4jx"/>
                         <outlet property="eventLocation" destination="tb4-E8-8ek" id="RYX-6h-wvH"/>
                         <outlet property="eventOurPhotoButton" destination="tsQ-b2-re0" id="hOl-ft-dOB"/>
@@ -1150,6 +1169,7 @@
                         <outlet property="eventTitle" destination="glB-rb-h7I" id="awM-hZ-i5O"/>
                         <outlet property="eventToButton" destination="Kb9-6l-mNG" id="Pd4-fV-ofR"/>
                         <outlet property="eventToLabel" destination="gBY-cq-zfB" id="2iJ-jv-qem"/>
+                        <outlet property="eventToName" destination="ihy-xL-9Y1" id="BQh-NP-1rH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0xA-sD-s1L" userLabel="First Responder" sceneMemberID="firstResponder"/>

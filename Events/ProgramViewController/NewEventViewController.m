@@ -8,7 +8,9 @@
 
 #import "NewEventViewController.h"
 
-@interface NewEventViewController ()
+@interface NewEventViewController () {
+    NSArray *categoryData;
+}
 
 @end
 
@@ -17,6 +19,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    categoryData = @[@"Clubbing", @"Chat Time"];
     
     CGSize eventScrollContentSize = self.eventScrollView.frame.size;
     eventScrollContentSize.height = 752;
@@ -28,6 +32,7 @@
     [tapGestureRecognizer setDelegate:self];
     [self.view addGestureRecognizer:tapGestureRecognizer];
     
+    //Country Select
     CountryPicker *pickerView = [[CountryPicker alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     pickerView.showsSelectionIndicator = YES;
     pickerView.dataSource = self;
@@ -48,18 +53,84 @@
     // the middle button is to make the Done button align to right
     [toolBar setItems:[NSArray arrayWithObjects:cancelButton, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], doneButton, nil]];
     self.eventCountryLabel.inputAccessoryView = toolBar;
+    
+    
+    //From date select
+    UIDatePicker *fromPickerView = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    fromPickerView.tag = 11;
+    UIDatePicker *toPickerView = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    toPickerView.tag = 22;
+    self.eventFromLabel.frame = CGRectMake(0, 0, 0, 0);
+    
+    [fromPickerView addTarget:self action:@selector(datePickerChanged:) forControlEvents:UIControlEventValueChanged];
+    [toPickerView addTarget:self action:@selector(datePickerChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    // set change the inputView (default is keyboard) to UIPickerView
+    self.eventFromLabel.inputView = fromPickerView;
+    self.eventToLabel.inputView = toPickerView;
+    self.eventFromLabel.inputAccessoryView = toolBar;
+    self.eventToLabel.inputAccessoryView = toolBar;
+    
+    
+    //Category Picker
+    UIPickerView *categoryPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    self.eventCategoryTextField.inputView = categoryPicker;
+    self.eventCategoryTextField.inputAccessoryView = toolBar;
+    categoryPicker.dataSource = self;
+    categoryPicker.delegate = self;
+    
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+// The number of rows of data
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return categoryData.count;
+}
+
+// The data to return for the row and component (column) that's being passed in
+- (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return categoryData[row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    self.eventCategoryLabel.text = categoryData[row];
+}
+
+- (void)datePickerChanged:(UIDatePicker *)datePicker
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSString *strDate = [dateFormatter stringFromDate:datePicker.date];
+    if (datePicker.tag == 11) {
+        self.eventFromName.text = strDate;
+    } else if (datePicker.tag == 22) {
+        self.eventToName.text = strDate;
+    }
 }
 
 - (void)cancelTouched:(UIBarButtonItem *)sender
 {
     // hide the picker view
     [self.eventCountryLabel resignFirstResponder];
+    [self.eventFromLabel resignFirstResponder];
+    [self.eventToLabel resignFirstResponder];
+    [self.eventCategoryTextField resignFirstResponder];
 }
 
 - (void)doneTouched:(UIBarButtonItem *)sender
 {
     // hide the picker view
     [self.eventCountryLabel resignFirstResponder];
+    [self.eventFromLabel resignFirstResponder];
+    [self.eventToLabel resignFirstResponder];
+    [self.eventCategoryTextField resignFirstResponder];
     
     // perform some action
 }
@@ -98,19 +169,32 @@
 }
 
 - (IBAction)fromSelect:(id)sender {
-    
+    [self.eventFromLabel becomeFirstResponder];
 }
 
 - (IBAction)toSelect:(id)sender {
-    
+    [self.eventToLabel becomeFirstResponder];
 }
 
 - (IBAction)categorySelect:(id)sender {
-    
+    [self.eventCategoryTextField becomeFirstResponder];
 }
 
 - (IBAction)photoSelect:(id)sender {
+    UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     
+    UIImagePickerController * picker = [[UIImagePickerController alloc]init];
+    picker.delegate = self;
+    picker.allowsEditing=YES;
+    picker.sourceType = sourceType;
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+-(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    UIImage *editedImage = [info objectForKey:UIImagePickerControllerEditedImage];
+    self.eventImage.image = editedImage;
 }
 
 - (IBAction)ourPhotoSelect:(id)sender {

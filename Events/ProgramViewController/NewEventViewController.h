@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CountryPicker.h"
 
-@interface NewEventViewController : UIViewController<CountryPickerDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface NewEventViewController : UIViewController<CountryPickerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (strong, nonatomic) IBOutlet UIScrollView *eventScrollView;
@@ -24,12 +24,15 @@
 @property (strong, nonatomic) IBOutlet UILabel *eventCountryName;
 @property (strong, nonatomic) IBOutlet UIButton *eventCountryButton;
 @property (strong, nonatomic) IBOutlet UIButton *eventFromButton;
+@property (strong, nonatomic) IBOutlet UILabel *eventFromName;
 @property (strong, nonatomic) IBOutlet UIButton *eventToButton;
+@property (strong, nonatomic) IBOutlet UILabel *eventToName;
 @property (strong, nonatomic) IBOutlet UITextField *eventFromLabel;
 @property (strong, nonatomic) IBOutlet UITextField *eventToLabel;
 @property (strong, nonatomic) IBOutlet UITextField *eventTags;
 @property (strong, nonatomic) IBOutlet UILabel *eventCategoryLabel;
 @property (strong, nonatomic) IBOutlet UIButton *eventCategoryButton;
+@property (strong, nonatomic) IBOutlet UITextField *eventCategoryTextField;
 @property (strong, nonatomic) IBOutlet UIButton *eventPhotoButton;
 @property (strong, nonatomic) IBOutlet UIButton *eventOurPhotoButton;
 @property (strong, nonatomic) IBOutlet UIImageView *eventImage;
