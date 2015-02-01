@@ -37,6 +37,8 @@
 @property (strong, nonatomic) IBOutlet UIButton *eventOurPhotoButton;
 @property (strong, nonatomic) IBOutlet UIImageView *eventImage;
 
+@property (nonatomic, copy) NSString *selectedOurImage;
+
 - (IBAction)cancleButtonTapped:(id)sender;
 - (IBAction)createEvent:(id)sender;
 - (IBAction)countrySelect:(id)sender;
@@ -44,6 +46,5 @@
 - (IBAction)toSelect:(id)sender;
 - (IBAction)categorySelect:(id)sender;
 - (IBAction)photoSelect:(id)sender;
-- (IBAction)ourPhotoSelect:(id)sender;
 
 @end

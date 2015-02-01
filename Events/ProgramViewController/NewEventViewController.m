@@ -79,6 +79,16 @@
     categoryPicker.dataSource = self;
     categoryPicker.delegate = self;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(setOurImage:)
+                                                 name:@"OUR IMAGE SELECTED" object:nil];
+    
+}
+
+-(void)setOurImage:(NSNotification *)notice {
+    
+    NSString *selectedImage = [notice object];
+    self.eventImage.image = [UIImage imageNamed:selectedImage];
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
@@ -197,19 +207,14 @@
     self.eventImage.image = editedImage;
 }
 
-- (IBAction)ourPhotoSelect:(id)sender {
-    
-}
 
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    NSLog(@"PUSHHHHHHHHH");
 }
-*/
+
 
 @end
