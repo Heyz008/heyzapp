@@ -7,6 +7,7 @@
 //
 
 #import "NewEventViewController.h"
+#import <Parse/Parse.h>
 
 @interface NewEventViewController () {
     NSArray *categoryData;
@@ -170,7 +171,24 @@
 }
 
 - (IBAction)createEvent:(id)sender {
-    NSLog(@"%@, %@", self.eventTitle.text, self.eventLocation.text);
+    PFObject *event = [PFObject objectWithClassName:@"Event"];
+    event[@"title"] = self.eventTitle.text;
+    event[@"description"] = self.eventDescription.text;
+    event[@"location"] = self.eventLocation.text;
+    event[@"address"] = self.eventAddress.text;
+    event[@"from"] = self.eventFromName.text;
+    event[@"to"] = self.eventToName.text;
+    event[@"tag"] = self.eventTags.text;
+    event[@"category"] = self.eventCategoryLabel.text;
+    NSData *imageData = UIImagePNGRepresentation(self.eventImage.image);
+    PFFile *imageFile = [PFFile fileWithName:@"eventImage.png" data:imageData];
+    event[@"image"] = imageFile;
+    
+    [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        NSLog(@"Event SUcceed? ");
+        NSLog(@"Error: %@", error.description);
+        
+    }];
 }
 
 

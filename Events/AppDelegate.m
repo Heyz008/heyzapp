@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <Parse/Parse.h>
 
 @implementation AppDelegate
 @synthesize managedObjectContext = _managedObjectContext;
@@ -17,6 +18,15 @@
 {
     // Override point for customization after application launch.
     
+    
+    [Parse enableLocalDatastore];
+    
+    // Initialize Parse.
+    [Parse setApplicationId:@"vWIlHBxm55dI51Me35OsTGbrdVHHpAHitZuHpXk1"
+     
+                  clientKey:@"zA8MJhPFcOhZXWpWjB5xpFrWxkIm2tYgiobVDU9z"];
+    // [Optional] Track statistics around application opens.
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 
     [MMdbsupport MMinitializeDb];
     [MMdbsupport MMOpenDataBase];

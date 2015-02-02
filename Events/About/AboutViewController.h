@@ -11,6 +11,7 @@
 #import "EventList.h"
 #import "LoginViewController.h"
 #import "TSMiniWebBrowser.h"
+#import <Parse/Parse.h>
 
 #import "CustomPickerView.h"
 
@@ -20,7 +21,7 @@
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollViewMain;
 @property (strong, nonatomic) IBOutlet MKMapView *eventLocationMapView;
-@property (strong, nonatomic) EventList *eventObj;
+@property (strong, nonatomic) PFObject *eventObj;
 @property (strong, nonatomic) IBOutlet UITableView *tblView;
 
 @property (strong, nonatomic) IBOutlet UIView *eventRegisterView;
