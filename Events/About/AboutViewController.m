@@ -49,7 +49,7 @@
 	// Do any additional setup after loading the view.
     [self initializeNavigationBar];
     
-    descriptionTextHeight = [Utility getTextSize:self.eventObj.eventDescription textWidth:300 fontSize:14.0f lineBreakMode:NSLineBreakByWordWrapping].height;
+    descriptionTextHeight = [Utility getTextSize:[self.eventObj objectForKey:@"description"]textWidth:300 fontSize:14.0f lineBreakMode:NSLineBreakByWordWrapping].height;
     
     self.tblView.frame = CGRectMake(self.tblView.frame.origin.x, self.tblView.frame.origin.y, self.tblView.frame.size.width, self.tblView.frame.size.height+descriptionTextHeight);
     vwFreeRegisterBtn.frame = CGRectMake(vwFreeRegisterBtn.frame.origin.x, self.tblView.frame.origin.y+self.tblView.frame.size.height, vwFreeRegisterBtn.frame.size.width, vwFreeRegisterBtn.frame.size.height);
