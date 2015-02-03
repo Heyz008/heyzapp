@@ -12,6 +12,7 @@
 #import "MyEventTickets.h"
 #import "AboutViewController.h"
 #import "UIImageView+WebCache.h"
+#import <Parse/Parse.h>
 
 @interface ProgramViewController (){
     
@@ -34,6 +35,9 @@
 #pragma mark - View Life Cycle
 - (void)viewDidLoad
 {
+    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
+    testObject[@"foo"] = @"bar";
+    [testObject saveInBackground];
     [super viewDidLoad];
 }
 

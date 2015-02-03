@@ -1239,23 +1239,36 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Milan-Fashion-Week-logo.png" id="CoT-V3-HKE">
-                                        <rect key="frame" x="10" y="5" width="300" height="240"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="createevent.png" id="CoT-V3-HKE">
+                                        <rect key="frame" x="8" y="-48" width="300" height="214"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" id="LDh-yR-RSn">
-                                        <rect key="frame" x="0.0" y="210" width="320" height="800"/>
+                                        <rect key="frame" x="-132" y="189" width="320" height="800"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="What would you name it" clearsOnBeginEditing="YES" minimumFontSize="17" id="mdr-yl-jcT">
+                                        <rect key="frame" x="116" y="120" width="168" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MZ6-v4-UNn">
+                                        <rect key="frame" x="17" y="124" width="112" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="About" id="8an-5w-L1E"/>
+                    <navigationItem key="navigationItem" title="Create Event" id="8an-5w-L1E"/>
                     <connections>
                         <outlet property="scrlVW" destination="3rv-7k-5w1" id="cgA-gR-JQg"/>
                         <outlet property="txtVWContent" destination="LDh-yR-RSn" id="3up-ea-CQW"/>
@@ -2171,7 +2184,6 @@
         <image name="Direction.png" width="17" height="21"/>
         <image name="Feed.png" width="22" height="22"/>
         <image name="Listred.png" width="24" height="23"/>
-        <image name="Milan-Fashion-Week-logo.png" width="320" height="240"/>
         <image name="MyProgram.png" width="21" height="22"/>
         <image name="Next.png" width="20" height="20"/>
         <image name="Program.png" width="22" height="22"/>
@@ -2190,6 +2202,7 @@
         <image name="chat_recipient_add" width="16" height="16"/>
         <image name="chat_send" width="232" height="51"/>
         <image name="chat_user_small" width="26" height="26"/>
+        <image name="createevent.png" width="978" height="351"/>
         <image name="date-cell-gray.png" width="164" height="33"/>
         <image name="event-feed-mask.png" width="92" height="92"/>
         <image name="feedviewCell1.png" width="95" height="94"/>
@@ -2222,6 +2235,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="gnm-wd-YO2"/>
         <segue reference="G5x-3c-mw0"/>
         <segue reference="vEg-fD-VNZ"/>
     </inferredMetricsTieBreakers>
