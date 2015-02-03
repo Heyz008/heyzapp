@@ -7,17 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		697E17301A76F0B800ECC9ED /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 697E172F1A76F0B800ECC9ED /* libicucore.dylib */; };
-		697E17321A76F0D700ECC9ED /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 697E17311A76F0D700ECC9ED /* libc++.dylib */; };
-		697E17341A76F0ED00ECC9ED /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 697E17331A76F0ED00ECC9ED /* CFNetwork.framework */; };
-		697E17361A76F10000ECC9ED /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 697E17351A76F10000ECC9ED /* Security.framework */; };
-		697E17381A76F10D00ECC9ED /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 697E17371A76F10D00ECC9ED /* SystemConfiguration.framework */; };
 		69C422161A78524B00011D1D /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C422151A78524B00011D1D /* UserManager.swift */; };
 		69C422181A7852C400011D1D /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C422171A7852C400011D1D /* SigninViewController.swift */; };
 		69C4221A1A79CCBB00011D1D /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C422191A79CCBB00011D1D /* SignupViewController.swift */; };
 		69C4221C1A7AD82700011D1D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C4221B1A7AD82700011D1D /* Message.swift */; };
-		69C422241A7AED7500011D1D /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69C422231A7AED7500011D1D /* Firebase.framework */; };
-		69C422261A7AED9600011D1D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69C422251A7AED9600011D1D /* AudioToolbox.framework */; };
 		69F637A61A76D95200709137 /* ChatComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F637A31A76D95200709137 /* ChatComposeViewController.swift */; };
 		69F637A71A76D95200709137 /* ChatDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F637A41A76D95200709137 /* ChatDetailViewController.swift */; };
 		69F637A81A76D95200709137 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F637A51A76D95200709137 /* ChatViewController.swift */; };
@@ -247,18 +240,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		697E172F1A76F0B800ECC9ED /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
-		697E17311A76F0D700ECC9ED /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
-		697E17331A76F0ED00ECC9ED /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		697E17351A76F10000ECC9ED /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		697E17371A76F10D00ECC9ED /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		697E173D1A76F78E00ECC9ED /* Heyz-Swift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Heyz-Swift-Bridging-Header.h"; sourceTree = "<group>"; };
 		69C422151A78524B00011D1D /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserManager.swift; path = "User Login & Register/UserManager.swift"; sourceTree = "<group>"; };
 		69C422171A7852C400011D1D /* SigninViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SigninViewController.swift; path = "User Login & Register/SigninViewController.swift"; sourceTree = "<group>"; };
 		69C422191A79CCBB00011D1D /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignupViewController.swift; path = "User Login & Register/SignupViewController.swift"; sourceTree = "<group>"; };
 		69C4221B1A7AD82700011D1D /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		69C422231A7AED7500011D1D /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Firebase.framework; path = Frameworks/Firebase.framework; sourceTree = "<group>"; };
-		69C422251A7AED9600011D1D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		69F637A31A76D95200709137 /* ChatComposeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatComposeViewController.swift; sourceTree = "<group>"; };
 		69F637A41A76D95200709137 /* ChatDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatDetailViewController.swift; sourceTree = "<group>"; };
 		69F637A51A76D95200709137 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -565,18 +551,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69C422261A7AED9600011D1D /* AudioToolbox.framework in Frameworks */,
-				697E17381A76F10D00ECC9ED /* SystemConfiguration.framework in Frameworks */,
-				697E17361A76F10000ECC9ED /* Security.framework in Frameworks */,
-				697E17341A76F0ED00ECC9ED /* CFNetwork.framework in Frameworks */,
-				697E17321A76F0D700ECC9ED /* libc++.dylib in Frameworks */,
-				697E17301A76F0B800ECC9ED /* libicucore.dylib in Frameworks */,
 				793508DB192137E30001CC34 /* libsqlite3.0.dylib in Frameworks */,
 				793508D9192135FE0001CC34 /* CoreData.framework in Frameworks */,
 				798D9E2818F15F8300A69513 /* ImageIO.framework in Frameworks */,
 				7122DC1718BDFB7B00DC9925 /* MapKit.framework in Frameworks */,
 				79691D0A18F00DD400ABD52D /* libz.dylib in Frameworks */,
-				69C422241A7AED7500011D1D /* Firebase.framework in Frameworks */,
 				7122DC1918BDFB8100DC9925 /* CoreLocation.framework in Frameworks */,
 				BB303D9C18B863E300B6EBC9 /* CoreGraphics.framework in Frameworks */,
 				BB303D9E18B863E300B6EBC9 /* UIKit.framework in Frameworks */,
@@ -605,15 +584,6 @@
 				69C422191A79CCBB00011D1D /* SignupViewController.swift */,
 			);
 			name = "User Login & Register";
-			sourceTree = "<group>";
-		};
-		69C4221D1A7AED2200011D1D /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				69C422251A7AED9600011D1D /* AudioToolbox.framework */,
-				69C422231A7AED7500011D1D /* Firebase.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		69F637A21A76D95200709137 /* Chat */ = {
@@ -979,7 +949,6 @@
 		BB303D8D18B863E300B6EBC9 = {
 			isa = PBXGroup;
 			children = (
-				69C4221D1A7AED2200011D1D /* Frameworks */,
 				79A5E24619C9064E009D4018 /* Localizable.strings */,
 				BB303D9F18B863E300B6EBC9 /* Events */,
 				BB303DC118B863E300B6EBC9 /* EventsTests */,
@@ -1000,11 +969,6 @@
 		BB303D9818B863E300B6EBC9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				697E17371A76F10D00ECC9ED /* SystemConfiguration.framework */,
-				697E17351A76F10000ECC9ED /* Security.framework */,
-				697E17331A76F0ED00ECC9ED /* CFNetwork.framework */,
-				697E17311A76F0D700ECC9ED /* libc++.dylib */,
-				697E172F1A76F0B800ECC9ED /* libicucore.dylib */,
 				793508DA192137E30001CC34 /* libsqlite3.0.dylib */,
 				793508D8192135FE0001CC34 /* CoreData.framework */,
 				798D9E2718F15F8300A69513 /* ImageIO.framework */,

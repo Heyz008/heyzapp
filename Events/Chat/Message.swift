@@ -7,25 +7,37 @@
 //
 
 import Foundation
+import CoreData
+//import UIKit
 
-class Message: NSObject{
-    var text: String
-    var sender: String
-    var date: String
+@objc(Message)
+class Message: NSManagedObject{
+    @NSManaged var text: String!
+    @NSManaged var sender: String!
+    @NSManaged var receiver: String!
+    @NSManaged var date: String!
     var imageURL: String?
     
-    convenience init(text: String?, sender: String?){
-        self.init(text: text, sender: sender)
-    }
-    
-    init(text: String?, sender: String?, imageURL: String?){
-        self.text = text!
-        self.sender = sender!
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd 'at' h:mm a"
-        self.date = dateFormatter.stringFromDate(NSDate())
-        self.imageURL = imageURL
-    }
+//    convenience init(text: String?, sender: String?){
+//        self.init(text: text, sender: sender)
+//    }
+//    
+//    init(text: String?, sender: String?, receiver: String?, date: String?, imageURL: String?){
+//        
+//        self.text = text!
+//        self.sender = sender!
+//        self.receiver = receiver!
+//        
+//        if let dateString = date{
+//            self.date = dateString
+//        } else {
+//            let dateFormatter = NSDateFormatter()
+//            dateFormatter.dateFormat = "yyyy-MM-dd 'at' h:mm a"
+//            self.date = dateFormatter.stringFromDate(NSDate())
+//        }
+//        
+//        self.imageURL = imageURL
+//    }
     
     func getText() -> String! {
         return text
@@ -43,5 +55,15 @@ class Message: NSObject{
         return imageURL
     }
     
+    func getReceiver() -> String! {
+        return receiver
+    }
+    
+    func setContent(text: String!, sender: String!, receiver: String!, date: String!){
+        self.text = text
+        self.sender = sender
+        self.receiver = receiver
+        self.date = date
+    }
     
 }

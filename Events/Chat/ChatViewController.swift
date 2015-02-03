@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import CoreData
 
-class ChatViewController: UIViewController {
+class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
 
     @IBOutlet var viewForTitle : UIView!
     @IBOutlet var ctrlForChat : UISegmentedControl!
@@ -21,6 +22,9 @@ class ChatViewController: UIViewController {
     let firebaseURL = "https://heyz.firebaseio.com"
     var user: FAuthData?
     var ref: Firebase!
+    
+    var fetchedResultController: NSFetchedResultsController!
+    var messages: [String : NSMutableArray] = [:]
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -47,6 +51,48 @@ class ChatViewController: UIViewController {
         ref.observeAuthEventWithBlock({ authData in
             if authData != nil {
                 self.user = authData
+                
+                //Core Data
+                var fetchRequest = NSFetchRequest(entityName: "Message")
+                let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
+                fetchRequest.sortDescriptors = [sortDescriptor]
+                
+                if let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext{
+                    self.fetchedResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+                    self.fetchedResultController.delegate = self
+                    
+                    var e: NSError?
+                    var result = self.fetchedResultController.performFetch(&e)
+                    let temp = self.fetchedResultController.fetchedObjects as [Message]
+                    
+                    //FIXME
+                    let newMessageArr = NSMutableArray()
+                    self.messages["simplelogin:3"] = newMessageArr
+                    
+                    for message in temp{
+//                        if let messageArr = self.messages[message.getReceiver()]{
+                            if message.getSender() == self.user?.uid {
+                                newMessageArr.addObject(["message": message, "type": "2"])
+                            } else {
+                                newMessageArr.addObject(["message": message, "type": "1"])
+                            }
+//                        } else {
+//                            let newMessageArr = NSMutableArray()
+//                            self.messages[message.getReceiver()] = newMessageArr
+//                            if message.getSender() == self.user?.uid {
+//                                newMessageArr.addObject(["message": message, "type": "2"])
+//                            } else {
+//                                newMessageArr.addObject(["message": message, "type": "1"])
+//                            }
+//                            
+//                        }
+                    }
+                    if result != true {
+                        println("error fetching objects: \(e!.localizedDescription)")
+                    }
+                    
+                }
+
             } else {
                 self.performSegueWithIdentifier("loginSegue", sender: self)
             }
@@ -70,7 +116,7 @@ class ChatViewController: UIViewController {
         case 0:
             return 0
         default:
-            return 1
+            return messages.count > 0 ? messages.count : 1
         }
     }
     
@@ -104,11 +150,28 @@ class ChatViewController: UIViewController {
             if let authData = user as FAuthData!{
                 messageVC.sender = authData
                 messageVC.ref = ref
-                //            messageVC.sender = authData.providerData[]
+                
+                //FIXME: may not need this
+                if let messageArr =  messages["simplelogin:3"]{
+                    messageVC.messages = messageArr
+                } else {
+                    messages["simplelogin:3"] = NSMutableArray()
+                    messageVC.messages = messages["simplelogin:3"]
+                }
+                
             }
         }
         
     }
+    
+    //On after receiving a new message from firebase
+//    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+//        tblForChat.beginUpdates()
+//    }
+//    
+//    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+//        tableView.reloadData()
+//    }
     
     
     /*
