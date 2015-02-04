@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CountryPicker.h"
+#import <MapKit/MapKit.h>
 
-@interface NewEventViewController : UIViewController<CountryPickerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate>
+@interface NewEventViewController : UIViewController<UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, CLLocationManagerDelegate>
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (strong, nonatomic) IBOutlet UIScrollView *eventScrollView;
@@ -19,12 +19,9 @@
 
 @property (strong, nonatomic) IBOutlet UITextView *eventDescription;
 @property (strong, nonatomic) IBOutlet UITextField *eventAddress;
-@property (strong, nonatomic) IBOutlet UITextField *eventCity;
-@property (strong, nonatomic) IBOutlet UITextField *eventCountryLabel;
-@property (strong, nonatomic) IBOutlet UILabel *eventCountryName;
-@property (strong, nonatomic) IBOutlet UIButton *eventCountryButton;
 @property (strong, nonatomic) IBOutlet UIButton *eventFromButton;
 @property (strong, nonatomic) IBOutlet UILabel *eventFromName;
+@property (strong, nonatomic) IBOutlet UITableView *addressTable;
 @property (strong, nonatomic) IBOutlet UIButton *eventToButton;
 @property (strong, nonatomic) IBOutlet UILabel *eventToName;
 @property (strong, nonatomic) IBOutlet UITextField *eventFromLabel;
@@ -36,6 +33,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *eventPhotoButton;
 @property (strong, nonatomic) IBOutlet UIButton *eventOurPhotoButton;
 @property (strong, nonatomic) IBOutlet UIImageView *eventImage;
+@property (strong, nonatomic) IBOutlet MKMapView *eventLocationMapView;
 
 @property (nonatomic, copy) NSString *selectedOurImage;
 
