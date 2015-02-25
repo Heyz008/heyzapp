@@ -1308,7 +1308,7 @@
 				ORGANIZATIONNAME = "Teknowledge Software";
 				TargetAttributes = {
 					BB303D9518B863E300B6EBC9 = {
-						DevelopmentTeam = XJX9MW4C97;
+						DevelopmentTeam = G7L2ZQ9K6L;
 					};
 					BB303DB918B863E300B6EBC9 = {
 						TestTargetID = BB303D9518B863E300B6EBC9;
@@ -1715,8 +1715,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: George Hartley (MN5U5RDRGQ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: George Hartley (MN5U5RDRGQ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1726,7 +1726,7 @@
 				INFOPLIST_FILE = "Events/Heyz-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = Heyz;
-				PROVISIONING_PROFILE = "E3CA86FE-1774-4F4F-B35E-B3E4F7166805";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1735,8 +1735,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: George Hartley (MN5U5RDRGQ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: George Hartley (MN5U5RDRGQ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1746,7 +1746,7 @@
 				INFOPLIST_FILE = "Events/Heyz-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = Heyz;
-				PROVISIONING_PROFILE = "E3CA86FE-1774-4F4F-B35E-B3E4F7166805";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -101,7 +101,7 @@
     UIBarButtonItem *shareButtonBar =[[UIBarButtonItem alloc] initWithCustomView:shareButton];
     
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:shareButtonBar,nil];
-    //[self addLocationPinOnMap];
+    [self addLocationPinOnMap];
 }
 
 #pragma mark - Button Clicked
@@ -353,14 +353,14 @@
         if (cell == nil) {
             cell = [[AboutCustomCell1 alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
-       // cell.lblEventAddress.text   =   [NSString stringWithFormat:@"%@ %@ %@ %@",self.eventObj.eventLocationAddress,self.eventObj.eventLocationTown, self.eventObj.eventLocationState,self.eventObj.eventLocationCountry];
+        cell.lblEventAddress.text   =   [NSString stringWithFormat:@"%@",eventObj[@"address"]];
         cell.lblEventName.text      =   self.eventObj[@"name"];
         
         CLLocation *userLocation    =   [[CLLocation alloc] initWithLatitude:[[Utility getNSUserDefaultValue:KUSERLATITUDE] floatValue] longitude:[[Utility getNSUserDefaultValue:KUSERLONGITUDE] floatValue]];
-        //CLLocation *eventLocation   =   [[CLLocation alloc] initWithLatitude:[self.eventObj.eventLocationLatitude floatValue] longitude:[self.eventObj.eventLocationLongitude floatValue]];
-        //CLLocationDistance distance =   [userLocation distanceFromLocation:eventLocation];
+        CLLocation *eventLocation   =   [[CLLocation alloc] initWithLatitude:[eventObj[@"latitude"] floatValue] longitude:[eventObj[@"longitude"] floatValue]];
+        CLLocationDistance distance =   [userLocation distanceFromLocation:eventLocation];
         
-        //cell.lblEventDistance.text  =   [NSString stringWithFormat:@"%.2fkm",distance/1000];
+        cell.lblEventDistance.text  =   [NSString stringWithFormat:@"%.2fkm",distance/1000];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
@@ -383,8 +383,9 @@
         }
         
         NSString *redText = @"Description :\n\n";
-        NSString *strDescriptionText = [self.eventObj[@"description"] stringByConvertingHTMLToPlainText];
+        NSString *strDescriptionText = self.eventObj[@"description"];
         NSString *strDesc = [NSString stringWithFormat:@"%@%@",redText,strDescriptionText];
+        NSLog(@"%@", strDesc);
         
         UILabel *lblDescription = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 300, descriptionTextHeight+20)];
         lblDescription.backgroundColor = [UIColor clearColor];
@@ -443,52 +444,52 @@
 /**
  *  Show event location on map
  */
-//-(void)addLocationPinOnMap
-//{
-//    self.eventLocationMapView.delegate = (id)self;
-//    
-//    MKCoordinateRegion region;
-//    MKCoordinateSpan span;
-//    span.latitudeDelta=0.2;
-//    span.longitudeDelta=0.2;
-//    
-//    CLLocationCoordinate2D location =   CLLocationCoordinate2DMake([self.eventObj.eventLocationLatitude doubleValue], [self.eventObj.eventLocationLongitude doubleValue]);
-//    
-//    region.center = location;
-//    region.center.latitude  =   location.latitude;
-//    region.center.longitude =   location.longitude;
-//    region.span.longitudeDelta=0.04f;
-//    region.span.latitudeDelta=0.04f;
-//    
-//    [self.eventLocationMapView setRegion:region animated:YES];
-//    MyAnnotation *ann=[[MyAnnotation alloc]init];
-//    ann.title   =   self.eventObj.eventName;
-//    ann.subtitle=@"";
-//    ann.coordinate=region.center;
-//    [self.eventLocationMapView addAnnotation:ann];
-//    [self.eventLocationMapView setRegion:region animated:YES];
-//}
-//
-//#pragma mark - MapView Delegates
-//-(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
-//{
-//    if( annotation == mapView.userLocation )
-//    {
-//        return nil;
-//    }
-//    MyAnnotation *delegate = annotation;  //THIS CAST WAS WHAT WAS MISSING!
-//    MKPinAnnotationView *annView = nil;
-//    annView = (MKPinAnnotationView*)[eventLocationMapView dequeueReusableAnnotationViewWithIdentifier:@"eventloc"];
-//    if( annView == nil ){
-//        annView = [[MKPinAnnotationView alloc] initWithAnnotation:delegate reuseIdentifier:@"eventloc"];
-//    }
-//    
-//    annView.pinColor = MKPinAnnotationColorGreen;
-//    annView.animatesDrop=TRUE;
-//    annView.canShowCallout = YES;
-//    
-//    return annView;
-//}
+-(void)addLocationPinOnMap
+{
+    self.eventLocationMapView.delegate = (id)self;
+    
+    MKCoordinateRegion region;
+    MKCoordinateSpan span;
+    span.latitudeDelta=0.2;
+    span.longitudeDelta=0.2;
+    
+    CLLocationCoordinate2D location =   CLLocationCoordinate2DMake([self.eventObj[@"latitude"] doubleValue], [self.eventObj[@"longitude"] doubleValue]);
+    
+    region.center = location;
+    region.center.latitude  =   location.latitude;
+    region.center.longitude =   location.longitude;
+    region.span.longitudeDelta=0.04f;
+    region.span.latitudeDelta=0.04f;
+    
+    [self.eventLocationMapView setRegion:region animated:YES];
+    MyAnnotation *ann=[[MyAnnotation alloc]init];
+    ann.title   =   self.eventObj[@"name"];
+    ann.subtitle=@"";
+    ann.coordinate=region.center;
+    [self.eventLocationMapView addAnnotation:ann];
+    [self.eventLocationMapView setRegion:region animated:YES];
+}
+
+#pragma mark - MapView Delegates
+-(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+    if( annotation == mapView.userLocation )
+    {
+        return nil;
+    }
+    MyAnnotation *delegate = annotation;  //THIS CAST WAS WHAT WAS MISSING!
+    MKPinAnnotationView *annView = nil;
+    annView = (MKPinAnnotationView*)[eventLocationMapView dequeueReusableAnnotationViewWithIdentifier:@"eventloc"];
+    if( annView == nil ){
+        annView = [[MKPinAnnotationView alloc] initWithAnnotation:delegate reuseIdentifier:@"eventloc"];
+    }
+    
+    annView.pinColor = MKPinAnnotationColorGreen;
+    annView.animatesDrop=TRUE;
+    annView.canShowCallout = YES;
+    
+    return annView;
+}
 
 #pragma mark - Custom Picker and Delegates
 -(void)showCustomPicker

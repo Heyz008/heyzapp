@@ -17,8 +17,9 @@
     double longitude;
     double latitude;
     NSMutableArray *places;
-    NSMutableArray *latitudes;
-    NSMutableArray *longitudes;
+    NSMutableArray *placeIds;
+    double selectedLatitude;
+    double selectedLongitude;
 }
 
 @end
@@ -31,6 +32,7 @@
     
     categoryData = @[@"Clubbing", @"Chat Time"];
     places = [NSMutableArray arrayWithArray:@[]];
+    placeIds = [NSMutableArray arrayWithArray:@[]];
     
     self.eventAddress.tag = 99;
     self.eventAddress.delegate = self;
@@ -147,7 +149,8 @@
         allText = [allText stringByReplacingOccurrencesOfString:@" " withString:@"+"];
         NSString *url = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/autocomplete/json?input=%@&location=%f,%f&radius=12000&key=AIzaSyCIctGj9IUky-uH1nSWdjY8XxSW05tvChA", allText, latitude, longitude];
         if ([allText length] > 3) {
-            ASIFormDataRequest *request = [[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:url]];;
+            ASIFormDataRequest *request = [[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:url]];
+            request.tag = 11;
             [request setDelegate:self];
             [request startAsynchronous];
         }
@@ -176,16 +179,27 @@
 
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
-    self.addressTable.hidden = NO;
-    places = [NSMutableArray arrayWithArray:@[]];
-    NSLog(@"%@", request.responseString);
-    SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
-    NSDictionary *responseDict = [jsonParser objectWithString:request.responseString];
-    NSArray *predictions = [responseDict objectForKey:@"predictions"];
-    for (NSDictionary *dic in predictions) {
-        [places addObject:[dic objectForKey:@"description"]];
+    if (request.tag == 11) {
+        self.addressTable.hidden = NO;
+        places = [NSMutableArray arrayWithArray:@[]];
+        placeIds = [NSMutableArray arrayWithArray:@[]];
+        NSLog(@"%@", request.responseString);
+        SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
+        NSDictionary *responseDict = [jsonParser objectWithString:request.responseString];
+        NSArray *predictions = [responseDict objectForKey:@"predictions"];
+        for (NSDictionary *dic in predictions) {
+            [places addObject:[dic objectForKey:@"description"]];
+            [placeIds addObject:[dic objectForKey:@"place_id"]];
+        }
+        [self.addressTable reloadData];
+    } else if (request.tag == 22) {
+        SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
+        NSDictionary *responseDict = [jsonParser objectWithString:request.responseString];
+        NSDictionary *location = [responseDict objectForKey:@"result"][@"geometry"][@"location"];
+        selectedLatitude = [location[@"lat"] doubleValue];
+        selectedLongitude = [location[@"lng"] doubleValue];
+        [self addLocationPinOnMap];
     }
-    [self.addressTable reloadData];
     
 //    self.searchResults = [@[] mutableCopy];
 //    [self.collectionView reloadData];
@@ -260,6 +274,8 @@
     event[@"description"] = self.eventDescription.text;
     event[@"location"] = self.eventLocation.text;
     event[@"address"] = self.eventAddress.text;
+    event[@"latitude"] = [NSString stringWithFormat:@"%f", selectedLatitude];
+    event[@"longitude"] = [NSString stringWithFormat:@"%f", selectedLongitude];
     event[@"from"] = self.eventFromName.text;
     event[@"to"] = self.eventToName.text;
     event[@"tag"] = self.eventTags.text;
@@ -326,55 +342,61 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.addressTable.hidden = YES;
     self.eventAddress.text = [places objectAtIndex:indexPath.row];
+    
+    NSString *url = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/details/json?placeid=%@&key=AIzaSyCIctGj9IUky-uH1nSWdjY8XxSW05tvChA", [placeIds objectAtIndex:indexPath.row]];
+    ASIFormDataRequest *request = [[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:url]];
+    request.tag = 22;
+    [request setDelegate:self];
+    [request startAsynchronous];
 }
 
 
-//-(void)addLocationPinOnMap
-//{
-//    self.eventLocationMapView.delegate = (id)self;
-//    
-//    MKCoordinateRegion region;
-//    MKCoordinateSpan span;
-//    span.latitudeDelta=0.2;
-//    span.longitudeDelta=0.2;
-//    
-//    CLLocationCoordinate2D location =   CLLocationCoordinate2DMake([self.eventObj.eventLocationLatitude doubleValue], [self.eventObj.eventLocationLongitude doubleValue]);
-//    
-//    region.center = location;
-//    region.center.latitude  =   location.latitude;
-//    region.center.longitude =   location.longitude;
-//    region.span.longitudeDelta=0.04f;
-//    region.span.latitudeDelta=0.04f;
-//    
-//    [self.eventLocationMapView setRegion:region animated:YES];
-//    MyAnnotation *ann=[[MyAnnotation alloc]init];
-//    ann.title   =   self.eventObj.eventName;
-//    ann.subtitle=@"";
-//    ann.coordinate=region.center;
-//    [self.eventLocationMapView addAnnotation:ann];
-//    [self.eventLocationMapView setRegion:region animated:YES];
-//}
-//
-//#pragma mark - MapView Delegates
-//-(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
-//{
-//    if( annotation == mapView.userLocation )
-//    {
-//        return nil;
-//    }
-//    MyAnnotation *delegate = annotation;  //THIS CAST WAS WHAT WAS MISSING!
-//    MKPinAnnotationView *annView = nil;
-//    annView = (MKPinAnnotationView*)[self.eventLocationMapView dequeueReusableAnnotationViewWithIdentifier:@"eventloc"];
-//    if( annView == nil ){
-//        annView = [[MKPinAnnotationView alloc] initWithAnnotation:delegate reuseIdentifier:@"eventloc"];
-//    }
-//    
-//    annView.pinColor = MKPinAnnotationColorGreen;
-//    annView.animatesDrop=TRUE;
-//    annView.canShowCallout = YES;
-//    
-//    return annView;
-//}
+-(void)addLocationPinOnMap
+{
+    self.eventLocationMapView.delegate = (id)self;
+    
+    MKCoordinateRegion region;
+    MKCoordinateSpan span;
+    span.latitudeDelta=0.2;
+    span.longitudeDelta=0.2;
+    
+    CLLocationCoordinate2D location =   CLLocationCoordinate2DMake(selectedLatitude, selectedLongitude);
+    
+    region.center = location;
+    region.center.latitude  =   location.latitude;
+    region.center.longitude =   location.longitude;
+    region.span.longitudeDelta=0.04f;
+    region.span.latitudeDelta=0.04f;
+    
+    [self.eventLocationMapView setRegion:region animated:YES];
+    MyAnnotation *ann=[[MyAnnotation alloc]init];
+    ann.title   =   self.eventTitle.text;
+    ann.subtitle=@"";
+    ann.coordinate=region.center;
+    [self.eventLocationMapView addAnnotation:ann];
+    [self.eventLocationMapView setRegion:region animated:YES];
+}
+
+#pragma mark - MapView Delegates
+-(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+    if( annotation == mapView.userLocation )
+    {
+        return nil;
+    }
+    MyAnnotation *delegate = annotation;  //THIS CAST WAS WHAT WAS MISSING!
+    MKPinAnnotationView *annView = nil;
+    annView = (MKPinAnnotationView*)[self.eventLocationMapView dequeueReusableAnnotationViewWithIdentifier:@"eventloc"];
+    if( annView == nil ){
+        annView = [[MKPinAnnotationView alloc] initWithAnnotation:delegate reuseIdentifier:@"eventloc"];
+    }
+    
+    annView.pinColor = MKPinAnnotationColorGreen;
+    annView.animatesDrop=TRUE;
+    annView.canShowCallout = YES;
+    
+    return annView;
+}
 
 
 
