@@ -15,6 +15,8 @@ class SigninViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet var txtForEmail : UITextField!
     @IBOutlet var txtForPassword : UITextField!
     
+    let delegate = UIApplication.sharedApplication().delegate as AppDelegate
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         // Custom initialization
@@ -41,6 +43,13 @@ class SigninViewController: UIViewController, UITextFieldDelegate{
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("willHideKeyBoard:"), name:UIKeyboardWillHideNotification, object: nil)
         
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+//        txtForEmail.text = NSUserDefaults.standardUserDefaults().stringForKey(xmppDefaultJID)
+//        txtForPassword.text = NSUserDefaults.standardUserDefaults().stringForKey(xmppDefaultPassword)
     }
     
     func willShowKeyBoard(notification : NSNotification){
@@ -88,6 +97,14 @@ class SigninViewController: UIViewController, UITextFieldDelegate{
         return true
     }
     
+    func setField(field: UITextField, forKey key: String){
+        if field.text != nil {
+            NSUserDefaults.standardUserDefaults().setObject(field.text, forKey: key)
+        } else {
+            NSUserDefaults.standardUserDefaults().removeObjectForKey(key)
+        }
+    }
+    
     @IBAction func registerBtnTapped() {
         self.performSegueWithIdentifier("registerSegue", sender: self)
     }
@@ -95,11 +112,10 @@ class SigninViewController: UIViewController, UITextFieldDelegate{
     @IBAction func loginBtnTapped() {
 //        self.dismissViewControllerAnimated(true, completion: nil);
         
-        let email: NSString = txtForEmail.text
+        let user: NSString = txtForEmail.text
         let password: NSString = txtForPassword.text
-        let userManager: UserManager = UserManager.singleton
         
-        if email.isEqualToString("") || password.isEqualToString(""){
+        if user.isEqualToString("") || password.isEqualToString(""){
             var alertView: UIAlertView = UIAlertView()
             alertView.title = "Log in failed"
             alertView.message = "Please enter your username and password"
@@ -107,18 +123,13 @@ class SigninViewController: UIViewController, UITextFieldDelegate{
             alertView.addButtonWithTitle("OK")
             alertView.show()
         } else {
-            userManager.loginInBackground(email, password: password, onComplete: { error, authData in
-                if error == nil {
-                    self.dismissViewControllerAnimated(true, completion: nil)
-                } else {
-                    var alertView: UIAlertView = UIAlertView()
-                    alertView.title = "Log in failed"
-                    alertView.message = "Incorrect email or password."
-                    alertView.delegate = self
-                    alertView.addButtonWithTitle("OK")
-                    alertView.show()
-                }
-            })
+            
+            setField(txtForEmail, forKey: xmppDefaultIdKey)
+            setField(txtForPassword, forKey: xmppDefaultPwdKey)
+            
+            if delegate.connect() {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
         }
         
     }
@@ -138,6 +149,8 @@ class SigninViewController: UIViewController, UITextFieldDelegate{
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
     
 
     /*

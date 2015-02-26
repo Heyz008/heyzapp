@@ -9,83 +9,43 @@
 import UIKit
 import CoreData
 
-class ChatDetailViewController: UIViewController {
+class ChatDetailViewController: UIViewController, MessageDelegate {
 
     @IBOutlet var tblForChats : UITableView!
     @IBOutlet var chatComposeView : UIView!
     @IBOutlet var txtFldMessage : UITextField!
     
-    var sender: FAuthData?
-    var receiver: String! = "simplelogin:3"
-    var messages: NSMutableArray!
-    var senderImageUrl: String!
-    var ref: Firebase!
-    var senderRef: Firebase!
-    var receiverRef: Firebase!
+    var conversation: Conversation!
     
-    func setupFirebase(){
+    let delegate = UIApplication.sharedApplication().delegate as AppDelegate
+    
+    func onAfterMsgReceived(message: XMPPMessage) {
         
-        senderRef = ref.childByAppendingPath("messages/\(sender?.uid as StringLiteralType!)")
-        receiverRef = ref.childByAppendingPath("messages/\(receiver)")
+        let from = "\(message.from().user)@\(message.from().domain)"
         
-        senderRef.observeEventType(FEventType.ChildAdded, withBlock: { (snapshot) in
-            let text = snapshot.value["text"] as String!
-            let sender = snapshot.value["sender"] as String!
-            let imageURL = snapshot.value["imageURL"] as? String
-            let date = snapshot.value["date"] as String!
-            let receiver = snapshot.value["receiver"] as String!
+        if from == conversation.from {
             
-            var message: Message!
+            conversation.resetUnread()
             
-            if let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext {
-                
-                message = NSEntityDescription.insertNewObjectForEntityForName("Message", inManagedObjectContext: managedObjectContext) as Message
-                message.setContent(text, sender: sender, receiver: receiver, date: date)
-                
-                var e: NSError?
-                if managedObjectContext.save(&e) != true {
-                    println("insert error: \(e!.localizedDescription)")
-                }
-                
-            }
-//            let message = Message(text: text, sender: sender, receiver: receiver, date: date, imageURL: imageURL)
-            println(self.messages.count)
-            self.addMessage(message, ofType: "1")
-            
-            let indexPath = NSIndexPath(forRow: self.messages.count - 1, inSection: 0)
-            self.tblForChats.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
-            self.tblForChats.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
-            
-            // No server side history
-            // Removing message from server
-            
-            self.senderRef.removeValue()
-        })
+            tblForChats.reloadData()
+            let indexPath = NSIndexPath(forRow:conversation.history.count - 1, inSection: 0)
+            tblForChats.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
+        }
+        
+        
     }
     
-    func sendMessage(message: Message){
+    func addMessage(message: Message) {
         
-        receiverRef.childByAutoId().setValue([
-            "text": message.getText(),
-            "sender": message.getSender(),
-//            "imageURL": message.getImageURL(),
-            "date": message.getDate(),
-            "receiver": message.getReceiver()
-        ])
-        
-//        senderRef.childByAutoId().setValue([
-//            "text": message.getText(),
-//            "sender": message.getSender(),
-//            //            "imageURL": message.getImageURL(),
-//            "date": message.getDate()
-//        ])
+        conversation.history.addObject(message)
+        let indexPath = NSIndexPath(forRow:conversation.history.count - 1, inSection: 0)
+        tblForChats.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
+        tblForChats.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         // Custom initialization
-        
-//        self.avatars = [:]
         
     }
 
@@ -93,17 +53,23 @@ class ChatDetailViewController: UIViewController {
     {
         super.init(coder: aDecoder)
         
-//        self.avatars = [String: UIImage]()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("willShowKeyBoard:"), name:UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("willHideKeyBoard:"), name:UIKeyboardWillHideNotification, object: nil)
-//        messages = NSMutableArray()
         
-        setupFirebase()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
+        if conversation.history.count > 0 {
+            let indexPath = NSIndexPath(forRow:conversation.history.count - 1, inSection: 0)
+            tblForChats.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
+        }
+
     }
 
     
@@ -112,13 +78,8 @@ class ChatDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func addMessage(message: Message, ofType msgType:String) {
-        messages.addObject(["message":message, "type":msgType])
-    }
-    
-    
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
+        return conversation.history.count
     }
     
     func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
@@ -126,35 +87,33 @@ class ChatDetailViewController: UIViewController {
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        var messageDic: AnyObject = messages.objectAtIndex(indexPath.row)
-        var msg = messageDic["message"] as Message
-        var text = msg.getText()
+        var message: Message = conversation.history.objectAtIndex(indexPath.row) as Message
+        var text = message.getBody()
         var sizeOFStr = self.getSizeOfString(text)
-        return sizeOFStr.height + 50
+        return sizeOFStr.height + 40
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         var cell : UITableViewCell!
-        var messageDic: AnyObject = messages.objectAtIndex(indexPath.row)
-        var msgType = messageDic["type"] as NSString!
-        var msg = messageDic["message"] as Message
-        var text = msg.getText()
-        var time = msg.getDate().componentsSeparatedByString("at ")[1]
+        var message: Message = conversation.history.objectAtIndex(indexPath.row) as Message
+        var isSentByMe = message.isSentByMe
+        var text = message.getBody()
+        let timeArray = message.getTimestamp().componentsSeparatedByString("@ ")
 
         var sizeOFStr = self.getSizeOfString(text)
         
-        if (msgType.isEqualToString("1")){
+        if !isSentByMe {
             cell = tblForChats.dequeueReusableCellWithIdentifier("ChatSentCell") as UITableViewCell
             var textLabel = cell.viewWithTag(12) as UILabel
             var timeLabel = cell.viewWithTag(11) as UILabel
             var chatImage = cell.viewWithTag(1) as UIImageView
             var profileImage = cell.viewWithTag(2) as UIImageView
-            chatImage.frame = CGRectMake(chatImage.frame.origin.x, chatImage.frame.origin.y, ((sizeOFStr.width + 60)  > 100 ? (sizeOFStr.width + 60) : 100), sizeOFStr.height + 40)
-            chatImage.image = UIImage(named: "chat_new_receive")?.stretchableImageWithLeftCapWidth(40,topCapHeight: 20);
+            chatImage.frame = CGRectMake(chatImage.frame.origin.x, chatImage.frame.origin.y, ((sizeOFStr.width + 50)  > 100 ? (sizeOFStr.width + 50) : 100), sizeOFStr.height + 30)
+            chatImage.image = UIImage(named: "chat_new_receive")?.stretchableImageWithLeftCapWidth(30,topCapHeight: 20);
             textLabel.frame = CGRectMake(textLabel.frame.origin.x, textLabel.frame.origin.y, textLabel.frame.size.width, sizeOFStr.height)
-            profileImage.center = CGPointMake(profileImage.center.x, textLabel.frame.origin.y + textLabel.frame.size.height - profileImage.frame.size.height/2 + 10)
+            profileImage.center = CGPointMake(profileImage.center.x, textLabel.frame.origin.y + textLabel.frame.size.height - profileImage.frame.size.height/2 + 5)
             textLabel.text = text
-            timeLabel.text = time
+            timeLabel.text = timeArray.count > 1 ? timeArray[1] : ""
         } else {
             cell = tblForChats.dequeueReusableCellWithIdentifier("ChatReceivedCell") as UITableViewCell
             // var deliveredLabel = cell.viewWithTag(13) as UILabel
@@ -162,15 +121,16 @@ class ChatDetailViewController: UIViewController {
             var timeLabel = cell.viewWithTag(11) as UILabel
             var chatImage = cell.viewWithTag(1) as UIImageView
             var profileImage = cell.viewWithTag(2) as UIImageView
-            var distanceFactor = (170.0 - sizeOFStr.width) < 130 ? (170.0 - sizeOFStr.width) : 130
-            chatImage.frame = CGRectMake(40 + distanceFactor, chatImage.frame.origin.y, ((sizeOFStr.width + 60)  > 100 ? (sizeOFStr.width + 60) : 100), sizeOFStr.height + 40)
-            chatImage.image = UIImage(named: "chat_new_send")?.stretchableImageWithLeftCapWidth(20,topCapHeight: 20);
-            textLabel.frame = CGRectMake(56 + distanceFactor, textLabel.frame.origin.y, textLabel.frame.size.width, sizeOFStr.height)
-            profileImage.center = CGPointMake(profileImage.center.x, textLabel.frame.origin.y + textLabel.frame.size.height - profileImage.frame.size.height/2 + 10)
-            timeLabel.frame = CGRectMake(56 + distanceFactor, timeLabel.frame.origin.y, timeLabel.frame.size.width, timeLabel.frame.size.height)
-            // deliveredLabel.frame = CGRectMake(deliveredLabel.frame.origin.x, textLable.frame.origin.y + textLable.frame.size.height + 20, deliveredLabel.frame.size.width, deliveredLabel.frame.size.height)
+            var distanceFactor = (180.0 - sizeOFStr.width) < 140 ? (190.0 - sizeOFStr.width) : 140
+            
+            chatImage.frame = CGRectMake(30 + distanceFactor, chatImage.frame.origin.y, ((sizeOFStr.width + 50)  > 100 ? (sizeOFStr.width + 50) : 100), sizeOFStr.height + 30)
+            chatImage.image = UIImage(named: "chat_new_send")?.stretchableImageWithLeftCapWidth(30,topCapHeight: 20);
+            textLabel.frame = CGRectMake(41 + distanceFactor, textLabel.frame.origin.y, textLabel.frame.size.width, sizeOFStr.height)
+            profileImage.center = CGPointMake(profileImage.center.x, textLabel.frame.origin.y + textLabel.frame.size.height - profileImage.frame.size.height/2 + 5)
+            timeLabel.frame = CGRectMake(41 + distanceFactor, timeLabel.frame.origin.y, timeLabel.frame.size.width, timeLabel.frame.size.height)
+
             textLabel.text = text
-            timeLabel.text = time
+            timeLabel.text = timeArray.count > 1 ? timeArray[1] : ""
         }
         return cell
     }
@@ -192,8 +152,8 @@ class ChatDetailViewController: UIViewController {
             self.tblForChats.frame = CGRectMake(self.tblForChats.frame.origin.x, self.tblForChats.frame.origin.y, self.tblForChats.frame.size.width, self.tblForChats.frame.size.height - keyboardFrame.size.height+49);
             }, completion: nil)
         
-        if messages.count > 0 {
-            var indexPath = NSIndexPath(forRow:messages.count-1, inSection: 0)
+        if conversation.history.count > 0 {
+            var indexPath = NSIndexPath(forRow:conversation.history.count - 1, inSection: 0)
             tblForChats.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
         }
         
@@ -224,36 +184,31 @@ class ChatDetailViewController: UIViewController {
     }
     
     @IBAction func postBtnTapped() {
-        
-        let senderId = sender?.uid
-        let receiver = self.receiver
-        let text = txtFldMessage.text
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd 'at' h:mm a"
-        let date = dateFormatter.stringFromDate(NSDate())
-        var message: Message!
-        
-        if let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext {
+       
+        let body = txtFldMessage.text
+        let user = NSUserDefaults.standardUserDefaults().stringForKey(xmppDefaultIdKey)
+
+        if !body.isEmpty {
             
-            message = NSEntityDescription.insertNewObjectForEntityForName("Message", inManagedObjectContext: managedObjectContext) as Message
-            message.setContent(text, sender: senderId, receiver: receiver, date: date)
+            let message = Message(body: body, from: user!, isDelay: false, isSentByMe: true)
+            txtFldMessage.text = ""
             
-            var e: NSError?
-            if managedObjectContext.save(&e) != true {
-                println("insert error: \(e!.localizedDescription)")
-            }
+            self.addMessage(message)
+            
+            var xml = DDXMLElement.elementWithName("message") as DDXMLElement
+            xml.addAttributeWithName("type", stringValue: "chat")
+            xml.addAttributeWithName("to", stringValue: conversation.from)
+            xml.addAttributeWithName("from", stringValue: user!)
+            
+            var bodyXML = DDXMLElement.elementWithName("body") as DDXMLElement
+            bodyXML.setStringValue(body)
+            
+            xml.addChild(bodyXML)
+
+            delegate.xmppStream.sendElement(xml)
             
         }
-//        let message = Message(text: text, sender: senderId, receiver: receiver, date: nil, imageURL: nil)
 
-        txtFldMessage.text = "";
-        self.addMessage(message, ofType: "2")
-        let indexPath = NSIndexPath(forRow:messages.count-1, inSection: 0)
-        tblForChats.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
-        tblForChats.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
-        
-        
-        sendMessage(message)
     }
     
     func getSizeOfString(postTitle: NSString) -> CGSize {

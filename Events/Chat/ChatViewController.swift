@@ -9,22 +9,41 @@
 import UIKit
 import CoreData
 
-class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
+class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate, MessageDelegate {
 
-    @IBOutlet var viewForTitle : UIView!
-    @IBOutlet var ctrlForChat : UISegmentedControl!
+//    @IBOutlet var viewForTitle : UIView!
     @IBOutlet var btnForLogo : UIButton!
-    @IBOutlet var itemForSearch : UIBarButtonItem!
     @IBOutlet var tblForChat : UITableView!
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var segCtrl: UISegmentedControl!
     
-    let firebaseURL = "https://heyz.firebaseio.com"
-    var user: FAuthData?
-    var ref: Firebase!
+    let conversationManager = ConversationManager.singleton
+    var _selectedConversation: Conversation?
+    var startChatWith: String?
     
-    var fetchedResultController: NSFetchedResultsController!
-    var messages: [String : NSMutableArray] = [:]
+    var mDelegate: MessageDelegate?
+    
+    let delegate = UIApplication.sharedApplication().delegate as AppDelegate
+    
+    //收到离线或者未读消息
+    func onAfterMsgReceived(message: XMPPMessage) {
+        
+        
+        let from = "\(message.from().user)@\(message.from().domain)"
+        let body = message.elementForName("body").stringValue()
+        let delay = message.elementForName("delay") != nil
+        
+        let unread = Message(body: body, from: from, isDelay: delay, isSentByMe: false)
+        
+        conversationManager.addIncoming(unread, isPrivate: true)
+        
+        if mDelegate == nil {
+            tblForChat.reloadData()
+        } else {
+            mDelegate!.onAfterMsgReceived(message)
+        }
+        
+    }
+    
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -37,71 +56,25 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
     }
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        
-        self.navigationItem.titleView = viewForTitle
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: btnForLogo)
-        self.navigationItem.rightBarButtonItem = itemForSearch
-        self.tabBarController?.tabBar.tintColor = UIColor.greenColor()
-        // self.performSegueWithIdentifier("loginSegue", sender: nil)
-        
-        // TODO: make this for the overall app
-        ref = Firebase(url: firebaseURL)
-        
-        ref.observeAuthEventWithBlock({ authData in
-            if authData != nil {
-                self.user = authData
-                
-                //Core Data
-                var fetchRequest = NSFetchRequest(entityName: "Message")
-                let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
-                fetchRequest.sortDescriptors = [sortDescriptor]
-                
-                if let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext{
-                    self.fetchedResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
-                    self.fetchedResultController.delegate = self
-                    
-                    var e: NSError?
-                    var result = self.fetchedResultController.performFetch(&e)
-                    let temp = self.fetchedResultController.fetchedObjects as [Message]
-                    
-                    //FIXME
-                    let newMessageArr = NSMutableArray()
-                    self.messages["simplelogin:3"] = newMessageArr
-                    
-                    for message in temp{
-//                        if let messageArr = self.messages[message.getReceiver()]{
-                            if message.getSender() == self.user?.uid {
-                                newMessageArr.addObject(["message": message, "type": "2"])
-                            } else {
-                                newMessageArr.addObject(["message": message, "type": "1"])
-                            }
-//                        } else {
-//                            let newMessageArr = NSMutableArray()
-//                            self.messages[message.getReceiver()] = newMessageArr
-//                            if message.getSender() == self.user?.uid {
-//                                newMessageArr.addObject(["message": message, "type": "2"])
-//                            } else {
-//                                newMessageArr.addObject(["message": message, "type": "1"])
-//                            }
-//                            
-//                        }
-                    }
-                    if result != true {
-                        println("error fetching objects: \(e!.localizedDescription)")
-                    }
-                    
-                }
 
-            } else {
-                self.performSegueWithIdentifier("loginSegue", sender: self)
-            }
-        })
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: btnForLogo)
+        self.tabBarController?.tabBar.tintColor = UIColor.greenColor()
+        
+        delegate.messageDelegate = self
         
     }
     
-    
+    override func viewWillAppear(animated: Bool) {
+        
+        super.viewWillAppear(animated)
 
+        tblForChat.reloadData()
+        mDelegate = nil
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -109,14 +82,41 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
     
     @IBAction func unwindToChat (segueSelected : UIStoryboardSegue) {
         
+        if segueSelected.identifier == "unwindFromFriends" {
+//            if startChatWith != nil {
+//                
+//                var found = false
+//                for i in 0 ..<  privateConversations.count {
+//                    if let conversation = privateConversations.objectAtIndex(i) as? NSMutableDictionary{
+//                        if conversation.objectForKey("from")!.isEqualToString(startChatWith!) {
+//                            privateConversations.removeObject(conversation)
+//                            privateConversations.insertObject(conversation, atIndex: 0)
+//                            found = true
+//                            break
+//                        }
+//                    }
+//                }
+//        
+//                if !found {
+//                    let history = NSMutableArray()
+//                    privateConversations.insertObject(["history": history, "from": startChatWith!, "unread": true] as NSMutableDictionary, atIndex: 0)
+//                }
+//                
+//                _selectedConversation = privateConversations.objectAtIndex(0)
+//                self.performSegueWithIdentifier("slideToChat", sender: self)
+//
+//            }
+        }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch segmentedControl.selectedSegmentIndex{
+        switch segCtrl.selectedSegmentIndex{
         case 0:
-            return 0
+            return conversationManager.recentConversations.count
+        case 1:
+            return conversationManager.publicConversations.count
         default:
-            return messages.count > 0 ? messages.count : 1
+            return conversationManager.privateConversations.count
         }
     }
     
@@ -125,53 +125,67 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-        switch segmentedControl.selectedSegmentIndex{
+        
+        let conversation = conversationManager.getConversationAtIndex(indexPath.row, type: segCtrl.selectedSegmentIndex)
+        
+        switch segCtrl.selectedSegmentIndex{
         case 0:
             return tblForChat.dequeueReusableCellWithIdentifier("ChatPublicCell") as UITableViewCell
-        default:
-            return tblForChat.dequeueReusableCellWithIdentifier("ChatPrivateCell") as UITableViewCell
+        case 1:
             
+            return tblForChat.dequeueReusableCellWithIdentifier("ChatPublicCell") as UITableViewCell
+            
+        default:
+            
+            let cell = tblForChat.dequeueReusableCellWithIdentifier("ChatPrivateCell") as UITableViewCell
+            var unreadLabel = cell.viewWithTag(3)
+            var timeLabel = cell.viewWithTag(4) as UILabel
+            var senderLabel = cell.viewWithTag(6) as UILabel
+            var messageLabel = cell.viewWithTag(8) as UILabel
+            
+            senderLabel.text = conversation.from
+            
+            if let lastMessage = (conversation.history.lastObject as? Message) {
+            
+                messageLabel.text = lastMessage.getBody()
+                
+                let timeArray = split(lastMessage.getTimestamp()) {$0 == "@"}
+                timeLabel.text = timeArray.count > 1 ? timeArray[1] : ""
+                
+            }
+            
+            if conversation.unread > 0 {
+                unreadLabel!.hidden = false
+            } else {
+                unreadLabel!.hidden = true
+            }
+            
+            return cell
         }
         
     }
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!){
-        self.performSegueWithIdentifier("slideToChat", sender: nil);
+        
+        _selectedConversation = conversationManager.getConversationAtIndex(indexPath.row, type: segCtrl.selectedSegmentIndex)
+        self.performSegueWithIdentifier("slideToChat", sender: self);
     }
 
     @IBAction func indexChanged(sender: UISegmentedControl) {
-        self.tableView.reloadData()
+        tblForChat.reloadData()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if segue.identifier == "slideToChat"{
-            var messageVC = segue.destinationViewController as ChatDetailViewController
-            if let authData = user as FAuthData!{
-                messageVC.sender = authData
-                messageVC.ref = ref
-                
-                //FIXME: may not need this
-                if let messageArr =  messages["simplelogin:3"]{
-                    messageVC.messages = messageArr
-                } else {
-                    messages["simplelogin:3"] = NSMutableArray()
-                    messageVC.messages = messages["simplelogin:3"]
-                }
-                
-            }
+            var chatDetailViewController = segue.destinationViewController as ChatDetailViewController
+            chatDetailViewController.conversation = _selectedConversation!
+            _selectedConversation!.resetUnread()
+            mDelegate = chatDetailViewController
+        } else if segue.identifier == "newChatSegue" {
+            startChatWith = nil
         }
-        
     }
-    
-    //On after receiving a new message from firebase
-//    func controllerWillChangeContent(controller: NSFetchedResultsController) {
-//        tblForChat.beginUpdates()
-//    }
-//    
-//    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
-//        tableView.reloadData()
-//    }
     
     
     /*

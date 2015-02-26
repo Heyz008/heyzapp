@@ -12,7 +12,25 @@
 
 #import "MMdbsupport.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+#import "XMPPFramework.h"
+
+#define xmppDefaultIdKey @"XMPPAccount.JID"
+#define xmppDefaultPwdKey @"XMPPAccount.PWD"
+
+@protocol MessageDelegate;
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate, XMPPStreamDelegate, XMPPRosterDelegate>
+{
+    XMPPStream *xmppStream;
+    XMPPReconnect *xmppReconnect;
+    XMPPRoster *xmppRoster;
+    XMPPRosterCoreDataStorage *xmppRosterStorage;
+    
+    NSString *password;
+    
+    BOOL isXmppConnected;
+    
+}
 
 @property (strong, nonatomic) UIWindow *window;
 
@@ -20,7 +38,21 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
+@property (nonatomic, strong, readonly) XMPPStream *xmppStream;
+@property (nonatomic, strong, readonly) XMPPReconnect *xmppReconnect;
+@property (nonatomic, strong, readonly) XMPPRoster *xmppRoster;
+@property (nonatomic, strong, readonly) XMPPRosterCoreDataStorage *xmppRosterStorage;
+
+@property (nonatomic, weak) id<MessageDelegate> messageDelegate;
+
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
+
+- (BOOL)connect;
+- (void)disconnect;
+- (void)setupStream;
+- (void)teardownStream;
+- (void)goOnline;
+- (void)goOffline;
 
 @end
