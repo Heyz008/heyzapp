@@ -60,10 +60,10 @@ static NSString * const reuseIdentifier = @"Cell";
 {
     [super viewWillAppear:YES];
     
-    [Utility afterDelay:0.01 withCompletion:^{
-        [DSBezelActivityView newActivityViewForView:self.view.window];
-        [self getEventListFromServer];
-    }];
+//    [Utility afterDelay:0.01 withCompletion:^{
+//        [DSBezelActivityView newActivityViewForView:self.view.window];
+//        [self getEventListFromServer];
+//    }];
 }
 
 #pragma mark - Get All Event's from server

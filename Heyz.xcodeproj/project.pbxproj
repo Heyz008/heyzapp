@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00DA80971A9D926D005466EE /* M13Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DA80961A9D926D005466EE /* M13Checkbox.m */; };
+		00DA80A11A9EDD5A005466EE /* AccordionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DA80A01A9EDD5A005466EE /* AccordionView.m */; };
+		00DA80A41AA040AB005466EE /* EventLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DA80A31AA040AB005466EE /* EventLocationViewController.m */; };
+		00DA80A71AA04219005466EE /* LocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DA80A61AA04219005466EE /* LocationCell.m */; };
 		207208A61A7432BB008F167D /* ProgramViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 207208A51A7432BB008F167D /* ProgramViewController.m */; };
 		207208A91A7432F5008F167D /* ProgramMainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 207208A81A7432F5008F167D /* ProgramMainCell.m */; };
 		207208AD1A7435DB008F167D /* CHTCollectionViewWaterfallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 207208AC1A7435DB008F167D /* CHTCollectionViewWaterfallLayout.m */; };
@@ -256,6 +260,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00DA80951A9D926D005466EE /* M13Checkbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13Checkbox.h; sourceTree = "<group>"; };
+		00DA80961A9D926D005466EE /* M13Checkbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13Checkbox.m; sourceTree = "<group>"; };
+		00DA809F1A9EDD5A005466EE /* AccordionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccordionView.h; sourceTree = "<group>"; };
+		00DA80A01A9EDD5A005466EE /* AccordionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccordionView.m; sourceTree = "<group>"; };
+		00DA80A21AA040AB005466EE /* EventLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventLocationViewController.h; sourceTree = "<group>"; };
+		00DA80A31AA040AB005466EE /* EventLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventLocationViewController.m; sourceTree = "<group>"; };
+		00DA80A51AA04218005466EE /* LocationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationCell.h; sourceTree = "<group>"; };
+		00DA80A61AA04219005466EE /* LocationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationCell.m; sourceTree = "<group>"; };
 		207208A41A7432BB008F167D /* ProgramViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramViewController.h; sourceTree = "<group>"; };
 		207208A51A7432BB008F167D /* ProgramViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgramViewController.m; sourceTree = "<group>"; };
 		207208A71A7432F5008F167D /* ProgramMainCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramMainCell.h; sourceTree = "<group>"; };
@@ -625,6 +637,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00DA80941A9D925C005466EE /* M13Checkbox */ = {
+			isa = PBXGroup;
+			children = (
+				00DA80951A9D926D005466EE /* M13Checkbox.h */,
+				00DA80961A9D926D005466EE /* M13Checkbox.m */,
+			);
+			name = M13Checkbox;
+			sourceTree = "<group>";
+		};
+		00DA809E1A9EDD3B005466EE /* Accordion */ = {
+			isa = PBXGroup;
+			children = (
+				00DA809F1A9EDD5A005466EE /* AccordionView.h */,
+				00DA80A01A9EDD5A005466EE /* AccordionView.m */,
+			);
+			name = Accordion;
+			sourceTree = "<group>";
+		};
 		207208AA1A7435B0008F167D /* CHTCollectionViewWatefallLayout */ = {
 			isa = PBXGroup;
 			children = (
@@ -706,6 +736,8 @@
 				7122DB0718BB1F5C00C044E8 /* ProgramCustomCell.m */,
 				207208A71A7432F5008F167D /* ProgramMainCell.h */,
 				207208A81A7432F5008F167D /* ProgramMainCell.m */,
+				00DA80A51AA04218005466EE /* LocationCell.h */,
+				00DA80A61AA04219005466EE /* LocationCell.m */,
 			);
 			path = ProgramCustomCell;
 			sourceTree = "<group>";
@@ -990,6 +1022,8 @@
 		BB303D8D18B863E300B6EBC9 = {
 			isa = PBXGroup;
 			children = (
+				00DA809E1A9EDD3B005466EE /* Accordion */,
+				00DA80941A9D925C005466EE /* M13Checkbox */,
 				207208AA1A7435B0008F167D /* CHTCollectionViewWatefallLayout */,
 				79A5E24619C9064E009D4018 /* Localizable.strings */,
 				BB303D9F18B863E300B6EBC9 /* Events */,
@@ -1233,6 +1267,8 @@
 				207208B91A7B2AB4008F167D /* NewEventViewController.m */,
 				207208BF1A7DB480008F167D /* OurImagesViewController.h */,
 				207208C01A7DB480008F167D /* OurImagesViewController.m */,
+				00DA80A21AA040AB005466EE /* EventLocationViewController.h */,
+				00DA80A31AA040AB005466EE /* EventLocationViewController.m */,
 			);
 			path = ProgramViewController;
 			sourceTree = "<group>";
@@ -1519,6 +1555,7 @@
 				711221DD18BC62DD00E77A4A /* NSMutableArray+convenience.m in Sources */,
 				798D9E1118F15F1400A69513 /* SDWebImagePrefetcher.m in Sources */,
 				798D9E2018F15F2000A69513 /* NSData+ImageContentType.m in Sources */,
+				00DA80A11A9EDD5A005466EE /* AccordionView.m in Sources */,
 				791E3DEA18F320A300220BDE /* GTMNSString+HTML.m in Sources */,
 				207208BA1A7B2AB4008F167D /* NewEventViewController.m in Sources */,
 				79691D0618F00C8700ABD52D /* ASIDownloadCache.m in Sources */,
@@ -1531,6 +1568,7 @@
 				798D9E2418F15F2000A69513 /* MKAnnotationView+WebCache.m in Sources */,
 				79691D0818F00C8700ABD52D /* ASIInputStream.m in Sources */,
 				7122DB0818BB1F5C00C044E8 /* ProgramCustomCell.m in Sources */,
+				00DA80A71AA04219005466EE /* LocationCell.m in Sources */,
 				BB62B12B18B8C07C000DBDBC /* MyProgramViewController.m in Sources */,
 				711221DC18BC62DD00E77A4A /* NSDate+convenience.m in Sources */,
 				79691CA918EFFF1F00ABD52D /* NSObject+SBJSON.m in Sources */,
@@ -1540,6 +1578,7 @@
 				790AE0B518F9862500FBE2F2 /* RegistrationViewController.m in Sources */,
 				791E3DED18F3277A00220BDE /* Feeds.m in Sources */,
 				7122DB1518BB1F7300C044E8 /* ThirdFeedCustomCell.m in Sources */,
+				00DA80971A9D926D005466EE /* M13Checkbox.m in Sources */,
 				798D9E2118F15F2000A69513 /* UIImage+MultiFormat.m in Sources */,
 				79691D2618F037A200ABD52D /* LocationManager.m in Sources */,
 				7122DB1418BB1F7300C044E8 /* SecondFeedCustomCell.m in Sources */,
@@ -1566,6 +1605,7 @@
 				798D9E1018F15F1400A69513 /* SDWebImageDecoder.m in Sources */,
 				79A36D871959DC7700C05F43 /* ProgramDescriptionViewController.m in Sources */,
 				207208A91A7432F5008F167D /* ProgramMainCell.m in Sources */,
+				00DA80A41AA040AB005466EE /* EventLocationViewController.m in Sources */,
 				711221DF18BC62DD00E77A4A /* UIView+convenience.m in Sources */,
 				79691D1118F0175600ABD52D /* EventList.m in Sources */,
 				207208A61A7432BB008F167D /* ProgramViewController.m in Sources */,

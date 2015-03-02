@@ -10,4 +10,6 @@
 
 @implementation LocationCell
 
+
+
 @end

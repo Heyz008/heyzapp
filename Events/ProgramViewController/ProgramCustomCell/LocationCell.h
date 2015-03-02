@@ -10,4 +10,6 @@
 
 @interface LocationCell : UITableViewCell
 
+@property (strong, nonatomic) IBOutlet UILabel *location;
+
 @end
