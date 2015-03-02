@@ -167,7 +167,6 @@
 		6976C0511A8854040023DB4F /* XMPPMessage+XEP_0308.m in Sources */ = {isa = PBXBuildFile; fileRef = 6976BFEB1A8854040023DB4F /* XMPPMessage+XEP_0308.m */; };
 		6976C0521A8854040023DB4F /* XMPPMessage+XEP_0333.m in Sources */ = {isa = PBXBuildFile; fileRef = 6976BFEE1A8854040023DB4F /* XMPPMessage+XEP_0333.m */; };
 		6976C0531A8854040023DB4F /* NSXMLElement+XEP_0335.m in Sources */ = {isa = PBXBuildFile; fileRef = 6976BFF11A8854040023DB4F /* NSXMLElement+XEP_0335.m */; };
-		69C422161A78524B00011D1D /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C422151A78524B00011D1D /* UserManager.swift */; };
 		69C422181A7852C400011D1D /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C422171A7852C400011D1D /* SigninViewController.swift */; };
 		69C4221A1A79CCBB00011D1D /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C422191A79CCBB00011D1D /* SignupViewController.swift */; };
 		69C4221C1A7AD82700011D1D /* ConversationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C4221B1A7AD82700011D1D /* ConversationManager.swift */; };
@@ -713,7 +712,6 @@
 		6976BFF11A8854040023DB4F /* NSXMLElement+XEP_0335.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSXMLElement+XEP_0335.m"; sourceTree = "<group>"; };
 		6976C0541A8854B60023DB4F /* XMPPFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XMPPFramework.h; sourceTree = "<group>"; };
 		697E173D1A76F78E00ECC9ED /* Heyz-Swift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Heyz-Swift-Bridging-Header.h"; sourceTree = "<group>"; };
-		69C422151A78524B00011D1D /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserManager.swift; path = "User Login & Register/UserManager.swift"; sourceTree = "<group>"; };
 		69C422171A7852C400011D1D /* SigninViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SigninViewController.swift; path = "User Login & Register/SigninViewController.swift"; sourceTree = "<group>"; };
 		69C422191A79CCBB00011D1D /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignupViewController.swift; path = "User Login & Register/SignupViewController.swift"; sourceTree = "<group>"; };
 		69C4221B1A7AD82700011D1D /* ConversationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationManager.swift; sourceTree = "<group>"; };
@@ -1952,7 +1950,6 @@
 			isa = PBXGroup;
 			children = (
 				69C422171A7852C400011D1D /* SigninViewController.swift */,
-				69C422151A78524B00011D1D /* UserManager.swift */,
 				69C422191A79CCBB00011D1D /* SignupViewController.swift */,
 			);
 			name = "User Login & Register";
@@ -2959,7 +2956,6 @@
 				6976C0371A8854040023DB4F /* XMPPCapabilities.m in Sources */,
 				6976C0151A8854040023DB4F /* XMPPMessage+XEP0045.m in Sources */,
 				791E3DED18F3277A00220BDE /* Feeds.m in Sources */,
-				69C422161A78524B00011D1D /* UserManager.swift in Sources */,
 				7122DB1518BB1F7300C044E8 /* ThirdFeedCustomCell.m in Sources */,
 				798D9E2118F15F2000A69513 /* UIImage+MultiFormat.m in Sources */,
 				6976C0221A8854040023DB4F /* XMPPvCardTempLabel.m in Sources */,

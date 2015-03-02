@@ -9,12 +9,14 @@
 import UIKit
 import CoreData
 
-class ChatDetailViewController: UIViewController, MessageDelegate {
+class ChatDetailViewController: UIViewController, MessageDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet var tblForChats : UITableView!
     @IBOutlet var chatComposeView : UIView!
+    @IBOutlet weak var chatCommandView: UIView!
     @IBOutlet var txtFldMessage : UITextField!
     
+    let conversationManager: ConversationManager = ConversationManager.singleton
     var conversation: Conversation!
     
     let delegate = UIApplication.sharedApplication().delegate as AppDelegate
@@ -37,11 +39,61 @@ class ChatDetailViewController: UIViewController, MessageDelegate {
     
     func addMessage(message: Message) {
         
-        conversation.history.addObject(message)
+        conversation.add(message, isIncoming: false)
+        conversationManager.topConversation(conversation)
         let indexPath = NSIndexPath(forRow:conversation.history.count - 1, inSection: 0)
         tblForChats.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
         tblForChats.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
     }
+    
+    @IBAction func onAfterCameraTapped(sender: UIButton) {
+    }
+    
+    @IBAction func onAfterPhotoTapped(sender: UIButton) {
+        
+        if UIImagePickerController.isSourceTypeAvailable(.PhotoLibrary){
+            let imagePicker = UIImagePickerController()
+            imagePicker.allowsEditing = false
+            imagePicker.sourceType = .PhotoLibrary
+            imagePicker.delegate = self
+            
+            self.presentViewController(imagePicker, animated: true, completion: nil)
+            
+        }
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+        
+        dismissViewControllerAnimated(true, completion: nil)
+        
+        let image = info[UIImagePickerControllerOriginalImage] as UIImage
+        
+        let user = NSUserDefaults.standardUserDefaults().stringForKey(xmppDefaultIdKey)
+        
+        let message = Message(image: image, from: user!, isDelay: false, isSentByMe: true)
+            
+        self.addMessage(message)
+        
+        let xml = DDXMLElement.elementWithName("message") as DDXMLElement
+        xml.addAttributeWithName("type", stringValue: "chat")
+        xml.addAttributeWithName("to", stringValue: conversation.from)
+        xml.addAttributeWithName("from", stringValue: user!)
+//        xml.addAttributeWithName("bodyType", stringValue: "photo")
+        
+        let photoXml = DDXMLElement.elementWithName("data") as DDXMLElement
+//        let test = UIImage(named:"chat_camera")!
+        let dataPic = UIImagePNGRepresentation(image)
+        let base64String = dataPic.base64EncodedStringWithOptions(nil)
+
+        photoXml.setStringValue(base64String)
+        println(base64String)
+        
+        xml.addChild(photoXml)
+        
+        delegate.xmppStream.sendElement(xml)
+        
+    }
+    
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -69,7 +121,7 @@ class ChatDetailViewController: UIViewController, MessageDelegate {
             let indexPath = NSIndexPath(forRow:conversation.history.count - 1, inSection: 0)
             tblForChats.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
         }
-
+        
     }
 
     
@@ -88,51 +140,90 @@ class ChatDetailViewController: UIViewController, MessageDelegate {
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         var message: Message = conversation.history.objectAtIndex(indexPath.row) as Message
-        var text = message.getBody()
-        var sizeOFStr = self.getSizeOfString(text)
-        return sizeOFStr.height + 40
+        switch message.type {
+        case "text":
+            var text = message.getContent() as String
+            var sizeOFStr = self.getSizeOfString(text)
+            return sizeOFStr.height + 40
+        default:
+            return CGFloat(130)
+        }
+        
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
+        
         var cell : UITableViewCell!
         var message: Message = conversation.history.objectAtIndex(indexPath.row) as Message
         var isSentByMe = message.isSentByMe
-        var text = message.getBody()
         let timeArray = message.getTimestamp().componentsSeparatedByString("@ ")
-
-        var sizeOFStr = self.getSizeOfString(text)
-        
-        if !isSentByMe {
-            cell = tblForChats.dequeueReusableCellWithIdentifier("ChatSentCell") as UITableViewCell
-            var textLabel = cell.viewWithTag(12) as UILabel
-            var timeLabel = cell.viewWithTag(11) as UILabel
-            var chatImage = cell.viewWithTag(1) as UIImageView
-            var profileImage = cell.viewWithTag(2) as UIImageView
-            chatImage.frame = CGRectMake(chatImage.frame.origin.x, chatImage.frame.origin.y, ((sizeOFStr.width + 50)  > 100 ? (sizeOFStr.width + 50) : 100), sizeOFStr.height + 30)
-            chatImage.image = UIImage(named: "chat_new_receive")?.stretchableImageWithLeftCapWidth(30,topCapHeight: 20);
-            textLabel.frame = CGRectMake(textLabel.frame.origin.x, textLabel.frame.origin.y, textLabel.frame.size.width, sizeOFStr.height)
-            profileImage.center = CGPointMake(profileImage.center.x, textLabel.frame.origin.y + textLabel.frame.size.height - profileImage.frame.size.height/2 + 5)
-            textLabel.text = text
-            timeLabel.text = timeArray.count > 1 ? timeArray[1] : ""
-        } else {
-            cell = tblForChats.dequeueReusableCellWithIdentifier("ChatReceivedCell") as UITableViewCell
-            // var deliveredLabel = cell.viewWithTag(13) as UILabel
-            var textLabel = cell.viewWithTag(12) as UILabel
-            var timeLabel = cell.viewWithTag(11) as UILabel
-            var chatImage = cell.viewWithTag(1) as UIImageView
-            var profileImage = cell.viewWithTag(2) as UIImageView
-            var distanceFactor = (180.0 - sizeOFStr.width) < 140 ? (190.0 - sizeOFStr.width) : 140
             
-            chatImage.frame = CGRectMake(30 + distanceFactor, chatImage.frame.origin.y, ((sizeOFStr.width + 50)  > 100 ? (sizeOFStr.width + 50) : 100), sizeOFStr.height + 30)
-            chatImage.image = UIImage(named: "chat_new_send")?.stretchableImageWithLeftCapWidth(30,topCapHeight: 20);
-            textLabel.frame = CGRectMake(41 + distanceFactor, textLabel.frame.origin.y, textLabel.frame.size.width, sizeOFStr.height)
-            profileImage.center = CGPointMake(profileImage.center.x, textLabel.frame.origin.y + textLabel.frame.size.height - profileImage.frame.size.height/2 + 5)
-            timeLabel.frame = CGRectMake(41 + distanceFactor, timeLabel.frame.origin.y, timeLabel.frame.size.width, timeLabel.frame.size.height)
+        switch message.type {
+        case "text":
+            var text = message.getContent() as String
+            var sizeOFStr = self.getSizeOfString(text)
+            
+            if isSentByMe {
+                cell = tblForChats.dequeueReusableCellWithIdentifier("textSentCell") as UITableViewCell
+                // var deliveredLabel = cell.viewWithTag(13) as UILabel
+                var textLabel = cell.viewWithTag(12) as UILabel
+                var timeLabel = cell.viewWithTag(11) as UILabel
+                var chatImage = cell.viewWithTag(1) as UIImageView
+                var profileImage = cell.viewWithTag(2) as UIImageView
+                var distanceFactor = (180.0 - sizeOFStr.width) < 140 ? (190.0 - sizeOFStr.width) : 140
+                
+                chatImage.frame = CGRectMake(30 + distanceFactor, chatImage.frame.origin.y, ((sizeOFStr.width + 50)  > 100 ? (sizeOFStr.width + 50) : 100), sizeOFStr.height + 30)
+                chatImage.image = UIImage(named: "chat_new_send")?.stretchableImageWithLeftCapWidth(30,topCapHeight: 20);
+                textLabel.frame = CGRectMake(41 + distanceFactor, textLabel.frame.origin.y, textLabel.frame.size.width, sizeOFStr.height)
+                profileImage.center = CGPointMake(profileImage.center.x, textLabel.frame.origin.y + textLabel.frame.size.height - profileImage.frame.size.height/2 + 5)
+                timeLabel.frame = CGRectMake(41 + distanceFactor, timeLabel.frame.origin.y, timeLabel.frame.size.width, timeLabel.frame.size.height)
+                
+                textLabel.text = text
+                timeLabel.text = timeArray.count > 1 ? timeArray[1] : ""
+            } else {
+                cell = tblForChats.dequeueReusableCellWithIdentifier("textReceivedCell") as UITableViewCell
+                var textLabel = cell.viewWithTag(12) as UILabel
+                var timeLabel = cell.viewWithTag(11) as UILabel
+                var chatImage = cell.viewWithTag(1) as UIImageView
+                var profileImage = cell.viewWithTag(2) as UIImageView
+                chatImage.frame = CGRectMake(chatImage.frame.origin.x, chatImage.frame.origin.y, ((sizeOFStr.width + 50)  > 100 ? (sizeOFStr.width + 50) : 100), sizeOFStr.height + 30)
+                chatImage.image = UIImage(named: "chat_new_receive")?.stretchableImageWithLeftCapWidth(30,topCapHeight: 20);
+                textLabel.frame = CGRectMake(textLabel.frame.origin.x, textLabel.frame.origin.y, textLabel.frame.size.width, sizeOFStr.height)
+                profileImage.center = CGPointMake(profileImage.center.x, textLabel.frame.origin.y + textLabel.frame.size.height - profileImage.frame.size.height/2 + 5)
+                textLabel.text = text
+                timeLabel.text = timeArray.count > 1 ? timeArray[1] : ""
+            }
+            
+        default:
+            
+            var image = (message.getContent() as UIImage)
 
-            textLabel.text = text
-            timeLabel.text = timeArray.count > 1 ? timeArray[1] : ""
+            if isSentByMe {
+                cell = tblForChats.dequeueReusableCellWithIdentifier("imageSentCell") as UITableViewCell
+                var imageView = cell.viewWithTag(1) as UIImageView
+                imageView.image = image
+                imageView.contentMode = .ScaleAspectFill
+                imageView.layer.cornerRadius = 5
+                imageView.clipsToBounds = true
+            } else {
+                cell = tblForChats.dequeueReusableCellWithIdentifier("imageReceivedCell") as UITableViewCell
+                var imageView = cell.viewWithTag(1) as UIImageView
+                imageView.image = image
+                imageView.contentMode = .ScaleAspectFill
+                imageView.layer.cornerRadius = 5
+                imageView.clipsToBounds = true
+            }
+            
         }
+  
+        cell.selectionStyle = UITableViewCellSelectionStyle.None;
         return cell
+    }
+    
+    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!){
+        
+        txtFldMessage.resignFirstResponder()
+        
     }
     
     func willShowKeyBoard(notification : NSNotification){
@@ -147,14 +238,15 @@ class ChatDetailViewController: UIViewController, MessageDelegate {
         var keyboardFrame = keyboardF.CGRectValue()
         
         UIView.animateWithDuration(duration, delay: 0, options:nil, animations: {
-            self.chatComposeView.frame = CGRectMake(self.chatComposeView.frame.origin.x, self.chatComposeView.frame.origin.y - keyboardFrame.size.height+self.chatComposeView.frame.size.height+3, self.chatComposeView.frame.size.width, self.chatComposeView.frame.size.height)
+            self.chatComposeView.frame = CGRectMake(self.chatComposeView.frame.origin.x, self.chatComposeView.frame.origin.y - keyboardFrame.size.height, self.chatComposeView.frame.size.width, self.chatComposeView.frame.size.height)
+            self.chatCommandView.frame = CGRectMake(self.chatCommandView.frame.origin.x, self.chatCommandView.frame.origin.y - keyboardFrame.size.height, self.chatCommandView.frame.size.width, self.chatCommandView.frame.size.height)
             
-            self.tblForChats.frame = CGRectMake(self.tblForChats.frame.origin.x, self.tblForChats.frame.origin.y, self.tblForChats.frame.size.width, self.tblForChats.frame.size.height - keyboardFrame.size.height+49);
+            self.tblForChats.frame = CGRectMake(self.tblForChats.frame.origin.x, self.tblForChats.frame.origin.y, self.tblForChats.frame.size.width, self.tblForChats.frame.size.height - keyboardFrame.size.height);
             }, completion: nil)
         
         if conversation.history.count > 0 {
             var indexPath = NSIndexPath(forRow:conversation.history.count - 1, inSection: 0)
-            tblForChats.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
+            tblForChats.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
         }
         
         
@@ -172,26 +264,22 @@ class ChatDetailViewController: UIViewController, MessageDelegate {
         var keyboardFrame = keyboardF.CGRectValue()
         
         UIView.animateWithDuration(duration, delay: 0, options:nil, animations: {
-            self.chatComposeView.frame = CGRectMake(self.chatComposeView.frame.origin.x, self.chatComposeView.frame.origin.y + keyboardFrame.size.height-self.chatComposeView.frame.size.height-3, self.chatComposeView.frame.size.width, self.chatComposeView.frame.size.height)
-            self.tblForChats.frame = CGRectMake(self.tblForChats.frame.origin.x, self.tblForChats.frame.origin.y, self.tblForChats.frame.size.width, self.tblForChats.frame.size.height + keyboardFrame.size.height-49);
+            self.chatComposeView.frame = CGRectMake(self.chatComposeView.frame.origin.x, self.chatComposeView.frame.origin.y + keyboardFrame.size.height, self.chatComposeView.frame.size.width, self.chatComposeView.frame.size.height)
+            self.chatCommandView.frame = CGRectMake(self.chatCommandView.frame.origin.x, self.chatCommandView.frame.origin.y + keyboardFrame.size.height, self.chatCommandView.frame.size.width, self.chatCommandView.frame.size.height)
+            self.tblForChats.frame = CGRectMake(self.tblForChats.frame.origin.x, self.tblForChats.frame.origin.y, self.tblForChats.frame.size.width, self.tblForChats.frame.size.height + keyboardFrame.size.height);
             }, completion: nil)
         
     }
     
     func textFieldShouldReturn (textField: UITextField!) -> Bool{
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    @IBAction func postBtnTapped() {
-       
-        let body = txtFldMessage.text
+        
+        let body = textField.text
         let user = NSUserDefaults.standardUserDefaults().stringForKey(xmppDefaultIdKey)
-
+        
         if !body.isEmpty {
             
-            let message = Message(body: body, from: user!, isDelay: false, isSentByMe: true)
-            txtFldMessage.text = ""
+            let message = Message(text: body, from: user!, isDelay: false, isSentByMe: true)
+            textField.text = ""
             
             self.addMessage(message)
             
@@ -204,11 +292,11 @@ class ChatDetailViewController: UIViewController, MessageDelegate {
             bodyXML.setStringValue(body)
             
             xml.addChild(bodyXML)
-
+            
             delegate.xmppStream.sendElement(xml)
             
         }
-
+        return true
     }
     
     func getSizeOfString(postTitle: NSString) -> CGSize {

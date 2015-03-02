@@ -11,7 +11,6 @@ import CoreData
 
 class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate, MessageDelegate {
 
-//    @IBOutlet var viewForTitle : UIView!
     @IBOutlet var btnForLogo : UIButton!
     @IBOutlet var tblForChat : UITableView!
     @IBOutlet weak var segCtrl: UISegmentedControl!
@@ -28,11 +27,11 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate, 
     func onAfterMsgReceived(message: XMPPMessage) {
         
         
-        let from = "\(message.from().user)@\(message.from().domain)"
-        let body = message.elementForName("body").stringValue()
+        let from = "\(message.from().user)@\(message.from().domain)" as NSString
+        let body = message.elementForName("body").stringValue() as NSString
         let delay = message.elementForName("delay") != nil
         
-        let unread = Message(body: body, from: from, isDelay: delay, isSentByMe: false)
+        let unread = Message(text: body, from: from, isDelay: delay, isSentByMe: false)
         
         conversationManager.addIncoming(unread, isPrivate: true)
         
@@ -83,36 +82,14 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate, 
     @IBAction func unwindToChat (segueSelected : UIStoryboardSegue) {
         
         if segueSelected.identifier == "unwindFromFriends" {
-//            if startChatWith != nil {
-//                
-//                var found = false
-//                for i in 0 ..<  privateConversations.count {
-//                    if let conversation = privateConversations.objectAtIndex(i) as? NSMutableDictionary{
-//                        if conversation.objectForKey("from")!.isEqualToString(startChatWith!) {
-//                            privateConversations.removeObject(conversation)
-//                            privateConversations.insertObject(conversation, atIndex: 0)
-//                            found = true
-//                            break
-//                        }
-//                    }
-//                }
-//        
-//                if !found {
-//                    let history = NSMutableArray()
-//                    privateConversations.insertObject(["history": history, "from": startChatWith!, "unread": true] as NSMutableDictionary, atIndex: 0)
-//                }
-//                
-//                _selectedConversation = privateConversations.objectAtIndex(0)
-//                self.performSegueWithIdentifier("slideToChat", sender: self)
-//
-//            }
+
         }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch segCtrl.selectedSegmentIndex{
         case 0:
-            return conversationManager.recentConversations.count
+            return conversationManager.recentConversations.count < 10 ? conversationManager.recentConversations.count : 10
         case 1:
             return conversationManager.publicConversations.count
         default:
@@ -128,16 +105,9 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate, 
         
         let conversation = conversationManager.getConversationAtIndex(indexPath.row, type: segCtrl.selectedSegmentIndex)
         
-        switch segCtrl.selectedSegmentIndex{
-        case 0:
-            return tblForChat.dequeueReusableCellWithIdentifier("ChatPublicCell") as UITableViewCell
-        case 1:
-            
-            return tblForChat.dequeueReusableCellWithIdentifier("ChatPublicCell") as UITableViewCell
-            
-        default:
-            
-            let cell = tblForChat.dequeueReusableCellWithIdentifier("ChatPrivateCell") as UITableViewCell
+        var cell: UITableViewCell
+        if conversation.isPrivate {
+            cell = tblForChat.dequeueReusableCellWithIdentifier("ChatPrivateCell") as UITableViewCell
             var unreadLabel = cell.viewWithTag(3)
             var timeLabel = cell.viewWithTag(4) as UILabel
             var senderLabel = cell.viewWithTag(6) as UILabel
@@ -146,8 +116,15 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate, 
             senderLabel.text = conversation.from
             
             if let lastMessage = (conversation.history.lastObject as? Message) {
-            
-                messageLabel.text = lastMessage.getBody()
+                
+                switch lastMessage.type {
+                case "text":
+                    messageLabel.text = (lastMessage.getContent() as String)
+                case "voice":
+                    messageLabel.text = "[Voice]"
+                default:
+                    messageLabel.text = "[Image]"
+                }
                 
                 let timeArray = split(lastMessage.getTimestamp()) {$0 == "@"}
                 timeLabel.text = timeArray.count > 1 ? timeArray[1] : ""
@@ -159,9 +136,11 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate, 
             } else {
                 unreadLabel!.hidden = true
             }
-            
-            return cell
+        } else {
+            cell = tblForChat.dequeueReusableCellWithIdentifier("ChatPublicCell") as UITableViewCell
         }
+            
+        return cell
         
     }
     

@@ -23,8 +23,7 @@ class ConversationManager {
             for i in 0 ..<  privateConversations.count {
                 if let conversation = privateConversations.objectAtIndex(i) as? Conversation{
                     if conversation.from == message.from {
-                        privateConversations.removeObject(conversation)
-                        privateConversations.insertObject(conversation, atIndex: 0)
+                        topConversation(conversation)
                         conversation.add(message, isIncoming: true)
                         found = true
                         break
@@ -33,9 +32,10 @@ class ConversationManager {
             }
             
             if !found {
-                let conversation = Conversation(from: message.from)
+                let conversation = Conversation(from: message.from, isPrivate: true)
                 conversation.add(message, isIncoming: true)
                 privateConversations.insertObject(conversation, atIndex: 0)
+                recentConversations.insertObject(conversation, atIndex: 0)
             }
         }
         
@@ -51,6 +51,19 @@ class ConversationManager {
             return privateConversations.objectAtIndex(index) as Conversation
         }
 
+    }
+    
+    func topConversation(conversation: Conversation) {
+        if conversation.isPrivate {
+            privateConversations.removeObject(conversation)
+            privateConversations.insertObject(conversation, atIndex: 0)
+        } else {
+            publicConversations.removeObject(conversation)
+            publicConversations.insertObject(conversation, atIndex: 0)
+        }
+        
+        recentConversations.removeObject(conversation)
+        recentConversations.insertObject(conversation, atIndex: 0)
     }
 
     
@@ -74,11 +87,13 @@ class Conversation {
     var history: NSMutableArray
     var from: String
     var unread: Int
+    var isPrivate: Bool
     
-    init(from: String){
+    init(from: String, isPrivate: Bool){
         self.history = NSMutableArray()
         self.from = from
         self.unread = 0
+        self.isPrivate = isPrivate
     }
     
     func resetUnread() {
@@ -100,17 +115,28 @@ class Conversation {
 
 class Message {
     
-    var body: String
-    var from: String
-    var isDelay: Bool
-    var isSentByMe: Bool = false
-    var timestamp: String
+    var text: NSString?
     
-    init(body: String, from: String, isDelay: Bool, isSentByMe: Bool){
-        self.body = body
+    var photo: UIImage?
+//    var thumbnailUrl: NSString?
+//    var originalUrl: NSString?
+    
+    var voicePath: NSString?
+    var voiceDuration: NSString?
+    var isRead: Bool?
+    
+    var from: NSString
+    var timestamp: NSString
+    var isDelay: Bool
+    var isSentByMe: Bool
+    var type: String
+    
+    init(text: NSString, from: NSString, isDelay: Bool, isSentByMe: Bool){
+        self.text = text
         self.from = from
         self.isDelay = isDelay
         self.isSentByMe = isSentByMe
+        self.type = "text"
         
         if(self.isDelay){
             self.timestamp = "Delayed message"
@@ -121,8 +147,51 @@ class Message {
         }
     }
     
-    func getBody() -> String {
-        return body
+    init(image: UIImage, from: NSString, isDelay: Bool, isSentByMe: Bool){
+        self.photo = image
+        self.from = from
+        self.isDelay = isDelay
+        self.isSentByMe = isSentByMe
+        self.type = "photo"
+        
+        if(self.isDelay){
+            self.timestamp = "Delayed message"
+        } else {
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy.MM.dd '@' h:mm a"
+            self.timestamp = dateFormatter.stringFromDate(NSDate())
+        }
+    }
+    
+    init(voicePath: NSString, voiceDuration: NSString, isRead: Bool, from: NSString, isDelay: Bool, isSentByMe: Bool) {
+        
+        self.voicePath = voicePath
+        self.voiceDuration = voiceDuration
+        self.isRead = isRead
+        self.from = from
+        self.isDelay = isDelay
+        self.isSentByMe = isSentByMe
+        self.type = "voice"
+        
+        if(self.isDelay){
+            self.timestamp = "Delayed message"
+        } else {
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy.MM.dd '@' h:mm a"
+            self.timestamp = dateFormatter.stringFromDate(NSDate())
+        }
+    }
+    
+    func getContent() -> AnyObject {
+        
+        switch (type) {
+        case "text":
+            return text!
+        case "voice":
+            return voicePath!
+        default:
+            return photo!
+        }
     }
     
     func getSender() -> String {
