@@ -40,6 +40,8 @@
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     
+    self.userInput.delegate = self;
+    
     [locationManager startUpdatingLocation];
     
 }
@@ -136,11 +138,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.userInput.text = [places objectAtIndex:indexPath.row];
     
-    NSString *url = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/details/json?placeid=%@&key=AIzaSyCIctGj9IUky-uH1nSWdjY8XxSW05tvChA", [placeIds objectAtIndex:indexPath.row]];
-    ASIFormDataRequest *request = [[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:url]];
-    request.tag = 22;
-    [request setDelegate:self];
-    [request startAsynchronous];
+//    NSString *url = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/details/json?placeid=%@&key=AIzaSyCIctGj9IUky-uH1nSWdjY8XxSW05tvChA", [placeIds objectAtIndex:indexPath.row]];
+//    ASIFormDataRequest *request = [[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:url]];
+//    request.tag = 22;
+//    [request setDelegate:self];
+//    [request startAsynchronous];
+    [self.delegate locationSeleted:self.userInput.text];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error

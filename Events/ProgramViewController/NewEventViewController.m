@@ -13,8 +13,9 @@
 #import "SBJSON.h"
 #import "M13Checkbox.h"
 #import "AccordionView.h"
+#import "EventLocationViewController.h"
 
-@interface NewEventViewController () {
+@interface NewEventViewController ()<EventLocationDelegate> {
     NSArray *categoryData;
     double longitude;
     double latitude;
@@ -43,7 +44,6 @@
     [checkBox setCheckAlignment:M13CheckboxAlignmentLeft];
     checkBox.frame = CGRectMake(fieldOriginX, self.eventLocationButton.frame.origin.y + self.eventLocationButton.frame.size.height + 6, fieldWidth, 14);
     [self.eventScrollView addSubview:checkBox];
-    
     
     
     AccordionView *accordion = [[AccordionView alloc] initWithFrame:CGRectMake(fieldOriginX, checkBox.frame.origin.y + checkBox.frame.size.height + 15, fieldWidth, 300)];
@@ -85,8 +85,9 @@
     
     [accordion setNeedsLayout];
     
-    
-    
+    EventLocationViewController *el = [[EventLocationViewController alloc] init];
+    el.delegate = [self;
+    [el isKindOfClass:<#(__unsafe_unretained Class)#>]
     
     places = [NSMutableArray arrayWithArray:@[]];
     placeIds = [NSMutableArray arrayWithArray:@[]];
@@ -104,6 +105,11 @@
     
     [locationManager startUpdatingLocation];
     
+}
+
+- (void)locationSeleted: (NSString *)location {
+    NSLog(@"lllocation: %@", location);
+    [self.eventLocationButton setTitle:location forState:UIControlStateNormal];
 }
 
 - (void)dateChanged:(UIDatePicker *)datePicker
