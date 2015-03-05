@@ -11,6 +11,8 @@
 		00DA80A11A9EDD5A005466EE /* AccordionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DA80A01A9EDD5A005466EE /* AccordionView.m */; };
 		00DA80A41AA040AB005466EE /* EventLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DA80A31AA040AB005466EE /* EventLocationViewController.m */; };
 		00DA80A71AA04219005466EE /* LocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DA80A61AA04219005466EE /* LocationCell.m */; };
+		20703C871AA7EA79003F36B7 /* NewEventSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20703C861AA7EA79003F36B7 /* NewEventSecondViewController.m */; };
+		20703C8A1AA7EE02003F36B7 /* SelectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20703C891AA7EE02003F36B7 /* SelectTableViewController.m */; };
 		207208A61A7432BB008F167D /* ProgramViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 207208A51A7432BB008F167D /* ProgramViewController.m */; };
 		207208A91A7432F5008F167D /* ProgramMainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 207208A81A7432F5008F167D /* ProgramMainCell.m */; };
 		207208AD1A7435DB008F167D /* CHTCollectionViewWaterfallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 207208AC1A7435DB008F167D /* CHTCollectionViewWaterfallLayout.m */; };
@@ -268,6 +270,10 @@
 		00DA80A31AA040AB005466EE /* EventLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventLocationViewController.m; sourceTree = "<group>"; };
 		00DA80A51AA04218005466EE /* LocationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationCell.h; sourceTree = "<group>"; };
 		00DA80A61AA04219005466EE /* LocationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationCell.m; sourceTree = "<group>"; };
+		20703C851AA7EA79003F36B7 /* NewEventSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewEventSecondViewController.h; sourceTree = "<group>"; };
+		20703C861AA7EA79003F36B7 /* NewEventSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewEventSecondViewController.m; sourceTree = "<group>"; };
+		20703C881AA7EE02003F36B7 /* SelectTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectTableViewController.h; sourceTree = "<group>"; };
+		20703C891AA7EE02003F36B7 /* SelectTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectTableViewController.m; sourceTree = "<group>"; };
 		207208A41A7432BB008F167D /* ProgramViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramViewController.h; sourceTree = "<group>"; };
 		207208A51A7432BB008F167D /* ProgramViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgramViewController.m; sourceTree = "<group>"; };
 		207208A71A7432F5008F167D /* ProgramMainCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramMainCell.h; sourceTree = "<group>"; };
@@ -1269,6 +1275,10 @@
 				207208C01A7DB480008F167D /* OurImagesViewController.m */,
 				00DA80A21AA040AB005466EE /* EventLocationViewController.h */,
 				00DA80A31AA040AB005466EE /* EventLocationViewController.m */,
+				20703C851AA7EA79003F36B7 /* NewEventSecondViewController.h */,
+				20703C861AA7EA79003F36B7 /* NewEventSecondViewController.m */,
+				20703C881AA7EE02003F36B7 /* SelectTableViewController.h */,
+				20703C891AA7EE02003F36B7 /* SelectTableViewController.m */,
 			);
 			path = ProgramViewController;
 			sourceTree = "<group>";
@@ -1549,6 +1559,7 @@
 				798D9E2318F15F2000A69513 /* UIImage+WebP.m in Sources */,
 				798D9E0F18F15F1400A69513 /* SDWebImageManager.m in Sources */,
 				79504C4A191F8B1F00EF3103 /* CustomDatePicker.m in Sources */,
+				20703C8A1AA7EE02003F36B7 /* SelectTableViewController.m in Sources */,
 				793508DE192138240001CC34 /* FavouriteEvents.m in Sources */,
 				79691D0518F00C8700ABD52D /* ASIDataDecompressor.m in Sources */,
 				79691CAE18EFFF1F00ABD52D /* SBJsonWriter.m in Sources */,
@@ -1603,6 +1614,7 @@
 				79691D1F18F02EA900ABD52D /* DSActivityView.m in Sources */,
 				799499EE190985A6008AC6BD /* AbouViewControllers.m in Sources */,
 				798D9E1018F15F1400A69513 /* SDWebImageDecoder.m in Sources */,
+				20703C871AA7EA79003F36B7 /* NewEventSecondViewController.m in Sources */,
 				79A36D871959DC7700C05F43 /* ProgramDescriptionViewController.m in Sources */,
 				207208A91A7432F5008F167D /* ProgramMainCell.m in Sources */,
 				00DA80A41AA040AB005466EE /* EventLocationViewController.m in Sources */,

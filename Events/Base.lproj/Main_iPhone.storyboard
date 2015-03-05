@@ -951,22 +951,32 @@
                                             <segue destination="i0E-bh-XX2" kind="push" id="tuj-9z-As3"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Description (500)" minimumFontSize="17" id="ZAG-ZC-uIi">
-                                        <rect key="frame" x="8" y="379" width="304" height="64"/>
+                                    <view contentMode="scaleToFill" id="evi-TL-A7M">
+                                        <rect key="frame" x="8" y="210" width="304" height="243"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="RhS-Bj-bPm">
-                                        <rect key="frame" x="95" y="214" width="131" height="154"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.94456018518518192" green="0.944849537037037" blue="0.94516782407407407" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <state key="normal" title="Upload Photo">
-                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <color key="titleShadowColor" red="0.82054398148148144" green="0.82054398148148144" blue="0.82479745370370372" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                    </button>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Description (500)" minimumFontSize="17" id="ZAG-ZC-uIi">
+                                                <rect key="frame" x="0.0" y="171" width="304" height="64"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="RhS-Bj-bPm">
+                                                <rect key="frame" x="87" y="9" width="131" height="154"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.94456018518518192" green="0.944849537037037" blue="0.94516782407407407" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <state key="normal" title="Upload Photo">
+                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="titleShadowColor" red="0.82054398148148144" green="0.82054398148148144" blue="0.82479745370370372" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="photoButtonTapped:" destination="TpK-UY-rjh" eventType="touchUpInside" id="hDv-uL-dKc"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
                                 </subviews>
                             </scrollView>
                         </subviews>
@@ -977,6 +987,11 @@
                             <color key="tintColor" red="0.9217171717" green="0.42538099089999998" blue="0.46247886129999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="cancleButtonTapped:" destination="TpK-UY-rjh" id="zNw-qN-qXx"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="New" id="aTc-h5-GPV">
+                            <connections>
+                                <segue destination="ymu-JQ-8Oe" kind="push" id="dai-AM-Uig"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1034,7 +1049,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="0HW-ez-1g9">
-                                                    <rect key="frame" x="8" y="0.0" width="363" height="86"/>
+                                                    <rect key="frame" x="8" y="0.0" width="683" height="129"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
                                             </subviews>
@@ -1061,6 +1076,108 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="605-2j-HW6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="481" y="-1145"/>
+        </scene>
+        <!--Create New-->
+        <scene sceneID="5TV-0T-BMx">
+            <objects>
+                <viewController id="ymu-JQ-8Oe" customClass="NewEventSecondViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="me3-R2-O7V">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ncr-ZJ-WYw">
+                                <rect key="frame" x="16" y="116" width="288" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Privacy">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="bMO-LI-gPq" kind="push" identifier="Privacy" id="Jwg-0m-jvI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wxH-XE-9Ws">
+                                <rect key="frame" x="16" y="339" width="288" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Payment Type">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="bMO-LI-gPq" kind="push" identifier="Payment" id="4yo-s9-mcp"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BW0-9y-1WR">
+                                <rect key="frame" x="16" y="269" width="288" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Maximum">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="bMO-LI-gPq" kind="push" identifier="Maximum" id="5zZ-62-uMk"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="i8P-Uh-cVl">
+                                <rect key="frame" x="16" y="198" width="288" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Category">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="bMO-LI-gPq" kind="push" identifier="Category" id="UJ5-b0-qFx"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Create New" id="mLz-XW-tPk"/>
+                    <connections>
+                        <outlet property="category" destination="i8P-Uh-cVl" id="5gt-Gq-V75"/>
+                        <outlet property="maximum" destination="BW0-9y-1WR" id="fOF-Ez-gYw"/>
+                        <outlet property="payment" destination="wxH-XE-9Ws" id="Kj8-m7-xjw"/>
+                        <outlet property="privacy" destination="ncr-ZJ-WYw" id="CL4-UI-J3v"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ADG-Im-XTY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="106" y="-130"/>
+        </scene>
+        <!--Select Table View Controller-->
+        <scene sceneID="LJV-yg-xAM">
+            <objects>
+                <tableViewController id="bMO-LI-gPq" customClass="SelectTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="O4U-eZ-CCy">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SelectCell" id="leX-cw-W4n">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="leX-cw-W4n" id="aGI-6f-YKI">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="bMO-LI-gPq" id="ZFw-ep-Fkc"/>
+                            <outlet property="delegate" destination="bMO-LI-gPq" id="d0O-PG-KWy"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="Nf5-jX-UTW"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oyk-QR-gyy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="488" y="112"/>
         </scene>
         <!--Select Image-->
         <scene sceneID="pp4-6P-CwI">
@@ -1608,6 +1725,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="RGa-7r-dfT"/>
+        <segue reference="UJ5-b0-qFx"/>
         <segue reference="vEg-fD-VNZ"/>
     </inferredMetricsTieBreakers>
 </document>

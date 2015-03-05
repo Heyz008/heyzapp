@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Teknowledge Software. All rights reserved.
 //
 
+#import "EventLocationViewController.h"
 #import "NewEventViewController.h"
 #import <Parse/Parse.h>
 #import "MyAnnotation.h"
@@ -13,7 +14,6 @@
 #import "SBJSON.h"
 #import "M13Checkbox.h"
 #import "AccordionView.h"
-#import "EventLocationViewController.h"
 
 @interface NewEventViewController ()<EventLocationDelegate> {
     NSArray *categoryData;
@@ -86,8 +86,7 @@
     [accordion setNeedsLayout];
     
     EventLocationViewController *el = [[EventLocationViewController alloc] init];
-    el.delegate = [self;
-    [el isKindOfClass:<#(__unsafe_unretained Class)#>]
+    el.locationDelegate = self;
     
     places = [NSMutableArray arrayWithArray:@[]];
     placeIds = [NSMutableArray arrayWithArray:@[]];
@@ -105,6 +104,41 @@
     
     [locationManager startUpdatingLocation];
     
+    self.uploadButton.userInteractionEnabled = YES;
+    
+}
+
+- (IBAction)photoButtonTapped:(id)sender {
+    
+    NSLog(@"yyg");
+//    UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:@"Select Sharing option:" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:
+//                            @"Share on Facebook",
+//                            @"Share on Twitter",
+//                            @"Share via E-mail",
+//                            @"Save to Camera Roll",
+//                            @"Rate this App",
+//                            nil];
+//    popup.tag = 1;
+//    [popup showInView:[UIApplication sharedApplication].keyWindow];
+}
+
+- (void)actionSheet:(UIActionSheet *)popup clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    switch (popup.tag) {
+        case 1: {
+            switch (buttonIndex) {
+                default:
+                    break;
+            }
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+- (IBAction)cancleButtonTapped:(id)sender {
+    NSLog(@"def");
 }
 
 - (void)locationSeleted: (NSString *)location {

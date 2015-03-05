@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-@interface NewEventViewController : UIViewController<UITextFieldDelegate>
+@interface NewEventViewController : UIViewController<UITextFieldDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (strong, nonatomic) IBOutlet UIScrollView *eventScrollView;
@@ -26,5 +26,6 @@
 @property (strong, nonatomic) UIButton *endDate;
 
 - (IBAction)cancleButtonTapped:(id)sender;
+- (IBAction)photoButtonTapped:(id)sender;
 
 @end

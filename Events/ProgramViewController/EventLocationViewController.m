@@ -143,8 +143,14 @@
 //    request.tag = 22;
 //    [request setDelegate:self];
 //    [request startAsynchronous];
-    [self.delegate locationSeleted:self.userInput.text];
-    [self.navigationController popViewControllerAnimated:YES];
+    id<EventLocationDelegate> strongDelegate = self.locationDelegate;
+    if (strongDelegate) {
+        [strongDelegate locationSeleted:self.userInput.text];
+        [self.navigationController popViewControllerAnimated:YES];
+        NSLog(@"eeee");
+    } else {
+        NSLog(@"hhhh");
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
