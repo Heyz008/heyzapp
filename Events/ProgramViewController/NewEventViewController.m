@@ -106,7 +106,18 @@
     
     self.uploadButton.userInteractionEnabled = YES;
     
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapReceived:)];
+    tapGestureRecognizer.cancelsTouchesInView = NO;
+    [tapGestureRecognizer setDelegate:self];
+    [self.view addGestureRecognizer:tapGestureRecognizer];
 }
+
+-(void)tapReceived:(UITapGestureRecognizer *)tapGestureRecognizer
+{
+    [self.eventName resignFirstResponder];
+    [self.eventDescription resignFirstResponder];
+}
+
 
 - (IBAction)photoButtonTapped:(id)sender {
     
