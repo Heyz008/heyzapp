@@ -26,7 +26,6 @@
 
 @implementation EventLocationViewController
 
-
 - (void)viewDidLoad {
 
     longitude = -79.4000;
@@ -52,7 +51,7 @@
     if (request.tag == 11) {
         places = [NSMutableArray arrayWithArray:@[]];
         placeIds = [NSMutableArray arrayWithArray:@[]];
-        NSLog(@"%@", request.responseString);
+        //NSLog(@"%@", request.responseString);
         SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
         NSDictionary *responseDict = [jsonParser objectWithString:request.responseString];
         NSArray *predictions = [responseDict objectForKey:@"predictions"];
@@ -143,13 +142,9 @@
 //    request.tag = 22;
 //    [request setDelegate:self];
 //    [request startAsynchronous];
-    id<EventLocationDelegate> strongDelegate = self.locationDelegate;
-    if (strongDelegate) {
-        [strongDelegate locationSeleted:self.userInput.text];
+    if ([_delegate respondsToSelector:@selector(locationSeleted:)]) {
+        [_delegate locationSeleted:self.userInput.text];
         [self.navigationController popViewControllerAnimated:YES];
-        NSLog(@"eeee");
-    } else {
-        NSLog(@"hhhh");
     }
 }
 

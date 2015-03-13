@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "EventLocationViewController.h"
 
 @interface NewEventViewController : UIViewController<UITextFieldDelegate, UIActionSheetDelegate>
 
@@ -17,15 +18,22 @@
 @property (strong, nonatomic) IBOutlet UITextField *eventName;
 @property (strong, nonatomic) IBOutlet UIButton *eventLocationButton;
 
+@property (strong, nonatomic) IBOutlet UITextField *eventFrom;
+@property (strong, nonatomic) IBOutlet UITextField *eventTo;
+
 @property (strong, nonatomic) IBOutlet UIButton *uploadButton;
 @property (strong, nonatomic) IBOutlet UITextField *eventDescription;
 
 
 @property (nonatomic, copy) NSString *selectedOurImage;
-@property (strong, nonatomic) UIButton *startDate;
-@property (strong, nonatomic) UIButton *endDate;
+@property (strong, nonatomic) IBOutlet UIButton *startDate;
+@property (strong, nonatomic) IBOutlet UIButton *endDate;
+@property (strong, nonatomic) EventLocationViewController *el;
 
 - (IBAction)cancleButtonTapped:(id)sender;
 - (IBAction)photoButtonTapped:(id)sender;
+
+- (IBAction)fromSelect:(id)sender;
+- (IBAction)toSelect:(id)sender;
 
 @end

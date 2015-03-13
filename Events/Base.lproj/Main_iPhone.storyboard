@@ -948,7 +948,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="i0E-bh-XX2" kind="push" id="tuj-9z-As3"/>
+                                            <segue destination="i0E-bh-XX2" kind="push" identifier="LocationSelect" id="tuj-9z-As3"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" id="evi-TL-A7M">
@@ -977,6 +977,36 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="e1J-SQ-8Xx">
+                                        <rect key="frame" x="8" y="124" width="304" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="fromSelect:" destination="TpK-UY-rjh" eventType="touchUpInside" id="jTj-b3-h2K"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6gl-D9-dDi">
+                                        <rect key="frame" x="8" y="157" width="304" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="toSelect:" destination="TpK-UY-rjh" eventType="touchUpInside" id="Edy-Vf-ntj"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="ldx-4h-05u">
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="mrh-4c-wu3">
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
                                 </subviews>
                             </scrollView>
                         </subviews>
@@ -998,10 +1028,14 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="cancelButton" destination="HSC-Vi-MIF" id="hFx-YR-iBe"/>
+                        <outlet property="endDate" destination="6gl-D9-dDi" id="itC-HE-XjD"/>
                         <outlet property="eventDescription" destination="ZAG-ZC-uIi" id="G6s-6X-egM"/>
+                        <outlet property="eventFrom" destination="ldx-4h-05u" id="4CB-RV-hu3"/>
                         <outlet property="eventLocationButton" destination="PYM-F5-ODZ" id="esk-aj-5gW"/>
                         <outlet property="eventName" destination="xah-4g-n4d" id="dC9-Yw-cWt"/>
                         <outlet property="eventScrollView" destination="rzO-Ho-R6Y" id="fS2-oj-jTs"/>
+                        <outlet property="eventTo" destination="mrh-4c-wu3" id="J9C-yM-YTZ"/>
+                        <outlet property="startDate" destination="e1J-SQ-8Xx" id="VT5-uK-QSh"/>
                         <outlet property="uploadButton" destination="RhS-Bj-bPm" id="uKh-zX-rMK"/>
                     </connections>
                 </viewController>
@@ -1049,7 +1083,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="0HW-ez-1g9">
-                                                    <rect key="frame" x="8" y="0.0" width="683" height="129"/>
+                                                    <rect key="frame" x="8" y="0.0" width="1003" height="172"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
                                             </subviews>

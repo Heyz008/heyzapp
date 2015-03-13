@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		00DA80971A9D926D005466EE /* M13Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DA80961A9D926D005466EE /* M13Checkbox.m */; };
-		00DA80A11A9EDD5A005466EE /* AccordionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DA80A01A9EDD5A005466EE /* AccordionView.m */; };
 		00DA80A41AA040AB005466EE /* EventLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DA80A31AA040AB005466EE /* EventLocationViewController.m */; };
 		00DA80A71AA04219005466EE /* LocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DA80A61AA04219005466EE /* LocationCell.m */; };
 		20703C871AA7EA79003F36B7 /* NewEventSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20703C861AA7EA79003F36B7 /* NewEventSecondViewController.m */; };
@@ -264,8 +263,6 @@
 /* Begin PBXFileReference section */
 		00DA80951A9D926D005466EE /* M13Checkbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13Checkbox.h; sourceTree = "<group>"; };
 		00DA80961A9D926D005466EE /* M13Checkbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13Checkbox.m; sourceTree = "<group>"; };
-		00DA809F1A9EDD5A005466EE /* AccordionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccordionView.h; sourceTree = "<group>"; };
-		00DA80A01A9EDD5A005466EE /* AccordionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccordionView.m; sourceTree = "<group>"; };
 		00DA80A21AA040AB005466EE /* EventLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventLocationViewController.h; sourceTree = "<group>"; };
 		00DA80A31AA040AB005466EE /* EventLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventLocationViewController.m; sourceTree = "<group>"; };
 		00DA80A51AA04218005466EE /* LocationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationCell.h; sourceTree = "<group>"; };
@@ -652,15 +649,6 @@
 			name = M13Checkbox;
 			sourceTree = "<group>";
 		};
-		00DA809E1A9EDD3B005466EE /* Accordion */ = {
-			isa = PBXGroup;
-			children = (
-				00DA809F1A9EDD5A005466EE /* AccordionView.h */,
-				00DA80A01A9EDD5A005466EE /* AccordionView.m */,
-			);
-			name = Accordion;
-			sourceTree = "<group>";
-		};
 		207208AA1A7435B0008F167D /* CHTCollectionViewWatefallLayout */ = {
 			isa = PBXGroup;
 			children = (
@@ -1028,7 +1016,6 @@
 		BB303D8D18B863E300B6EBC9 = {
 			isa = PBXGroup;
 			children = (
-				00DA809E1A9EDD3B005466EE /* Accordion */,
 				00DA80941A9D925C005466EE /* M13Checkbox */,
 				207208AA1A7435B0008F167D /* CHTCollectionViewWatefallLayout */,
 				79A5E24619C9064E009D4018 /* Localizable.strings */,
@@ -1566,7 +1553,6 @@
 				711221DD18BC62DD00E77A4A /* NSMutableArray+convenience.m in Sources */,
 				798D9E1118F15F1400A69513 /* SDWebImagePrefetcher.m in Sources */,
 				798D9E2018F15F2000A69513 /* NSData+ImageContentType.m in Sources */,
-				00DA80A11A9EDD5A005466EE /* AccordionView.m in Sources */,
 				791E3DEA18F320A300220BDE /* GTMNSString+HTML.m in Sources */,
 				207208BA1A7B2AB4008F167D /* NewEventViewController.m in Sources */,
 				79691D0618F00C8700ABD52D /* ASIDownloadCache.m in Sources */,
