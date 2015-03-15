@@ -16,6 +16,7 @@
 #import "CHTCollectionViewWaterfallLayout.h"
 #import "NewEventViewController.h"
 #import <Parse/Parse.h>
+#import "NSString+FontAwesome.h"
 
 @interface ProgramViewController (){
     NSMutableArray *arrayEventList;
@@ -124,6 +125,14 @@ static NSString * const reuseIdentifier = @"Cell";
     cell.layer.borderWidth=1.0f;
     cell.layer.borderColor=[UIColor colorWithRed:222.0/255 green:222.0/255 blue:222.0/255 alpha:1.0f].CGColor;
     
+    cell.eventInfo.font = [UIFont fontWithName:kFontAwesomeFamilyName size:12];
+    cell.eventInfo.text = [NSString stringWithFormat:@"%@ %d        %@ %d", [NSString fontAwesomeIconStringForIconIdentifier:@"fa-heart"], 100, [NSString fontAwesomeIconStringForIconIdentifier:@"fa-user"], 36];
+    cell.eventInfo.textColor = [UIColor colorWithRed:220/255.0 green:20/255.0 blue:60/255.0 alpha:1.0];
+    
+    CGRect cFrame = cell.eventInfo.frame;
+    cFrame.origin.y = cell.eventDescription.frame.origin.y + cell.eventDescription.frame.size.height + 3;
+    cell.eventInfo.frame = cFrame;
+    
     return cell;
 }
 
@@ -156,7 +165,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    return CGSizeMake(100, 100 + [self getLabelHeight:140 withText:[arrayEventList objectAtIndex:indexPath.row][@"description"]]);
+    return CGSizeMake(100, 112 + [self getLabelHeight:140 withText:[arrayEventList objectAtIndex:indexPath.row][@"description"]]);
 }
 
 

@@ -12,5 +12,6 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *eventImage;
 @property (strong, nonatomic) IBOutlet UILabel *eventDescription;
+@property (strong, nonatomic) IBOutlet UILabel *eventInfo;
 
 @end
