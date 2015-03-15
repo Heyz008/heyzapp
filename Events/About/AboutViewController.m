@@ -17,6 +17,9 @@
 #import "AppDelegate.h"
 #import "NSString+FontAwesome.h"
 #import "WhoIsGoingCollectionViewCell.h"
+#import "WhoIsGoingViewController.h"
+#import "DescriptionDetailViewController.h"
+#import "CommentSummaryCell.h"
 
 #import "ProgramDescriptionViewController.h"
 
@@ -49,6 +52,10 @@
     [self initializeNavigationBar];
     
     self.photos = [@[@"1.jpg", @"2.jpg", @"3.jpg", @"4.jpg", @"5.jpg"] mutableCopy];
+    
+    self.commentUsers = [@[@"You", @"MoMo", @"LuLu"] mutableCopy];
+    self.commentContents = [@[@"Very Good Event", @"I really want to go!!!", @"HeyHeyHey YoYoYo"] mutableCopy];
+    self.comments.delegate = self;
     
     self.whoIsGoing.delegate = self;
     
@@ -89,6 +96,16 @@
     else{
         self.scrollViewMain.contentSize = CGSizeMake(self.scrollViewMain.frame.size.width, vwFreeRegisterBtn.frame.origin.y+vwFreeRegisterBtn.frame.size.height+50);
     }
+    
+    CGSize scrollSize = CGSizeMake(self.scrollViewMain.frame.size.width, self.comments.frame.origin.y + self.comments.frame.size.height);
+    self.scrollViewMain.contentSize = scrollSize;
+    
+    self.likeButton.layer.cornerRadius = 6;
+    self.joinButton.layer.cornerRadius = 6;
+    self.groupButton.layer.cornerRadius = 6;
+    CGRect joinFrame = self.joinView.frame;
+    joinFrame.origin.y = self.scrollViewMain.frame.origin.y + self.scrollViewMain.frame.size.height;
+    self.joinView.frame = joinFrame;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -366,93 +383,22 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    return self.commentUsers.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.row==0)
-    {
-        static NSString *CellIdentifier = @"AboutCustomCell1";
-        AboutCustomCell1 *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            cell = [[AboutCustomCell1 alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        }
-        cell.lblEventAddress.text   =   [NSString stringWithFormat:@"%@",eventObj[@"address"]];
-        cell.lblEventName.text      =   self.eventObj[@"name"];
-        
-        CLLocation *userLocation    =   [[CLLocation alloc] initWithLatitude:[[Utility getNSUserDefaultValue:KUSERLATITUDE] floatValue] longitude:[[Utility getNSUserDefaultValue:KUSERLONGITUDE] floatValue]];
-        CLLocation *eventLocation   =   [[CLLocation alloc] initWithLatitude:[eventObj[@"latitude"] floatValue] longitude:[eventObj[@"longitude"] floatValue]];
-        CLLocationDistance distance =   [userLocation distanceFromLocation:eventLocation];
-        
-        cell.lblEventDistance.text  =   [NSString stringWithFormat:@"%.2fkm",distance/1000];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
-    }
-    else if(indexPath.row==1)
-    {
-        static NSString *CellIdentifier = @"AboutCustomCell2";
-        AboutCustomCell2 *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            cell = [[AboutCustomCell2 alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        }
-        cell.lblDateTime.text   =   self.eventObj[@"from"];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
-    }
-    else if (indexPath.row==2){
-        
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:nil];
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        }
-        
-        NSString *redText = @"Description :\n\n";
-        NSString *strDescriptionText = self.eventObj[@"description"];
-        NSString *strDesc = [NSString stringWithFormat:@"%@%@",redText,strDescriptionText];
-        NSLog(@"%@", strDesc);
-        
-        UILabel *lblDescription = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 300, descriptionTextHeight+20)];
-        lblDescription.backgroundColor = [UIColor clearColor];
-        lblDescription.numberOfLines = 0;
-        lblDescription.lineBreakMode = NSLineBreakByWordWrapping;
-        
-        NSDictionary *attribs = @{NSForegroundColorAttributeName:lblDescription.textColor,
-                                  NSFontAttributeName: lblDescription.font};
-        NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:strDesc
-                                               attributes:attribs];
-        NSRange redTextRange = [strDesc rangeOfString:redText];
-        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:252.0f/255.0f green:75.0f/255.0f blue:30.0f/255.0f alpha:1.0f]} range:redTextRange];
+    static NSString *CellIdentifier = @"CommentSummary";
+    CommentSummaryCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    cell.comment.text = self.commentContents[indexPath.row];
+    cell.username.text = self.commentUsers[indexPath.row];
     
-        NSRange grayTextRange = [strDesc rangeOfString:strDescriptionText];
-        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:127.0f/255.0f green:127.0f/255.0f blue:127.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont systemFontOfSize:14.0f]} range:grayTextRange];
-        
-        lblDescription.attributedText = attributedText;
-        [cell.contentView addSubview:lblDescription];
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
-    }
-    else
-        return nil;
+    return cell;
 }
 
 - (CGFloat) tableView: (UITableView *) tableView heightForRowAtIndexPath: (NSIndexPath *) indexPath
 {
-    switch (indexPath.row) {
-        case 0:
-            return 55;
-            break;
-        case 1:
-            return 44;
-            break;
-        case 2:
-            return descriptionTextHeight+10;
-            break;
-        default:
-            return 44;
-            break;
-    }
+    return 20;
 }
 
 #pragma mark - Navigation
@@ -461,9 +407,16 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:@"WhoIsGoingSegue"]) {
+        WhoIsGoingViewController *wig = [segue destinationViewController];
+        wig.eventImage = self.eventImageView.image;
+    } else if ([[segue identifier] isEqualToString:@"AboutDetail"]) {
+        DescriptionDetailViewController *dd = [segue destinationViewController];
+        dd.eventDescription = self.aboutContent.text;
+    }
     
-    ProgramDescriptionViewController *programDescriptionView = [segue destinationViewController];
-    programDescriptionView.strDescription = self.eventObj[@"description"];
+//    ProgramDescriptionViewController *programDescriptionView = [segue destinationViewController];
+//    programDescriptionView.strDescription = self.eventObj[@"description"];
     
 }
 /**

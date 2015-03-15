@@ -15,7 +15,7 @@
 
 #import "CustomPickerView.h"
 
-@interface AboutViewController : ViewController<loginViewDelegate,UITextFieldDelegate,UITextViewDelegate,TSMiniWebBrowserDelegate,CustomPickerDelegate,UIAlertViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>{
+@interface AboutViewController : ViewController<loginViewDelegate,UITextFieldDelegate,UITextViewDelegate,TSMiniWebBrowserDelegate,CustomPickerDelegate,UIAlertViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDelegate, UITableViewDataSource>{
     __weak IBOutlet UIView *vwFreeRegisterBtn;
 }
 
@@ -38,7 +38,14 @@
 @property (strong, nonatomic) IBOutlet UILabel *commentLabel;
 @property (strong, nonatomic) IBOutlet UITableView *comments;
 @property (strong, nonatomic) IBOutlet UILabel *whoMoreLabel;
+@property (strong, nonatomic) IBOutlet UIView *joinView;
+@property (strong, nonatomic) IBOutlet UIButton *likeButton;
+@property (strong, nonatomic) IBOutlet UIButton *groupButton;
+@property (strong, nonatomic) IBOutlet UIButton *joinButton;
 @property (strong, nonatomic) IBOutlet UILabel *commentMoreLabel;
+
+@property (strong, nonatomic) NSMutableArray *commentUsers;
+@property (strong, nonatomic) NSMutableArray *commentContents;
 
 -(IBAction)btnSubmitPressed:(id)sender;
 

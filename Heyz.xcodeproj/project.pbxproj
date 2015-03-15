@@ -15,6 +15,12 @@
 		20703C8E1AB53CD1003F36B7 /* NSString+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 20703C8D1AB53CD1003F36B7 /* NSString+FontAwesome.m */; };
 		20703C901AB53CE2003F36B7 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 20703C8F1AB53CE2003F36B7 /* FontAwesome.ttf */; };
 		20703C931AB5CE78003F36B7 /* WhoIsGoingCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20703C921AB5CE78003F36B7 /* WhoIsGoingCollectionViewCell.m */; };
+		20703C961AB5E472003F36B7 /* WhoIsGoingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20703C951AB5E472003F36B7 /* WhoIsGoingViewController.m */; };
+		20703C991AB5E792003F36B7 /* UserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20703C981AB5E792003F36B7 /* UserCell.m */; };
+		20703C9C1AB5EAAE003F36B7 /* DescriptionDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20703C9B1AB5EAAE003F36B7 /* DescriptionDetailViewController.m */; };
+		20703C9F1AB5ECD4003F36B7 /* CommentSummaryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20703C9E1AB5ECD4003F36B7 /* CommentSummaryCell.m */; };
+		20703CA21AB5F0BE003F36B7 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20703CA11AB5F0BE003F36B7 /* CommentCell.m */; };
+		20703CA81AB5F222003F36B7 /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20703CA71AB5F222003F36B7 /* CommentViewController.m */; };
 		207208A61A7432BB008F167D /* ProgramViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 207208A51A7432BB008F167D /* ProgramViewController.m */; };
 		207208A91A7432F5008F167D /* ProgramMainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 207208A81A7432F5008F167D /* ProgramMainCell.m */; };
 		207208AD1A7435DB008F167D /* CHTCollectionViewWaterfallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 207208AC1A7435DB008F167D /* CHTCollectionViewWaterfallLayout.m */; };
@@ -279,6 +285,18 @@
 		20703C8F1AB53CE2003F36B7 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
 		20703C911AB5CE78003F36B7 /* WhoIsGoingCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhoIsGoingCollectionViewCell.h; sourceTree = "<group>"; };
 		20703C921AB5CE78003F36B7 /* WhoIsGoingCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhoIsGoingCollectionViewCell.m; sourceTree = "<group>"; };
+		20703C941AB5E472003F36B7 /* WhoIsGoingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhoIsGoingViewController.h; sourceTree = "<group>"; };
+		20703C951AB5E472003F36B7 /* WhoIsGoingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhoIsGoingViewController.m; sourceTree = "<group>"; };
+		20703C971AB5E792003F36B7 /* UserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCell.h; sourceTree = "<group>"; };
+		20703C981AB5E792003F36B7 /* UserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCell.m; sourceTree = "<group>"; };
+		20703C9A1AB5EAAE003F36B7 /* DescriptionDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DescriptionDetailViewController.h; sourceTree = "<group>"; };
+		20703C9B1AB5EAAE003F36B7 /* DescriptionDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DescriptionDetailViewController.m; sourceTree = "<group>"; };
+		20703C9D1AB5ECD4003F36B7 /* CommentSummaryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentSummaryCell.h; sourceTree = "<group>"; };
+		20703C9E1AB5ECD4003F36B7 /* CommentSummaryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentSummaryCell.m; sourceTree = "<group>"; };
+		20703CA01AB5F0BE003F36B7 /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
+		20703CA11AB5F0BE003F36B7 /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
+		20703CA61AB5F222003F36B7 /* CommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentViewController.h; sourceTree = "<group>"; };
+		20703CA71AB5F222003F36B7 /* CommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentViewController.m; sourceTree = "<group>"; };
 		207208A41A7432BB008F167D /* ProgramViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramViewController.h; sourceTree = "<group>"; };
 		207208A51A7432BB008F167D /* ProgramViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgramViewController.m; sourceTree = "<group>"; };
 		207208A71A7432F5008F167D /* ProgramMainCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramMainCell.h; sourceTree = "<group>"; };
@@ -701,6 +719,12 @@
 				7112220C18BCAEFF00E77A4A /* AboutViewController.m */,
 				79A36D851959DC7700C05F43 /* ProgramDescriptionViewController.h */,
 				79A36D861959DC7700C05F43 /* ProgramDescriptionViewController.m */,
+				20703C941AB5E472003F36B7 /* WhoIsGoingViewController.h */,
+				20703C951AB5E472003F36B7 /* WhoIsGoingViewController.m */,
+				20703C9A1AB5EAAE003F36B7 /* DescriptionDetailViewController.h */,
+				20703C9B1AB5EAAE003F36B7 /* DescriptionDetailViewController.m */,
+				20703CA61AB5F222003F36B7 /* CommentViewController.h */,
+				20703CA71AB5F222003F36B7 /* CommentViewController.m */,
 			);
 			path = About;
 			sourceTree = "<group>";
@@ -714,6 +738,12 @@
 				7112222A18BCC69300E77A4A /* AboutCustomCell2.m */,
 				7112222B18BCC69300E77A4A /* AboutCustomCell3.h */,
 				7112222C18BCC69300E77A4A /* AboutCustomCell3.m */,
+				20703C971AB5E792003F36B7 /* UserCell.h */,
+				20703C981AB5E792003F36B7 /* UserCell.m */,
+				20703C9D1AB5ECD4003F36B7 /* CommentSummaryCell.h */,
+				20703C9E1AB5ECD4003F36B7 /* CommentSummaryCell.m */,
+				20703CA01AB5F0BE003F36B7 /* CommentCell.h */,
+				20703CA11AB5F0BE003F36B7 /* CommentCell.m */,
 			);
 			path = CustomCell;
 			sourceTree = "<group>";
@@ -1572,9 +1602,12 @@
 				20703C8A1AA7EE02003F36B7 /* SelectTableViewController.m in Sources */,
 				793508DE192138240001CC34 /* FavouriteEvents.m in Sources */,
 				79691D0518F00C8700ABD52D /* ASIDataDecompressor.m in Sources */,
+				20703C991AB5E792003F36B7 /* UserCell.m in Sources */,
 				79691CAE18EFFF1F00ABD52D /* SBJsonWriter.m in Sources */,
 				711221DD18BC62DD00E77A4A /* NSMutableArray+convenience.m in Sources */,
 				798D9E1118F15F1400A69513 /* SDWebImagePrefetcher.m in Sources */,
+				20703C9F1AB5ECD4003F36B7 /* CommentSummaryCell.m in Sources */,
+				20703C961AB5E472003F36B7 /* WhoIsGoingViewController.m in Sources */,
 				798D9E2018F15F2000A69513 /* NSData+ImageContentType.m in Sources */,
 				791E3DEA18F320A300220BDE /* GTMNSString+HTML.m in Sources */,
 				207208BA1A7B2AB4008F167D /* NewEventViewController.m in Sources */,
@@ -1584,6 +1617,7 @@
 				711221E418BC93D000E77A4A /* EventCalCell.m in Sources */,
 				79504C49191F8B1F00EF3103 /* CustomPickerView.m in Sources */,
 				7112220D18BCAEFF00E77A4A /* AboutViewController.m in Sources */,
+				20703CA81AB5F222003F36B7 /* CommentViewController.m in Sources */,
 				79691D0218F00C8700ABD52D /* ASIAuthenticationDialog.m in Sources */,
 				798D9E2418F15F2000A69513 /* MKAnnotationView+WebCache.m in Sources */,
 				79691D0818F00C8700ABD52D /* ASIInputStream.m in Sources */,
@@ -1593,6 +1627,7 @@
 				711221DC18BC62DD00E77A4A /* NSDate+convenience.m in Sources */,
 				79691CA918EFFF1F00ABD52D /* NSObject+SBJSON.m in Sources */,
 				207208AD1A7435DB008F167D /* CHTCollectionViewWaterfallLayout.m in Sources */,
+				20703C9C1AB5EAAE003F36B7 /* DescriptionDetailViewController.m in Sources */,
 				711221DE18BC62DD00E77A4A /* UIColor+expanded.m in Sources */,
 				793508D7192134F90001CC34 /* MMdbsupport.m in Sources */,
 				790AE0B518F9862500FBE2F2 /* RegistrationViewController.m in Sources */,
@@ -1616,6 +1651,7 @@
 				7112224118BCD7E800E77A4A /* MoreViewController.m in Sources */,
 				79691CB418EFFFF700ABD52D /* Utility.m in Sources */,
 				7920A7B11921F1B0001808B6 /* TSMiniWebBrowser.m in Sources */,
+				20703CA21AB5F0BE003F36B7 /* CommentCell.m in Sources */,
 				7112222E18BCC69300E77A4A /* AboutCustomCell2.m in Sources */,
 				79691CD318F0086100ABD52D /* Reachability.m in Sources */,
 				79691CAD18EFFF1F00ABD52D /* SBJsonParser.m in Sources */,
