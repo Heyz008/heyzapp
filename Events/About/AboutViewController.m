@@ -15,6 +15,8 @@
 #import "MyProgramViewController.h"
 #import "FavouriteEvents.h"
 #import "AppDelegate.h"
+#import "NSString+FontAwesome.h"
+#import "WhoIsGoingCollectionViewCell.h"
 
 #import "ProgramDescriptionViewController.h"
 
@@ -28,9 +30,6 @@
 @implementation AboutViewController
 @synthesize scrollViewMain, eventLocationMapView;
 @synthesize eventObj;
-@synthesize tblView;
-@synthesize eventRegisterView;
-@synthesize txtViewComment, txtFieldBookingSpaces, lblComment, lblTotalCost;
 @synthesize arrayTotalSpaces;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -49,10 +48,38 @@
 	// Do any additional setup after loading the view.
     [self initializeNavigationBar];
     
+    self.photos = [@[@"1.jpg", @"2.jpg", @"3.jpg", @"4.jpg", @"5.jpg"] mutableCopy];
+    
+    self.whoIsGoing.delegate = self;
+    
+    self.eventName.text = self.eventObj[@"title"];
+    self.eventOwner.text = [NSString stringWithFormat:@"Hosted by Heyz . %@ . %@", self.eventObj[@"privacy"], self.eventObj[@"payment"]];
+    self.eventTime.font = [UIFont fontWithName:kFontAwesomeFamilyName size:12];
+    self.eventAddress.font = [UIFont fontWithName:kFontAwesomeFamilyName size:12];
+    self.eventTime.text = [NSString stringWithFormat:@"%@  %@ - %@", [NSString fontAwesomeIconStringForIconIdentifier:@"fa-heart"], self.eventObj[@"from"], self.eventObj[@"to"]];
+    self.eventAddress.text = [NSString stringWithFormat:@"%@  %@", [NSString fontAwesomeIconStringForIconIdentifier:@"fa-heart"], self.eventObj[@"address"]];
+    PFFile *eventImageFile = self.eventObj[@"image"];
+    [eventImageFile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+        if (!error) {
+            self.eventImageView.image = [UIImage imageWithData:imageData];
+        }
+    }];
+    
+    self.aboutContent.text = self.eventObj[@"description"];
+    
+    
+    self.whoMoreLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:12];
+    self.whoMoreLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-angle-right"];
+    
+    self.aboutLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:12];
+    self.aboutLabel.text = [NSString stringWithFormat:@"Learn More   %@", [NSString fontAwesomeIconStringForIconIdentifier:@"fa-angle-right"]];
+    
+    self.commentMoreLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:12];
+    self.commentMoreLabel.text = [NSString stringWithFormat:@"View All   %@", [NSString fontAwesomeIconStringForIconIdentifier:@"fa-angle-right"]];
+    
+    
     descriptionTextHeight = [Utility getTextSize:[self.eventObj objectForKey:@"description"]textWidth:300 fontSize:14.0f lineBreakMode:NSLineBreakByWordWrapping].height;
     
-    self.tblView.frame = CGRectMake(self.tblView.frame.origin.x, self.tblView.frame.origin.y, self.tblView.frame.size.width, self.tblView.frame.size.height+descriptionTextHeight);
-    vwFreeRegisterBtn.frame = CGRectMake(vwFreeRegisterBtn.frame.origin.x, self.tblView.frame.origin.y+self.tblView.frame.size.height, vwFreeRegisterBtn.frame.size.width, vwFreeRegisterBtn.frame.size.height);
     
     if (IS_IPHONE_5) {
         self.scrollViewMain.frame = CGRectMake(self.scrollViewMain.frame.origin.x, self.scrollViewMain.frame.origin.y, self.scrollViewMain.frame.size.width, self.scrollViewMain.frame.size.height+100);
@@ -198,7 +225,7 @@
 #pragma mark - Event Registration View Clicked events
 -(IBAction)btnCancelPressed:(id)sender
 {
-    [self.eventRegisterView setHidden:YES];
+  
 }
 
 /**
@@ -290,9 +317,7 @@
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (alertView.tag == 99 || alertView.tag == 1001) {
-        [self.eventRegisterView setHidden:YES];
-    }
+
 }
 
 #pragma mark - Check login for MyFavourite and MyTickets
@@ -510,25 +535,23 @@
 
 -(void)customPickerValuePicked:(NSMutableDictionary *)values tag:(int)tag
 {
-    self.txtFieldBookingSpaces.text = [values objectForKey:@"0"];
+   
 }
 
 -(void)customPickerDidCancel
 {
-    self.txtFieldBookingSpaces.text = @"";
+   
 }
 
 #pragma Text Fields Delegates
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    [txtViewComment endEditing:YES];
-    [txtFieldBookingSpaces resignFirstResponder];
+
     
     if ([self.arrayTotalSpaces count]>0) {
         [self showCustomPicker];
     }
     else{
-        [txtViewComment resignFirstResponder];
         [self.view endEditing:YES];
         [Utility alertNotice:@"" withMSG:@"Not Available" cancleButtonTitle:@"OK" otherButtonTitle:nil];
     }
@@ -544,9 +567,6 @@
 {
     [textView resignFirstResponder];
     [textView endEditing:YES];
-    [txtViewComment resignFirstResponder];
-    [self.eventRegisterView endEditing:YES];
-    [txtViewComment endEditing:YES];
     return YES;
 }
 
@@ -554,16 +574,11 @@
 {
     [textView resignFirstResponder];
     [textView endEditing:YES];
-    [txtViewComment resignFirstResponder];
-    [self.eventRegisterView endEditing:YES];
-    [txtViewComment endEditing:YES];
 }
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     if ([text isEqualToString:@"\n"]) {
-        
-        [self.txtViewComment resignFirstResponder];
         return YES;
     }
     return YES;
@@ -572,24 +587,31 @@
 #pragma mark - Validation check
 -(BOOL)isValid
 {
-    if (![self.arrayTotalSpaces count]>0) {
-        return YES;
-    }
-    else{
-        NSString *strMessage = @"";
-        if (![self.txtFieldBookingSpaces.text length]>0) {
-            strMessage = @"Please enter Booking spaces";
-        }
-        else if (![self.txtViewComment.text length]>0){
-            strMessage = @"Please enter comment";
-        }
-        
-        if ([strMessage length]>0) {
-            [Utility alertNotice:@"" withMSG:strMessage cancleButtonTitle:@"OK" otherButtonTitle:nil];
-            return NO;
-        }
-        return YES;
-    }
+    return YES;
+
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    
+    return [self.photos count];
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    static NSString *CellIdentifier = @"WhoIsGoing";
+    WhoIsGoingCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    cell.photo.image = [UIImage imageNamed:[self.photos objectAtIndex:indexPath.row]];
+    cell.photo.layer.cornerRadius = cell.photo.frame.size.width / 2;
+    cell.photo.clipsToBounds = YES;
+    cell.backgroundColor = [UIColor whiteColor];
+    
+    
+    return cell;
 }
 
 @end

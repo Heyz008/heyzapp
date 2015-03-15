@@ -15,21 +15,30 @@
 
 #import "CustomPickerView.h"
 
-@interface AboutViewController : ViewController<loginViewDelegate,UITextFieldDelegate,UITextViewDelegate,TSMiniWebBrowserDelegate,CustomPickerDelegate,UIAlertViewDelegate>{
+@interface AboutViewController : ViewController<loginViewDelegate,UITextFieldDelegate,UITextViewDelegate,TSMiniWebBrowserDelegate,CustomPickerDelegate,UIAlertViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>{
     __weak IBOutlet UIView *vwFreeRegisterBtn;
 }
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollViewMain;
 @property (strong, nonatomic) IBOutlet MKMapView *eventLocationMapView;
 @property (strong, nonatomic) PFObject *eventObj;
-@property (strong, nonatomic) IBOutlet UITableView *tblView;
-
-@property (strong, nonatomic) IBOutlet UIView *eventRegisterView;
-@property (strong, nonatomic) IBOutlet UITextField *txtFieldBookingSpaces;
-@property (strong, nonatomic) IBOutlet UILabel *lblTotalCost, *lblComment;
-@property (strong, nonatomic) IBOutlet UITextView *txtViewComment;
 
 @property (strong, nonatomic) NSMutableArray *arrayTotalSpaces;
+@property (strong, nonatomic) NSMutableArray *photos;
+@property (strong, nonatomic) IBOutlet UIImageView *eventImageView;
+@property (strong, nonatomic) IBOutlet UILabel *eventName;
+@property (strong, nonatomic) IBOutlet UILabel *eventOwner;
+@property (strong, nonatomic) IBOutlet UILabel *eventTime;
+@property (strong, nonatomic) IBOutlet UILabel *eventAddress;
+
+@property (strong, nonatomic) IBOutlet UILabel *whoIsGoingLabel;
+@property (strong, nonatomic) IBOutlet UICollectionView *whoIsGoing;
+@property (strong, nonatomic) IBOutlet UILabel *aboutLabel;
+@property (strong, nonatomic) IBOutlet UILabel *aboutContent;
+@property (strong, nonatomic) IBOutlet UILabel *commentLabel;
+@property (strong, nonatomic) IBOutlet UITableView *comments;
+@property (strong, nonatomic) IBOutlet UILabel *whoMoreLabel;
+@property (strong, nonatomic) IBOutlet UILabel *commentMoreLabel;
 
 -(IBAction)btnSubmitPressed:(id)sender;
 

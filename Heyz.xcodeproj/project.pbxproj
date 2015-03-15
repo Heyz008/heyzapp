@@ -14,6 +14,7 @@
 		20703C8A1AA7EE02003F36B7 /* SelectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20703C891AA7EE02003F36B7 /* SelectTableViewController.m */; };
 		20703C8E1AB53CD1003F36B7 /* NSString+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 20703C8D1AB53CD1003F36B7 /* NSString+FontAwesome.m */; };
 		20703C901AB53CE2003F36B7 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 20703C8F1AB53CE2003F36B7 /* FontAwesome.ttf */; };
+		20703C931AB5CE78003F36B7 /* WhoIsGoingCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20703C921AB5CE78003F36B7 /* WhoIsGoingCollectionViewCell.m */; };
 		207208A61A7432BB008F167D /* ProgramViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 207208A51A7432BB008F167D /* ProgramViewController.m */; };
 		207208A91A7432F5008F167D /* ProgramMainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 207208A81A7432F5008F167D /* ProgramMainCell.m */; };
 		207208AD1A7435DB008F167D /* CHTCollectionViewWaterfallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 207208AC1A7435DB008F167D /* CHTCollectionViewWaterfallLayout.m */; };
@@ -276,6 +277,8 @@
 		20703C8C1AB53CD1003F36B7 /* NSString+FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FontAwesome.h"; sourceTree = "<group>"; };
 		20703C8D1AB53CD1003F36B7 /* NSString+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FontAwesome.m"; sourceTree = "<group>"; };
 		20703C8F1AB53CE2003F36B7 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
+		20703C911AB5CE78003F36B7 /* WhoIsGoingCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhoIsGoingCollectionViewCell.h; sourceTree = "<group>"; };
+		20703C921AB5CE78003F36B7 /* WhoIsGoingCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhoIsGoingCollectionViewCell.m; sourceTree = "<group>"; };
 		207208A41A7432BB008F167D /* ProgramViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramViewController.h; sourceTree = "<group>"; };
 		207208A51A7432BB008F167D /* ProgramViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgramViewController.m; sourceTree = "<group>"; };
 		207208A71A7432F5008F167D /* ProgramMainCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramMainCell.h; sourceTree = "<group>"; };
@@ -746,6 +749,8 @@
 				207208A81A7432F5008F167D /* ProgramMainCell.m */,
 				00DA80A51AA04218005466EE /* LocationCell.h */,
 				00DA80A61AA04219005466EE /* LocationCell.m */,
+				20703C911AB5CE78003F36B7 /* WhoIsGoingCollectionViewCell.h */,
+				20703C921AB5CE78003F36B7 /* WhoIsGoingCollectionViewCell.m */,
 			);
 			path = ProgramCustomCell;
 			sourceTree = "<group>";
@@ -1614,6 +1619,7 @@
 				7112222E18BCC69300E77A4A /* AboutCustomCell2.m in Sources */,
 				79691CD318F0086100ABD52D /* Reachability.m in Sources */,
 				79691CAD18EFFF1F00ABD52D /* SBJsonParser.m in Sources */,
+				20703C931AB5CE78003F36B7 /* WhoIsGoingCollectionViewCell.m in Sources */,
 				79691D0418F00C8700ABD52D /* ASIDataCompressor.m in Sources */,
 				79691D1F18F02EA900ABD52D /* DSActivityView.m in Sources */,
 				799499EE190985A6008AC6BD /* AbouViewControllers.m in Sources */,

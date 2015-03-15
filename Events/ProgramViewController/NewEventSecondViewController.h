@@ -23,6 +23,7 @@
 @property (strong, nonatomic) NSString *eEnd;
 @property (strong, nonatomic) UIImage *eImage;
 @property (strong, nonatomic) NSString *eDescription;
+@property (strong, nonatomic) NSString *eAddress;
 
 -(IBAction)createNewEvent:(id)sender;
 

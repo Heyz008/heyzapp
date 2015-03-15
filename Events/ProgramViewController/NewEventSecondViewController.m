@@ -98,6 +98,7 @@
     event[@"longitude"] = [NSString stringWithFormat:@"%f", self.eLongitude];
     event[@"from"] = self.eStart;
     event[@"to"] = self.eEnd;
+    event[@"address"] = self.eAddress;
     event[@"category"] = categories[categoryIndex];
     event[@"privacy"] = privacys[privacyIndex];
     event[@"maximum"] = maximums[maximumIndex];

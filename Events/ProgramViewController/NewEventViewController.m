@@ -241,6 +241,7 @@
         ne.eStart = eventStart;
         ne.eEnd = eventEnd;
         ne.eImage = eventImage;
+        ne.eAddress = self.eventLocationButton.titleLabel.text;
     }
 }
 
