@@ -14,7 +14,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     
-    let delegate = UIApplication.sharedApplication().delegate as AppDelegate
+    let userManager = UserManager.singleton
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,25 +47,29 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         let confirmPassword: NSString = confirmPasswordTextField.text
         
         if(email.isEqualToString("") || password.isEqualToString("") || confirmPassword.isEqualToString("") || email.isEqualToString("")){
-            var alertView: UIAlertView = UIAlertView()
-            alertView.title = "Log in Failed!"
-            alertView.message = "All fields are required."
-            alertView.delegate = self
-            alertView.addButtonWithTitle("OK")
-            alertView.show()
+            
+            let alertController = UIAlertController(title: "Registration failed", message: "All fields are required.", preferredStyle: .Alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            
+            alertController.addAction(defaultAction)
+            
+            presentViewController(alertController, animated: true, completion: nil)
+            
         } else if (!password.isEqualToString(confirmPassword)) {
-            var alertView: UIAlertView = UIAlertView()
-            alertView.title = "Log in Failed!"
-            alertView.message = "Passwords do not match."
-            alertView.delegate = self
-            alertView.addButtonWithTitle("OK")
-            alertView.show()
+            
+            let alertController = UIAlertController(title: "Registration failed", message: "Passwords do not match.", preferredStyle: .Alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            
+            alertController.addAction(defaultAction)
+            
+            presentViewController(alertController, animated: true, completion: nil)
+            
         } else {
             
-            setField(emailTextField, forKey: xmppDefaultIdKey)
-            setField(passwordTextField, forKey: xmppDefaultPwdKey)
+            setField(emailTextField, forKey: appDefaultIdKey)
+            setField(passwordTextField, forKey: appDefaultPwdKey)
             
-            delegate.disconnect()
+            userManager.signupInBackground(email, password: password, email: email, sender: self)
             
         }
 

@@ -10,3 +10,4 @@
 #import "AppDelegate.h"
 #import "XMPP.h"
 #import <Parse/Parse.h>
+#import <ParseFacebookUtils/PFFacebookUtils.h>

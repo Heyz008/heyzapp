@@ -12,10 +12,71 @@ class FriendsTableViewController: UITableViewController {
 
     @IBOutlet var friendsTableView: UITableView!
     
-//    let userManager: UserManager = UserManager.singleton
+    let userManager: UserManager = UserManager.singleton
     
-    var friendList = [String]()
+    var requests = [String]()
+    var friends = [String]()
     var selected: NSIndexPath?
+    
+    func onAfterRequestAction(fromUser: String, accepted: Bool){
+        
+        for i in 0 ..< requests.count {
+            if requests[i] == fromUser {
+                requests.removeAtIndex(i)
+                break
+            }
+        }
+        
+        if accepted {
+            friends.append(fromUser)
+        }
+        
+        
+        friendsTableView.reloadData()
+    }
+    
+    @IBAction func sendFriendRequest(){
+        
+        let alertController = UIAlertController(title: "Send Friend Request", message: "Please enter email address below", preferredStyle: .Alert)
+        
+        alertController.addTextFieldWithConfigurationHandler(nil)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
+        let resetAction = UIAlertAction(title: "Send", style: .Default, handler: { (action: UIAlertAction!) -> Void in
+            if let textField = alertController.textFields!.first as? UITextField {
+                self.userManager.sendFriendRequest(textField.text, sender: self)
+            }
+            
+        })
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(resetAction)
+        
+        presentViewController(alertController, animated: true, completion: nil)
+
+    }
+    
+    func update(){
+        
+        userManager.updatePendingRequests(self)
+        userManager.updateFriends(self)
+
+    }
+    
+    func acceptFriendRequest(sender: AnyObject){
+        let buttonPosition = sender.convertPoint(CGPointZero, toView: self.tableView)
+        if let indexPath = self.tableView.indexPathForRowAtPoint(buttonPosition){
+            
+            userManager.acceptFriendRequest(requests[indexPath.row], sender: self)
+        }
+    }
+    
+    func denyFriendRequest(sender: AnyObject){
+        let buttonPosition = sender.convertPoint(CGPointZero, toView: self.tableView)
+        if let indexPath = self.tableView.indexPathForRowAtPoint(buttonPosition){
+            userManager.denyFriendRequest(requests[indexPath.row], sender: self)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,13 +90,7 @@ class FriendsTableViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         
-//        userManager.getContactsForUser({ (users: [String]) -> ()  in
-//            self.friendList = users
-//            self.friendsTableView.reloadData()
-//        })
-        
-        selected = nil
-        
+        update()
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,9 +98,21 @@ class FriendsTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "Your Pending Friend Request"
+        } else {
+            return "Your Friend List"
+        }
+    }
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        selected = indexPath
-        self.performSegueWithIdentifier("unwindFromFriends", sender: self)
+        
+        if indexPath.section == 1 {
+            selected = indexPath
+            self.performSegueWithIdentifier("unwindFromFriends", sender: self)
+        }
+        
     }
 
     // MARK: - Table view data source
@@ -53,30 +120,49 @@ class FriendsTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 1
+        return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return friendList.count
+        return section == 0 ? requests.count : friends.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("friendCell", forIndexPath: indexPath) as UITableViewCell
+        
+        var cell: UITableViewCell!
+        if indexPath.section == 0 {
+            cell = tableView.dequeueReusableCellWithIdentifier("requestCell") as UITableViewCell
+            
+            var textLabel = cell.viewWithTag(1) as UILabel
+            textLabel.text = requests[indexPath.row]
+            cell.selectionStyle = UITableViewCellSelectionStyle.None;
+            
+            var acceptBtn = cell.viewWithTag(2) as UIButton
+            acceptBtn.addTarget(self, action: "acceptFriendRequest:", forControlEvents: .TouchUpInside)
+            
+            var denyBtn = cell.viewWithTag(3) as UIButton
+            denyBtn.addTarget(self, action: "denyFriendRequest:", forControlEvents: .TouchUpInside)
 
-        var textLabel = cell.viewWithTag(1) as UILabel
-        textLabel.text = friendList[indexPath.row]
+        } else {
+            cell = tableView.dequeueReusableCellWithIdentifier("friendCell") as UITableViewCell
+            
+            var textLabel = cell.viewWithTag(1) as UILabel
+            textLabel.text = friends[indexPath.row]
 
+        }
+        
         return cell
+        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "unwindFromFriends"{
             if selected != nil {
                 var chatViewController = segue.destinationViewController as ChatViewController
-                chatViewController.startChatWith = friendList[selected!.row]
+//                chatViewController.startChatWith = friendList[selected!.row]
             }
             
             

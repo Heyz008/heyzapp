@@ -16,11 +16,15 @@
 
 #define xmppDefaultIdKey @"XMPPAccount.JID"
 #define xmppDefaultPwdKey @"XMPPAccount.PWD"
+#define xmppDomain @"@heyzapp.local"
+#define appDefaultIdKey @"HeyzAccount.ID"
+#define appDefaultPwdKey @"HeyzAccount.PWD"
 
 @protocol MessageDelegate;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, XMPPStreamDelegate, XMPPRosterDelegate>
 {
+    
     XMPPStream *xmppStream;
     XMPPReconnect *xmppReconnect;
     XMPPRoster *xmppRoster;
@@ -42,6 +46,9 @@
 @property (nonatomic, strong, readonly) XMPPReconnect *xmppReconnect;
 @property (nonatomic, strong, readonly) XMPPRoster *xmppRoster;
 @property (nonatomic, strong, readonly) XMPPRosterCoreDataStorage *xmppRosterStorage;
+
+@property (nonatomic, assign) BOOL isRegistering;
+@property (nonatomic, assign) BOOL isFromFacebook;
 
 @property (nonatomic, weak) id<MessageDelegate> messageDelegate;
 

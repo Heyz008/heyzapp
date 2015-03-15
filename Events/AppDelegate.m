@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
+#import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "Heyz-Swift.h"
 
 @implementation AppDelegate
@@ -28,8 +29,11 @@
     [Parse enableLocalDatastore];
     
     // Initialize Parse.
-    [Parse setApplicationId:@"vWIlHBxm55dI51Me35OsTGbrdVHHpAHitZuHpXk1"
-                  clientKey:@"zA8MJhPFcOhZXWpWjB5xpFrWxkIm2tYgiobVDU9z"];
+    [Parse setApplicationId:@"1tam75qsTfjU6aRnjmmW5QzRTw46fBgHdcaW5Piz"
+                  clientKey:@"ShLXF9OwL5QQloChpNLXkjLgaLAxEC99zLAYIn83"];
+    [PFFacebookUtils initializeFacebook];
+    [PFTwitterUtils initializeWithConsumerKey:@"wiYVBvdveVRhNxaBwRkLr3LTt"
+                               consumerSecret:@"6L9LA8A5xxcpkCTlLLoCP60YkWKS1KEGwNBG5epZjSvH5JlYUH"];
     
     // [Optional] Track statistics around application opens.
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
@@ -38,17 +42,22 @@
     [MMdbsupport MMinitializeDb];
     [MMdbsupport MMOpenDataBase];
     
+    self.isRegistering = NO;
+    self.isFromFacebook = NO;
+    
+    UserManager *userManager = UserManager.singleton;
+    
+//        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.0 * NSEC_PER_SEC);
+//        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
+//            SigninViewController *signinViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+//            [self.window makeKeyAndVisible];
+//            [self.window.rootViewController presentViewController:signinViewController animated:YES completion:NULL];
+//            
+//        });
     [self setupStream];
-    if (![self connect]) {
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.0 * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
-            SigninViewController *signinViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-            [self.window makeKeyAndVisible];
-            [self.window.rootViewController presentViewController:signinViewController animated:YES completion:NULL];
-            
-        });
-    }
+    [self.window makeKeyAndVisible];
+    [userManager loginInBackground:self.window.rootViewController];
 
     return YES;
 }
@@ -73,6 +82,8 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -94,6 +105,15 @@
             abort();
         }
     }
+}
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    return [FBAppCall handleOpenURL:url
+                  sourceApplication:sourceApplication
+                        withSession:[PFFacebookUtils session]];
 }
 
 #pragma mark - Core Data stack
@@ -275,9 +295,21 @@
     isXmppConnected = YES;
     NSError *error = nil;
     
-    if(![[self xmppStream] authenticateWithPassword:password error:&error]){
-        NSLog(@"Error Authenticating...");
+    BOOL operationInProgress;
+    
+    if (self.isRegistering) {
+        operationInProgress = [[self xmppStream] registerWithPassword:password error:&error];
+    } else {
+        operationInProgress = [[self xmppStream] authenticateWithPassword:password error:&error];
     }
+    
+    if (!operationInProgress) {
+        NSLog(@"error after did connect");
+    }
+    
+//    if(![[self xmppStream] authenticateWithPassword:password error:&error]){
+//        NSLog(@"Error Authenticating...");
+//    }
 
     
 }
@@ -328,11 +360,23 @@
     
     NSLog(@"Registered user.");
     
+    self.isRegistering = NO;
+    
+    if (self.isFromFacebook) {
+        NSError *error = nil;
+        [[self xmppStream] authenticateWithPassword:password error:&error];
+    }
+    
+    self.isFromFacebook = NO;
+    
 }
 
 - (void)xmppStream:(XMPPStream *)sender didNotRegister:(DDXMLElement *)error{
     
     NSLog(@"Failed to register user.");
+    
+    self.isRegistering = NO;
+    self.isFromFacebook = NO;
 
 }
 

@@ -15,7 +15,7 @@ class SigninViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet var txtForEmail : UITextField!
     @IBOutlet var txtForPassword : UITextField!
     
-    let delegate = UIApplication.sharedApplication().delegate as AppDelegate
+    let userManager = UserManager.singleton
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -48,8 +48,6 @@ class SigninViewController: UIViewController, UITextFieldDelegate{
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-//        txtForEmail.text = NSUserDefaults.standardUserDefaults().stringForKey(xmppDefaultJID)
-//        txtForPassword.text = NSUserDefaults.standardUserDefaults().stringForKey(xmppDefaultPassword)
     }
     
     func willShowKeyBoard(notification : NSNotification){
@@ -116,35 +114,56 @@ class SigninViewController: UIViewController, UITextFieldDelegate{
         let password: NSString = txtForPassword.text
         
         if user.isEqualToString("") || password.isEqualToString(""){
-            var alertView: UIAlertView = UIAlertView()
-            alertView.title = "Log in failed"
-            alertView.message = "Please enter your username and password"
-            alertView.delegate = self
-            alertView.addButtonWithTitle("OK")
-            alertView.show()
+            
+            let alertController = UIAlertController(title: "Log in failed", message: "Please enter your username and password", preferredStyle: .Alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            
+            alertController.addAction(defaultAction)
+            
+            presentViewController(alertController, animated: true, completion: nil)
+            
         } else {
             
-            setField(txtForEmail, forKey: xmppDefaultIdKey)
-            setField(txtForPassword, forKey: xmppDefaultPwdKey)
+            setField(txtForEmail, forKey: appDefaultIdKey)
+            setField(txtForPassword, forKey: appDefaultPwdKey)
             
-            if delegate.connect() {
-                self.dismissViewControllerAnimated(true, completion: nil)
-            }
+            userManager.login(self)
         }
         
     }
 
     @IBAction func facebookBtnTapped() {
-//        self.dismissViewControllerAnimated(true, completion: nil);
+        
+        userManager.loginViaFacebook(self)
     }
     
     @IBAction func twitterBtnTapped() {
-//        self.dismissViewControllerAnimated(true, completion: nil);
+        
+        userManager.loginViaTwitter(self)
     }
     
     @IBAction func forgotPasswordBtnTapped() {
-//        self.dismissViewControllerAnimated(true, completion: nil);  
+        
+        let alertController = UIAlertController(title: "Reset Password", message: "Please enter your email address below", preferredStyle: .Alert)
+        
+        alertController.addTextFieldWithConfigurationHandler(nil)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
+        let resetAction = UIAlertAction(title: "Reset", style: .Destructive, handler: { (action: UIAlertAction!) -> Void in
+            if let textField = alertController.textFields!.first as? UITextField {
+                self.userManager.resetPassword(textField.text, sender: self)
+            }
+            
+        })
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(resetAction)
+        
+        presentViewController(alertController, animated: true, completion: nil)
+        
     }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

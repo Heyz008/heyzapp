@@ -80,16 +80,6 @@ class ChatDetailViewController: UIViewController, MessageDelegate, UIImagePicker
         xml.addAttributeWithName("from", stringValue: user!)
 //        xml.addAttributeWithName("bodyType", stringValue: "photo")
         
-        let photoXml = DDXMLElement.elementWithName("data") as DDXMLElement
-//        let test = UIImage(named:"chat_camera")!
-        let dataPic = UIImagePNGRepresentation(image)
-        let base64String = dataPic.base64EncodedStringWithOptions(nil)
-
-        photoXml.setStringValue(base64String)
-        println(base64String)
-        
-        xml.addChild(photoXml)
-        
         delegate.xmppStream.sendElement(xml)
         
     }
