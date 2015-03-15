@@ -12,8 +12,15 @@
 #import "ASIHTTPRequest.h"
 #import "SBJSON.h"
 #import "M13Checkbox.h"
+#import "NewEventSecondViewController.h"
 
-@interface NewEventViewController ()<EventLocationViewControllerDelegate>
+@interface NewEventViewController ()<EventLocationViewControllerDelegate> {
+    CGFloat latitude;
+    CGFloat longitude;
+    NSString *eventStart;
+    NSString *eventEnd;
+    UIImage *eventImage;
+}
 
 @end
 
@@ -26,8 +33,11 @@
     CGFloat fieldOriginX = self.eventName.frame.origin.x;
     CGFloat fieldWidth = self.eventName.frame.size.width;
     
+    self.eventDescription.tag = 99;
+    self.eventDescription.delegate = self;
+    
     M13Checkbox *checkBox = [[M13Checkbox alloc] initWithTitle:@"This is an online event"];
-    checkBox.titleLabel.font = [UIFont systemFontOfSize:14];
+    checkBox.titleLabel.font = [UIFont systemFontOfSize:12];
     checkBox.strokeColor = [UIColor blackColor];
     checkBox.checkColor = [UIColor blackColor];
     [checkBox setCheckAlignment:M13CheckboxAlignmentLeft];
@@ -131,6 +141,28 @@
     switch (popup.tag) {
         case 1: {
             switch (buttonIndex) {
+                case 0: {
+                    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+                        UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                        
+                        UIImagePickerController * picker = [[UIImagePickerController alloc]init];
+                        picker.delegate = self;
+                        picker.allowsEditing=YES;
+                        picker.sourceType = sourceType;
+                        [self presentViewController:picker animated:YES completion:nil];
+                    }
+                }
+                case 1:{
+                    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+                        UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
+                        
+                        UIImagePickerController * picker = [[UIImagePickerController alloc]init];
+                        picker.delegate = self;
+                        picker.allowsEditing=YES;
+                        picker.sourceType = sourceType;
+                        [self presentViewController:picker animated:YES completion:nil];
+                    }
+                }
                 default:
                     break;
             }
@@ -141,12 +173,23 @@
     }
 }
 
+-(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    eventImage = [info objectForKey:UIImagePickerControllerEditedImage];
+    UIImage *originalImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+    [self.uploadButton setBackgroundImage:eventImage forState:UIControlStateNormal];
+    [self.uploadButton setTitle:@"" forState:UIControlStateNormal];
+}
+
 - (IBAction)cancleButtonTapped:(id)sender {
     NSLog(@"def");
 }
 
-- (void)locationSeleted: (NSString *)location {
+-(void)locationSeleted:(NSString*)location latitude:(CGFloat)latitude1 longitude:(CGFloat)longitude1 {
     [self.eventLocationButton setTitle:location forState:UIControlStateNormal];
+    latitude = latitude1;
+    longitude = longitude1;
 }
 
 - (void)dateChanged:(UIDatePicker *)datePicker
@@ -155,9 +198,29 @@
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     NSString *strDate = [dateFormatter stringFromDate:datePicker.date];
     if (datePicker.tag == 1) {
+        eventStart = strDate;
         [self.startDate setTitle:[NSString stringWithFormat:@" Starts            %@", strDate] forState:UIControlStateNormal];
     } else if (datePicker.tag == 2) {
+        eventEnd = strDate;
         [self.endDate setTitle:[NSString stringWithFormat:@" Ends              %@", strDate] forState:UIControlStateNormal];
+    }
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (textField.tag == 99) {
+        CGRect newFrame = self.eventScrollView.frame;
+        newFrame.origin.y = self.eventScrollView.frame.origin.y - 200;
+        self.eventScrollView.frame = newFrame;
+    }
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (textField.tag == 99) {
+        CGRect newFrame = self.eventScrollView.frame;
+        newFrame.origin.y = self.eventScrollView.frame.origin.y + 200;
+        self.eventScrollView.frame = newFrame;
     }
 }
 
@@ -169,6 +232,15 @@
     if ([[segue identifier] isEqualToString:@"LocationSelect"]) {
         EventLocationViewController *el = [segue destinationViewController];
         el.delegate = self;
+    } else if ([[segue identifier] isEqualToString:@"NewEvent"]) {
+        NewEventSecondViewController *ne = [segue destinationViewController];
+        ne.eName = self.eventName.text;
+        ne.eDescription = self.eventDescription.text;
+        ne.eLatitude = latitude;
+        ne.eLongitude = longitude;
+        ne.eStart = eventStart;
+        ne.eEnd = eventEnd;
+        ne.eImage = eventImage;
     }
 }
 

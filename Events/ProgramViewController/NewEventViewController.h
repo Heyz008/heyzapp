@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 #import "EventLocationViewController.h"
 
-@interface NewEventViewController : UIViewController<UITextFieldDelegate, UIActionSheetDelegate>
+@interface NewEventViewController : UIViewController<UITextFieldDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (strong, nonatomic) IBOutlet UIScrollView *eventScrollView;

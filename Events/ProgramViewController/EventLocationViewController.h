@@ -11,7 +11,7 @@
 
 @protocol EventLocationViewControllerDelegate <NSObject>
 @required
--(void)locationSeleted:(NSString*)location;
+-(void)locationSeleted:(NSString*)location latitude:(CGFloat)latitude longitude:(CGFloat)longitude;
 
 @end
 

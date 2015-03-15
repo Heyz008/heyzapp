@@ -12,6 +12,8 @@
 		00DA80A71AA04219005466EE /* LocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DA80A61AA04219005466EE /* LocationCell.m */; };
 		20703C871AA7EA79003F36B7 /* NewEventSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20703C861AA7EA79003F36B7 /* NewEventSecondViewController.m */; };
 		20703C8A1AA7EE02003F36B7 /* SelectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20703C891AA7EE02003F36B7 /* SelectTableViewController.m */; };
+		20703C8E1AB53CD1003F36B7 /* NSString+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 20703C8D1AB53CD1003F36B7 /* NSString+FontAwesome.m */; };
+		20703C901AB53CE2003F36B7 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 20703C8F1AB53CE2003F36B7 /* FontAwesome.ttf */; };
 		207208A61A7432BB008F167D /* ProgramViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 207208A51A7432BB008F167D /* ProgramViewController.m */; };
 		207208A91A7432F5008F167D /* ProgramMainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 207208A81A7432F5008F167D /* ProgramMainCell.m */; };
 		207208AD1A7435DB008F167D /* CHTCollectionViewWaterfallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 207208AC1A7435DB008F167D /* CHTCollectionViewWaterfallLayout.m */; };
@@ -271,6 +273,9 @@
 		20703C861AA7EA79003F36B7 /* NewEventSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewEventSecondViewController.m; sourceTree = "<group>"; };
 		20703C881AA7EE02003F36B7 /* SelectTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectTableViewController.h; sourceTree = "<group>"; };
 		20703C891AA7EE02003F36B7 /* SelectTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectTableViewController.m; sourceTree = "<group>"; };
+		20703C8C1AB53CD1003F36B7 /* NSString+FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FontAwesome.h"; sourceTree = "<group>"; };
+		20703C8D1AB53CD1003F36B7 /* NSString+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FontAwesome.m"; sourceTree = "<group>"; };
+		20703C8F1AB53CE2003F36B7 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
 		207208A41A7432BB008F167D /* ProgramViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramViewController.h; sourceTree = "<group>"; };
 		207208A51A7432BB008F167D /* ProgramViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgramViewController.m; sourceTree = "<group>"; };
 		207208A71A7432F5008F167D /* ProgramMainCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramMainCell.h; sourceTree = "<group>"; };
@@ -649,6 +654,15 @@
 			name = M13Checkbox;
 			sourceTree = "<group>";
 		};
+		20703C8B1AB53CC0003F36B7 /* fontawesome */ = {
+			isa = PBXGroup;
+			children = (
+				20703C8C1AB53CD1003F36B7 /* NSString+FontAwesome.h */,
+				20703C8D1AB53CD1003F36B7 /* NSString+FontAwesome.m */,
+			);
+			name = fontawesome;
+			sourceTree = "<group>";
+		};
 		207208AA1A7435B0008F167D /* CHTCollectionViewWatefallLayout */ = {
 			isa = PBXGroup;
 			children = (
@@ -1016,6 +1030,7 @@
 		BB303D8D18B863E300B6EBC9 = {
 			isa = PBXGroup;
 			children = (
+				20703C8B1AB53CC0003F36B7 /* fontawesome */,
 				00DA80941A9D925C005466EE /* M13Checkbox */,
 				207208AA1A7435B0008F167D /* CHTCollectionViewWatefallLayout */,
 				79A5E24619C9064E009D4018 /* Localizable.strings */,
@@ -1097,6 +1112,7 @@
 		BB303DA018B863E300B6EBC9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				20703C8F1AB53CE2003F36B7 /* FontAwesome.ttf */,
 				BB303DD118B86B3400B6EBC9 /* Images */,
 				BB303DA118B863E300B6EBC9 /* Heyz-Info.plist */,
 				BB303DA218B863E300B6EBC9 /* InfoPlist.strings */,
@@ -1373,6 +1389,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB62B12018B8B529000DBDBC /* Next.png in Resources */,
+				20703C901AB53CE2003F36B7 /* FontAwesome.ttf in Resources */,
 				711221E918BC94F900E77A4A /* GreenDot.png in Resources */,
 				7112220618BCA62300E77A4A /* share@2x.png in Resources */,
 				BB303E2518B879AA00B6EBC9 /* pic.png in Resources */,
@@ -1545,6 +1562,7 @@
 				7112223A18BCD08700E77A4A /* MapViewController.m in Sources */,
 				798D9E2318F15F2000A69513 /* UIImage+WebP.m in Sources */,
 				798D9E0F18F15F1400A69513 /* SDWebImageManager.m in Sources */,
+				20703C8E1AB53CD1003F36B7 /* NSString+FontAwesome.m in Sources */,
 				79504C4A191F8B1F00EF3103 /* CustomDatePicker.m in Sources */,
 				20703C8A1AA7EE02003F36B7 /* SelectTableViewController.m in Sources */,
 				793508DE192138240001CC34 /* FavouriteEvents.m in Sources */,

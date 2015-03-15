@@ -32,13 +32,11 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return self.selection.count;
 }
@@ -50,6 +48,27 @@
     cell.textLabel.text = self.selection[indexPath.row];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.type isEqualToString:@"privacy"]) {
+        if ([_delegate respondsToSelector:@selector(privacySelected:withIndex:)]) {
+            [_delegate privacySelected:self.selection[indexPath.row] withIndex:indexPath.row];
+        }
+    } else if ([self.type isEqualToString:@"category"]) {
+        if ([_delegate respondsToSelector:@selector(categorySelected:withIndex:)]) {
+            [_delegate categorySelected:self.selection[indexPath.row] withIndex:indexPath.row];
+        }
+    } else if ([self.type isEqualToString:@"maximum"]) {
+        if ([_delegate respondsToSelector:@selector(maximumSelected:withIndex:)]) {
+            [_delegate maximumSelected:self.selection[indexPath.row] withIndex:indexPath.row];
+        }
+    } else if ([self.type isEqualToString:@"payment"]) {
+        if ([_delegate respondsToSelector:@selector(paymentSelected:withIndex:)]) {
+            [_delegate paymentSelected:self.selection[indexPath.row] withIndex:indexPath.row];
+        }
+    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

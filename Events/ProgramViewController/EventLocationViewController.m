@@ -34,14 +34,7 @@
     places = [NSMutableArray arrayWithArray:@[]];
     placeIds = [NSMutableArray arrayWithArray:@[]];
     
-    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
-    
-    locationManager.delegate = self;
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    
     self.userInput.delegate = self;
-    
-    [locationManager startUpdatingLocation];
     
 }
 
@@ -66,6 +59,10 @@
         NSDictionary *location = [responseDict objectForKey:@"result"][@"geometry"][@"location"];
         selectedLatitude = [location[@"lat"] doubleValue];
         selectedLongitude = [location[@"lng"] doubleValue];
+        if ([_delegate respondsToSelector:@selector(locationSeleted:latitude:longitude:)]) {
+            [_delegate locationSeleted:self.userInput.text latitude:selectedLatitude longitude:selectedLongitude];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
     
     //    self.searchResults = [@[] mutableCopy];
@@ -137,15 +134,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.userInput.text = [places objectAtIndex:indexPath.row];
     
-//    NSString *url = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/details/json?placeid=%@&key=AIzaSyCIctGj9IUky-uH1nSWdjY8XxSW05tvChA", [placeIds objectAtIndex:indexPath.row]];
-//    ASIFormDataRequest *request = [[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:url]];
-//    request.tag = 22;
-//    [request setDelegate:self];
-//    [request startAsynchronous];
-    if ([_delegate respondsToSelector:@selector(locationSeleted:)]) {
-        [_delegate locationSeleted:self.userInput.text];
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+    NSString *url = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/details/json?placeid=%@&key=AIzaSyCIctGj9IUky-uH1nSWdjY8XxSW05tvChA", [placeIds objectAtIndex:indexPath.row]];
+    ASIFormDataRequest *request = [[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:url]];
+    request.tag = 22;
+    [request setDelegate:self];
+    [request startAsynchronous];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error

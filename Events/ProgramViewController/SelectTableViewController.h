@@ -8,8 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol SelectTableViewControllerDelegate <NSObject>
+@required
+-(void)privacySelected:(NSString*)info withIndex:(int)index;
+-(void)categorySelected:(NSString*)info withIndex:(int)index;
+-(void)maximumSelected:(NSString*)info withIndex:(int)index;
+-(void)paymentSelected:(NSString*)info withIndex:(int)index;
+
+@end
+
 @interface SelectTableViewController : UITableViewController
 
 @property (strong, nonatomic) NSArray *selection;
+@property (strong, nonatomic) NSString *type;
+@property (nonatomic, weak) id<SelectTableViewControllerDelegate> delegate;
 
 @end
