@@ -1691,7 +1691,7 @@
             </objects>
             <point key="canvasLocation" x="-1175" y="-1704"/>
         </scene>
-        <!--Events-->
+        <!--Program View Controller-->
         <scene sceneID="5oG-Qq-mgj">
             <objects>
                 <collectionViewController id="12N-nd-AIZ" customClass="ProgramViewController" sceneMemberID="viewController">
@@ -1748,7 +1748,7 @@
                             <outlet property="delegate" destination="12N-nd-AIZ" id="yvY-VR-i4b"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Events" id="4CP-4D-mRG">
+                    <navigationItem key="navigationItem" id="4CP-4D-mRG">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="dYV-Nt-8hP">
                             <color key="tintColor" red="0.9217171717" green="0.42538099089999998" blue="0.46247886129999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
