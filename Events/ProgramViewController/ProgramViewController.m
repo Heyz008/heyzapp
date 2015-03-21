@@ -116,7 +116,8 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(void)showMapView {
-    
+    EventMapViewController *mvc = [[EventMapViewController alloc] init];
+    [self.navigationController pushViewController:mvc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
