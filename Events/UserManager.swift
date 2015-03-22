@@ -18,48 +18,55 @@ import Foundation
             for req in requests! {
                 
                 if req["fromUser"] as NSString == fromUser {
-                    var query = PFQuery(className: "FriendRequest")
-
-                    query.getObjectInBackgroundWithId(req.objectId, block: { (target: PFObject!, error: NSError!) -> Void in
-                        if error == nil {
-                            target["status"] = "accepted"
-                            target.saveInBackgroundWithBlock({ (succeeded: Bool, error: NSError!) -> Void in
-                                if succeeded {
-                                    self.showSimpleAlert("Request Accepted", message: "You have accepted the friend request.", sender: sender)
-                                    
-                                    sender.onAfterRequestAction(fromUser, accepted: true)
-                                } else {
-                                    self.showSimpleAlert("Failed to accept request.", message: "Error: \(error.localizedDescription)", sender: sender)
-                                }
-                            })
+                    
+                    req["status"] = "accepted"
+                    req.saveInBackgroundWithBlock({ (succeeded: Bool, error: NSError!) -> Void in
+                        if succeeded {
                             
                             if let user = PFUser.currentUser() {
-                                let friends = user["friends"] as NSMutableArray
-                                friends.addObject(fromUser)
-                                user.saveInBackgroundWithBlock(nil)
-                            }
-                            
-                            let predicate = NSPredicate(format: "username = %@", fromUser)
-                            var query = PFQuery(className: "_User", predicate: predicate)
-                            
-                            query.findObjectsInBackgroundWithBlock({ (objects: [AnyObject]!, error: NSError!) -> Void in
+                                println(user.objectId)
+                                println(fromUser)
+                                let predicate = NSPredicate(format: "user = %@", user.objectId)
+                                let query = PFQuery(className: "FriendRelation", predicate: predicate)
                                 
-                                if error == nil {
-                                    println(objects)
-                                    if let user = objects.first as? PFUser {
-                                        let friends = user["friends"] as NSMutableArray
-                                        friends.addObject(PFUser.currentUser().username)
-                                        print(user)
-                                        user.saveInBackgroundWithBlock(nil)
+                                query.findObjectsInBackgroundWithBlock({( objects: [AnyObject]!, error: NSError!) -> Void in
+                                    if error == nil {
+                                        if let obj = objects.first as? PFObject {
+                                            println(obj)
+                                            let relations = obj["relations"] as NSMutableArray
+                                            relations.addObject(fromUser)
+                                            obj.saveInBackgroundWithBlock(nil)
+                                            
+                                        }
                                     }
-                                }
+                                })
                                 
-                            })
+                                let predicate2 = NSPredicate(format: "user = %@", fromUser)
+                                let query2 = PFQuery(className: "FriendRelation", predicate: predicate2)
+                                
+                                query2.findObjectsInBackgroundWithBlock({( objects: [AnyObject]!, error: NSError!) -> Void in
+                                    if error == nil {
+                                        if let obj = objects.first as? PFObject {
+                                            println(obj)
+                                            let relations = obj["relations"] as NSMutableArray
+                                            relations.addObject(user.objectId)
+                                            obj.saveInBackgroundWithBlock(nil)
+                                            
+                                        }
+                                    }
+                                })
+                            }
+                            self.showSimpleAlert("Request Accepted", message: "You have accepted the friend request.", sender: sender)
+                            
+                            sender.onAfterRequestAction(fromUser, accepted: true)
+                        } else {
+                            self.showSimpleAlert("Failed to accept request.", message: "Error: \(error.localizedDescription)", sender: sender)
                         }
                     })
                     
                     break
                 }
+
             }
         }
 
@@ -71,21 +78,15 @@ import Foundation
             for req in requests! {
                 
                 if req["fromUser"] as NSString == fromUser {
-                    var query = PFQuery(className: "FriendRequest")
                     
-                    query.getObjectInBackgroundWithId(req.objectId, block: { (target: PFObject!, error: NSError!) -> Void in
-                        if error == nil {
-                            target["status"] = "denied"
-                            target.saveInBackgroundWithBlock({ (succeeded: Bool, error: NSError!) -> Void in
-                                if succeeded {
-                                    self.showSimpleAlert("Request Denied", message: "You have denied the friend request.", sender: sender)
-                                    
-                                    sender.onAfterRequestAction(fromUser, accepted: false)
-                                } else {
-                                    self.showSimpleAlert("Failed to deny request.", message: "Error: \(error.localizedDescription)", sender: sender)
-                                }
-                            })
-                        
+                    req["status"] = "denied"
+                    req.saveInBackgroundWithBlock({ (succeeded: Bool, error: NSError!) -> Void in
+                        if succeeded {
+                            self.showSimpleAlert("Request Denied", message: "You have denied the friend request.", sender: sender)
+                            
+                            sender.onAfterRequestAction(fromUser, accepted: false)
+                        } else {
+                            self.showSimpleAlert("Failed to deny request.", message: "Error: \(error.localizedDescription)", sender: sender)
                         }
                     })
                     
@@ -97,7 +98,7 @@ import Foundation
     }
     
     func updatePendingRequests(sender: FriendsTableViewController) {
-        let predicate = NSPredicate(format: "toUser = %@ AND status = %@", PFUser.currentUser().username, "pending")
+        let predicate = NSPredicate(format: "toUser = %@ AND status = %@", PFUser.currentUser().objectId, "pending")
         var query = PFQuery(className: "FriendRequest", predicate: predicate)
         
         query.findObjectsInBackgroundWithBlock({ (objects: [AnyObject]!, error: NSError!) -> Void in
@@ -121,8 +122,17 @@ import Foundation
         
         if let user = PFUser.currentUser() {
             
-            sender.friends = user["friends"] as [String]
-            sender.friendsTableView.reloadData()
+            let predicate = NSPredicate(format: "user = %@", user.objectId)
+            let query = PFQuery(className: "FriendRelation", predicate: predicate)
+            
+            query.findObjectsInBackgroundWithBlock({( objects: [AnyObject]!, error: NSError!) -> Void in
+                if error == nil {
+                    if let obj = objects.first as? PFObject {
+                        sender.friends = obj["relations"] as [String]
+                        sender.friendsTableView.reloadData()
+                    }
+                }
+            })
         }
 
     }
@@ -130,20 +140,34 @@ import Foundation
     func sendFriendRequest(email: String, sender: UIViewController) {
         
         if let user = PFUser.currentUser() {
-            let fromUser = user.username
             
-            var request = PFObject(className: "FriendRequest")
-            request["fromUser"] = fromUser
-            request["toUser"] = email
-            request["status"] = "pending"
+            let predicate = NSPredicate(format: "email = %@", email)
+            var query = PFQuery(className: "_User", predicate: predicate)
             
-            request.saveInBackgroundWithBlock({ (succeeded: Bool, error: NSError!) -> Void in
-                if succeeded {
-                    self.showSimpleAlert("Request Sent", message: "Your request has been sent.", sender: sender)
-                } else {
-                    self.showSimpleAlert("Failed to send request.", message: "Error: \(error.localizedDescription)", sender: sender)
+            query.findObjectsInBackgroundWithBlock({( objects: [AnyObject]!, error: NSError!) -> Void in
+                if error == nil {
+                    
+                    if let toUser = objects.first as? PFUser {
+                        
+                        let fromUser = user.username
+                        
+                        var request = PFObject(className: "FriendRequest")
+                        request["fromUser"] = user.objectId
+                        request["toUser"] = toUser.objectId
+                        request["status"] = "pending"
+                        
+                        request.saveInBackgroundWithBlock({ (succeeded: Bool, error: NSError!) -> Void in
+                            if succeeded {
+                                self.showSimpleAlert("Request Sent", message: "Your request has been sent.", sender: sender)
+                            } else {
+                                self.showSimpleAlert("Failed to send request.", message: "Error: \(error.localizedDescription)", sender: sender)
+                            }
+                        })
+                        
+                    }
                 }
             })
+            
         }
     }
     
@@ -177,16 +201,16 @@ import Foundation
                 if user.isNew {
                     println("User signed up and logged in through Twitter!")
                     
-                    delegate.isRegistering = true
-                    delegate.isFromFacebook = true
+//                    delegate.isRegistering = true
+//                    delegate.isFromFacebook = true
                     
                     NSUserDefaults.standardUserDefaults().setObject(user.username, forKey: appDefaultIdKey)
                     NSUserDefaults.standardUserDefaults().setObject(user.password, forKey: appDefaultPwdKey)
                     
-                    NSUserDefaults.standardUserDefaults().setObject(user.objectId + xmppDomain, forKey: xmppDefaultIdKey)
-                    NSUserDefaults.standardUserDefaults().setObject(user.objectId, forKey: xmppDefaultPwdKey)
-                    
-                    delegate.connect()
+//                    NSUserDefaults.standardUserDefaults().setObject(user.objectId + xmppDomain, forKey: xmppDefaultIdKey)
+//                    NSUserDefaults.standardUserDefaults().setObject(user.objectId, forKey: xmppDefaultPwdKey)
+//                    
+//                    delegate.connect()
                     
                     sender.dismissViewControllerAnimated(true, completion: nil)
                 } else {
@@ -195,10 +219,10 @@ import Foundation
                     NSUserDefaults.standardUserDefaults().setObject(user.username, forKey: appDefaultIdKey)
                     NSUserDefaults.standardUserDefaults().setObject(user.password, forKey: appDefaultPwdKey)
                     
-                    NSUserDefaults.standardUserDefaults().setObject(user.objectId + xmppDomain, forKey: xmppDefaultIdKey)
-                    NSUserDefaults.standardUserDefaults().setObject(user.objectId, forKey: xmppDefaultPwdKey)
-                    
-                    delegate.connect()
+//                    NSUserDefaults.standardUserDefaults().setObject(user.objectId + xmppDomain, forKey: xmppDefaultIdKey)
+//                    NSUserDefaults.standardUserDefaults().setObject(user.objectId, forKey: xmppDefaultPwdKey)
+//                    
+//                    delegate.connect()
                     
                     sender.dismissViewControllerAnimated(true, completion: nil)
                 }
@@ -219,16 +243,16 @@ import Foundation
                 if user.isNew {
                     println("User signed up and logged in through Facebook!")
                     
-                    delegate.isRegistering = true
-                    delegate.isFromFacebook = true
+//                    delegate.isRegistering = true
+//                    delegate.isFromFacebook = true
                     
                     NSUserDefaults.standardUserDefaults().setObject(user.username, forKey: appDefaultIdKey)
                     NSUserDefaults.standardUserDefaults().setObject(user.password, forKey: appDefaultPwdKey)
                     
-                    NSUserDefaults.standardUserDefaults().setObject(user.objectId + xmppDomain, forKey: xmppDefaultIdKey)
-                    NSUserDefaults.standardUserDefaults().setObject(user.objectId, forKey: xmppDefaultPwdKey)
+//                    NSUserDefaults.standardUserDefaults().setObject(user.objectId + xmppDomain, forKey: xmppDefaultIdKey)
+//                    NSUserDefaults.standardUserDefaults().setObject(user.objectId, forKey: xmppDefaultPwdKey)
                     
-                    delegate.connect()
+//                    delegate.connect()
                     
                     sender.dismissViewControllerAnimated(true, completion: nil)
                 } else {
@@ -237,10 +261,10 @@ import Foundation
                     NSUserDefaults.standardUserDefaults().setObject(user.username, forKey: appDefaultIdKey)
                     NSUserDefaults.standardUserDefaults().setObject(user.password, forKey: appDefaultPwdKey)
                     
-                    NSUserDefaults.standardUserDefaults().setObject(user.objectId + xmppDomain, forKey: xmppDefaultIdKey)
-                    NSUserDefaults.standardUserDefaults().setObject(user.objectId, forKey: xmppDefaultPwdKey)
-                    
-                    delegate.connect()
+//                    NSUserDefaults.standardUserDefaults().setObject(user.objectId + xmppDomain, forKey: xmppDefaultIdKey)
+//                    NSUserDefaults.standardUserDefaults().setObject(user.objectId, forKey: xmppDefaultPwdKey)
+//                    
+//                    delegate.connect()
                     
                     sender.dismissViewControllerAnimated(true, completion: nil)
                 }
@@ -262,11 +286,11 @@ import Foundation
                 
             } else {
                 
-                NSUserDefaults.standardUserDefaults().setObject(user.objectId + xmppDomain, forKey: xmppDefaultIdKey)
-                NSUserDefaults.standardUserDefaults().setObject(user.objectId, forKey: xmppDefaultPwdKey)
-                
-                let delegate = UIApplication.sharedApplication().delegate as AppDelegate
-                delegate.connect()
+//                NSUserDefaults.standardUserDefaults().setObject(user.objectId + xmppDomain, forKey: xmppDefaultIdKey)
+//                NSUserDefaults.standardUserDefaults().setObject(user.objectId, forKey: xmppDefaultPwdKey)
+//                
+//                let delegate = UIApplication.sharedApplication().delegate as AppDelegate
+//                delegate.connect()
                 
                 sender.dismissViewControllerAnimated(true, completion: nil)
             }
@@ -279,6 +303,8 @@ import Foundation
         if(PFUser.currentUser() == nil){
             let username = NSUserDefaults.standardUserDefaults().stringForKey(appDefaultIdKey)
             let password = NSUserDefaults.standardUserDefaults().stringForKey(appDefaultPwdKey)
+            
+            println(username)
             
             if (username == nil || password == nil){
                 let storyboard = UIStoryboard(name: "Main_iPhone", bundle: nil)
@@ -293,19 +319,21 @@ import Foundation
                         let vc = storyboard.instantiateViewControllerWithIdentifier("LoginViewController") as SigninViewController
                         sender.presentViewController(vc, animated: true, completion: nil)
                         
-                    } else {
-                        
-                        NSUserDefaults.standardUserDefaults().setObject(user.objectId + xmppDomain, forKey: xmppDefaultIdKey)
-                        NSUserDefaults.standardUserDefaults().setObject(user.objectId, forKey: xmppDefaultPwdKey)
-                        let delegate = UIApplication.sharedApplication().delegate as AppDelegate
-                        delegate.connect()
                     }
+//                    else {
+//                        
+//                        NSUserDefaults.standardUserDefaults().setObject(user.objectId + xmppDomain, forKey: xmppDefaultIdKey)
+//                        NSUserDefaults.standardUserDefaults().setObject(user.objectId, forKey: xmppDefaultPwdKey)
+//                        let delegate = UIApplication.sharedApplication().delegate as AppDelegate
+//                        delegate.connect()
+//                    }
                 })
             }
-        } else if let delegate = UIApplication.sharedApplication().delegate as? AppDelegate{
-
-            delegate.connect()
         }
+//        else if let delegate = UIApplication.sharedApplication().delegate as? AppDelegate{
+//
+//            delegate.connect()
+//        }
         
         
     }
@@ -321,18 +349,23 @@ import Foundation
         user.username = name
         user.password = password
         user.email = email
-        user["friends"] = ["jay.yzhe@gmail.com", "mengmeng@gmail.com"]
         
         user.signUpInBackgroundWithBlock({ (succeeded: Bool!, error: NSError!) -> Void in
             if error == nil {
                 
-                let delegate = UIApplication.sharedApplication().delegate as AppDelegate
-                delegate.isRegistering = true
+                let friendsList = PFObject(className: "FriendRelation")
+                friendsList["user"] = user.objectId
+                friendsList["relations"] = [String]()
                 
-                NSUserDefaults.standardUserDefaults().setObject(user.objectId + xmppDomain, forKey: xmppDefaultIdKey)
-                NSUserDefaults.standardUserDefaults().setObject(user.objectId, forKey: xmppDefaultPwdKey)
+                friendsList.saveInBackgroundWithBlock(nil)
                 
-                delegate.connect()
+//                let delegate = UIApplication.sharedApplication().delegate as AppDelegate
+//                delegate.isRegistering = true
+//                
+//                NSUserDefaults.standardUserDefaults().setObject(user.objectId + xmppDomain, forKey: xmppDefaultIdKey)
+//                NSUserDefaults.standardUserDefaults().setObject(user.objectId, forKey: xmppDefaultPwdKey)
+//                
+//                delegate.connect()
                 
                 sender.dismissViewControllerAnimated(true, completion: nil)
                 

@@ -9,8 +9,8 @@
 import Foundation
 
 //消息代理协议 
-@objc protocol MessageDelegate {
+protocol MessageDelegate {
     
-    func onAfterMsgReceived(message: XMPPMessage)
+    func onAfterMsgReceived(from: String)
     
 }

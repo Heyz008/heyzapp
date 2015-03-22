@@ -9,8 +9,8 @@
 import UIKit
 import CoreData
 
-class ChatDetailViewController: UIViewController, MessageDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+class GroupChatViewController: UIViewController, MessageDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
     @IBOutlet var tblForChats : UITableView!
     @IBOutlet var chatComposeView : UIView!
     @IBOutlet weak var chatCommandView: UIView!
@@ -21,10 +21,8 @@ class ChatDetailViewController: UIViewController, MessageDelegate, UIImagePicker
     
     let delegate = UIApplication.sharedApplication().delegate as AppDelegate
     
-    func onAfterMsgReceived(message: XMPPMessage) {
-        
-        let from = "\(message.from().user)@\(message.from().domain)"
-        
+    func onAfterMsgReceived(from: String) {
+
         if from == conversation.from {
             
             conversation.resetUnread()
@@ -68,19 +66,19 @@ class ChatDetailViewController: UIViewController, MessageDelegate, UIImagePicker
         
         let image = info[UIImagePickerControllerOriginalImage] as UIImage
         
-        let user = NSUserDefaults.standardUserDefaults().stringForKey(xmppDefaultIdKey)
+//        let user = NSUserDefaults.standardUserDefaults().stringForKey(xmppDefaultIdKey)
         
-        let message = Message(image: image, from: user!, isDelay: false, isSentByMe: true)
-            
+        let message = Message(image: image, from: "TEMP", isDelay: false, isSentByMe: true)
+        
         self.addMessage(message)
         
-        let xml = DDXMLElement.elementWithName("message") as DDXMLElement
-        xml.addAttributeWithName("type", stringValue: "chat")
-        xml.addAttributeWithName("to", stringValue: conversation.from)
-        xml.addAttributeWithName("from", stringValue: user!)
-//        xml.addAttributeWithName("bodyType", stringValue: "photo")
-        
-        delegate.xmppStream.sendElement(xml)
+//        let xml = DDXMLElement.elementWithName("message") as DDXMLElement
+//        xml.addAttributeWithName("type", stringValue: "chat")
+//        xml.addAttributeWithName("to", stringValue: conversation.from)
+//        xml.addAttributeWithName("from", stringValue: user!)
+//        //        xml.addAttributeWithName("bodyType", stringValue: "photo")
+//        
+//        delegate.xmppStream.sendElement(xml)
         
     }
     
@@ -90,7 +88,7 @@ class ChatDetailViewController: UIViewController, MessageDelegate, UIImagePicker
         // Custom initialization
         
     }
-
+    
     required init(coder aDecoder: NSCoder)
     {
         super.init(coder: aDecoder)
@@ -113,7 +111,7 @@ class ChatDetailViewController: UIViewController, MessageDelegate, UIImagePicker
         }
         
     }
-
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -147,14 +145,14 @@ class ChatDetailViewController: UIViewController, MessageDelegate, UIImagePicker
         var message: Message = conversation.history.objectAtIndex(indexPath.row) as Message
         var isSentByMe = message.isSentByMe
         let timeArray = message.getTimestamp().componentsSeparatedByString("@ ")
-            
+        
         switch message.type {
         case "text":
             var text = message.getContent() as String
             var sizeOFStr = self.getSizeOfString(text)
             
             if isSentByMe {
-                cell = tblForChats.dequeueReusableCellWithIdentifier("textSentCell") as UITableViewCell
+                cell = tblForChats.dequeueReusableCellWithIdentifier("groupTextSentCell") as UITableViewCell
                 // var deliveredLabel = cell.viewWithTag(13) as UILabel
                 var textLabel = cell.viewWithTag(12) as UILabel
                 var timeLabel = cell.viewWithTag(11) as UILabel
@@ -171,7 +169,7 @@ class ChatDetailViewController: UIViewController, MessageDelegate, UIImagePicker
                 textLabel.text = text
                 timeLabel.text = timeArray.count > 1 ? timeArray[1] : ""
             } else {
-                cell = tblForChats.dequeueReusableCellWithIdentifier("textReceivedCell") as UITableViewCell
+                cell = tblForChats.dequeueReusableCellWithIdentifier("groupTextReceivedCell") as UITableViewCell
                 var textLabel = cell.viewWithTag(12) as UILabel
                 var timeLabel = cell.viewWithTag(11) as UILabel
                 var chatImage = cell.viewWithTag(1) as UIImageView
@@ -187,16 +185,16 @@ class ChatDetailViewController: UIViewController, MessageDelegate, UIImagePicker
         default:
             
             var image = (message.getContent() as UIImage)
-
+            
             if isSentByMe {
-                cell = tblForChats.dequeueReusableCellWithIdentifier("imageSentCell") as UITableViewCell
+                cell = tblForChats.dequeueReusableCellWithIdentifier("groupImageSentCell") as UITableViewCell
                 var imageView = cell.viewWithTag(1) as UIImageView
                 imageView.image = image
                 imageView.contentMode = .ScaleAspectFill
                 imageView.layer.cornerRadius = 5
                 imageView.clipsToBounds = true
             } else {
-                cell = tblForChats.dequeueReusableCellWithIdentifier("imageReceivedCell") as UITableViewCell
+                cell = tblForChats.dequeueReusableCellWithIdentifier("groupImageReceivedCell") as UITableViewCell
                 var imageView = cell.viewWithTag(1) as UIImageView
                 imageView.image = image
                 imageView.contentMode = .ScaleAspectFill
@@ -205,7 +203,7 @@ class ChatDetailViewController: UIViewController, MessageDelegate, UIImagePicker
             }
             
         }
-  
+        
         cell.selectionStyle = UITableViewCellSelectionStyle.None;
         return cell
     }
@@ -264,26 +262,28 @@ class ChatDetailViewController: UIViewController, MessageDelegate, UIImagePicker
     func textFieldShouldReturn (textField: UITextField!) -> Bool{
         
         let body = textField.text
-        let user = NSUserDefaults.standardUserDefaults().stringForKey(xmppDefaultIdKey)
+//        let user = NSUserDefaults.standardUserDefaults().stringForKey(xmppDefaultIdKey)
         
         if !body.isEmpty {
             
-            let message = Message(text: body, from: user!, isDelay: false, isSentByMe: true)
+            let message = Message(text: body, from: "TEMP", isDelay: false, isSentByMe: true)
             textField.text = ""
             
             self.addMessage(message)
             
-            var xml = DDXMLElement.elementWithName("message") as DDXMLElement
-            xml.addAttributeWithName("type", stringValue: "chat")
-            xml.addAttributeWithName("to", stringValue: conversation.from)
-            xml.addAttributeWithName("from", stringValue: user!)
+            conversationManager.sendGroupMessage(message, conversation: conversation)
             
-            var bodyXML = DDXMLElement.elementWithName("body") as DDXMLElement
-            bodyXML.setStringValue(body)
-            
-            xml.addChild(bodyXML)
-            
-            delegate.xmppStream.sendElement(xml)
+//            var xml = DDXMLElement.elementWithName("message") as DDXMLElement
+//            xml.addAttributeWithName("type", stringValue: "chat")
+//            xml.addAttributeWithName("to", stringValue: conversation.from)
+//            xml.addAttributeWithName("from", stringValue: user!)
+//            
+//            var bodyXML = DDXMLElement.elementWithName("body") as DDXMLElement
+//            bodyXML.setStringValue(body)
+//            
+//            xml.addChild(bodyXML)
+//            
+//            delegate.xmppStream.sendElement(xml)
             
         }
         return true
@@ -305,12 +305,12 @@ class ChatDetailViewController: UIViewController, MessageDelegate, UIImagePicker
     
     /*
     // #pragma mark - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue?, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

@@ -21,6 +21,7 @@
 		696ED9171AB273B7006D7D6F /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696ED9161AB273B7006D7D6F /* FacebookSDK.framework */; };
 		696ED91A1AB27754006D7D6F /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696ED9181AB27754006D7D6F /* Parse.framework */; };
 		696ED91B1AB27754006D7D6F /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696ED9191AB27754006D7D6F /* ParseFacebookUtils.framework */; };
+		696ED91D1AB921BF006D7D6F /* GroupChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696ED91C1AB921BF006D7D6F /* GroupChatViewController.swift */; };
 		6976BD5E1A82CD600023DB4F /* XMPPAnonymousAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 6976BA301A82CD5C0023DB4F /* XMPPAnonymousAuthentication.m */; };
 		6976BD5F1A82CD600023DB4F /* XMPPDeprecatedDigestAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 6976BA331A82CD5C0023DB4F /* XMPPDeprecatedDigestAuthentication.m */; };
 		6976BD601A82CD600023DB4F /* XMPPDeprecatedPlainAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 6976BA361A82CD5C0023DB4F /* XMPPDeprecatedPlainAuthentication.m */; };
@@ -172,7 +173,7 @@
 		69C422181A7852C400011D1D /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C422171A7852C400011D1D /* SigninViewController.swift */; };
 		69C4221A1A79CCBB00011D1D /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C422191A79CCBB00011D1D /* SignupViewController.swift */; };
 		69C4221C1A7AD82700011D1D /* ConversationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C4221B1A7AD82700011D1D /* ConversationManager.swift */; };
-		69F637A71A76D95200709137 /* ChatDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F637A41A76D95200709137 /* ChatDetailViewController.swift */; };
+		69F637A71A76D95200709137 /* PrivateChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F637A41A76D95200709137 /* PrivateChatViewController.swift */; };
 		69F637A81A76D95200709137 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F637A51A76D95200709137 /* ChatViewController.swift */; };
 		711221DC18BC62DD00E77A4A /* NSDate+convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 711221D318BC62DD00E77A4A /* NSDate+convenience.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		711221DD18BC62DD00E77A4A /* NSMutableArray+convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 711221D518BC62DD00E77A4A /* NSMutableArray+convenience.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -414,6 +415,7 @@
 		696ED9161AB273B7006D7D6F /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		696ED9181AB27754006D7D6F /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		696ED9191AB27754006D7D6F /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
+		696ED91C1AB921BF006D7D6F /* GroupChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupChatViewController.swift; sourceTree = "<group>"; };
 		6976BA2F1A82CD5C0023DB4F /* XMPPAnonymousAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPAnonymousAuthentication.h; sourceTree = "<group>"; };
 		6976BA301A82CD5C0023DB4F /* XMPPAnonymousAuthentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPAnonymousAuthentication.m; sourceTree = "<group>"; };
 		6976BA321A82CD5C0023DB4F /* XMPPDeprecatedDigestAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPDeprecatedDigestAuthentication.h; sourceTree = "<group>"; };
@@ -719,7 +721,7 @@
 		69C422171A7852C400011D1D /* SigninViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SigninViewController.swift; path = "User Login & Register/SigninViewController.swift"; sourceTree = "<group>"; };
 		69C422191A79CCBB00011D1D /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignupViewController.swift; path = "User Login & Register/SignupViewController.swift"; sourceTree = "<group>"; };
 		69C4221B1A7AD82700011D1D /* ConversationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationManager.swift; sourceTree = "<group>"; };
-		69F637A41A76D95200709137 /* ChatDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatDetailViewController.swift; sourceTree = "<group>"; };
+		69F637A41A76D95200709137 /* PrivateChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateChatViewController.swift; sourceTree = "<group>"; };
 		69F637A51A76D95200709137 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		711221D218BC62DD00E77A4A /* NSDate+convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+convenience.h"; sourceTree = "<group>"; };
 		711221D318BC62DD00E77A4A /* NSDate+convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+convenience.m"; sourceTree = "<group>"; };
@@ -1965,7 +1967,8 @@
 			isa = PBXGroup;
 			children = (
 				6919B0F71A991F110050D36B /* FriendsTableViewController.swift */,
-				69F637A41A76D95200709137 /* ChatDetailViewController.swift */,
+				69F637A41A76D95200709137 /* PrivateChatViewController.swift */,
+				696ED91C1AB921BF006D7D6F /* GroupChatViewController.swift */,
 				69F637A51A76D95200709137 /* ChatViewController.swift */,
 				69C4221B1A7AD82700011D1D /* ConversationManager.swift */,
 				6976BEEE1A82DE420023DB4F /* Delegates.swift */,
@@ -2895,6 +2898,7 @@
 				6976BDE11A82CD600023DB4F /* DDLog.m in Sources */,
 				6976C0161A8854040023DB4F /* XMPPMUC.m in Sources */,
 				6976C0341A8854040023DB4F /* XMPPCapabilitiesCoreDataStorage.m in Sources */,
+				696ED91D1AB921BF006D7D6F /* GroupChatViewController.swift in Sources */,
 				6976BDE01A82CD600023DB4F /* DDFileLogger.m in Sources */,
 				79691D0618F00C8700ABD52D /* ASIDownloadCache.m in Sources */,
 				6976BDD71A82CD600023DB4F /* GCDMulticastDelegate.m in Sources */,
@@ -2915,7 +2919,7 @@
 				6976C04B1A8854040023DB4F /* XEP_0223.m in Sources */,
 				6976BD5F1A82CD600023DB4F /* XMPPDeprecatedDigestAuthentication.m in Sources */,
 				6976C0521A8854040023DB4F /* XMPPMessage+XEP_0333.m in Sources */,
-				69F637A71A76D95200709137 /* ChatDetailViewController.swift in Sources */,
+				69F637A71A76D95200709137 /* PrivateChatViewController.swift in Sources */,
 				6976C00C1A8854040023DB4F /* XMPPRoomMessageCoreDataStorageObject.m in Sources */,
 				79504C49191F8B1F00EF3103 /* CustomPickerView.m in Sources */,
 				6976C0321A8854040023DB4F /* NSString+XEP_0106.m in Sources */,
