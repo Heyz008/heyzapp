@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import <Parse/Parse.h>
 
-@interface EventMapViewController : UIViewController
+@interface EventMapViewController : UIViewController<MKMapViewDelegate>
 
-@property (nonatomic,strong) IBOutlet MKMapView *mapView;
+@property (nonatomic, strong) MKMapView *mapView;
+@property (nonatomic, strong) NSArray *eventList;
 
 @end

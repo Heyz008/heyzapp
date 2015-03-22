@@ -19,6 +19,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.mapView = [[MKMapView alloc] initWithFrame:self.view.frame];
+    self.mapView.delegate = self;
+    [self.view addSubview:self.mapView];
+    
     [self addLocationsOnMap];
 }
 
@@ -34,28 +38,28 @@
 
 -(void)addLocationsOnMap
 {
-    self.mapView.delegate = (id)self;
     
     MKCoordinateRegion region;
     MKCoordinateSpan span;
     span.latitudeDelta=0.2;
     span.longitudeDelta=0.2;
     
-    CLLocationCoordinate2D location =   CLLocationCoordinate2DMake(-20.0, 79.9);
-    
-    region.center = location;
-    region.center.latitude  =   location.latitude;
-    region.center.longitude =   location.longitude;
-    region.span.longitudeDelta=0.04f;
-    region.span.latitudeDelta=0.04f;
-    
-    [self.mapView setRegion:region animated:YES];
-    MyAnnotation *ann=[[MyAnnotation alloc]init];
-    ann.title   =   @"Test";
-    ann.subtitle=@"";
-    ann.coordinate=region.center;
-    [self.mapView addAnnotation:ann];
-    [self.mapView setRegion:region animated:YES];
+    for (PFObject *event in self.eventList) {
+        CLLocationCoordinate2D location =   CLLocationCoordinate2DMake([event[@"latitude"] doubleValue], [event[@"longitude"] doubleValue]);
+        region.center = location;
+        region.center.latitude  =   location.latitude;
+        region.center.longitude =   location.longitude;
+        region.span.longitudeDelta=0.04f;
+        region.span.latitudeDelta=0.04f;
+        
+        [self.mapView setRegion:region animated:YES];
+        MyAnnotation *ann=[[MyAnnotation alloc]init];
+        ann.title   =   event[@"title"];
+        ann.subtitle = event[@"description"];
+        ann.coordinate=region.center;
+        [self.mapView addAnnotation:ann];
+        [self.mapView setRegion:region animated:YES];
+    }
 }
 
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation

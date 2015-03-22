@@ -11,6 +11,7 @@
 		00DA80A41AA040AB005466EE /* EventLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DA80A31AA040AB005466EE /* EventLocationViewController.m */; };
 		00DA80A71AA04219005466EE /* LocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DA80A61AA04219005466EE /* LocationCell.m */; };
 		203EB11D1ABBE02A001CF3D7 /* EventMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 203EB11C1ABBE02A001CF3D7 /* EventMapViewController.m */; };
+		203EB1201ABD005B001CF3D7 /* EventSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 203EB11F1ABD005B001CF3D7 /* EventSearchViewController.m */; };
 		20568EBF1ABBCAA40004C041 /* QRCameraSwitchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 20568EB71ABBCAA40004C041 /* QRCameraSwitchButton.m */; };
 		20568EC01ABBCAA40004C041 /* QRCodeReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 20568EB91ABBCAA40004C041 /* QRCodeReader.m */; };
 		20568EC11ABBCAA40004C041 /* QRCodeReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20568EBC1ABBCAA40004C041 /* QRCodeReaderView.m */; };
@@ -283,6 +284,8 @@
 		00DA80A61AA04219005466EE /* LocationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationCell.m; sourceTree = "<group>"; };
 		203EB11B1ABBE02A001CF3D7 /* EventMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventMapViewController.h; sourceTree = "<group>"; };
 		203EB11C1ABBE02A001CF3D7 /* EventMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventMapViewController.m; sourceTree = "<group>"; };
+		203EB11E1ABD005B001CF3D7 /* EventSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventSearchViewController.h; sourceTree = "<group>"; };
+		203EB11F1ABD005B001CF3D7 /* EventSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventSearchViewController.m; sourceTree = "<group>"; };
 		20568EB61ABBCAA40004C041 /* QRCameraSwitchButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCameraSwitchButton.h; sourceTree = "<group>"; };
 		20568EB71ABBCAA40004C041 /* QRCameraSwitchButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCameraSwitchButton.m; sourceTree = "<group>"; };
 		20568EB81ABBCAA40004C041 /* QRCodeReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeReader.h; sourceTree = "<group>"; };
@@ -1352,6 +1355,8 @@
 				20703C891AA7EE02003F36B7 /* SelectTableViewController.m */,
 				203EB11B1ABBE02A001CF3D7 /* EventMapViewController.h */,
 				203EB11C1ABBE02A001CF3D7 /* EventMapViewController.m */,
+				203EB11E1ABD005B001CF3D7 /* EventSearchViewController.h */,
+				203EB11F1ABD005B001CF3D7 /* EventSearchViewController.m */,
 			);
 			path = ProgramViewController;
 			sourceTree = "<group>";
@@ -1626,6 +1631,7 @@
 				BB303E3018B87FCE00B6EBC9 /* TabBarViewController.m in Sources */,
 				7986DCCF19C9E92A00EE4DD7 /* LocalizeHelper.m in Sources */,
 				BB303DB318B863E300B6EBC9 /* ViewController.m in Sources */,
+				203EB1201ABD005B001CF3D7 /* EventSearchViewController.m in Sources */,
 				BB303E4018B88D4C00B6EBC9 /* FeedViewController.m in Sources */,
 				7982242018F7098C009FA42E /* LoginViewController.m in Sources */,
 				7920A7BC19220C5B001808B6 /* MoreDetailsViewController.m in Sources */,

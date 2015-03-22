@@ -17,6 +17,7 @@
 #import "NewEventViewController.h"
 #import <Parse/Parse.h>
 #import "NSString+FontAwesome.h"
+#import "EventSearchViewController.h"
 
 @interface ProgramViewController (){
     NSMutableArray *arrayEventList;
@@ -112,11 +113,13 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(void)searchEvent {
-    
+    EventSearchViewController *es = (EventSearchViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"EventSearch"];
+    [self.navigationController pushViewController:es animated:YES];
 }
 
 -(void)showMapView {
     EventMapViewController *mvc = [[EventMapViewController alloc] init];
+    mvc.eventList = arrayEventList;
     [self.navigationController pushViewController:mvc animated:YES];
 }
 
