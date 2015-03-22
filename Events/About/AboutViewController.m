@@ -21,6 +21,7 @@
 #import "DescriptionDetailViewController.h"
 #import "CommentSummaryCell.h"
 #import "ProgramDescriptionViewController.h"
+#import "UIImage+MDQRCode.h"
 
 @interface AboutViewController ()
 {
@@ -100,7 +101,10 @@
     
     [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:shareButton, fixedItem, actionButton, nil]];
     
+    self.addImageButton.titleLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:22];
+    [self.addImageButton setTitle:[NSString fontAwesomeIconStringForIconIdentifier:@"fa-plus"] forState:UIControlStateNormal];
     
+    self.qrImage.image = [UIImage mdQRCodeForString:self.eventName.text size:self.qrImage.bounds.size.width fillColor:[UIColor darkGrayColor]];
     
     descriptionTextHeight = [Utility getTextSize:[self.eventObj objectForKey:@"description"]textWidth:300 fontSize:14.0f lineBreakMode:NSLineBreakByWordWrapping].height;
     
@@ -130,48 +134,63 @@
                             @"Invite",
                             @"Report",
                             nil];
+    popup.tag = 2;
+    [popup showInView:[UIApplication sharedApplication].keyWindow];
+}
+
+-(IBAction)addImageTapped:(id)sender {
+    
+    UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:@"Upload Photo" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:
+                            @"Choose Photo From Library",
+                            @"Take Photo",
+                            nil];
     popup.tag = 1;
     [popup showInView:[UIApplication sharedApplication].keyWindow];
 }
 
-//- (void)actionSheet:(UIActionSheet *)popup clickedButtonAtIndex:(NSInteger)buttonIndex {
-//    
-//    switch (popup.tag) {
-//        case 1: {
-//            switch (buttonIndex) {
-//                case 0: {
-//                    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-//                        UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-//                        
-//                        UIImagePickerController * picker = [[UIImagePickerController alloc]init];
-//                        picker.delegate = self;
-//                        picker.allowsEditing=YES;
-//                        picker.sourceType = sourceType;
-//                        [self presentViewController:picker animated:YES completion:nil];
-//                    }
-//                }
-//                case 1:{
-//                    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-//                        UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
-//                        
-//                        UIImagePickerController * picker = [[UIImagePickerController alloc]init];
-//                        picker.delegate = self;
-//                        picker.allowsEditing=YES;
-//                        picker.sourceType = sourceType;
-//                        [self presentViewController:picker animated:YES completion:nil];
-//                    }
-//                }
-//                default:
-//                    break;
-//            }
-//            break;
-//        }
-//        default:
-//            break;
-//    }
-//}
+- (void)actionSheet:(UIActionSheet *)popup clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    switch (popup.tag) {
+        case 1: {
+            switch (buttonIndex) {
+                case 0: {
+                    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+                        UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                        
+                        UIImagePickerController * picker = [[UIImagePickerController alloc]init];
+                        picker.delegate = self;
+                        picker.allowsEditing=YES;
+                        picker.sourceType = sourceType;
+                        [self presentViewController:picker animated:YES completion:nil];
+                    }
+                }
+                case 1:{
+                    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+                        UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
+                        
+                        UIImagePickerController * picker = [[UIImagePickerController alloc]init];
+                        picker.delegate = self;
+                        picker.allowsEditing=YES;
+                        picker.sourceType = sourceType;
+                        [self presentViewController:picker animated:YES completion:nil];
+                    }
+                }
+                default:
+                    break;
+            }
+            break;
+        }
+        default:
+            break;
+    }
+}
 
-
+-(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    UIImage *galleryImage = [info objectForKey:UIImagePickerControllerEditedImage];
+    UIImage *originalImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+}
 
 -(void)shareEvent {
     NSMutableArray *sharingItems = [NSMutableArray new];

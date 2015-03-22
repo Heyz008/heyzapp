@@ -13,6 +13,14 @@
 		203EB11D1ABBE02A001CF3D7 /* EventMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 203EB11C1ABBE02A001CF3D7 /* EventMapViewController.m */; };
 		203EB1201ABD005B001CF3D7 /* EventSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 203EB11F1ABD005B001CF3D7 /* EventSearchViewController.m */; };
 		203EB1231ABE72A5001CF3D7 /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 203EB1221ABE72A5001CF3D7 /* EventCell.m */; };
+		203EB1271ABF0DA0001CF3D7 /* UIImage+MDQRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 203EB1261ABF0DA0001CF3D7 /* UIImage+MDQRCode.m */; };
+		203EB1371ABF0E0B001CF3D7 /* bitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 203EB1291ABF0E0B001CF3D7 /* bitstream.c */; };
+		203EB1381ABF0E0B001CF3D7 /* mask.c in Sources */ = {isa = PBXBuildFile; fileRef = 203EB12B1ABF0E0B001CF3D7 /* mask.c */; };
+		203EB1391ABF0E0B001CF3D7 /* qrencode.c in Sources */ = {isa = PBXBuildFile; fileRef = 203EB12D1ABF0E0B001CF3D7 /* qrencode.c */; };
+		203EB13A1ABF0E0B001CF3D7 /* qrinput.c in Sources */ = {isa = PBXBuildFile; fileRef = 203EB12F1ABF0E0B001CF3D7 /* qrinput.c */; };
+		203EB13B1ABF0E0B001CF3D7 /* qrspec.c in Sources */ = {isa = PBXBuildFile; fileRef = 203EB1311ABF0E0B001CF3D7 /* qrspec.c */; };
+		203EB13C1ABF0E0B001CF3D7 /* rscode.c in Sources */ = {isa = PBXBuildFile; fileRef = 203EB1331ABF0E0B001CF3D7 /* rscode.c */; };
+		203EB13D1ABF0E0B001CF3D7 /* split.c in Sources */ = {isa = PBXBuildFile; fileRef = 203EB1351ABF0E0B001CF3D7 /* split.c */; };
 		20568EBF1ABBCAA40004C041 /* QRCameraSwitchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 20568EB71ABBCAA40004C041 /* QRCameraSwitchButton.m */; };
 		20568EC01ABBCAA40004C041 /* QRCodeReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 20568EB91ABBCAA40004C041 /* QRCodeReader.m */; };
 		20568EC11ABBCAA40004C041 /* QRCodeReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20568EBC1ABBCAA40004C041 /* QRCodeReaderView.m */; };
@@ -289,6 +297,22 @@
 		203EB11F1ABD005B001CF3D7 /* EventSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventSearchViewController.m; sourceTree = "<group>"; };
 		203EB1211ABE72A5001CF3D7 /* EventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventCell.h; sourceTree = "<group>"; };
 		203EB1221ABE72A5001CF3D7 /* EventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventCell.m; sourceTree = "<group>"; };
+		203EB1251ABF0DA0001CF3D7 /* UIImage+MDQRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+MDQRCode.h"; sourceTree = "<group>"; };
+		203EB1261ABF0DA0001CF3D7 /* UIImage+MDQRCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+MDQRCode.m"; sourceTree = "<group>"; };
+		203EB1291ABF0E0B001CF3D7 /* bitstream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bitstream.c; sourceTree = "<group>"; };
+		203EB12A1ABF0E0B001CF3D7 /* bitstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bitstream.h; sourceTree = "<group>"; };
+		203EB12B1ABF0E0B001CF3D7 /* mask.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mask.c; sourceTree = "<group>"; };
+		203EB12C1ABF0E0B001CF3D7 /* mask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mask.h; sourceTree = "<group>"; };
+		203EB12D1ABF0E0B001CF3D7 /* qrencode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = qrencode.c; sourceTree = "<group>"; };
+		203EB12E1ABF0E0B001CF3D7 /* qrencode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qrencode.h; sourceTree = "<group>"; };
+		203EB12F1ABF0E0B001CF3D7 /* qrinput.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = qrinput.c; sourceTree = "<group>"; };
+		203EB1301ABF0E0B001CF3D7 /* qrinput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qrinput.h; sourceTree = "<group>"; };
+		203EB1311ABF0E0B001CF3D7 /* qrspec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = qrspec.c; sourceTree = "<group>"; };
+		203EB1321ABF0E0B001CF3D7 /* qrspec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qrspec.h; sourceTree = "<group>"; };
+		203EB1331ABF0E0B001CF3D7 /* rscode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rscode.c; sourceTree = "<group>"; };
+		203EB1341ABF0E0B001CF3D7 /* rscode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rscode.h; sourceTree = "<group>"; };
+		203EB1351ABF0E0B001CF3D7 /* split.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = split.c; sourceTree = "<group>"; };
+		203EB1361ABF0E0B001CF3D7 /* split.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = split.h; sourceTree = "<group>"; };
 		20568EB61ABBCAA40004C041 /* QRCameraSwitchButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCameraSwitchButton.h; sourceTree = "<group>"; };
 		20568EB71ABBCAA40004C041 /* QRCameraSwitchButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCameraSwitchButton.m; sourceTree = "<group>"; };
 		20568EB81ABBCAA40004C041 /* QRCodeReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeReader.h; sourceTree = "<group>"; };
@@ -695,6 +719,37 @@
 				00DA80961A9D926D005466EE /* M13Checkbox.m */,
 			);
 			name = M13Checkbox;
+			sourceTree = "<group>";
+		};
+		203EB1241ABF0D51001CF3D7 /* QRCodeEncoder */ = {
+			isa = PBXGroup;
+			children = (
+				203EB1281ABF0E0B001CF3D7 /* libqrencode */,
+				203EB1251ABF0DA0001CF3D7 /* UIImage+MDQRCode.h */,
+				203EB1261ABF0DA0001CF3D7 /* UIImage+MDQRCode.m */,
+			);
+			name = QRCodeEncoder;
+			sourceTree = "<group>";
+		};
+		203EB1281ABF0E0B001CF3D7 /* libqrencode */ = {
+			isa = PBXGroup;
+			children = (
+				203EB1291ABF0E0B001CF3D7 /* bitstream.c */,
+				203EB12A1ABF0E0B001CF3D7 /* bitstream.h */,
+				203EB12B1ABF0E0B001CF3D7 /* mask.c */,
+				203EB12C1ABF0E0B001CF3D7 /* mask.h */,
+				203EB12D1ABF0E0B001CF3D7 /* qrencode.c */,
+				203EB12E1ABF0E0B001CF3D7 /* qrencode.h */,
+				203EB12F1ABF0E0B001CF3D7 /* qrinput.c */,
+				203EB1301ABF0E0B001CF3D7 /* qrinput.h */,
+				203EB1311ABF0E0B001CF3D7 /* qrspec.c */,
+				203EB1321ABF0E0B001CF3D7 /* qrspec.h */,
+				203EB1331ABF0E0B001CF3D7 /* rscode.c */,
+				203EB1341ABF0E0B001CF3D7 /* rscode.h */,
+				203EB1351ABF0E0B001CF3D7 /* split.c */,
+				203EB1361ABF0E0B001CF3D7 /* split.h */,
+			);
+			path = libqrencode;
 			sourceTree = "<group>";
 		};
 		20568EB51ABBCAA40004C041 /* QRCodeReaderViewController */ = {
@@ -1105,6 +1160,7 @@
 		BB303D8D18B863E300B6EBC9 = {
 			isa = PBXGroup;
 			children = (
+				203EB1241ABF0D51001CF3D7 /* QRCodeEncoder */,
 				20568EB51ABBCAA40004C041 /* QRCodeReaderViewController */,
 				20703C8B1AB53CC0003F36B7 /* fontawesome */,
 				00DA80941A9D925C005466EE /* M13Checkbox */,
@@ -1636,6 +1692,7 @@
 				BB303E3018B87FCE00B6EBC9 /* TabBarViewController.m in Sources */,
 				7986DCCF19C9E92A00EE4DD7 /* LocalizeHelper.m in Sources */,
 				BB303DB318B863E300B6EBC9 /* ViewController.m in Sources */,
+				203EB1391ABF0E0B001CF3D7 /* qrencode.c in Sources */,
 				203EB1201ABD005B001CF3D7 /* EventSearchViewController.m in Sources */,
 				BB303E4018B88D4C00B6EBC9 /* FeedViewController.m in Sources */,
 				7982242018F7098C009FA42E /* LoginViewController.m in Sources */,
@@ -1643,6 +1700,7 @@
 				7112223A18BCD08700E77A4A /* MapViewController.m in Sources */,
 				798D9E2318F15F2000A69513 /* UIImage+WebP.m in Sources */,
 				798D9E0F18F15F1400A69513 /* SDWebImageManager.m in Sources */,
+				203EB13D1ABF0E0B001CF3D7 /* split.c in Sources */,
 				20703C8E1AB53CD1003F36B7 /* NSString+FontAwesome.m in Sources */,
 				79504C4A191F8B1F00EF3103 /* CustomDatePicker.m in Sources */,
 				20703C8A1AA7EE02003F36B7 /* SelectTableViewController.m in Sources */,
@@ -1657,6 +1715,7 @@
 				20703C961AB5E472003F36B7 /* WhoIsGoingViewController.m in Sources */,
 				798D9E2018F15F2000A69513 /* NSData+ImageContentType.m in Sources */,
 				791E3DEA18F320A300220BDE /* GTMNSString+HTML.m in Sources */,
+				203EB1371ABF0E0B001CF3D7 /* bitstream.c in Sources */,
 				207208BA1A7B2AB4008F167D /* NewEventViewController.m in Sources */,
 				79691D0618F00C8700ABD52D /* ASIDownloadCache.m in Sources */,
 				79691D0318F00C8700ABD52D /* ASIHTTPRequest.m in Sources */,
@@ -1682,12 +1741,15 @@
 				790AE0B518F9862500FBE2F2 /* RegistrationViewController.m in Sources */,
 				791E3DED18F3277A00220BDE /* Feeds.m in Sources */,
 				7122DB1518BB1F7300C044E8 /* ThirdFeedCustomCell.m in Sources */,
+				203EB13C1ABF0E0B001CF3D7 /* rscode.c in Sources */,
+				203EB1381ABF0E0B001CF3D7 /* mask.c in Sources */,
 				00DA80971A9D926D005466EE /* M13Checkbox.m in Sources */,
 				798D9E2118F15F2000A69513 /* UIImage+MultiFormat.m in Sources */,
 				79691D2618F037A200ABD52D /* LocationManager.m in Sources */,
 				7122DB1418BB1F7300C044E8 /* SecondFeedCustomCell.m in Sources */,
 				7987137C18F0748800727E1A /* MyAnnotation.m in Sources */,
 				BB303DAA18B863E300B6EBC9 /* AppDelegate.m in Sources */,
+				203EB13B1ABF0E0B001CF3D7 /* qrspec.c in Sources */,
 				798D9DFF18F15EE900A69513 /* SDWebImageCompat.m in Sources */,
 				791E3DE918F320A300220BDE /* NSString+HTML.m in Sources */,
 				7112222D18BCC69300E77A4A /* AboutCustomCell1.m in Sources */,
@@ -1721,8 +1783,10 @@
 				207208A61A7432BB008F167D /* ProgramViewController.m in Sources */,
 				798D9E2618F15F2000A69513 /* UIImageView+WebCache.m in Sources */,
 				79691CAA18EFFF1F00ABD52D /* NSString+SBJSON.m in Sources */,
+				203EB13A1ABF0E0B001CF3D7 /* qrinput.c in Sources */,
 				798D9E0818F15F0400A69513 /* SDImageCache.m in Sources */,
 				798D9E0518F15EF800A69513 /* SDWebImageDownloaderOperation.m in Sources */,
+				203EB1271ABF0DA0001CF3D7 /* UIImage+MDQRCode.m in Sources */,
 				207208C41A7DB57A008F167D /* OurImageViewCell.m in Sources */,
 				790013C618F5C04D00AF682C /* FeedDetailViewController.m in Sources */,
 				7112222F18BCC69300E77A4A /* AboutCustomCell3.m in Sources */,

@@ -637,6 +637,28 @@
                                             <segue destination="FCk-bJ-VE0" kind="push" id="aIW-Tn-FNR"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="yIc-mR-Ica">
+                                        <rect key="frame" x="8" y="8" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addImageTapped:" destination="GJ5-Ez-Ag6" eventType="touchUpInside" id="Y6c-xt-dpp"/>
+                                        </connections>
+                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Re5-xf-KbG">
+                                        <rect key="frame" x="282" y="8" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="aiJ-B5-GjX">
+                                        <rect key="frame" x="282" y="8" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </scrollView>
@@ -683,6 +705,7 @@
                     <connections>
                         <outlet property="aboutContent" destination="wtF-CP-EvR" id="Laq-Yz-O4f"/>
                         <outlet property="aboutLabel" destination="c1Z-ti-aEa" id="KvY-XR-rUb"/>
+                        <outlet property="addImageButton" destination="yIc-mR-Ica" id="yIP-04-czz"/>
                         <outlet property="commentLabel" destination="6PQ-fN-Tri" id="pKV-rx-srr"/>
                         <outlet property="commentMoreLabel" destination="gHc-se-0mU" id="6v0-1c-gya"/>
                         <outlet property="comments" destination="eHH-HN-I3D" id="DCG-Bd-dZE"/>
@@ -696,6 +719,8 @@
                         <outlet property="joinButton" destination="wWZ-DE-hW3" id="26N-kx-1sb"/>
                         <outlet property="joinView" destination="7Wb-Ec-2Nh" id="vXF-lo-9Kx"/>
                         <outlet property="likeButton" destination="jbR-sD-EG7" id="43d-1T-tA6"/>
+                        <outlet property="qrButton" destination="aiJ-B5-GjX" id="WoW-Nc-qdj"/>
+                        <outlet property="qrImage" destination="Re5-xf-KbG" id="qxs-OQ-XjO"/>
                         <outlet property="scrollViewMain" destination="OcV-0J-4Io" id="7fo-vs-AV2"/>
                         <outlet property="whoIsGoing" destination="Ohh-l2-LLW" id="cG6-tx-2e8"/>
                         <outlet property="whoIsGoingLabel" destination="w4Z-cV-S6I" id="EaM-rN-goz"/>
