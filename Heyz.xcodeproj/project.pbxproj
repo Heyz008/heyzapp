@@ -28,6 +28,7 @@
 		203EB1471ABF169F001CF3D7 /* 11.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 203EB1421ABF169F001CF3D7 /* 11.jpg */; };
 		203EB1491ABF1A8A001CF3D7 /* 66.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 203EB1481ABF1A8A001CF3D7 /* 66.jpg */; };
 		203EB14C1ABF1BAA001CF3D7 /* QRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 203EB14B1ABF1BAA001CF3D7 /* QRViewController.m */; };
+		203EB1581ABF2ADE001CF3D7 /* ImageGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 203EB1571ABF2ADE001CF3D7 /* ImageGalleryViewController.m */; };
 		20568EBF1ABBCAA40004C041 /* QRCameraSwitchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 20568EB71ABBCAA40004C041 /* QRCameraSwitchButton.m */; };
 		20568EC01ABBCAA40004C041 /* QRCodeReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 20568EB91ABBCAA40004C041 /* QRCodeReader.m */; };
 		20568EC11ABBCAA40004C041 /* QRCodeReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20568EBC1ABBCAA40004C041 /* QRCodeReaderView.m */; };
@@ -328,6 +329,8 @@
 		203EB1481ABF1A8A001CF3D7 /* 66.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 66.jpg; sourceTree = "<group>"; };
 		203EB14A1ABF1BAA001CF3D7 /* QRViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRViewController.h; sourceTree = "<group>"; };
 		203EB14B1ABF1BAA001CF3D7 /* QRViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRViewController.m; sourceTree = "<group>"; };
+		203EB1561ABF2ADE001CF3D7 /* ImageGalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageGalleryViewController.h; sourceTree = "<group>"; };
+		203EB1571ABF2ADE001CF3D7 /* ImageGalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageGalleryViewController.m; sourceTree = "<group>"; };
 		20568EB61ABBCAA40004C041 /* QRCameraSwitchButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCameraSwitchButton.h; sourceTree = "<group>"; };
 		20568EB71ABBCAA40004C041 /* QRCameraSwitchButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCameraSwitchButton.m; sourceTree = "<group>"; };
 		20568EB81ABBCAA40004C041 /* QRCodeReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeReader.h; sourceTree = "<group>"; };
@@ -833,6 +836,8 @@
 				20703C9B1AB5EAAE003F36B7 /* DescriptionDetailViewController.m */,
 				20703CA61AB5F222003F36B7 /* CommentViewController.h */,
 				20703CA71AB5F222003F36B7 /* CommentViewController.m */,
+				203EB1561ABF2ADE001CF3D7 /* ImageGalleryViewController.h */,
+				203EB1571ABF2ADE001CF3D7 /* ImageGalleryViewController.m */,
 			);
 			path = About;
 			sourceTree = "<group>";
@@ -1812,6 +1817,7 @@
 				20568EBF1ABBCAA40004C041 /* QRCameraSwitchButton.m in Sources */,
 				207208A61A7432BB008F167D /* ProgramViewController.m in Sources */,
 				798D9E2618F15F2000A69513 /* UIImageView+WebCache.m in Sources */,
+				203EB1581ABF2ADE001CF3D7 /* ImageGalleryViewController.m in Sources */,
 				79691CAA18EFFF1F00ABD52D /* NSString+SBJSON.m in Sources */,
 				203EB13A1ABF0E0B001CF3D7 /* qrinput.c in Sources */,
 				798D9E0818F15F0400A69513 /* SDImageCache.m in Sources */,
@@ -1959,6 +1965,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1969,8 +1976,11 @@
 				GCC_PREFIX_HEADER = "Events/Heyz-Prefix.pch";
 				INFOPLIST_FILE = "Events/Heyz-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Heyz;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Events/About/Heyz-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1979,6 +1989,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1989,8 +2000,10 @@
 				GCC_PREFIX_HEADER = "Events/Heyz-Prefix.pch";
 				INFOPLIST_FILE = "Events/Heyz-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Heyz;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Events/About/Heyz-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

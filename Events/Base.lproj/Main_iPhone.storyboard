@@ -641,7 +641,7 @@
                                         <rect key="frame" x="8" y="8" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal">
-                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -694,6 +694,7 @@
                                                 </view>
                                                 <connections>
                                                     <outlet property="photo" destination="DRP-pS-eh3" id="1Fa-fi-uc6"/>
+                                                    <segue destination="cZY-DP-YOY" kind="push" id="OaN-eG-qPR"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
@@ -1196,13 +1197,30 @@
             </objects>
             <point key="canvasLocation" x="90" y="-865"/>
         </scene>
-        <!--Page View Controller-->
-        <scene sceneID="0mc-jR-2he">
+        <!--Image Gallery View Controller-->
+        <scene sceneID="s57-Ve-bDn">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="Rqq-kU-Y95" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Mm7-9r-stx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="cZY-DP-YOY" customClass="ImageGalleryViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wqi-mt-DdM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" id="me7-eM-0n8">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="435"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="c3X-zz-j6q"/>
+                    <connections>
+                        <outlet property="scrollView" destination="me7-eM-0n8" id="de4-Vl-XCV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WmO-Di-zZI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="152" y="-1447"/>
+            <point key="canvasLocation" x="129" y="-1462"/>
         </scene>
         <!--Event Location View Controller-->
         <scene sceneID="xeU-Hd-Y8u">
@@ -1244,7 +1262,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="0HW-ez-1g9">
-                                                    <rect key="frame" x="8" y="0.0" width="1003" height="172"/>
+                                                    <rect key="frame" x="8" y="0.0" width="1323" height="215"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
                                             </subviews>

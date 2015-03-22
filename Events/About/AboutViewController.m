@@ -109,7 +109,7 @@
     self.addImageButton.titleLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:22];
     [self.addImageButton setTitle:[NSString fontAwesomeIconStringForIconIdentifier:@"fa-plus"] forState:UIControlStateNormal];
     
-    self.qrImage.image = [UIImage mdQRCodeForString:self.eventName.text size:self.qrImage.bounds.size.width fillColor:[UIColor darkGrayColor]];
+    self.qrImage.image = [UIImage mdQRCodeForString:self.eventName.text size:self.qrImage.bounds.size.width fillColor:[UIColor lightGrayColor]];
     
     descriptionTextHeight = [Utility getTextSize:[self.eventObj objectForKey:@"description"]textWidth:300 fontSize:14.0f lineBreakMode:NSLineBreakByWordWrapping].height;
     
