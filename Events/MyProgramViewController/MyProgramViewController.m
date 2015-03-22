@@ -13,7 +13,6 @@
 #import "EventCalCell.h"
 #import "UIImageView+WebCache.h"
 #import "LoginViewController.h"
-
 #import "MMdbsupport.h"
 #import <Parse/Parse.h>
 #import "EventList.h"
@@ -127,6 +126,12 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
        
+    EventCell *cell = (EventCell*)sender;
+    NSIndexPath *selectedRowIndex = [self.tableView indexPathForCell:cell];
+    AboutViewController *aboutVwController = [segue destinationViewController];
+    NSArray *keys = [events allKeys];
+    PFObject *event = events[keys[selectedRowIndex.section]][selectedRowIndex.row];
     
+    aboutVwController.eventObj  =   event;
 }
 @end

@@ -367,7 +367,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EventCell" id="6mA-02-4YI" customClass="EventCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="EventCell" id="6mA-02-4YI" customClass="EventCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6mA-02-4YI" id="Kxw-79-2eI">
@@ -406,6 +406,7 @@
                                             <outlet property="eventName" destination="Z5d-5c-8By" id="IEy-Hd-GPd"/>
                                             <outlet property="seperator" destination="uCN-aj-Eff" id="LSv-oA-f2y"/>
                                             <outlet property="start" destination="UL8-G9-FGS" id="R5K-r8-RLS"/>
+                                            <segue destination="GJ5-Ez-Ag6" kind="push" id="IXO-5p-8wl"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -425,7 +426,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="guj-AN-y0G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-732" y="-504"/>
+            <point key="canvasLocation" x="-728" y="-502"/>
         </scene>
         <!--About View Controller-->
         <scene sceneID="0v6-xa-O5w">
@@ -1835,6 +1836,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="irI-vS-uKx"/>
         <segue reference="UJ5-b0-qFx"/>
+        <segue reference="IXO-5p-8wl"/>
         <segue reference="vEg-fD-VNZ"/>
     </inferredMetricsTieBreakers>
 </document>

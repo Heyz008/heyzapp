@@ -20,7 +20,6 @@
 #import "WhoIsGoingViewController.h"
 #import "DescriptionDetailViewController.h"
 #import "CommentSummaryCell.h"
-
 #import "ProgramDescriptionViewController.h"
 
 @interface AboutViewController ()
@@ -84,6 +83,24 @@
     self.commentMoreLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:12];
     self.commentMoreLabel.text = [NSString stringWithFormat:@"View All   %@", [NSString fontAwesomeIconStringForIconIdentifier:@"fa-angle-right"]];
     
+    UIColor *buttonColor = [UIColor colorWithRed:235.0/255 green:108.0/255 blue:118.0/255 alpha:1.0];
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithTitle:[NSString fontAwesomeIconStringForIconIdentifier:@"fa-share-square-o"] style:UIBarButtonItemStylePlain target:self action:@selector(shareEvent)];
+    [shareButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                         [UIFont fontWithName:kFontAwesomeFamilyName size:22], NSFontAttributeName,
+                                         buttonColor, NSForegroundColorAttributeName,
+                                         nil] forState:UIControlStateNormal];
+    UIBarButtonItem *actionButton = [[UIBarButtonItem alloc] initWithTitle:[NSString fontAwesomeIconStringForIconIdentifier:@"fa-ellipsis-h"] style:UIBarButtonItemStylePlain target:self action:@selector(eventAction)];
+    [actionButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                         [UIFont fontWithName:kFontAwesomeFamilyName size:22], NSFontAttributeName,
+                                         buttonColor, NSForegroundColorAttributeName,
+                                         nil] forState:UIControlStateNormal];
+    
+    UIBarButtonItem *fixedItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixedItem.width = 18.0f;
+    
+    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:shareButton, fixedItem, actionButton, nil]];
+    
+    
     
     descriptionTextHeight = [Utility getTextSize:[self.eventObj objectForKey:@"description"]textWidth:300 fontSize:14.0f lineBreakMode:NSLineBreakByWordWrapping].height;
     
@@ -106,6 +123,65 @@
     CGRect joinFrame = self.joinView.frame;
     joinFrame.origin.y = self.scrollViewMain.frame.origin.y + self.scrollViewMain.frame.size.height;
     self.joinView.frame = joinFrame;
+}
+
+-(void)eventAction {
+    UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:@"ACTION" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:
+                            @"Invite",
+                            @"Report",
+                            nil];
+    popup.tag = 1;
+    [popup showInView:[UIApplication sharedApplication].keyWindow];
+}
+
+//- (void)actionSheet:(UIActionSheet *)popup clickedButtonAtIndex:(NSInteger)buttonIndex {
+//    
+//    switch (popup.tag) {
+//        case 1: {
+//            switch (buttonIndex) {
+//                case 0: {
+//                    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+//                        UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+//                        
+//                        UIImagePickerController * picker = [[UIImagePickerController alloc]init];
+//                        picker.delegate = self;
+//                        picker.allowsEditing=YES;
+//                        picker.sourceType = sourceType;
+//                        [self presentViewController:picker animated:YES completion:nil];
+//                    }
+//                }
+//                case 1:{
+//                    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+//                        UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
+//                        
+//                        UIImagePickerController * picker = [[UIImagePickerController alloc]init];
+//                        picker.delegate = self;
+//                        picker.allowsEditing=YES;
+//                        picker.sourceType = sourceType;
+//                        [self presentViewController:picker animated:YES completion:nil];
+//                    }
+//                }
+//                default:
+//                    break;
+//            }
+//            break;
+//        }
+//        default:
+//            break;
+//    }
+//}
+
+
+
+-(void)shareEvent {
+    NSMutableArray *sharingItems = [NSMutableArray new];
+    
+    [sharingItems addObject:self.eventName.text];
+    [sharingItems addObject:self.eventImageView.image];
+    
+    UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:sharingItems applicationActivities:nil];
+    activityController.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypePrint];
+    [self presentViewController:activityController animated:YES completion:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
