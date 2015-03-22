@@ -22,6 +22,7 @@
 #import "CommentSummaryCell.h"
 #import "ProgramDescriptionViewController.h"
 #import "UIImage+MDQRCode.h"
+#import "QRViewController.h"
 
 @interface AboutViewController ()
 {
@@ -52,12 +53,15 @@
     [self initializeNavigationBar];
     
     self.photos = [@[@"1.jpg", @"2.jpg", @"3.jpg", @"4.jpg", @"5.jpg"] mutableCopy];
-    
+    self.galleries = [@[@"11.jpg", @"22.jpg", @"33.jpg", @"44.jpg", @"55.jpg", @"66.jpg"] mutableCopy];
     self.commentUsers = [@[@"You", @"MoMo", @"LuLu"] mutableCopy];
     self.commentContents = [@[@"Very Good Event", @"I really want to go!!!", @"HeyHeyHey YoYoYo"] mutableCopy];
     self.comments.delegate = self;
     
     self.whoIsGoing.delegate = self;
+    self.whoIsGoing.tag = 11;
+    self.eventGallery.delegate = self;
+    self.eventGallery.tag = 22;
     
     self.eventName.text = self.eventObj[@"title"];
     self.eventOwner.text = [NSString stringWithFormat:@"Hosted by Heyz . %@ . %@", self.eventObj[@"privacy"], self.eventObj[@"payment"]];
@@ -74,6 +78,7 @@
     
     self.aboutContent.text = self.eventObj[@"description"];
     
+    self.eventGallery.backgroundColor = [UIColor clearColor];
     
     self.whoMoreLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:12];
     self.whoMoreLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-angle-right"];
@@ -508,6 +513,9 @@
     } else if ([[segue identifier] isEqualToString:@"AboutDetail"]) {
         DescriptionDetailViewController *dd = [segue destinationViewController];
         dd.eventDescription = self.aboutContent.text;
+    } else if ([[segue identifier] isEqualToString:@"QRDetail"]) {
+        QRViewController *qr = [segue destinationViewController];
+        qr.eventName = self.eventName.text;
     }
     
 //    ProgramDescriptionViewController *programDescriptionView = [segue destinationViewController];
@@ -646,20 +654,31 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return [self.photos count];
+    if (collectionView.tag == 11) {
+        return [self.photos count];
+    } else {
+        return [self.galleries count];
+    }
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CellIdentifier = @"WhoIsGoing";
-    WhoIsGoingCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-    cell.photo.image = [UIImage imageNamed:[self.photos objectAtIndex:indexPath.row]];
-    cell.photo.layer.cornerRadius = cell.photo.frame.size.width / 2;
-    cell.photo.clipsToBounds = YES;
-    cell.backgroundColor = [UIColor whiteColor];
-    
-    
-    return cell;
+    static NSString *CellIdentifier;
+    if (collectionView.tag == 11) {
+        CellIdentifier = @"WhoIsGoing";
+        WhoIsGoingCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+        cell.photo.image = [UIImage imageNamed:[self.photos objectAtIndex:indexPath.row]];
+        cell.photo.layer.cornerRadius = cell.photo.frame.size.width / 2;
+        cell.photo.clipsToBounds = YES;
+        return cell;
+    } else {
+        CellIdentifier = @"ImageGallery";
+        WhoIsGoingCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+        cell.photo.image = [UIImage imageNamed:[self.galleries objectAtIndex:indexPath.row]];
+        cell.photo.layer.cornerRadius = cell.photo.frame.size.width / 2;
+        cell.photo.clipsToBounds = YES;
+        return cell;
+    }
 }
 
 @end

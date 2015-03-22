@@ -25,6 +25,7 @@
 
 @property (strong, nonatomic) NSMutableArray *arrayTotalSpaces;
 @property (strong, nonatomic) NSMutableArray *photos;
+@property (strong, nonatomic) NSMutableArray *galleries;
 @property (strong, nonatomic) IBOutlet UIImageView *eventImageView;
 @property (strong, nonatomic) IBOutlet UILabel *eventName;
 @property (strong, nonatomic) IBOutlet UILabel *eventOwner;
@@ -33,6 +34,7 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *whoIsGoingLabel;
 @property (strong, nonatomic) IBOutlet UICollectionView *whoIsGoing;
+@property (strong, nonatomic) IBOutlet UICollectionView *eventGallery;
 @property (strong, nonatomic) IBOutlet UILabel *aboutLabel;
 @property (strong, nonatomic) IBOutlet UILabel *aboutContent;
 @property (strong, nonatomic) IBOutlet UILabel *commentLabel;

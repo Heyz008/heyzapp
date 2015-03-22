@@ -21,6 +21,13 @@
 		203EB13B1ABF0E0B001CF3D7 /* qrspec.c in Sources */ = {isa = PBXBuildFile; fileRef = 203EB1311ABF0E0B001CF3D7 /* qrspec.c */; };
 		203EB13C1ABF0E0B001CF3D7 /* rscode.c in Sources */ = {isa = PBXBuildFile; fileRef = 203EB1331ABF0E0B001CF3D7 /* rscode.c */; };
 		203EB13D1ABF0E0B001CF3D7 /* split.c in Sources */ = {isa = PBXBuildFile; fileRef = 203EB1351ABF0E0B001CF3D7 /* split.c */; };
+		203EB1431ABF169F001CF3D7 /* 55.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 203EB13E1ABF169F001CF3D7 /* 55.jpg */; };
+		203EB1441ABF169F001CF3D7 /* 44.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 203EB13F1ABF169F001CF3D7 /* 44.jpg */; };
+		203EB1451ABF169F001CF3D7 /* 33.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 203EB1401ABF169F001CF3D7 /* 33.jpg */; };
+		203EB1461ABF169F001CF3D7 /* 22.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 203EB1411ABF169F001CF3D7 /* 22.jpg */; };
+		203EB1471ABF169F001CF3D7 /* 11.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 203EB1421ABF169F001CF3D7 /* 11.jpg */; };
+		203EB1491ABF1A8A001CF3D7 /* 66.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 203EB1481ABF1A8A001CF3D7 /* 66.jpg */; };
+		203EB14C1ABF1BAA001CF3D7 /* QRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 203EB14B1ABF1BAA001CF3D7 /* QRViewController.m */; };
 		20568EBF1ABBCAA40004C041 /* QRCameraSwitchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 20568EB71ABBCAA40004C041 /* QRCameraSwitchButton.m */; };
 		20568EC01ABBCAA40004C041 /* QRCodeReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 20568EB91ABBCAA40004C041 /* QRCodeReader.m */; };
 		20568EC11ABBCAA40004C041 /* QRCodeReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20568EBC1ABBCAA40004C041 /* QRCodeReaderView.m */; };
@@ -313,6 +320,14 @@
 		203EB1341ABF0E0B001CF3D7 /* rscode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rscode.h; sourceTree = "<group>"; };
 		203EB1351ABF0E0B001CF3D7 /* split.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = split.c; sourceTree = "<group>"; };
 		203EB1361ABF0E0B001CF3D7 /* split.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = split.h; sourceTree = "<group>"; };
+		203EB13E1ABF169F001CF3D7 /* 55.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 55.jpg; sourceTree = "<group>"; };
+		203EB13F1ABF169F001CF3D7 /* 44.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 44.jpg; sourceTree = "<group>"; };
+		203EB1401ABF169F001CF3D7 /* 33.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 33.jpg; sourceTree = "<group>"; };
+		203EB1411ABF169F001CF3D7 /* 22.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 22.jpg; sourceTree = "<group>"; };
+		203EB1421ABF169F001CF3D7 /* 11.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 11.jpg; sourceTree = "<group>"; };
+		203EB1481ABF1A8A001CF3D7 /* 66.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 66.jpg; sourceTree = "<group>"; };
+		203EB14A1ABF1BAA001CF3D7 /* QRViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRViewController.h; sourceTree = "<group>"; };
+		203EB14B1ABF1BAA001CF3D7 /* QRViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRViewController.m; sourceTree = "<group>"; };
 		20568EB61ABBCAA40004C041 /* QRCameraSwitchButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCameraSwitchButton.h; sourceTree = "<group>"; };
 		20568EB71ABBCAA40004C041 /* QRCameraSwitchButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCameraSwitchButton.m; sourceTree = "<group>"; };
 		20568EB81ABBCAA40004C041 /* QRCodeReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeReader.h; sourceTree = "<group>"; };
@@ -1275,6 +1290,12 @@
 		BB303DD118B86B3400B6EBC9 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				203EB13E1ABF169F001CF3D7 /* 55.jpg */,
+				203EB1481ABF1A8A001CF3D7 /* 66.jpg */,
+				203EB13F1ABF169F001CF3D7 /* 44.jpg */,
+				203EB1401ABF169F001CF3D7 /* 33.jpg */,
+				203EB1411ABF169F001CF3D7 /* 22.jpg */,
+				203EB1421ABF169F001CF3D7 /* 11.jpg */,
 				207208AE1A7572DA008F167D /* 5.jpg */,
 				207208AF1A7572DA008F167D /* 4.jpg */,
 				207208B01A7572DA008F167D /* 1.jpg */,
@@ -1418,6 +1439,8 @@
 				203EB11C1ABBE02A001CF3D7 /* EventMapViewController.m */,
 				203EB11E1ABD005B001CF3D7 /* EventSearchViewController.h */,
 				203EB11F1ABD005B001CF3D7 /* EventSearchViewController.m */,
+				203EB14A1ABF1BAA001CF3D7 /* QRViewController.h */,
+				203EB14B1ABF1BAA001CF3D7 /* QRViewController.m */,
 			);
 			path = ProgramViewController;
 			sourceTree = "<group>";
@@ -1545,6 +1568,7 @@
 				BB303E2218B879AA00B6EBC9 /* image2@2x.png in Resources */,
 				7972E973195355B100F25E4D /* event-feed-mask.png in Resources */,
 				7972E972195355B100F25E4D /* date-cell-gray@2x.png in Resources */,
+				203EB1441ABF169F001CF3D7 /* 44.jpg in Resources */,
 				BB303DF218B86B3400B6EBC9 /* About@2x.png in Resources */,
 				79504C40191F7CE000EF3103 /* no_image@2x.png in Resources */,
 				BB303E2318B879AA00B6EBC9 /* nearby.png in Resources */,
@@ -1558,6 +1582,7 @@
 				7920A7B819220B39001808B6 /* instagram_logo.png in Resources */,
 				BB303E0018B86B3400B6EBC9 /* Livello1@2x.png in Resources */,
 				79736F09191EAD13005BA69B /* fb_logo@2x.png in Resources */,
+				203EB1461ABF169F001CF3D7 /* 22.jpg in Resources */,
 				7122DB4618BB7D8600C044E8 /* Segmented_middle@2x.png in Resources */,
 				BB62B11F18B8B529000DBDBC /* Action3@2x.png in Resources */,
 				79383A631906135A00A1DBBC /* share2@2x.png in Resources */,
@@ -1576,6 +1601,7 @@
 				BB303E2718B879AA00B6EBC9 /* Reload.png in Resources */,
 				BB303DB018B863E300B6EBC9 /* Main_iPad.storyboard in Resources */,
 				79E815631953481800E58344 /* Icon.png in Resources */,
+				203EB1451ABF169F001CF3D7 /* 33.jpg in Resources */,
 				BB303E0B18B86B3400B6EBC9 /* Programred.png in Resources */,
 				BB303E0218B86B3400B6EBC9 /* Livello2@2x.png in Resources */,
 				7122DB1E18BB459C00C044E8 /* feedviewCell2@2x.png in Resources */,
@@ -1641,6 +1667,7 @@
 				BB303E0518B86B3400B6EBC9 /* MyProgram.png in Resources */,
 				79A5E24719C9064E009D4018 /* Localizable.strings in Resources */,
 				BB303DF318B86B3400B6EBC9 /* Aboutred.png in Resources */,
+				203EB1471ABF169F001CF3D7 /* 11.jpg in Resources */,
 				7112221818BCC14B00E77A4A /* arrow.png in Resources */,
 				7972E97A195355B100F25E4D /* icon-feed-twitter@2x.png in Resources */,
 				BB303E2C18B879AA00B6EBC9 /* Twitter@2x.png in Resources */,
@@ -1649,7 +1676,9 @@
 				7122DB2D18BB4BDB00C044E8 /* feedviewCell4.png in Resources */,
 				BB303E0118B86B3400B6EBC9 /* Livello2.png in Resources */,
 				7972E979195355B100F25E4D /* icon-feed-twitter.png in Resources */,
+				203EB1491ABF1A8A001CF3D7 /* 66.jpg in Resources */,
 				79348D0B18F99D56006E56A5 /* login-btn@2x.png in Resources */,
+				203EB1431ABF169F001CF3D7 /* 55.jpg in Resources */,
 				BB62B12318B8B529000DBDBC /* Segmented@2x.png in Resources */,
 				7982242C18F72A57009FA42E /* register-btn@2x.png in Resources */,
 				7122DB2118BB459C00C044E8 /* feedviewCell1.png in Resources */,
@@ -1747,6 +1776,7 @@
 				798D9E2118F15F2000A69513 /* UIImage+MultiFormat.m in Sources */,
 				79691D2618F037A200ABD52D /* LocationManager.m in Sources */,
 				7122DB1418BB1F7300C044E8 /* SecondFeedCustomCell.m in Sources */,
+				203EB14C1ABF1BAA001CF3D7 /* QRViewController.m in Sources */,
 				7987137C18F0748800727E1A /* MyAnnotation.m in Sources */,
 				BB303DAA18B863E300B6EBC9 /* AppDelegate.m in Sources */,
 				203EB13B1ABF0E0B001CF3D7 /* qrspec.c in Sources */,
