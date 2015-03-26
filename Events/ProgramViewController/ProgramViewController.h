@@ -1,14 +1,14 @@
 //
 //  ProgramViewController.h
-//  Events
+//  Heyz
 //
-//  Created by Shabbir Hasan Zaheb on 22/02/14.
-//  Copyright (c) 2014 Teknowledge Software. All rights reserved.
+//  Created by Joshua Jiang on 2015-01-24.
+//  Copyright (c) 2015 Teknowledge Software. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+#import "CHTCollectionViewWaterfallLayout.h"
 
-@interface ProgramViewController : UITableViewController
-
+@interface ProgramViewController : UICollectionViewController<UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout>
 
 @end

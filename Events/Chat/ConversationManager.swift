@@ -13,8 +13,6 @@ import UIKit
 class ConversationManager {
     
     var recentConversations = NSMutableArray()
-    var publicConversations = NSMutableArray()
-    var privateConversations = NSMutableArray()
     
     let SEC_PER_ROUND = 600
     
@@ -34,7 +32,7 @@ class ConversationManager {
     
     func updateGroupConversations(sender: ChatViewController){
         
-        for conv in publicConversations {
+        for conv in recentConversations {
             
             let query = PFQuery(className: "ChatGroup")
             query.includeKey("Event")
@@ -43,7 +41,6 @@ class ConversationManager {
                 if error == nil {
                     
                     if (group["Event"] as PFObject)["ChatRound"] as Int > (conv as Conversation).round {
-                        self.publicConversations.removeObject(conv)
                         self.recentConversations.removeObject(conv)
                         
                         if sender.mDelegate != nil {
@@ -68,7 +65,6 @@ class ConversationManager {
                                         let sec = round * self.SEC_PER_ROUND + Int(ev.createdAt.timeIntervalSinceNow)
                                         
                                         let conversation = Conversation(from: group.objectId, round: round, secs: sec)
-                                        self.publicConversations.insertObject(conversation, atIndex: 0)
                                         self.recentConversations.insertObject(conversation, atIndex: 0)
                                         
                                         let predicate = NSPredicate(format: "ChatGroup = %@", PFObject(withoutDataWithClassName: "ChatGroup", objectId: (group as PFObject).objectId))
@@ -143,7 +139,6 @@ class ConversationManager {
     
     func loadGroupConversations(sender: ChatViewController) {
         
-        publicConversations.removeAllObjects()
         for conv in recentConversations {
             if !(conv as Conversation).isPrivate {
                 recentConversations.removeObject(conv)
@@ -171,7 +166,6 @@ class ConversationManager {
                                 let sec = round * self.SEC_PER_ROUND + Int(ev.createdAt.timeIntervalSinceNow)
                                 
                                 let conversation = Conversation(from: group.objectId, round: round, secs: sec)
-                                self.publicConversations.insertObject(conversation, atIndex: 0)
                                 self.recentConversations.insertObject(conversation, atIndex: 0)
                                 
                                 let predicate = NSPredicate(format: "ChatGroup = %@", PFObject(withoutDataWithClassName: "ChatGroup", objectId: (group as PFObject).objectId))
@@ -211,8 +205,8 @@ class ConversationManager {
         
         if isPrivate {
             var found = false
-            for i in 0 ..<  privateConversations.count {
-                if let conversation = privateConversations.objectAtIndex(i) as? Conversation{
+            for i in 0 ..<  recentConversations.count {
+                if let conversation = recentConversations.objectAtIndex(i) as? Conversation{
                     if conversation.from == message.from {
                         topConversation(conversation)
                         conversation.add(message, isIncoming: true)
@@ -225,33 +219,18 @@ class ConversationManager {
             if !found {
                 let conversation = Conversation(from: message.from)
                 conversation.add(message, isIncoming: true)
-                privateConversations.insertObject(conversation, atIndex: 0)
                 recentConversations.insertObject(conversation, atIndex: 0)
             }
         }
         
     }
     
-    func getConversationAtIndex(index: Int, type: Int) -> Conversation! {
-        switch type{
-        case 0:
-            return recentConversations.objectAtIndex(index) as Conversation
-        case 1:
-            return publicConversations.objectAtIndex(index) as Conversation
-        default:
-            return privateConversations.objectAtIndex(index) as Conversation
-        }
+    func getConversationAtIndex(index: Int) -> Conversation! {
+        return recentConversations.objectAtIndex(index) as Conversation
 
     }
     
     func topConversation(conversation: Conversation) {
-        if conversation.isPrivate {
-            privateConversations.removeObject(conversation)
-            privateConversations.insertObject(conversation, atIndex: 0)
-        } else {
-            publicConversations.removeObject(conversation)
-            publicConversations.insertObject(conversation, atIndex: 0)
-        }
         
         recentConversations.removeObject(conversation)
         recentConversations.insertObject(conversation, atIndex: 0)

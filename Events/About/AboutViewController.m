@@ -15,6 +15,11 @@
 #import "MyProgramViewController.h"
 #import "FavouriteEvents.h"
 #import "AppDelegate.h"
+#import "NSString+FontAwesome.h"
+#import "WhoIsGoingCollectionViewCell.h"
+#import "WhoIsGoingViewController.h"
+#import "DescriptionDetailViewController.h"
+#import "CommentSummaryCell.h"
 
 #import "ProgramDescriptionViewController.h"
 
@@ -28,9 +33,6 @@
 @implementation AboutViewController
 @synthesize scrollViewMain, eventLocationMapView;
 @synthesize eventObj;
-@synthesize tblView;
-@synthesize eventRegisterView;
-@synthesize txtViewComment, txtFieldBookingSpaces, lblComment, lblTotalCost;
 @synthesize arrayTotalSpaces;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -49,10 +51,42 @@
 	// Do any additional setup after loading the view.
     [self initializeNavigationBar];
     
-    descriptionTextHeight = [Utility getTextSize:self.eventObj.eventDescription textWidth:300 fontSize:14.0f lineBreakMode:NSLineBreakByWordWrapping].height;
+    self.photos = [@[@"1.jpg", @"2.jpg", @"3.jpg", @"4.jpg", @"5.jpg"] mutableCopy];
     
-    self.tblView.frame = CGRectMake(self.tblView.frame.origin.x, self.tblView.frame.origin.y, self.tblView.frame.size.width, self.tblView.frame.size.height+descriptionTextHeight);
-    vwFreeRegisterBtn.frame = CGRectMake(vwFreeRegisterBtn.frame.origin.x, self.tblView.frame.origin.y+self.tblView.frame.size.height, vwFreeRegisterBtn.frame.size.width, vwFreeRegisterBtn.frame.size.height);
+    self.commentUsers = [@[@"You", @"MoMo", @"LuLu"] mutableCopy];
+    self.commentContents = [@[@"Very Good Event", @"I really want to go!!!", @"HeyHeyHey YoYoYo"] mutableCopy];
+    self.comments.delegate = self;
+    
+    self.whoIsGoing.delegate = self;
+    
+    self.eventName.text = self.eventObj[@"title"];
+    self.eventOwner.text = [NSString stringWithFormat:@"Hosted by Heyz . %@ . %@", self.eventObj[@"privacy"], self.eventObj[@"payment"]];
+    self.eventTime.font = [UIFont fontWithName:kFontAwesomeFamilyName size:12];
+    self.eventAddress.font = [UIFont fontWithName:kFontAwesomeFamilyName size:12];
+    self.eventTime.text = [NSString stringWithFormat:@"%@  %@ - %@", [NSString fontAwesomeIconStringForIconIdentifier:@"fa-heart"], self.eventObj[@"from"], self.eventObj[@"to"]];
+    self.eventAddress.text = [NSString stringWithFormat:@"%@  %@", [NSString fontAwesomeIconStringForIconIdentifier:@"fa-heart"], self.eventObj[@"address"]];
+    PFFile *eventImageFile = self.eventObj[@"image"];
+    [eventImageFile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+        if (!error) {
+            self.eventImageView.image = [UIImage imageWithData:imageData];
+        }
+    }];
+    
+    self.aboutContent.text = self.eventObj[@"description"];
+    
+    
+    self.whoMoreLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:12];
+    self.whoMoreLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-angle-right"];
+    
+    self.aboutLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:12];
+    self.aboutLabel.text = [NSString stringWithFormat:@"Learn More   %@", [NSString fontAwesomeIconStringForIconIdentifier:@"fa-angle-right"]];
+    
+    self.commentMoreLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:12];
+    self.commentMoreLabel.text = [NSString stringWithFormat:@"View All   %@", [NSString fontAwesomeIconStringForIconIdentifier:@"fa-angle-right"]];
+    
+    
+    descriptionTextHeight = [Utility getTextSize:[self.eventObj objectForKey:@"description"]textWidth:300 fontSize:14.0f lineBreakMode:NSLineBreakByWordWrapping].height;
+    
     
     if (IS_IPHONE_5) {
         self.scrollViewMain.frame = CGRectMake(self.scrollViewMain.frame.origin.x, self.scrollViewMain.frame.origin.y, self.scrollViewMain.frame.size.width, self.scrollViewMain.frame.size.height+100);
@@ -62,6 +96,16 @@
     else{
         self.scrollViewMain.contentSize = CGSizeMake(self.scrollViewMain.frame.size.width, vwFreeRegisterBtn.frame.origin.y+vwFreeRegisterBtn.frame.size.height+50);
     }
+    
+    CGSize scrollSize = CGSizeMake(self.scrollViewMain.frame.size.width, self.comments.frame.origin.y + self.comments.frame.size.height);
+    self.scrollViewMain.contentSize = scrollSize;
+    
+    self.likeButton.layer.cornerRadius = 6;
+    self.joinButton.layer.cornerRadius = 6;
+    self.groupButton.layer.cornerRadius = 6;
+    CGRect joinFrame = self.joinView.frame;
+    joinFrame.origin.y = self.scrollViewMain.frame.origin.y + self.scrollViewMain.frame.size.height;
+    self.joinView.frame = joinFrame;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -82,7 +126,7 @@
 
 #pragma mark - Initialize Navigation bar
 -(void)initializeNavigationBar{
-    self.title = self.eventObj.eventName;
+    self.title = self.eventObj[@"name"];
     UIImage* image1 = [UIImage imageNamed:@"share.png"];
     CGRect frameimg1 = CGRectMake(0, 0, image1.size.width, image1.size.height);
     UIButton *shareButton = [[UIButton alloc] initWithFrame:frameimg1];
@@ -94,7 +138,7 @@
     /**
      *  get events detail data from local on basis of eventID
      */
-    NSMutableArray *arrayTemp = [[NSMutableArray alloc] initWithArray:[MMdbsupport MMfetchFavEvents:[NSString stringWithFormat:@"select * from ZFAVOURITEEVENTS where ZEVENT_ID = '%@'",self.eventObj.eventID]]];
+    NSMutableArray *arrayTemp = [[NSMutableArray alloc] initWithArray:[MMdbsupport MMfetchFavEvents:[NSString stringWithFormat:@"select * from ZFAVOURITEEVENTS where ZEVENT_ID = '%@'",[NSNumber numberWithInt:1]]]];
     if ([arrayTemp count]>0) {
         shareButton.selected=YES;
     }
@@ -113,7 +157,7 @@
          *  delete event from local to remove from favourites list
          */
         btn.selected=NO;
-        [MMdbsupport MMExecuteSqlQuery:[NSString stringWithFormat:@"delete from ZFAVOURITEEVENTS where ZEVENT_ID = '%@'",self.eventObj.eventID]];
+        [MMdbsupport MMExecuteSqlQuery:[NSString stringWithFormat:@"delete from ZFAVOURITEEVENTS where ZEVENT_ID = '%@'",[NSNumber numberWithInt:1]]];
         [Utility alertNotice:APPNAME withMSG:@"Event remove from favourite" cancleButtonTitle:@"OK" otherButtonTitle:nil];
     }
     else{
@@ -126,24 +170,24 @@
         AppDelegate *appdel = (AppDelegate *)[UIApplication sharedApplication].delegate;
         
         FavouriteEvents *objData = [NSEntityDescription insertNewObjectForEntityForName:@"FavouriteEvents" inManagedObjectContext:appdel.managedObjectContext];
-        objData.event_all_day       =   self.eventObj.eventAllDay;
-        objData.event_content       =   self.eventObj.eventDescription;
-        objData.event_end_dateTime  =   self.eventObj.eventEndDateTime;
-        objData.event_id            =   self.eventObj.eventID;
-        objData.event_image_url     =   self.eventObj.eventImageURL;
-        objData.event_name          =   self.eventObj.eventName;
+        objData.event_all_day       =   [NSNumber numberWithInt:1];
+        objData.event_content       =   self.eventObj[@"description"];
+        objData.event_end_dateTime  =   self.eventObj[@"to"];
+        objData.event_id            =   [NSNumber numberWithInt:1];
+        objData.event_image_url     =   @"";
+        objData.event_name          =   self.eventObj[@"name"];
         objData.event_owner         =   @"";
-        objData.event_start_dateTime=   self.eventObj.eventStartDateTime;
-        objData.event_loc_address   =   self.eventObj.eventLocationAddress;
-        objData.event_loc_country   =   self.eventObj.eventLocationCountry;
-        objData.event_loc_latitude  =   self.eventObj.eventLocationLatitude;
-        objData.event_loc_longitude =   self.eventObj.eventLocationLongitude;
-        objData.event_loc_name      =   self.eventObj.eventLocationName;
+        objData.event_start_dateTime=   self.eventObj[@"from"];
+        objData.event_loc_address   =   self.eventObj[@"address"];
+        objData.event_loc_country   =   @"";
+        objData.event_loc_latitude  =   [NSNumber numberWithInt:1];
+        objData.event_loc_longitude =   [NSNumber numberWithInt:1];
+        objData.event_loc_name      =   self.eventObj[@"location"];
         objData.event_loc_owner     =   @"";
         objData.event_loc_postcode  =   @"";
         objData.event_loc_region    =   @"";
-        objData.event_loc_state     =   [NSString stringWithFormat:@"%@",self.eventObj.eventLocationState];
-        objData.event_loc_town      =   [NSString stringWithFormat:@"%@",self.eventObj.eventLocationTown];
+        objData.event_loc_state     =   @"";
+        objData.event_loc_town      =   @"";
         
         [appdel.managedObjectContext save:nil];
         
@@ -153,52 +197,52 @@
 
 -(IBAction)btnEventRegistrationPressed:(id)sender
 {
-    if ([self checkLogin]) {
-
-        self.arrayTotalSpaces = [[NSMutableArray alloc] init];
-        for (int spaceCount=0; spaceCount<[self.eventObj.eventTicketTotalSpaces intValue]; spaceCount++) {
-            
-            [self.arrayTotalSpaces addObject:[NSString stringWithFormat:@"%d",spaceCount+1]];
-        }
-        
-        self.txtViewComment.layer.borderColor = [UIColor blackColor].CGColor;
-        self.txtViewComment.layer.borderWidth = 1.0f;
-        self.txtViewComment.layer.cornerRadius = 6.0f;
-        
-        [self.eventRegisterView setHidden:NO];
-        
-        if (IS_IPHONE_5) {
-            [self.eventRegisterView setFrame:CGRectMake(self.eventRegisterView.frame.origin.x, self.eventRegisterView.frame.origin.y, self.eventRegisterView.frame.size.width, self.eventRegisterView.frame.size.height+88)];
-            for (UIView *vw in self.eventRegisterView.subviews) {
-                if ([vw isKindOfClass:[UIButton class]]) {
-                }
-            }
-        }
-        else
-        {
-            [self.lblComment setFrame:CGRectMake(self.lblComment.frame.origin.x, self.lblComment.frame.origin.y-35, self.lblComment.frame.size.width, self.lblComment.frame.size.height)];
-            [self.txtViewComment setFrame:CGRectMake(self.txtViewComment.frame.origin.x, self.txtViewComment.frame.origin.y-35, self.txtViewComment.frame.size.width, self.txtViewComment.frame.size.height)];
-        }
-        
-        if (![self.eventObj.eventTicketPrice isKindOfClass:[NSNull class]] && ![self.eventObj.eventTicketPrice isEqualToString:@"(null)"] && [self.eventObj.eventTicketPrice length]>0) {
-            
-            if (![self.eventObj.eventTicketPrice isEqualToString:@"free"] || ![self.eventObj.eventTicketPrice isEqualToString:@"Free"]) {
-            
-                self.lblTotalCost.hidden = NO;
-            
-                [self.lblTotalCost setText:[NSString stringWithFormat:@"Total cost : %@",self.eventObj.eventTicketPrice]];
-            }
-        }
-    }
-    else{
-        [self showLoginScreen];
-    }
+//    if ([self checkLogin]) {
+//
+//        self.arrayTotalSpaces = [[NSMutableArray alloc] init];
+//        for (int spaceCount=0; spaceCount<[self.eventObj.eventTicketTotalSpaces intValue]; spaceCount++) {
+//            
+//            [self.arrayTotalSpaces addObject:[NSString stringWithFormat:@"%d",spaceCount+1]];
+//        }
+//        
+//        self.txtViewComment.layer.borderColor = [UIColor blackColor].CGColor;
+//        self.txtViewComment.layer.borderWidth = 1.0f;
+//        self.txtViewComment.layer.cornerRadius = 6.0f;
+//        
+//        [self.eventRegisterView setHidden:NO];
+//        
+//        if (IS_IPHONE_5) {
+//            [self.eventRegisterView setFrame:CGRectMake(self.eventRegisterView.frame.origin.x, self.eventRegisterView.frame.origin.y, self.eventRegisterView.frame.size.width, self.eventRegisterView.frame.size.height+88)];
+//            for (UIView *vw in self.eventRegisterView.subviews) {
+//                if ([vw isKindOfClass:[UIButton class]]) {
+//                }
+//            }
+//        }
+//        else
+//        {
+//            [self.lblComment setFrame:CGRectMake(self.lblComment.frame.origin.x, self.lblComment.frame.origin.y-35, self.lblComment.frame.size.width, self.lblComment.frame.size.height)];
+//            [self.txtViewComment setFrame:CGRectMake(self.txtViewComment.frame.origin.x, self.txtViewComment.frame.origin.y-35, self.txtViewComment.frame.size.width, self.txtViewComment.frame.size.height)];
+//        }
+//        
+//        if (![self.eventObj.eventTicketPrice isKindOfClass:[NSNull class]] && ![self.eventObj.eventTicketPrice isEqualToString:@"(null)"] && [self.eventObj.eventTicketPrice length]>0) {
+//            
+//            if (![self.eventObj.eventTicketPrice isEqualToString:@"free"] || ![self.eventObj.eventTicketPrice isEqualToString:@"Free"]) {
+//            
+//                self.lblTotalCost.hidden = NO;
+//            
+//                [self.lblTotalCost setText:[NSString stringWithFormat:@"Total cost : %@",self.eventObj.eventTicketPrice]];
+//            }
+//        }
+//    }
+//    else{
+//        [self showLoginScreen];
+//    }
 }
 
 #pragma mark - Event Registration View Clicked events
 -(IBAction)btnCancelPressed:(id)sender
 {
-    [self.eventRegisterView setHidden:YES];
+  
 }
 
 /**
@@ -206,93 +250,91 @@
  */
 -(IBAction)btnSubmitPressed:(id)sender
 {
-    if ([self isValid]) {
-        [DSBezelActivityView newActivityViewForView:[UIApplication sharedApplication].keyWindow withLabel:@"Processing..."];
-        
-        NSDictionary *dictOfParameters = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:[[Utility getNSUserDefaultValue:KUSERID] intValue]],@"user_id",self.eventObj.eventID,@"event_id",self.txtFieldBookingSpaces.text,@"booking_spaces",self.txtViewComment.text,@"booking_comment", nil];
-
-        [Utility GetDataForMethod:NSLocalizedString(@"BOOKTICKET_METHOD", @"BOOKTICKET_METHOD") parameters:dictOfParameters key:@"" withCompletion:^(id data){
-        
-            [DSBezelActivityView removeViewAnimated:YES];
-            if ([data isKindOfClass:[NSDictionary class]]) {
-                if (self.lblTotalCost.hidden) {
-                    UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"" message:[data objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                    av.tag = 1001;
-                    [av show];
-                }
-                else
-                {
-                    NSString *strURL = [[data objectForKey:@"payment_page_link"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                    TSMiniWebBrowser *webBrowser = [[TSMiniWebBrowser alloc] initWithUrl:[NSURL URLWithString:strURL]];
-                    webBrowser.delegate = self;
-                    [webBrowser setFixedTitleBarText:@"Book ticket"];
-                    webBrowser.strHtmlContent=@"";
-                    webBrowser.mode = TSMiniWebBrowserModeModal;
-                    webBrowser.barStyle = UIBarStyleDefault;
-                    if (webBrowser.mode == TSMiniWebBrowserModeModal) {
-                        webBrowser.modalDismissButtonTitle = @"Back";
-                        [DSBezelActivityView newActivityViewForView:[UIApplication sharedApplication].keyWindow];
-                        
-                        [self.navigationController presentViewController:webBrowser animated:YES completion:nil];
-                    }
-                    else if(webBrowser.mode == TSMiniWebBrowserModeNavigation) {
-                        [DSBezelActivityView newActivityViewForView:[UIApplication sharedApplication].keyWindow];
-                        [self.navigationController pushViewController:webBrowser animated:YES];
-                    }
-                }
-            }
-   
-        }WithFailure:^(NSString *error){
-            [DSBezelActivityView removeViewAnimated:YES];
-            NSLog(@"%@",error);
-        }];
-    }
+//    if ([self isValid]) {
+//        [DSBezelActivityView newActivityViewForView:[UIApplication sharedApplication].keyWindow withLabel:@"Processing..."];
+//        
+//        NSDictionary *dictOfParameters = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:[[Utility getNSUserDefaultValue:KUSERID] intValue]],@"user_id",self.eventObj.eventID,@"event_id",self.txtFieldBookingSpaces.text,@"booking_spaces",self.txtViewComment.text,@"booking_comment", nil];
+//
+//        [Utility GetDataForMethod:NSLocalizedString(@"BOOKTICKET_METHOD", @"BOOKTICKET_METHOD") parameters:dictOfParameters key:@"" withCompletion:^(id data){
+//        
+//            [DSBezelActivityView removeViewAnimated:YES];
+//            if ([data isKindOfClass:[NSDictionary class]]) {
+//                if (self.lblTotalCost.hidden) {
+//                    UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"" message:[data objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+//                    av.tag = 1001;
+//                    [av show];
+//                }
+//                else
+//                {
+//                    NSString *strURL = [[data objectForKey:@"payment_page_link"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//                    TSMiniWebBrowser *webBrowser = [[TSMiniWebBrowser alloc] initWithUrl:[NSURL URLWithString:strURL]];
+//                    webBrowser.delegate = self;
+//                    [webBrowser setFixedTitleBarText:@"Book ticket"];
+//                    webBrowser.strHtmlContent=@"";
+//                    webBrowser.mode = TSMiniWebBrowserModeModal;
+//                    webBrowser.barStyle = UIBarStyleDefault;
+//                    if (webBrowser.mode == TSMiniWebBrowserModeModal) {
+//                        webBrowser.modalDismissButtonTitle = @"Back";
+//                        [DSBezelActivityView newActivityViewForView:[UIApplication sharedApplication].keyWindow];
+//                        
+//                        [self.navigationController presentViewController:webBrowser animated:YES completion:nil];
+//                    }
+//                    else if(webBrowser.mode == TSMiniWebBrowserModeNavigation) {
+//                        [DSBezelActivityView newActivityViewForView:[UIApplication sharedApplication].keyWindow];
+//                        [self.navigationController pushViewController:webBrowser animated:YES];
+//                    }
+//                }
+//            }
+//   
+//        }WithFailure:^(NSString *error){
+//            [DSBezelActivityView removeViewAnimated:YES];
+//            NSLog(@"%@",error);
+//        }];
+//    }
 }
 
 #pragma mark - TSMiniWebBrowser delegates
 -(void)tsMiniWebBrowserDidDismiss
 {
-    [DSBezelActivityView newActivityViewForView:[UIApplication sharedApplication].keyWindow withLabel:@"Processing..."];
-    NSDictionary *dictOfParameters = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:[[Utility getNSUserDefaultValue:KUSERID] intValue]],@"user_id",self.eventObj.eventID,@"event_id", nil];
-    /**
-     *  This will check, if ticket payment is successful then it return to previous page otherwise it will stay on this page.
-     */
-    [Utility GetDataForMethod:NSLocalizedString(@"CHECKBOOK_METHOD", @"CHECKBOOK_METHOD") parameters:dictOfParameters key:@"" withCompletion:^(id data){
-        [DSBezelActivityView removeViewAnimated:YES];
-        
-        if ([data isKindOfClass:[NSArray class]]) {
-            if ([[[data objectAtIndex:0] objectForKey:@"status"] intValue] == 1) {
-                UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"" message:[[data objectAtIndex:0] objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                [av setTag:99];
-                [av show];
-            }
-            else{
-                [Utility alertNotice:@"" withMSG:[[data objectAtIndex:0] objectForKey:@"message"] cancleButtonTitle:@"OK" otherButtonTitle:nil];
-            }
-        }
-        
-        if ([data isKindOfClass:[NSDictionary class]]) {
-            if ([[data objectForKey:@"status"] intValue] == 1) {
-                UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"" message:[[data objectAtIndex:0] objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                [av setTag:99];
-                [av show];
-            }
-            else{
-                [Utility alertNotice:@"" withMSG:[data objectForKey:@"message"] cancleButtonTitle:@"ok" otherButtonTitle:nil];
-            }
-        }
-        
-    }WithFailure:^(NSString *error){
-        [DSBezelActivityView removeViewAnimated:YES];
-        NSLog(@"%@",error);
-    }];
+//    [DSBezelActivityView newActivityViewForView:[UIApplication sharedApplication].keyWindow withLabel:@"Processing..."];
+//    NSDictionary *dictOfParameters = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:[[Utility getNSUserDefaultValue:KUSERID] intValue]],@"user_id",self.eventObj.eventID,@"event_id", nil];
+//    /**
+//     *  This will check, if ticket payment is successful then it return to previous page otherwise it will stay on this page.
+//     */
+//    [Utility GetDataForMethod:NSLocalizedString(@"CHECKBOOK_METHOD", @"CHECKBOOK_METHOD") parameters:dictOfParameters key:@"" withCompletion:^(id data){
+//        [DSBezelActivityView removeViewAnimated:YES];
+//        
+//        if ([data isKindOfClass:[NSArray class]]) {
+//            if ([[[data objectAtIndex:0] objectForKey:@"status"] intValue] == 1) {
+//                UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"" message:[[data objectAtIndex:0] objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//                [av setTag:99];
+//                [av show];
+//            }
+//            else{
+//                [Utility alertNotice:@"" withMSG:[[data objectAtIndex:0] objectForKey:@"message"] cancleButtonTitle:@"OK" otherButtonTitle:nil];
+//            }
+//        }
+//        
+//        if ([data isKindOfClass:[NSDictionary class]]) {
+//            if ([[data objectForKey:@"status"] intValue] == 1) {
+//                UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"" message:[[data objectAtIndex:0] objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//                [av setTag:99];
+//                [av show];
+//            }
+//            else{
+//                [Utility alertNotice:@"" withMSG:[data objectForKey:@"message"] cancleButtonTitle:@"ok" otherButtonTitle:nil];
+//            }
+//        }
+//        
+//    }WithFailure:^(NSString *error){
+//        [DSBezelActivityView removeViewAnimated:YES];
+//        NSLog(@"%@",error);
+//    }];
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (alertView.tag == 99 || alertView.tag == 1001) {
-        [self.eventRegisterView setHidden:YES];
-    }
+
 }
 
 #pragma mark - Check login for MyFavourite and MyTickets
@@ -341,92 +383,22 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    return self.commentUsers.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.row==0)
-    {
-        static NSString *CellIdentifier = @"AboutCustomCell1";
-        AboutCustomCell1 *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            cell = [[AboutCustomCell1 alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        }
-        cell.lblEventAddress.text   =   [NSString stringWithFormat:@"%@ %@ %@ %@",self.eventObj.eventLocationAddress,self.eventObj.eventLocationTown, self.eventObj.eventLocationState,self.eventObj.eventLocationCountry];
-        cell.lblEventName.text      =   self.eventObj.eventName;
-        
-        CLLocation *userLocation    =   [[CLLocation alloc] initWithLatitude:[[Utility getNSUserDefaultValue:KUSERLATITUDE] floatValue] longitude:[[Utility getNSUserDefaultValue:KUSERLONGITUDE] floatValue]];
-        CLLocation *eventLocation   =   [[CLLocation alloc] initWithLatitude:[self.eventObj.eventLocationLatitude floatValue] longitude:[self.eventObj.eventLocationLongitude floatValue]];
-        CLLocationDistance distance =   [userLocation distanceFromLocation:eventLocation];
-        
-        cell.lblEventDistance.text  =   [NSString stringWithFormat:@"%.2fkm",distance/1000];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
-    }
-    else if(indexPath.row==1)
-    {
-        static NSString *CellIdentifier = @"AboutCustomCell2";
-        AboutCustomCell2 *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            cell = [[AboutCustomCell2 alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        }
-        cell.lblDateTime.text   =   self.eventObj.eventStartDateTime;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
-    }
-    else if (indexPath.row==2){
-        
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:nil];
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        }
-        
-        NSString *redText = @"Description :\n\n";
-        NSString *strDescriptionText = [self.eventObj.eventDescription stringByConvertingHTMLToPlainText];
-        NSString *strDesc = [NSString stringWithFormat:@"%@%@",redText,strDescriptionText];
-        
-        UILabel *lblDescription = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 300, descriptionTextHeight+20)];
-        lblDescription.backgroundColor = [UIColor clearColor];
-        lblDescription.numberOfLines = 0;
-        lblDescription.lineBreakMode = NSLineBreakByWordWrapping;
-        
-        NSDictionary *attribs = @{NSForegroundColorAttributeName:lblDescription.textColor,
-                                  NSFontAttributeName: lblDescription.font};
-        NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:strDesc
-                                               attributes:attribs];
-        NSRange redTextRange = [strDesc rangeOfString:redText];
-        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:252.0f/255.0f green:75.0f/255.0f blue:30.0f/255.0f alpha:1.0f]} range:redTextRange];
+    static NSString *CellIdentifier = @"CommentSummary";
+    CommentSummaryCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    cell.comment.text = self.commentContents[indexPath.row];
+    cell.username.text = self.commentUsers[indexPath.row];
     
-        NSRange grayTextRange = [strDesc rangeOfString:strDescriptionText];
-        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:127.0f/255.0f green:127.0f/255.0f blue:127.0f/255.0f alpha:1.0f], NSFontAttributeName:[UIFont systemFontOfSize:14.0f]} range:grayTextRange];
-        
-        lblDescription.attributedText = attributedText;
-        [cell.contentView addSubview:lblDescription];
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
-    }
-    else
-        return nil;
+    return cell;
 }
 
 - (CGFloat) tableView: (UITableView *) tableView heightForRowAtIndexPath: (NSIndexPath *) indexPath
 {
-    switch (indexPath.row) {
-        case 0:
-            return 55;
-            break;
-        case 1:
-            return 44;
-            break;
-        case 2:
-            return descriptionTextHeight+10;
-            break;
-        default:
-            return 44;
-            break;
-    }
+    return 20;
 }
 
 #pragma mark - Navigation
@@ -435,9 +407,16 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:@"WhoIsGoingSegue"]) {
+        WhoIsGoingViewController *wig = [segue destinationViewController];
+        wig.eventImage = self.eventImageView.image;
+    } else if ([[segue identifier] isEqualToString:@"AboutDetail"]) {
+        DescriptionDetailViewController *dd = [segue destinationViewController];
+        dd.eventDescription = self.aboutContent.text;
+    }
     
-    ProgramDescriptionViewController *programDescriptionView = [segue destinationViewController];
-    programDescriptionView.strDescription = self.eventObj.eventDescription;
+//    ProgramDescriptionViewController *programDescriptionView = [segue destinationViewController];
+//    programDescriptionView.strDescription = self.eventObj[@"description"];
     
 }
 /**
@@ -452,7 +431,7 @@
     span.latitudeDelta=0.2;
     span.longitudeDelta=0.2;
     
-    CLLocationCoordinate2D location =   CLLocationCoordinate2DMake([self.eventObj.eventLocationLatitude doubleValue], [self.eventObj.eventLocationLongitude doubleValue]);
+    CLLocationCoordinate2D location =   CLLocationCoordinate2DMake([self.eventObj[@"latitude"] doubleValue], [self.eventObj[@"longitude"] doubleValue]);
     
     region.center = location;
     region.center.latitude  =   location.latitude;
@@ -462,7 +441,7 @@
     
     [self.eventLocationMapView setRegion:region animated:YES];
     MyAnnotation *ann=[[MyAnnotation alloc]init];
-    ann.title   =   self.eventObj.eventName;
+    ann.title   =   self.eventObj[@"name"];
     ann.subtitle=@"";
     ann.coordinate=region.center;
     [self.eventLocationMapView addAnnotation:ann];
@@ -509,25 +488,23 @@
 
 -(void)customPickerValuePicked:(NSMutableDictionary *)values tag:(int)tag
 {
-    self.txtFieldBookingSpaces.text = [values objectForKey:@"0"];
+   
 }
 
 -(void)customPickerDidCancel
 {
-    self.txtFieldBookingSpaces.text = @"";
+   
 }
 
 #pragma Text Fields Delegates
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    [txtViewComment endEditing:YES];
-    [txtFieldBookingSpaces resignFirstResponder];
+
     
     if ([self.arrayTotalSpaces count]>0) {
         [self showCustomPicker];
     }
     else{
-        [txtViewComment resignFirstResponder];
         [self.view endEditing:YES];
         [Utility alertNotice:@"" withMSG:@"Not Available" cancleButtonTitle:@"OK" otherButtonTitle:nil];
     }
@@ -543,9 +520,6 @@
 {
     [textView resignFirstResponder];
     [textView endEditing:YES];
-    [txtViewComment resignFirstResponder];
-    [self.eventRegisterView endEditing:YES];
-    [txtViewComment endEditing:YES];
     return YES;
 }
 
@@ -553,16 +527,11 @@
 {
     [textView resignFirstResponder];
     [textView endEditing:YES];
-    [txtViewComment resignFirstResponder];
-    [self.eventRegisterView endEditing:YES];
-    [txtViewComment endEditing:YES];
 }
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     if ([text isEqualToString:@"\n"]) {
-        
-        [self.txtViewComment resignFirstResponder];
         return YES;
     }
     return YES;
@@ -571,24 +540,31 @@
 #pragma mark - Validation check
 -(BOOL)isValid
 {
-    if (![self.arrayTotalSpaces count]>0) {
-        return YES;
-    }
-    else{
-        NSString *strMessage = @"";
-        if (![self.txtFieldBookingSpaces.text length]>0) {
-            strMessage = @"Please enter Booking spaces";
-        }
-        else if (![self.txtViewComment.text length]>0){
-            strMessage = @"Please enter comment";
-        }
-        
-        if ([strMessage length]>0) {
-            [Utility alertNotice:@"" withMSG:strMessage cancleButtonTitle:@"OK" otherButtonTitle:nil];
-            return NO;
-        }
-        return YES;
-    }
+    return YES;
+
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    
+    return [self.photos count];
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    static NSString *CellIdentifier = @"WhoIsGoing";
+    WhoIsGoingCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    cell.photo.image = [UIImage imageNamed:[self.photos objectAtIndex:indexPath.row]];
+    cell.photo.layer.cornerRadius = cell.photo.frame.size.width / 2;
+    cell.photo.clipsToBounds = YES;
+    cell.backgroundColor = [UIColor whiteColor];
+    
+    
+    return cell;
 }
 
 @end

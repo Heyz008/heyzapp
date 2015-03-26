@@ -295,7 +295,7 @@ static const NSUInteger kDomainSection = 1;
 	f.size.height -= f.origin.y;
 
 	[self setTableView:[[[UITableView alloc] initWithFrame:f style:UITableViewStyleGrouped] autorelease]];
-	[[self tableView] setDelegate:self];
+	[[self tableView] setLocationDelegate:self];
 	[[self tableView] setDataSource:self];
 	[[self tableView] setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
 	[[self view] addSubview:[self tableView]];

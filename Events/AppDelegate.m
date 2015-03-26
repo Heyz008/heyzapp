@@ -29,15 +29,14 @@
     [Parse enableLocalDatastore];
     
     // Initialize Parse.
-    [Parse setApplicationId:@"1tam75qsTfjU6aRnjmmW5QzRTw46fBgHdcaW5Piz"
-                  clientKey:@"ShLXF9OwL5QQloChpNLXkjLgaLAxEC99zLAYIn83"];
+    [Parse setApplicationId:@"vWIlHBxm55dI51Me35OsTGbrdVHHpAHitZuHpXk1"
+                  clientKey:@"zA8MJhPFcOhZXWpWjB5xpFrWxkIm2tYgiobVDU9z"];
     [PFFacebookUtils initializeFacebook];
     [PFTwitterUtils initializeWithConsumerKey:@"wiYVBvdveVRhNxaBwRkLr3LTt"
                                consumerSecret:@"6L9LA8A5xxcpkCTlLLoCP60YkWKS1KEGwNBG5epZjSvH5JlYUH"];
     
     // [Optional] Track statistics around application opens.
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-    
 
     [MMdbsupport MMinitializeDb];
     [MMdbsupport MMOpenDataBase];

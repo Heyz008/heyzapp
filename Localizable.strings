@@ -6,12 +6,12 @@
   Copyright (c) 2014 Teknowledge Software. All rights reserved.
 */
 
-"APP_NAME" = "EventApp";
+"APP_NAME" = "HeyzApp";
 
 /**
  *  application service url
  */
-"APPLICATION_URL"           =   "http://myapptemplates.com/";
+"APPLICATION_URL"           =   "http://kutouer.com/";
 //"http://hingex.com/";
 
 //web service methods

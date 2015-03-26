@@ -349,6 +349,7 @@ import Foundation
         user.username = name
         user.password = password
         user.email = email
+        user["Events"] = [String]()
         
         user.signUpInBackgroundWithBlock({ (succeeded: Bool!, error: NSError!) -> Void in
             if error == nil {

@@ -13,7 +13,6 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
 
     @IBOutlet var btnForLogo : UIButton!
     @IBOutlet var tblForChat : UITableView!
-    @IBOutlet weak var segCtrl: UISegmentedControl!
     
     let conversationManager = ConversationManager.singleton
     var _selectedConversation: Conversation?
@@ -96,14 +95,7 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch segCtrl.selectedSegmentIndex{
-        case 0:
-            return conversationManager.recentConversations.count < 10 ? conversationManager.recentConversations.count : 10
-        case 1:
-            return conversationManager.publicConversations.count
-        default:
-            return conversationManager.privateConversations.count
-        }
+        return conversationManager.recentConversations.count
     }
     
     func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
@@ -112,7 +104,7 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         
-        let conversation = conversationManager.getConversationAtIndex(indexPath.row, type: segCtrl.selectedSegmentIndex)
+        let conversation = conversationManager.getConversationAtIndex(indexPath.row)
         
         var cell: UITableViewCell
         if conversation.isPrivate {
@@ -200,7 +192,7 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!){
         
-        _selectedConversation = conversationManager.getConversationAtIndex(indexPath.row, type: segCtrl.selectedSegmentIndex)
+        _selectedConversation = conversationManager.getConversationAtIndex(indexPath.row)
         if _selectedConversation!.isPrivate {
             self.performSegueWithIdentifier("slideToPChat", sender: self)
         } else {
