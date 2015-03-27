@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Events/UserManager.swift"
+            timestampString = "448229636.427225"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "303"
+            endingLineNumber = "303"
+            landmarkName = "loginInBackground(_:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Heyz.UserManager.loginInBackground (Heyz.UserManager)(ObjectiveC.UIViewController) -&gt; ()"
+                  moduleName = "Heyz"
+                  urlString = "file:///Users/Jay/Development/HEYZDEV/heyzapp/Events/UserManager.swift"
+                  timestampString = "447819290.474739"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "23">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Heyz.UserManager.loginInBackground (Heyz.UserManager)(ObjectiveC.UIViewController) -&gt; ()"
+                  moduleName = "Heyz"
+                  urlString = "file:///Users/Jay/Development/HEYZDEV/heyzapp/Events/UserManager.swift"
+                  timestampString = "447819290.475105"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "38">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "@objc Heyz.UserManager.loginInBackground (Heyz.UserManager)(ObjectiveC.UIViewController) -&gt; ()"
+                  moduleName = "Heyz"
+                  urlString = "file:///Users/Jay/Development/HEYZDEV/heyzapp/Events/UserManager.swift"
+                  timestampString = "447819290.475412"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "36">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Events/UserManager.swift"
+            timestampString = "448229696.643755"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "307"
+            endingLineNumber = "307"
+            landmarkName = "loginInBackground(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Events/Chat/ConversationManager.swift"
+            timestampString = "448943647.257925"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
+            landmarkName = "loadGroupConversations(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Events/Chat/ChatViewController.swift"
+            timestampString = "448943647.257925"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
+            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Heyz.ChatViewController.tableView (Heyz.ChatViewController)(ObjectiveC.UITableView, cellForRowAtIndexPath : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.NSIndexPath&gt;) -&gt; Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.UITableViewCell&gt;"
+                  moduleName = "Heyz"
+                  urlString = "file:///Users/Jay/Development/HEYZDEV/heyzapp/Events/Chat/ChatViewController.swift"
+                  timestampString = "448738035.86418"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "192"
+                  endingLineNumber = "192"
+                  offsetFromSymbolStart = "7253">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Heyz.ChatViewController.tableView (Heyz.ChatViewController)(ObjectiveC.UITableView, cellForRowAtIndexPath : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.NSIndexPath&gt;) -&gt; Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.UITableViewCell&gt;"
+                  moduleName = "Heyz"
+                  urlString = "file:///Users/Jay/Development/HEYZDEV/heyzapp/Events/Chat/ChatViewController.swift"
+                  timestampString = "448738035.86464"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "192"
+                  endingLineNumber = "192"
+                  offsetFromSymbolStart = "7265">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Events/ProgramViewController/NewEventSecondViewController.m"
+            timestampString = "449031785.549101"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
+            landmarkName = "-createNewEvent:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

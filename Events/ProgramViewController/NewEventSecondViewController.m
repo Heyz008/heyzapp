@@ -106,10 +106,19 @@
     NSData *imageData = UIImagePNGRepresentation(self.eImage);
     PFFile *imageFile = [PFFile fileWithName:@"eventImage.png" data:imageData];
     event[@"image"] = imageFile;
+    event[@"ChatParticipants"] = @[];
+    event[@"ChatRound"] = @1;
+    event[@"isActive"] = @YES;
     
     [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         [self.navigationController popToRootViewControllerAnimated:YES];
         
+        PFUser *user = [PFUser currentUser];
+        [user addObject:event.objectId forKey:@"Events"];
+        [user saveInBackground];
+        [PFCloud callFunctionInBackground:@"addToChat"
+           withParameters:@{@"event": event.objectId}
+                    block:nil];
     }];
 }
 

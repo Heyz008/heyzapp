@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5063" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="FavouriteEvents" representedClassName="FavouriteEvents" syncable="YES">
         <attribute name="event_all_day" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="event_content" optional="YES" attributeType="String" syncable="YES"/>
@@ -20,7 +20,14 @@
         <attribute name="event_owner" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="event_start_dateTime" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Message" representedClassName="Message" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="receiver" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
         <element name="FavouriteEvents" positionX="-63" positionY="-18" width="128" height="315"/>
+        <element name="Message" positionX="-63" positionY="117" width="128" height="103"/>
     </elements>
 </model>

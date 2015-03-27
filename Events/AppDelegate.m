@@ -8,28 +8,55 @@
 
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
+#import <ParseFacebookUtils/PFFacebookUtils.h>
+#import "Heyz-Swift.h"
 
 @implementation AppDelegate
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
+//@synthesize xmppStream;
+//@synthesize xmppReconnect;
+//@synthesize xmppRoster;
+//@synthesize xmppRosterStorage;
+//@synthesize messageDelegate;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    
     
     [Parse enableLocalDatastore];
     
     // Initialize Parse.
     [Parse setApplicationId:@"vWIlHBxm55dI51Me35OsTGbrdVHHpAHitZuHpXk1"
-     
                   clientKey:@"zA8MJhPFcOhZXWpWjB5xpFrWxkIm2tYgiobVDU9z"];
+    [PFFacebookUtils initializeFacebook];
+    [PFTwitterUtils initializeWithConsumerKey:@"wiYVBvdveVRhNxaBwRkLr3LTt"
+                               consumerSecret:@"6L9LA8A5xxcpkCTlLLoCP60YkWKS1KEGwNBG5epZjSvH5JlYUH"];
+    
     // [Optional] Track statistics around application opens.
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 
     [MMdbsupport MMinitializeDb];
     [MMdbsupport MMOpenDataBase];
+    
+//    self.isRegistering = NO;
+//    self.isFromFacebook = NO;
+    
+    UserManager *userManager = UserManager.singleton;
+    
+//        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.0 * NSEC_PER_SEC);
+//        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
+//            SigninViewController *signinViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+//            [self.window makeKeyAndVisible];
+//            [self.window.rootViewController presentViewController:signinViewController animated:YES completion:NULL];
+//            
+//        });
+//    [self setupStream];
+    [self.window makeKeyAndVisible];
+    [userManager loginInBackground:self.window.rootViewController];
 
     return YES;
 }
@@ -54,12 +81,15 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
+//    [self teardownStream];
 }
 
 - (void)saveContext
@@ -74,6 +104,15 @@
             abort();
         }
     }
+}
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    return [FBAppCall handleOpenURL:url
+                  sourceApplication:sourceApplication
+                        withSession:[PFFacebookUtils session]];
 }
 
 #pragma mark - Core Data stack
@@ -153,5 +192,192 @@
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
+
+//#pragma mark - XMPP Private
+//- (void)setupStream
+//{
+//    NSAssert(sxmppStream == nil, @"Method setupStream invoked multiple times");
+//    
+//    xmppStream = [[XMPPStream alloc] init];
+//    #if !TARGET_IPHONE_SIMULATOR
+//    {
+//        xmppStream.enableBackgroundingOnSocket = YES;
+//    }
+//    #endif
+//    
+//    xmppReconnect       = [[XMPPReconnect alloc] init];
+//    xmppRosterStorage   = [[XMPPRosterCoreDataStorage alloc] init];
+//    xmppRoster          = [[XMPPRoster alloc] initWithRosterStorage: xmppRosterStorage];
+//    
+//    xmppRoster.autoFetchRoster = YES;
+//    xmppRoster.autoAcceptKnownPresenceSubscriptionRequests = YES;
+//    
+//    [xmppReconnect  activate: xmppStream];
+//    [xmppRoster     activate: xmppStream];
+//    
+//    [xmppStream addDelegate: self delegateQueue: dispatch_get_main_queue()];
+//    [xmppRoster addDelegate: self delegateQueue: dispatch_get_main_queue()];
+//}
+//
+//- (void)teardownStream
+//{
+//    [xmppStream removeDelegate:self];
+//    [xmppRoster removeDelegate:self];
+//    
+//    [xmppReconnect deactivate];
+//    [xmppRoster deactivate];
+//    
+//    [xmppStream disconnect];
+//    
+//    xmppStream = nil;
+//    xmppReconnect = nil;
+//    xmppRoster = nil;
+//    xmppRosterStorage = nil;
+//}
+//
+//- (void)goOnline
+//{
+//    XMPPPresence *presence = [XMPPPresence presence];
+//    
+//    [[self xmppStream] sendElement:presence];
+//}
+//
+//- (void)goOffline
+//{
+//    XMPPPresence *presence = [XMPPPresence presenceWithType:@"unavailable"];
+//    [[self xmppStream] sendElement:presence];
+//}
+//
+//- (BOOL)connect
+//{
+//    if (![xmppStream isDisconnected]){
+//        return YES;
+//    }
+//    
+//    NSString *myJID = [[NSUserDefaults standardUserDefaults] stringForKey:xmppDefaultIdKey];
+//    NSString *myPassword = [[NSUserDefaults standardUserDefaults] stringForKey:xmppDefaultPwdKey];
+//    
+//    if(myJID == nil || myPassword == nil){
+//        return NO;
+//    }
+//    
+//    [xmppStream setMyJID:[XMPPJID jidWithString:myJID]];
+//    [xmppStream setHostName:@"localhost"];
+//    [xmppStream setHostPort:5222];
+//    password = myPassword;
+//    
+//    NSError *error = nil;
+//    if(![xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error]){
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle: @"Error connecting"
+//                                                        message: @"See console for error details"
+//                                                        delegate: nil
+//                                                        cancelButtonTitle: @"OK"
+//                                                        otherButtonTitles:nil];
+//        [alertView show];
+//        
+//        NSLog(@"Error connecting: %@", error);
+//        
+//        return NO;
+//    }
+//    
+//    return YES;
+//}
+//
+//- (void)disconnect
+//{
+//    [self goOffline];
+//    [xmppStream disconnect];
+//}
+//
+//- (void)xmppStreamDidConnect:(XMPPStream *)sender
+//{
+//    isXmppConnected = YES;
+//    NSError *error = nil;
+//    
+//    BOOL operationInProgress;
+//    
+//    if (self.isRegistering) {
+//        operationInProgress = [[self xmppStream] registerWithPassword:password error:&error];
+//    } else {
+//        operationInProgress = [[self xmppStream] authenticateWithPassword:password error:&error];
+//    }
+//    
+//    if (!operationInProgress) {
+//        NSLog(@"error after did connect");
+//    }
+//    
+////    if(![[self xmppStream] authenticateWithPassword:password error:&error]){
+////        NSLog(@"Error Authenticating...");
+////    }
+//
+//    
+//}
+//
+//- (void)xmppStreamDidDisconnect:(XMPPStream *)sender withError:(NSError *)error{
+//    
+//    if (!isXmppConnected)
+//    {
+//        NSLog(@"Unable to connect to server. Check xmppStream.hostName");
+//    }
+//    
+//}
+//
+//- (void)xmppStreamDidAuthenticate:(XMPPStream *)sender
+//{
+//    [self goOnline];
+//    
+//}
+//
+//- (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(DDXMLElement *)error{
+//    
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.0 * NSEC_PER_SEC);
+//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
+//        SigninViewController *signinViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+//        [self.window makeKeyAndVisible];
+//        [self.window.rootViewController presentViewController:signinViewController animated:YES completion:NULL];
+//        
+//    });
+//}
+//
+//- (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message
+//{
+//    if ([message isChatMessageWithBody]) {
+//        
+//        if (![self messageDelegate]) {
+//            NSArray *viewControllerArray = [(UITabBarController *) self.window.rootViewController childViewControllers];
+//            ChatViewController *chatViewController = [[[ viewControllerArray objectAtIndex:1] childViewControllers] objectAtIndex:0];
+//            [chatViewController view];
+//            self.messageDelegate = chatViewController;
+//        }
+//        
+//        [self.messageDelegate onAfterMsgReceived:message];
+//    }
+//}
+//
+//- (void)xmppStreamDidRegister:(XMPPStream *)sender{
+//    
+//    NSLog(@"Registered user.");
+//    
+//    self.isRegistering = NO;
+//    
+//    if (self.isFromFacebook) {
+//        NSError *error = nil;
+//        [[self xmppStream] authenticateWithPassword:password error:&error];
+//    }
+//    
+//    self.isFromFacebook = NO;
+//    
+//}
+//
+//- (void)xmppStream:(XMPPStream *)sender didNotRegister:(DDXMLElement *)error{
+//    
+//    NSLog(@"Failed to register user.");
+//    
+//    self.isRegistering = NO;
+//    self.isFromFacebook = NO;
+//
+//}
+
 
 @end
