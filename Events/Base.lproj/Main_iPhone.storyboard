@@ -1366,6 +1366,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                </viewController>
                     <navigationItem key="navigationItem" title="Create Event" id="8an-5w-L1E"/>
                     <connections>
                         <segue destination="HyY-Yk-CWw" kind="relationship" relationship="rootViewController" id="bTt-F6-0IX"/>
