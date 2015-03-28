@@ -15,6 +15,8 @@
 @property (strong, nonatomic) IBOutlet UIButton *category;
 @property (strong, nonatomic) IBOutlet UIButton *maximum;
 @property (strong, nonatomic) IBOutlet UIButton *payment;
+@property (strong, nonatomic) IBOutlet UISwitch *eventSwitch;
+@property (strong, nonatomic) IBOutlet UIView *switchView;
 
 @property (strong, nonatomic) NSString *eName;
 @property CGFloat eLatitude;

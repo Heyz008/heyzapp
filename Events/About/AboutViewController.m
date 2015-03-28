@@ -133,6 +133,11 @@
     CGRect joinFrame = self.joinView.frame;
     joinFrame.origin.y = self.scrollViewMain.frame.origin.y + self.scrollViewMain.frame.size.height;
     self.joinView.frame = joinFrame;
+    
+    
+    
+    
+    
 }
 
 -(void)eventAction {

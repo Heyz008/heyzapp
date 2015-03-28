@@ -934,7 +934,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PYM-F5-ODZ">
-                                        <rect key="frame" x="8" y="54" width="304" height="38"/>
+                                        <rect key="frame" x="8" y="46" width="304" height="38"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <inset key="contentEdgeInsets" minX="2" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1002,6 +1002,24 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
+                                    <view contentMode="scaleToFill" id="tPA-qn-Hc7">
+                                        <rect key="frame" x="8" y="78" width="304" height="38"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="AEL-Fy-lnf">
+                                                <rect key="frame" x="247" y="3" width="51" height="31"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </switch>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" This is an online event" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qmK-Jb-CxO">
+                                                <rect key="frame" x="0.0" y="8" width="233" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
                                 </subviews>
                             </scrollView>
                         </subviews>
@@ -1022,7 +1040,9 @@
                         <outlet property="eventLocationButton" destination="PYM-F5-ODZ" id="esk-aj-5gW"/>
                         <outlet property="eventName" destination="xah-4g-n4d" id="dC9-Yw-cWt"/>
                         <outlet property="eventScrollView" destination="rzO-Ho-R6Y" id="fS2-oj-jTs"/>
+                        <outlet property="eventSwitch" destination="AEL-Fy-lnf" id="BFz-uW-8eq"/>
                         <outlet property="eventTo" destination="mrh-4c-wu3" id="J9C-yM-YTZ"/>
+                        <outlet property="onlineEventView" destination="tPA-qn-Hc7" id="kmV-KZ-6lX"/>
                         <outlet property="startDate" destination="e1J-SQ-8Xx" id="VT5-uK-QSh"/>
                         <outlet property="uploadButton" destination="RhS-Bj-bPm" id="uKh-zX-rMK"/>
                     </connections>
@@ -1146,7 +1166,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BW0-9y-1WR">
-                                <rect key="frame" x="16" y="187" width="288" height="30"/>
+                                <rect key="frame" x="16" y="197" width="288" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1159,7 +1179,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="i8P-Uh-cVl">
-                                <rect key="frame" x="16" y="145" width="288" height="30"/>
+                                <rect key="frame" x="16" y="155" width="288" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1172,7 +1192,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wxH-XE-9Ws">
-                                <rect key="frame" x="16" y="229" width="288" height="30"/>
+                                <rect key="frame" x="16" y="239" width="288" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1184,6 +1204,24 @@
                                     <segue destination="bMO-LI-gPq" kind="push" identifier="Payment" id="4yo-s9-mcp"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" id="RUP-wQ-BeQ">
+                                <rect key="frame" x="16" y="112" width="288" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="加入event时需要二次确认" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jPQ-2T-BfH">
+                                        <rect key="frame" x="12" y="4" width="189" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="xcC-GD-Atg">
+                                        <rect key="frame" x="231" y="-1" width="51" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </switch>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -1196,9 +1234,11 @@
                     </navigationItem>
                     <connections>
                         <outlet property="category" destination="i8P-Uh-cVl" id="5gt-Gq-V75"/>
+                        <outlet property="eventSwitch" destination="xcC-GD-Atg" id="yJz-Xd-rXL"/>
                         <outlet property="maximum" destination="BW0-9y-1WR" id="fOF-Ez-gYw"/>
                         <outlet property="payment" destination="wxH-XE-9Ws" id="Kj8-m7-xjw"/>
                         <outlet property="privacy" destination="ncr-ZJ-WYw" id="CL4-UI-J3v"/>
+                        <outlet property="switchView" destination="RUP-wQ-BeQ" id="HSh-ND-o3O"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ADG-Im-XTY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2572,7 +2612,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="irI-vS-uKx"/>
+        <segue reference="RGa-7r-dfT"/>
         <segue reference="UJ5-b0-qFx"/>
-        <segue reference="IXO-5p-8wl"/>
     </inferredMetricsTieBreakers>
 </document>

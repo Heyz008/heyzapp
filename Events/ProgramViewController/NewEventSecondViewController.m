@@ -7,7 +7,6 @@
 //
 
 #import "NewEventSecondViewController.h"
-#import "M13Checkbox.h"
 #import <Parse/Parse.h>
 
 @interface NewEventSecondViewController () {
@@ -55,13 +54,10 @@
     self.payment.titleLabel.text = @"Payment Type";
     self.payment.titleLabel.textAlignment = UIControlContentHorizontalAlignmentLeft;
     
-    M13Checkbox *checkBox = [[M13Checkbox alloc] initWithTitle:@"加入event时需要二次确认"];
-    checkBox.titleLabel.font = [UIFont systemFontOfSize:12];
-    checkBox.strokeColor = [UIColor blackColor];
-    checkBox.checkColor = [UIColor blackColor];
-    [checkBox setCheckAlignment:M13CheckboxAlignmentLeft];
-    checkBox.frame = CGRectMake(self.privacy.frame.origin.x, self.privacy.frame.origin.y + self.privacy.frame.size.height + 6, self.privacy.frame.size.width, 16);
-    [self.view addSubview:checkBox];
+    self.switchView.layer.borderWidth = 1.0;
+    self.switchView.layer.borderColor = [UIColor blackColor].CGColor;
+    
+    self.eventSwitch.transform = CGAffineTransformMakeScale(0.75, 0.75);
     
 }
 

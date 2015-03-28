@@ -11,7 +11,6 @@
 #import "MyAnnotation.h"
 #import "ASIHTTPRequest.h"
 #import "SBJSON.h"
-#import "M13Checkbox.h"
 #import "NewEventSecondViewController.h"
 
 @interface NewEventViewController ()<EventLocationViewControllerDelegate> {
@@ -35,14 +34,6 @@
     
     self.eventDescription.tag = 99;
     self.eventDescription.delegate = self;
-    
-    M13Checkbox *checkBox = [[M13Checkbox alloc] initWithTitle:@"This is an online event"];
-    checkBox.titleLabel.font = [UIFont systemFontOfSize:12];
-    checkBox.strokeColor = [UIColor blackColor];
-    checkBox.checkColor = [UIColor blackColor];
-    [checkBox setCheckAlignment:M13CheckboxAlignmentLeft];
-    checkBox.frame = CGRectMake(fieldOriginX, self.eventLocationButton.frame.origin.y + self.eventLocationButton.frame.size.height + 6, fieldWidth, 14);
-    [self.eventScrollView addSubview:checkBox];
     
     self.startDate.backgroundColor = [UIColor whiteColor];
     [self.startDate setTitle:@" Starts" forState:UIControlStateNormal];
@@ -93,6 +84,14 @@
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapReceived:)];
     tapGestureRecognizer.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapGestureRecognizer];
+    
+    self.uploadButton.layer.borderWidth = 1.0;
+    self.uploadButton.layer.cornerRadius = 12.0;
+    
+    self.onlineEventView.layer.borderWidth = 1.0;
+    self.onlineEventView.layer.borderColor = [UIColor blackColor].CGColor;
+    
+    self.eventSwitch.transform = CGAffineTransformMakeScale(0.75, 0.75);
 }
 
 -(void)tapReceived:(UITapGestureRecognizer *)tapGestureRecognizer
