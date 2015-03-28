@@ -228,6 +228,7 @@ static NSString * const reuseIdentifier = @"Cell";
         ProgramMainCell *cell = (ProgramMainCell*)sender;
         NSIndexPath *selectedRowIndex = [self.collectionView indexPathForCell:cell];
         AboutViewController *aboutVwController = [segue destinationViewController];
+        aboutVwController.hidesBottomBarWhenPushed = YES;
         PFObject *obj  =   [arrayEventList objectAtIndex:selectedRowIndex.row];
         
         aboutVwController.eventObj  =   obj;
