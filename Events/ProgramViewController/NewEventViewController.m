@@ -244,5 +244,22 @@
     }
 }
 
+-(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if ([identifier isEqualToString:@"NewEvent"]) {
+        if (!(self.eventName.text && self.eventDescription.text && latitude && longitude && eventStart && eventEnd && eventImage && self.eventLocationButton.titleLabel.text)) {
+            UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error!"
+                                                              message:@"Please fill in all the fields"
+                                                             delegate:nil
+                                                    cancelButtonTitle:@"OK"
+                                                    otherButtonTitles:nil];
+            
+            [message show];
+            return NO;
+        }
+    }
+    
+    return YES;
+}
+
 
 @end

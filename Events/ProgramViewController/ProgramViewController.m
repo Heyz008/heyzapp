@@ -63,16 +63,24 @@ static NSString * const reuseIdentifier = @"Cell";
                                        [UIFont fontWithName:kFontAwesomeFamilyName size:20], NSFontAttributeName,
                                        buttonColor, NSForegroundColorAttributeName,
                                        nil] forState:UIControlStateNormal];
-    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithTitle:[NSString fontAwesomeIconStringForIconIdentifier:@"fa-search"] style:UIBarButtonItemStylePlain target:self action:@selector(searchEvent)];
-    [searchButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                       [UIFont fontWithName:kFontAwesomeFamilyName size:20], NSFontAttributeName,
-                                       buttonColor, NSForegroundColorAttributeName,
-                                       nil] forState:UIControlStateNormal];
     
     UIBarButtonItem *fixedItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixedItem.width = 30.0f;
     
-    [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:mapButton, fixedItem, qrButton, fixedItem, searchButton, nil]];
+    [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:mapButton, fixedItem, qrButton, nil]];
+    
+    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithTitle:[NSString fontAwesomeIconStringForIconIdentifier:@"fa-search"] style:UIBarButtonItemStylePlain target:self action:@selector(searchEvent)];
+    [searchButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                          [UIFont fontWithName:kFontAwesomeFamilyName size:20], NSFontAttributeName,
+                                          buttonColor, NSForegroundColorAttributeName,
+                                          nil] forState:UIControlStateNormal];
+    
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:[NSString fontAwesomeIconStringForIconIdentifier:@"fa-plus"] style:UIBarButtonItemStylePlain target:self action:@selector(addEvent)];
+    [addButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                          [UIFont fontWithName:kFontAwesomeFamilyName size:20], NSFontAttributeName,
+                                          buttonColor, NSForegroundColorAttributeName,
+                                          nil] forState:UIControlStateNormal];
+    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:addButton, fixedItem, searchButton, nil]];
     
     // Do any additional setup after loading the view.
 }
@@ -117,6 +125,11 @@ static NSString * const reuseIdentifier = @"Cell";
 -(void)searchEvent {
     EventSearchViewController *es = (EventSearchViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"EventSearch"];
     [self.navigationController pushViewController:es animated:YES];
+}
+
+-(void)addEvent {
+    NewEventViewController *ne = (NewEventViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"NewEvent"];
+    [self.navigationController pushViewController:ne animated:YES];
 }
 
 -(void)showMapView {

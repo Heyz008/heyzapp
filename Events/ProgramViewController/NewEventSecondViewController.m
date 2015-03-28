@@ -87,35 +87,47 @@
 }
 
 -(IBAction)createNewEvent:(id)sender {
-    PFObject *event = [PFObject objectWithClassName:@"Event"];
-    event[@"title"] = self.eName;
-    event[@"description"] = self.eDescription;
-    event[@"latitude"] = [NSString stringWithFormat:@"%f", self.eLatitude];
-    event[@"longitude"] = [NSString stringWithFormat:@"%f", self.eLongitude];
-    event[@"from"] = self.eStart;
-    event[@"to"] = self.eEnd;
-    event[@"address"] = self.eAddress;
-    event[@"category"] = categories[categoryIndex];
-    event[@"privacy"] = privacys[privacyIndex];
-    event[@"maximum"] = maximums[maximumIndex];
-    event[@"payment"] = payments[paymentIndex];
-    NSData *imageData = UIImagePNGRepresentation(self.eImage);
-    PFFile *imageFile = [PFFile fileWithName:@"eventImage.png" data:imageData];
-    event[@"image"] = imageFile;
-    event[@"ChatParticipants"] = @[];
-    event[@"ChatRound"] = @1;
-    event[@"isActive"] = @YES;
     
-    [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        [self.navigationController popToRootViewControllerAnimated:YES];
+    if (privacyIndex && maximumIndex && paymentIndex && categoryIndex) {
+        PFObject *event = [PFObject objectWithClassName:@"Event"];
+        event[@"title"] = self.eName;
+        event[@"description"] = self.eDescription;
+        event[@"latitude"] = [NSString stringWithFormat:@"%f", self.eLatitude];
+        event[@"longitude"] = [NSString stringWithFormat:@"%f", self.eLongitude];
+        event[@"from"] = self.eStart;
+        event[@"to"] = self.eEnd;
+        event[@"address"] = self.eAddress;
+        event[@"category"] = categories[categoryIndex];
+        event[@"privacy"] = privacys[privacyIndex];
+        event[@"maximum"] = maximums[maximumIndex];
+        event[@"payment"] = payments[paymentIndex];
+        NSData *imageData = UIImagePNGRepresentation(self.eImage);
+        PFFile *imageFile = [PFFile fileWithName:@"eventImage.png" data:imageData];
+        event[@"image"] = imageFile;
+        event[@"ChatParticipants"] = @[];
+        event[@"ChatRound"] = @1;
+        event[@"isActive"] = @YES;
         
-        PFUser *user = [PFUser currentUser];
-        [user addObject:event.objectId forKey:@"Events"];
-        [user saveInBackground];
-        [PFCloud callFunctionInBackground:@"addToChat"
-           withParameters:@{@"event": event.objectId}
-                    block:nil];
-    }];
+        [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            
+            PFUser *user = [PFUser currentUser];
+            [user addObject:event.objectId forKey:@"Events"];
+            [user saveInBackground];
+            [PFCloud callFunctionInBackground:@"addToChat"
+                               withParameters:@{@"event": event.objectId}
+                                        block:nil];
+        }];
+    } else {
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error!"
+                                                          message:@"Please fill in all the fields"
+                                                         delegate:nil
+                                                cancelButtonTitle:@"OK"
+                                                otherButtonTitles:nil];
+        
+        [message show];
+    }
+    
 }
 
 

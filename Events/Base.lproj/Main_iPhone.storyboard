@@ -1407,7 +1407,7 @@
             </objects>
             <point key="canvasLocation" x="-1175" y="-1704"/>
         </scene>
-        <!--Program View Controller-->
+        <!--Heyz-->
         <scene sceneID="5oG-Qq-mgj">
             <objects>
                 <collectionViewController id="12N-nd-AIZ" customClass="ProgramViewController" sceneMemberID="viewController">
@@ -1464,14 +1464,7 @@
                             <outlet property="delegate" destination="12N-nd-AIZ" id="yvY-VR-i4b"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="4CP-4D-mRG">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="dYV-Nt-8hP">
-                            <color key="tintColor" red="0.9217171717" green="0.42538099089999998" blue="0.46247886129999999" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <segue destination="TpK-UY-rjh" kind="push" id="c4y-JC-1fs"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Heyz" id="4CP-4D-mRG"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bvz-YP-21K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
