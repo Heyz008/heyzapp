@@ -286,7 +286,7 @@
                                     <view contentMode="scaleToFill" id="yXn-Lo-Zzt">
                                         <rect key="frame" x="0.0" y="317" width="320" height="10"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.93092105263157909" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="esC-ns-yv0">
                                         <rect key="frame" x="8" y="335" width="304" height="21"/>
@@ -303,7 +303,7 @@
                                     <view contentMode="scaleToFill" id="ZhX-Mo-laS">
                                         <rect key="frame" x="0.0" y="626" width="320" height="10"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.93092105263157909" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Ohh-l2-LLW">
                                         <rect key="frame" x="8" y="660" width="290" height="50"/>
@@ -349,7 +349,7 @@
                                     <view contentMode="scaleToFill" id="EQf-rX-kD3">
                                         <rect key="frame" x="0.0" y="716" width="320" height="10"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.93092105263157909" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wtF-CP-EvR">
                                         <rect key="frame" x="8" y="754" width="304" height="75"/>
@@ -360,7 +360,7 @@
                                     <view contentMode="scaleToFill" id="YEQ-RP-pZx">
                                         <rect key="frame" x="0.0" y="837" width="320" height="10"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.93092105263157909" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="itQ-58-SNY">
                                         <rect key="frame" x="8" y="725" width="38" height="21"/>
@@ -451,7 +451,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="2B9-ge-epg">
-                                        <rect key="frame" x="0.0" y="845" width="320" height="95"/>
+                                        <rect key="frame" x="0.0" y="845" width="320" height="177"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
