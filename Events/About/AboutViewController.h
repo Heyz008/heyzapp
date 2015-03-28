@@ -43,6 +43,7 @@
 @property (strong, nonatomic) IBOutlet UIView *joinView;
 @property (strong, nonatomic) IBOutlet UIButton *likeButton;
 @property (strong, nonatomic) IBOutlet UIButton *groupButton;
+@property (strong, nonatomic) IBOutlet UIButton *mapDetailButton;
 @property (strong, nonatomic) IBOutlet UIButton *joinButton;
 @property (strong, nonatomic) IBOutlet UILabel *commentMoreLabel;
 
@@ -54,4 +55,5 @@
 @property (strong, nonatomic) NSMutableArray *commentContents;
 
 -(IBAction)addImageTapped:(id)sender;
+-(IBAction)enterFullMap:(id)sender;
 @end

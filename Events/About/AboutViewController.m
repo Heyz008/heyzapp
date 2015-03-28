@@ -23,6 +23,7 @@
 #import "ProgramDescriptionViewController.h"
 #import "UIImage+MDQRCode.h"
 #import "QRViewController.h"
+#import "EventMapViewController.h"
 
 @interface AboutViewController ()
 {
@@ -522,6 +523,14 @@
 //    programDescriptionView.strDescription = self.eventObj[@"description"];
     
 }
+
+-(IBAction)enterFullMap:(id)sender {
+    EventMapViewController *mvc = [[EventMapViewController alloc] init];
+    NSArray *eventList = [NSArray arrayWithObject:self.eventObj];
+    mvc.eventList = eventList;
+    [self.navigationController pushViewController:mvc animated:YES];
+}
+
 /**
  *  Show event location on map
  */

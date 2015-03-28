@@ -260,7 +260,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bouncesZoom="NO" id="OcV-0J-4Io">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="429"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="430"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" mapType="standard" showsUserLocation="YES" id="F0C-ID-Dpb">
@@ -526,6 +526,16 @@
                                             <outlet property="delegate" destination="GJ5-Ez-Ag6" id="rPa-mU-ftP"/>
                                         </connections>
                                     </collectionView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HBy-vq-wRZ">
+                                        <rect key="frame" x="0.0" y="393" width="320" height="230"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="enterFullMap:" destination="GJ5-Ez-Ag6" eventType="touchUpInside" id="QFF-lB-TAn"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </scrollView>
@@ -586,6 +596,7 @@
                         <outlet property="joinButton" destination="wWZ-DE-hW3" id="26N-kx-1sb"/>
                         <outlet property="joinView" destination="7Wb-Ec-2Nh" id="vXF-lo-9Kx"/>
                         <outlet property="likeButton" destination="jbR-sD-EG7" id="43d-1T-tA6"/>
+                        <outlet property="mapDetailButton" destination="HBy-vq-wRZ" id="3Qa-X2-CQZ"/>
                         <outlet property="qrButton" destination="aiJ-B5-GjX" id="WoW-Nc-qdj"/>
                         <outlet property="qrImage" destination="Re5-xf-KbG" id="qxs-OQ-XjO"/>
                         <outlet property="scrollViewMain" destination="OcV-0J-4Io" id="7fo-vs-AV2"/>
@@ -1291,7 +1302,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0is-ca-8AR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-280" y="101"/>
+            <point key="canvasLocation" x="-323" y="-1000"/>
         </scene>
         <!--More-->
         <scene sceneID="P2C-wx-DeA">
