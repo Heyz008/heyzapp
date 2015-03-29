@@ -53,10 +53,10 @@
 	// Do any additional setup after loading the view.
     [self initializeNavigationBar];
     
-    self.photos = [@[@"1.jpg", @"2.jpg", @"3.jpg", @"4.jpg", @"5.jpg"] mutableCopy];
+    self.photos = [@[@"111.jpg", @"222.jpg", @"333.jpg", @"444.jpg", @"555.jpg"] mutableCopy];
     self.galleries = [@[@"11.jpg", @"22.jpg", @"33.jpg", @"44.jpg", @"55.jpg", @"66.jpg"] mutableCopy];
     self.commentUsers = [@[@"You", @"MoMo", @"LuLu"] mutableCopy];
-    self.commentContents = [@[@"Very Good Event", @"I really want to go!!!", @"HeyHeyHey YoYoYo"] mutableCopy];
+    self.commentContents = [@[@"Very Good Event", @"I really want to go!!!", @"Gonna Be Fun!"] mutableCopy];
     self.comments.delegate = self;
     
     self.whoIsGoing.delegate = self;
@@ -134,7 +134,7 @@
     joinFrame.origin.y = self.scrollViewMain.frame.origin.y + self.scrollViewMain.frame.size.height;
     self.joinView.frame = joinFrame;
     
-    
+    self.tabBarController.tabBar.frame = CGRectMake(0, 0, 0, 0);
     
     
     

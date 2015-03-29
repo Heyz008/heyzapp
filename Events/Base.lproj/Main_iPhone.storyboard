@@ -254,7 +254,7 @@
         <!--About View Controller-->
         <scene sceneID="0v6-xa-O5w">
             <objects>
-                <viewController storyboardIdentifier="aboutView" id="GJ5-Ez-Ag6" customClass="AboutViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="aboutView" hidesBottomBarWhenPushed="YES" id="GJ5-Ez-Ag6" customClass="AboutViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PNQ-T2-Nf5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
