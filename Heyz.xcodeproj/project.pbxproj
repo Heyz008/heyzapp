@@ -53,7 +53,6 @@
 		20703C9F1AB5ECD4003F36B7 /* CommentSummaryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20703C9E1AB5ECD4003F36B7 /* CommentSummaryCell.m */; };
 		20703CA21AB5F0BE003F36B7 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20703CA11AB5F0BE003F36B7 /* CommentCell.m */; };
 		20703CA81AB5F222003F36B7 /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20703CA71AB5F222003F36B7 /* CommentViewController.m */; };
-		207208A61A7432BB008F167D /* ProgramViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 207208A51A7432BB008F167D /* ProgramViewController.m */; };
 		207208A91A7432F5008F167D /* ProgramMainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 207208A81A7432F5008F167D /* ProgramMainCell.m */; };
 		207208AD1A7435DB008F167D /* CHTCollectionViewWaterfallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 207208AC1A7435DB008F167D /* CHTCollectionViewWaterfallLayout.m */; };
 		207208B31A7572DA008F167D /* 5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 207208AE1A7572DA008F167D /* 5.jpg */; };
@@ -74,6 +73,10 @@
 		20A901EB1AC8275D0007ED76 /* ActivityPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A901EA1AC8275D0007ED76 /* ActivityPhotoCell.m */; };
 		20A901EE1AC827840007ED76 /* ActivityRequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A901ED1AC827840007ED76 /* ActivityRequestCell.m */; };
 		20A901F11AC829A80007ED76 /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A901F01AC829A80007ED76 /* ActivityViewController.m */; };
+		52D9EA891AC8929900F6386D /* CYFriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D9EA871AC8929900F6386D /* CYFriendsTableViewController.swift */; };
+		52D9EA8A1AC8929900F6386D /* CYUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D9EA881AC8929900F6386D /* CYUser.swift */; };
+		52D9EA8C1AC8929E00F6386D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D9EA8B1AC8929E00F6386D /* ProfileViewController.swift */; };
+		52D9EA8E1AC8986600F6386D /* FakeUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D9EA8D1AC8986600F6386D /* FakeUser.swift */; };
 		6919B0F81A991F110050D36B /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6919B0F71A991F110050D36B /* FriendsTableViewController.swift */; };
 		692C60B51AAE89DB00D989FB /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692C60B41AAE89DB00D989FB /* UserManager.swift */; };
 		696ED9171AB273B7006D7D6F /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696ED9161AB273B7006D7D6F /* FacebookSDK.framework */; };
@@ -568,6 +571,10 @@
 		20A901ED1AC827840007ED76 /* ActivityRequestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityRequestCell.m; sourceTree = "<group>"; };
 		20A901EF1AC829A80007ED76 /* ActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityViewController.h; sourceTree = "<group>"; };
 		20A901F01AC829A80007ED76 /* ActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityViewController.m; sourceTree = "<group>"; };
+		52D9EA871AC8929900F6386D /* CYFriendsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CYFriendsTableViewController.swift; sourceTree = "<group>"; };
+		52D9EA881AC8929900F6386D /* CYUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CYUser.swift; sourceTree = "<group>"; };
+		52D9EA8B1AC8929E00F6386D /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		52D9EA8D1AC8986600F6386D /* FakeUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeUser.swift; sourceTree = "<group>"; };
 		6919B0F71A991F110050D36B /* FriendsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
 		692C60B41AAE89DB00D989FB /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		696ED9161AB273B7006D7D6F /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
@@ -1307,6 +1314,17 @@
 				207208AC1A7435DB008F167D /* CHTCollectionViewWaterfallLayout.m */,
 			);
 			name = CHTCollectionViewWatefallLayout;
+			sourceTree = "<group>";
+		};
+		52D9EA861AC8928F00F6386D /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				52D9EA8B1AC8929E00F6386D /* ProfileViewController.swift */,
+				52D9EA871AC8929900F6386D /* CYFriendsTableViewController.swift */,
+				52D9EA881AC8929900F6386D /* CYUser.swift */,
+				52D9EA8D1AC8986600F6386D /* FakeUser.swift */,
+			);
+			name = Profile;
 			sourceTree = "<group>";
 		};
 		6976BA291A82CD5C0023DB4F /* XMPPFramework */ = {
@@ -2663,6 +2681,7 @@
 		BB303D9F18B863E300B6EBC9 /* Events */ = {
 			isa = PBXGroup;
 			children = (
+				52D9EA861AC8928F00F6386D /* Profile */,
 				69C422121A78364F00011D1D /* User Login & Register */,
 				69F637A21A76D95200709137 /* Chat */,
 				020155011A7B2FB500E70244 /* Create Event */,
@@ -3261,8 +3280,10 @@
 				7122DB1218BB1F7300C044E8 /* FeedCustomCell.m in Sources */,
 				6976BDD51A82CD600023DB4F /* README.markdown in Sources */,
 				6976C03A1A8854040023DB4F /* XMPPMessageArchiving_Message_CoreDataObject.m in Sources */,
+				52D9EA8E1AC8986600F6386D /* FakeUser.swift in Sources */,
 				6976BD6C1A82CD600023DB4F /* XMPPIQ.m in Sources */,
 				711221E418BC93D000E77A4A /* EventCalCell.m in Sources */,
+				52D9EA8C1AC8929E00F6386D /* ProfileViewController.swift in Sources */,
 				69F637A81A76D95200709137 /* ChatViewController.swift in Sources */,
 				6976C0291A8854040023DB4F /* TURNSocket.m in Sources */,
 				6976C04B1A8854040023DB4F /* XEP_0223.m in Sources */,
@@ -3316,6 +3337,7 @@
 				20703C9C1AB5EAAE003F36B7 /* DescriptionDetailViewController.m in Sources */,
 				20568EC01ABBCAA40004C041 /* QRCodeReader.m in Sources */,
 				711221DE18BC62DD00E77A4A /* UIColor+expanded.m in Sources */,
+				52D9EA891AC8929900F6386D /* CYFriendsTableViewController.swift in Sources */,
 				6976C01B1A8854040023DB4F /* XMPPvCardCoreDataStorageObject.m in Sources */,
 				6976C04D1A8854040023DB4F /* XMPPMessage+XEP_0224.m in Sources */,
 				793508D7192134F90001CC34 /* MMdbsupport.m in Sources */,
@@ -3367,6 +3389,7 @@
 				6976BD6F1A82CD600023DB4F /* XMPPModule.m in Sources */,
 				79691D0718F00C8700ABD52D /* ASIFormDataRequest.m in Sources */,
 				6976C0031A8854040023DB4F /* XMPPSystemInputActivityMonitor.m in Sources */,
+				52D9EA8A1AC8929900F6386D /* CYUser.swift in Sources */,
 				6976C0251A8854040023DB4F /* NSXMLElement+XEP_0059.m in Sources */,
 				7122DB4118BB6E9000C044E8 /* MyProgramCustomCell.m in Sources */,
 				6976BFF21A8854040023DB4F /* XMPPBandwidthMonitor.m in Sources */,
