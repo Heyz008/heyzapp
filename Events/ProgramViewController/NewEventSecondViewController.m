@@ -9,6 +9,7 @@
 #import "NewEventSecondViewController.h"
 #import "M13Checkbox.h"
 #import <Parse/Parse.h>
+#import "Heyz-Swift.h"
 
 @interface NewEventSecondViewController () {
     NSArray *privacys;
@@ -116,9 +117,15 @@
         PFUser *user = [PFUser currentUser];
         [user addObject:event.objectId forKey:@"Events"];
         [user saveInBackground];
+        
         [PFCloud callFunctionInBackground:@"addToChat"
            withParameters:@{@"event": event.objectId}
-                    block:nil];
+                                    block:^(NSString *succeeded, NSError *error){
+                                        if (!error) {
+                                            ConversationManager *manager = [ConversationManager singleton];
+                                            manager.requireReload = YES;
+                                        }
+                                    }];
     }];
 }
 

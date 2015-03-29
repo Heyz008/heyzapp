@@ -10,11 +10,12 @@ import Foundation
 import CoreData
 import UIKit
 
-class ConversationManager {
+@objc class ConversationManager {
     
     var recentConversations = NSMutableArray()
     
-    let SEC_PER_ROUND = 600
+    let SEC_PER_ROUND = 21600
+    var requireReload = true
     
     func sendGroupMessage(message: Message, conversation: Conversation) {
         
@@ -22,6 +23,17 @@ class ConversationManager {
         outgoing["ChatGroup"] = PFObject(withoutDataWithClassName: "ChatGroup", objectId: conversation.from)
         outgoing["FromUser"] = PFObject(withoutDataWithClassName: "_User", objectId: PFUser.currentUser().objectId)
         switch message.type{
+        case "photo":
+            let data = UIImagePNGRepresentation(message.getContent() as UIImage)
+            let file = PFFile(data: data)
+            outgoing["MessageType"] = "photo"
+            outgoing["Image"] = file
+        case "voice":
+            let data = message.getContent() as NSData
+            let file = PFFile(data: data)
+            outgoing["MessageType"] = "voice"
+            outgoing["Voice"] = file
+            outgoing["VoiceDuration"] = message.voiceDuration!
         default:
             outgoing["MessageType"] = "text"
             outgoing["Text"] = message.getContent() as String
@@ -64,7 +76,7 @@ class ConversationManager {
                                         let round = ev["ChatRound"] as Int
                                         let sec = round * self.SEC_PER_ROUND + Int(ev.createdAt.timeIntervalSinceNow)
                                         
-                                        let conversation = Conversation(from: group.objectId, round: round, secs: sec)
+                                        let conversation = Conversation(from: group.objectId, displayName: ((group["Event"] as PFObject)["title"] as String), round: round, secs: sec)
                                         self.recentConversations.insertObject(conversation, atIndex: 0)
                                         
                                         let predicate = NSPredicate(format: "ChatGroup = %@", PFObject(withoutDataWithClassName: "ChatGroup", objectId: (group as PFObject).objectId))
@@ -75,6 +87,30 @@ class ConversationManager {
                                                 
                                                 for msg in messages {
                                                     switch (msg["MessageType"] as String){
+                                                    case "photo":
+                                                        let userImageFile = msg["Image"] as PFFile
+                                                        
+                                                        let message = Message(image: UIImage(), from: group.objectId, isDelay: false, isSentByMe: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId)
+                                                        conversation.add(message, isIncoming: false)
+                                                        
+                                                        userImageFile.getDataInBackgroundWithBlock {
+                                                            (imageData: NSData!, error: NSError!) -> Void in
+                                                            if error == nil {
+                                                                message.photo = UIImage(data: imageData)
+                                                            }
+                                                        }
+                                                        
+                                                    case "voice":
+                                                        let message = Message(voiceData: NSData(), voiceDuration: (msg as PFObject)["VoiceDuration"] as NSTimeInterval, isRead: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId, from: group.objectId, isDelay: false, isSentByMe: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId)
+                                                        conversation.add(message, isIncoming: false)
+                                                        
+                                                        (msg["Voice"] as PFFile).getDataInBackgroundWithBlock {
+                                                            (voiceData: NSData!, error: NSError!) -> Void in
+                                                            if error == nil {
+                                                                message.voiceData = voiceData
+                                                            }
+                                                        }
+
                                                     default:
                                                         let message = Message(text: msg["Text"] as String, from: group.objectId, isDelay: false, isSentByMe: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId)
                                                         conversation.add(message, isIncoming: false)
@@ -110,6 +146,28 @@ class ConversationManager {
                                 if messages.count > 0 {
                                     for msg in messages {
                                         switch (msg["MessageType"] as String){
+                                        case "photo":
+                                            let userImageFile = msg["Image"] as PFFile
+                                            
+                                            let message = Message(image: UIImage(), from: group.objectId, isDelay: false, isSentByMe: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId)
+                                            (conv as Conversation).add(message, isIncoming: false)
+                                            
+                                            userImageFile.getDataInBackgroundWithBlock {
+                                                (imageData: NSData!, error: NSError!) -> Void in
+                                                if error == nil {
+                                                    message.photo = UIImage(data: imageData)
+                                                }
+                                            }
+                                        case "voice":
+                                            let message = Message(voiceData: NSData(), voiceDuration: (msg as PFObject)["VoiceDuration"] as NSTimeInterval, isRead: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId, from: group.objectId, isDelay: false, isSentByMe: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId)
+                                            (conv as Conversation).add(message, isIncoming: false)
+                                            
+                                            (msg["Voice"] as PFFile).getDataInBackgroundWithBlock {
+                                                (voiceData: NSData!, error: NSError!) -> Void in
+                                                if error == nil {
+                                                    message.voiceData = voiceData
+                                                }
+                                            }
                                         default:
                                             let message = Message(text: msg["Text"] as String, from: group.objectId, isDelay: false, isSentByMe: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId)
                                             (conv as Conversation).add(message, isIncoming: true)
@@ -139,91 +197,120 @@ class ConversationManager {
     
     func loadGroupConversations(sender: ChatViewController) {
         
-        for conv in recentConversations {
-            if !(conv as Conversation).isPrivate {
-                recentConversations.removeObject(conv)
-            }
-        }
-        
-        if let user = PFUser.currentUser() {
+        if requireReload {
             
-            let events = user["Events"] as [String]
-            for ev in events {
-                
-                let predicate = NSPredicate(format: "Event = %@", PFObject(withoutDataWithClassName: "Event", objectId: ev))
-                let query = PFQuery(className: "ChatGroup", predicate: predicate)
-                
-                query.includeKey("Event")
-
-                query.findObjectsInBackgroundWithBlock({ (groups: [AnyObject]!, error: NSError!) -> Void in
-                    if error == nil {
-                        
-                        for group in groups {
-                            if contains(group["participants"] as [String], user.objectId){
-                                
-                                let ev = ((group as PFObject)["Event"] as PFObject)
-                                let round = ev["ChatRound"] as Int
-                                let sec = round * self.SEC_PER_ROUND + Int(ev.createdAt.timeIntervalSinceNow)
-                                
-                                let conversation = Conversation(from: group.objectId, round: round, secs: sec)
-                                self.recentConversations.insertObject(conversation, atIndex: 0)
-                                
-                                let predicate = NSPredicate(format: "ChatGroup = %@", PFObject(withoutDataWithClassName: "ChatGroup", objectId: (group as PFObject).objectId))
-                                let messageQuery = PFQuery(className: "GroupMessage", predicate: predicate)
-                                messageQuery.orderByAscending("createdAt")
-                                messageQuery.findObjectsInBackgroundWithBlock({ (messages: [AnyObject]!, error: NSError!) -> Void in
-                                    if error == nil {
-                                        for msg in messages {
-                                            switch (msg["MessageType"] as String){
-                                            default:
-                                                let message = Message(text: msg["Text"] as String, from: group.objectId, isDelay: false, isSentByMe: (msg as PFObject)["FromUser"].objectId == user.objectId)
-                                                conversation.add(message, isIncoming: false)
-                                                
-                                            }
-                                            
-                                        }
-                                        
-                                        sender.tblForChat.reloadData()
-                                    }
-                                })
-                                
-                                break
-                            
-                            }
-                            
-                        }
-                    }
-                    
-                    
-                })
-
-            }
-        }
-    }
-    
-    func addIncoming(message: Message, isPrivate: Bool) {
-        
-        if isPrivate {
-            var found = false
-            for i in 0 ..<  recentConversations.count {
-                if let conversation = recentConversations.objectAtIndex(i) as? Conversation{
-                    if conversation.from == message.from {
-                        topConversation(conversation)
-                        conversation.add(message, isIncoming: true)
-                        found = true
-                        break
-                    }
+            requireReload = false
+            
+            for conv in recentConversations {
+                if !(conv as Conversation).isPrivate {
+                    recentConversations.removeObject(conv)
                 }
             }
             
-            if !found {
-                let conversation = Conversation(from: message.from)
-                conversation.add(message, isIncoming: true)
-                recentConversations.insertObject(conversation, atIndex: 0)
+            if let user = PFUser.currentUser() {
+                
+                let events = user["Events"] as [String]
+                for ev in events {
+                    
+                    let predicate = NSPredicate(format: "Event = %@", PFObject(withoutDataWithClassName: "Event", objectId: ev))
+                    let query = PFQuery(className: "ChatGroup", predicate: predicate)
+                    
+                    query.includeKey("Event")
+                    
+                    query.findObjectsInBackgroundWithBlock({ (groups: [AnyObject]!, error: NSError!) -> Void in
+                        if error == nil {
+                            
+                            for group in groups {
+                                if contains(group["participants"] as [String], user.objectId){
+                                    
+                                    let ev = ((group as PFObject)["Event"] as PFObject)
+                                    let round = ev["ChatRound"] as Int
+                                    let sec = round * self.SEC_PER_ROUND + Int(ev.createdAt.timeIntervalSinceNow)
+                                    
+                                    let conversation = Conversation(from: group.objectId, displayName: ((group["Event"] as PFObject)["title"] as String), round: round, secs: sec)
+                                    self.recentConversations.insertObject(conversation, atIndex: 0)
+                                    
+                                    let predicate = NSPredicate(format: "ChatGroup = %@", PFObject(withoutDataWithClassName: "ChatGroup", objectId: (group as PFObject).objectId))
+                                    let messageQuery = PFQuery(className: "GroupMessage", predicate: predicate)
+                                    messageQuery.orderByAscending("createdAt")
+                                    messageQuery.findObjectsInBackgroundWithBlock({ (messages: [AnyObject]!, error: NSError!) -> Void in
+                                        if error == nil {
+                                            for msg in messages {
+                                                switch (msg["MessageType"] as String){
+                                                case "photo":
+                                                    let userImageFile = msg["Image"] as PFFile
+                                                    
+                                                    let message = Message(image: UIImage(), from: group.objectId, isDelay: false, isSentByMe: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId)
+                                                    conversation.add(message, isIncoming: false)
+                                                    
+                                                    userImageFile.getDataInBackgroundWithBlock {
+                                                        (imageData: NSData!, error: NSError!) -> Void in
+                                                        if error == nil {
+                                                            message.photo = UIImage(data: imageData)
+                                                        }
+                                                    }
+                                                case "voice":
+                                                    let message = Message(voiceData: NSData(), voiceDuration: (msg as PFObject)["VoiceDuration"] as NSTimeInterval, isRead: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId, from: group.objectId, isDelay: false, isSentByMe: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId)
+                                                    conversation.add(message, isIncoming: false)
+                                                    
+                                                    (msg["Voice"] as PFFile).getDataInBackgroundWithBlock {
+                                                        (voiceData: NSData!, error: NSError!) -> Void in
+                                                        if error == nil {
+                                                            message.voiceData = voiceData
+                                                        }
+                                                    }
+                                                default:
+                                                    let message = Message(text: msg["Text"] as String, from: group.objectId, isDelay: false, isSentByMe: (msg as PFObject)["FromUser"].objectId == user.objectId)
+                                                    conversation.add(message, isIncoming: false)
+                                                    
+                                                }
+                                                
+                                            }
+                                            
+                                            sender.tblForChat.reloadData()
+                                        }
+                                    })
+                                    
+                                    break
+                                    
+                                }
+                                
+                            }
+                        }
+                        
+                        
+                    })
+                    
+                }
             }
         }
         
+        
     }
+    
+//    func addIncoming(message: Message, isPrivate: Bool) {
+    
+//        if isPrivate {
+//            var found = false
+//            for i in 0 ..<  recentConversations.count {
+//                if let conversation = recentConversations.objectAtIndex(i) as? Conversation{
+//                    if conversation.from == message.from {
+//                        topConversation(conversation)
+//                        conversation.add(message, isIncoming: true)
+//                        found = true
+//                        break
+//                    }
+//                }
+//            }
+//            
+//            if !found {
+//                let conversation = Conversation(from: message.from)
+//                conversation.add(message, isIncoming: true)
+//                recentConversations.insertObject(conversation, atIndex: 0)
+//            }
+//        }
+        
+//    }
     
     func getConversationAtIndex(index: Int) -> Conversation! {
         return recentConversations.objectAtIndex(index) as Conversation
@@ -260,23 +347,26 @@ class Conversation {
     var isPrivate: Bool
     var round: Int
     var secs: Int
+    var displayName: String
     
-    init(from: String){
+    init(from: String, displayName: String){
         self.history = NSMutableArray()
         self.from = from
         self.unread = 0
         self.isPrivate = true
         self.round = 0
         self.secs = 0
+        self.displayName = displayName
     }
     
-    init(from: String, round: Int, secs: Int){
+    init(from: String, displayName: String, round: Int, secs: Int){
         self.history = NSMutableArray()
         self.from = from
         self.unread = 0
         self.isPrivate = false
         self.round = round
         self.secs = secs
+        self.displayName = displayName
     }
     
     func resetUnread() {
@@ -304,8 +394,8 @@ class Message {
 //    var thumbnailUrl: NSString?
 //    var originalUrl: NSString?
     
-    var voicePath: NSString?
-    var voiceDuration: NSString?
+    var voiceData: NSData?
+    var voiceDuration: NSTimeInterval?
     var isRead: Bool?
     
     var from: NSString
@@ -346,9 +436,9 @@ class Message {
         }
     }
     
-    init(voicePath: NSString, voiceDuration: NSString, isRead: Bool, from: NSString, isDelay: Bool, isSentByMe: Bool) {
+    init(voiceData: NSData, voiceDuration: NSTimeInterval, isRead: Bool, from: NSString, isDelay: Bool, isSentByMe: Bool) {
         
-        self.voicePath = voicePath
+        self.voiceData = voiceData
         self.voiceDuration = voiceDuration
         self.isRead = isRead
         self.from = from
@@ -371,7 +461,7 @@ class Message {
         case "text":
             return text!
         case "voice":
-            return voicePath!
+            return voiceData!
         default:
             return photo!
         }

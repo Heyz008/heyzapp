@@ -70,12 +70,14 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
 
         NSTimer.scheduledTimerWithTimeInterval(refreshRate, target: self, selector: "fetchMessages", userInfo: nil, repeats: true)
         
-        conversationManager.loadGroupConversations(self)
+        let utils = AudioUtils.sharedUtils
     }
     
     override func viewWillAppear(animated: Bool) {
         
         super.viewWillAppear(animated)
+        
+        conversationManager.loadGroupConversations(self)
         
         tblForChat.reloadData()
         mDelegate = nil
@@ -151,7 +153,7 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
             let timeLeftLabel = cell.viewWithTag(6) as UILabel
             let backgroundView = cell.viewWithTag(2) as UIView!
             
-            senderLabel.text = conversation.from
+            senderLabel.text = conversation.displayName
             
             if let lastMessage = (conversation.history.lastObject as? Message) {
 
@@ -179,7 +181,17 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
             }
             
             roundLabel.text = "ROUND \(conversation.round)"
-            timeLeftLabel.text = "\(conversation.secs) secs"
+            
+            if conversation.secs <= 60 {
+                timeLeftLabel.text = "1 mins left"
+            } else if conversation.secs <= 3600 {
+                timeLeftLabel.text = "\(conversation.secs/60 + 1) mins left"
+            } else {
+                let hr = conversation.secs/3600
+                let mins = (conversation.secs - 3600 * hr)/60
+                timeLeftLabel.text = "\(hr) h \(mins) mins left"
+            }
+            
             let SEC_PER_ROUND: Int = conversationManager.SEC_PER_ROUND
             let width = Double((SEC_PER_ROUND - conversation.secs)) / Double(SEC_PER_ROUND)
             backgroundView.frame.size.width = CGFloat(Int(width * Double(cell.frame.size.width)))

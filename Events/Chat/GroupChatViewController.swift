@@ -30,6 +30,7 @@ class GroupChatViewController: UIViewController, MessageDelegate, UIImagePickerC
             tblForChats.reloadData()
             let indexPath = NSIndexPath(forRow:conversation.history.count - 1, inSection: 0)
             tblForChats.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
+            
         }
         
         
@@ -42,6 +43,52 @@ class GroupChatViewController: UIViewController, MessageDelegate, UIImagePickerC
         let indexPath = NSIndexPath(forRow:conversation.history.count - 1, inSection: 0)
         tblForChats.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
         tblForChats.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
+    }
+    
+    @IBAction func handleVoiceLongPress(recognizer: UILongPressGestureRecognizer){
+        if recognizer.state == .Began {
+            
+            AudioUtils.sharedUtils.startRecord(self)
+            
+        } else if recognizer.state == .Ended {
+            
+            AudioUtils.sharedUtils.stopRecord(self, onAfterSuccess: {(url: NSURL, duration: NSTimeInterval) -> Void in
+                
+                let data = NSData(contentsOfURL: url)
+                let message = Message(voiceData: data!, voiceDuration: duration, isRead: true, from: "self", isDelay: false, isSentByMe: true)
+                
+                self.addMessage(message)
+                self.conversationManager.sendGroupMessage(message, conversation: self.conversation)
+                
+                }, onAfterFailure: {() -> Void in
+                    println("record failed")
+            })
+
+        }
+    }
+    
+    @IBAction func onAfterVoiceTapped(sender: UIButton){
+        
+        let buttonPosition = sender.convertPoint(CGPointZero, toView: self.tblForChats)
+        if let indexPath = self.tblForChats.indexPathForRowAtPoint(buttonPosition){
+            let message = conversation.history.objectAtIndex(indexPath.row) as Message
+            let data = message.getContent() as NSData
+            
+            UIView.animateWithDuration(1.5, delay: 0.0, options: .Autoreverse | .Repeat, animations: {
+                sender.alpha = 0.3
+            }, completion: nil)
+            AudioUtils.sharedUtils.playData(data, completion: {
+                sender.layer.removeAllAnimations()
+                sender.alpha = 1.0
+            })
+            
+            if !message.isSentByMe {
+                if !(message.isRead!) {
+                    message.isRead = true
+                    self.tblForChats.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+                }
+            }
+        }
     }
     
     @IBAction func onAfterCameraTapped(sender: UIButton) {
@@ -68,9 +115,11 @@ class GroupChatViewController: UIViewController, MessageDelegate, UIImagePickerC
         
 //        let user = NSUserDefaults.standardUserDefaults().stringForKey(xmppDefaultIdKey)
         
-        let message = Message(image: image, from: "TEMP", isDelay: false, isSentByMe: true)
+        let message = Message(image: image, from: "self", isDelay: false, isSentByMe: true)
         
         self.addMessage(message)
+        
+        conversationManager.sendGroupMessage(message, conversation: conversation)
         
 //        let xml = DDXMLElement.elementWithName("message") as DDXMLElement
 //        xml.addAttributeWithName("type", stringValue: "chat")
@@ -133,6 +182,8 @@ class GroupChatViewController: UIViewController, MessageDelegate, UIImagePickerC
             var text = message.getContent() as String
             var sizeOFStr = self.getSizeOfString(text)
             return sizeOFStr.height + 40
+        case "voice":
+            return CGFloat(52)
         default:
             return CGFloat(130)
         }
@@ -142,26 +193,26 @@ class GroupChatViewController: UIViewController, MessageDelegate, UIImagePickerC
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         
         var cell : UITableViewCell!
-        var message: Message = conversation.history.objectAtIndex(indexPath.row) as Message
-        var isSentByMe = message.isSentByMe
+        let message: Message = conversation.history.objectAtIndex(indexPath.row) as Message
+        let isSentByMe = message.isSentByMe
         let timeArray = message.getTimestamp().componentsSeparatedByString("@ ")
         
         switch message.type {
         case "text":
-            var text = message.getContent() as String
-            var sizeOFStr = self.getSizeOfString(text)
+            let text = message.getContent() as String
+            let sizeOFStr = self.getSizeOfString(text)
             
             if isSentByMe {
                 cell = tblForChats.dequeueReusableCellWithIdentifier("groupTextSentCell") as UITableViewCell
                 // var deliveredLabel = cell.viewWithTag(13) as UILabel
-                var textLabel = cell.viewWithTag(12) as UILabel
-                var timeLabel = cell.viewWithTag(11) as UILabel
-                var chatImage = cell.viewWithTag(1) as UIImageView
-                var profileImage = cell.viewWithTag(2) as UIImageView
-                var distanceFactor = (180.0 - sizeOFStr.width) < 140 ? (190.0 - sizeOFStr.width) : 140
+                let textLabel = cell.viewWithTag(12) as UILabel
+                let timeLabel = cell.viewWithTag(11) as UILabel
+                let chatImage = cell.viewWithTag(1) as UIImageView
+                let profileImage = cell.viewWithTag(2) as UIImageView
+                let distanceFactor = (180.0 - sizeOFStr.width) < 140 ? (190.0 - sizeOFStr.width) : 140
                 
                 chatImage.frame = CGRectMake(30 + distanceFactor, chatImage.frame.origin.y, ((sizeOFStr.width + 50)  > 100 ? (sizeOFStr.width + 50) : 100), sizeOFStr.height + 30)
-                chatImage.image = UIImage(named: "chat_new_send")?.stretchableImageWithLeftCapWidth(30,topCapHeight: 20);
+                chatImage.image = UIImage(named: "chat_new_send")?.stretchableImageWithLeftCapWidth(30,topCapHeight: 20)
                 textLabel.frame = CGRectMake(41 + distanceFactor, textLabel.frame.origin.y, textLabel.frame.size.width, sizeOFStr.height)
                 profileImage.center = CGPointMake(profileImage.center.x, textLabel.frame.origin.y + textLabel.frame.size.height - profileImage.frame.size.height/2 + 5)
                 timeLabel.frame = CGRectMake(41 + distanceFactor, timeLabel.frame.origin.y, timeLabel.frame.size.width, timeLabel.frame.size.height)
@@ -170,36 +221,81 @@ class GroupChatViewController: UIViewController, MessageDelegate, UIImagePickerC
                 timeLabel.text = timeArray.count > 1 ? timeArray[1] : ""
             } else {
                 cell = tblForChats.dequeueReusableCellWithIdentifier("groupTextReceivedCell") as UITableViewCell
-                var textLabel = cell.viewWithTag(12) as UILabel
-                var timeLabel = cell.viewWithTag(11) as UILabel
-                var chatImage = cell.viewWithTag(1) as UIImageView
-                var profileImage = cell.viewWithTag(2) as UIImageView
+                let textLabel = cell.viewWithTag(12) as UILabel
+                let timeLabel = cell.viewWithTag(11) as UILabel
+                let chatImage = cell.viewWithTag(1) as UIImageView
+                let profileImage = cell.viewWithTag(2) as UIImageView
                 chatImage.frame = CGRectMake(chatImage.frame.origin.x, chatImage.frame.origin.y, ((sizeOFStr.width + 50)  > 100 ? (sizeOFStr.width + 50) : 100), sizeOFStr.height + 30)
-                chatImage.image = UIImage(named: "chat_new_receive")?.stretchableImageWithLeftCapWidth(30,topCapHeight: 20);
+                chatImage.image = UIImage(named: "chat_new_receive")?.stretchableImageWithLeftCapWidth(30,topCapHeight: 20)
                 textLabel.frame = CGRectMake(textLabel.frame.origin.x, textLabel.frame.origin.y, textLabel.frame.size.width, sizeOFStr.height)
                 profileImage.center = CGPointMake(profileImage.center.x, textLabel.frame.origin.y + textLabel.frame.size.height - profileImage.frame.size.height/2 + 5)
                 textLabel.text = text
                 timeLabel.text = timeArray.count > 1 ? timeArray[1] : ""
             }
+        case "voice":
+            let voiceData = message.getContent() as NSData
+            let voiceDuration = Int(message.voiceDuration!)
+            let sizeOfVoice = self.getSizeOfVoice(message.voiceDuration!)
+            
+            if isSentByMe {
+                cell = tblForChats.dequeueReusableCellWithIdentifier("groupVoiceSentCell") as UITableViewCell
+                
+                let distanceFactor = (240.0 - sizeOfVoice) < 190 ? (240.0 - sizeOfVoice) : 190
+                
+                let chatImage = cell.viewWithTag(1) as UIButton
+                chatImage.frame = CGRectMake(30 + distanceFactor, chatImage.frame.origin.y, sizeOfVoice, chatImage.frame.size.height)
+                chatImage.setBackgroundImage(UIImage(named: "chat_new_send")?.stretchableImageWithLeftCapWidth(30,topCapHeight: 20), forState: .Normal)
+                
+                let durationLabel = cell.viewWithTag(3) as UILabel
+                durationLabel.frame = CGRectMake(40 + distanceFactor, durationLabel.frame.origin.y, durationLabel.frame.size.width, durationLabel.frame.size.height)
+                durationLabel.text = "\(voiceDuration) ''"
+            } else {
+                cell = tblForChats.dequeueReusableCellWithIdentifier("groupVoiceReceivedCell") as UITableViewCell
+                let unreadLabel = cell.viewWithTag(4)
+                
+                if message.isRead! {
+                    unreadLabel!.hidden = true
+                } else {
+                    unreadLabel!.hidden = false
+                }
+                
+                let chatImage = cell.viewWithTag(1) as UIButton
+                chatImage.frame = CGRectMake(chatImage.frame.origin.x, chatImage.frame.origin.y, sizeOfVoice, chatImage.frame.size.height)
+                chatImage.setBackgroundImage(UIImage(named: "chat_new_receive")?.stretchableImageWithLeftCapWidth(30,topCapHeight: 20), forState: .Normal)
+//                chatImage.image =
+                
+                unreadLabel!.frame = CGRectMake(chatImage.frame.origin.x + sizeOfVoice + 5, unreadLabel!.frame.origin.y, unreadLabel!.frame.size.width, unreadLabel!.frame.size.height)
+                
+                let durationLabel = cell.viewWithTag(3) as UILabel
+                durationLabel.frame = CGRectMake(chatImage.frame.origin.x + sizeOfVoice - 25, durationLabel.frame.origin.y, durationLabel.frame.size.width, durationLabel.frame.size.height)
+                durationLabel.text = "\(voiceDuration) ''"
+            }
+            
             
         default:
             
-            var image = (message.getContent() as UIImage)
+            let image = (message.getContent() as UIImage)
             
             if isSentByMe {
                 cell = tblForChats.dequeueReusableCellWithIdentifier("groupImageSentCell") as UITableViewCell
-                var imageView = cell.viewWithTag(1) as UIImageView
+                let imageView = cell.viewWithTag(1) as UIImageView
                 imageView.image = image
                 imageView.contentMode = .ScaleAspectFill
                 imageView.layer.cornerRadius = 5
                 imageView.clipsToBounds = true
+                
+                let chatImage = cell.viewWithTag(3) as UIImageView
+                chatImage.image = UIImage(named: "chat_new_send")?.stretchableImageWithLeftCapWidth(30,topCapHeight: 20)
             } else {
                 cell = tblForChats.dequeueReusableCellWithIdentifier("groupImageReceivedCell") as UITableViewCell
-                var imageView = cell.viewWithTag(1) as UIImageView
+                let imageView = cell.viewWithTag(1) as UIImageView
                 imageView.image = image
                 imageView.contentMode = .ScaleAspectFill
                 imageView.layer.cornerRadius = 5
                 imageView.clipsToBounds = true
+                
+                let chatImage = cell.viewWithTag(3) as UIImageView
+                chatImage.image = UIImage(named: "chat_new_receive")?.stretchableImageWithLeftCapWidth(30,topCapHeight: 20)
             }
             
         }
@@ -266,7 +362,7 @@ class GroupChatViewController: UIViewController, MessageDelegate, UIImagePickerC
         
         if !body.isEmpty {
             
-            let message = Message(text: body, from: "TEMP", isDelay: false, isSentByMe: true)
+            let message = Message(text: body, from: "self", isDelay: false, isSentByMe: true)
             textField.text = ""
             
             self.addMessage(message)
@@ -298,7 +394,19 @@ class GroupChatViewController: UIViewController, MessageDelegate, UIImagePickerC
             options: NSStringDrawingOptions.UsesLineFragmentOrigin,
             attributes: attributes,
             context: nil)
+
         return labelSize.size
+    }
+    
+    func getSizeOfVoice(duration: NSTimeInterval) -> CGFloat {
+        
+        if duration <= 5 {
+            return CGFloat(100)
+        } else if duration >= 60 {
+            return CGFloat(220)
+        } else {
+            return CGFloat(100 + 120 * duration / 55)
+        }
     }
     
     
