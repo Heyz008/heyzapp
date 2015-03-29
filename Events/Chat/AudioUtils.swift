@@ -44,6 +44,7 @@ class AudioUtils: NSObject, AVAudioPlayerDelegate{
     }
     
     func playData(data: NSData, completion: () -> ()) {
+
         playWithPlayer(AVAudioPlayer(data: data, error: nil), completion: completion)
     }
     

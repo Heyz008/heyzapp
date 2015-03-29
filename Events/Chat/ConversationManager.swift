@@ -101,7 +101,7 @@ import UIKit
                                                         }
                                                         
                                                     case "voice":
-                                                        let message = Message(voiceData: NSData(), voiceDuration: (msg as PFObject)["VoiceDuration"] as NSTimeInterval, isRead: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId, from: group.objectId, isDelay: false, isSentByMe: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId)
+                                                        let message = Message(voiceData: nil, voiceDuration: (msg as PFObject)["VoiceDuration"] as NSTimeInterval, isRead: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId, from: group.objectId, isDelay: false, isSentByMe: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId)
                                                         conversation.add(message, isIncoming: false)
                                                         
                                                         (msg["Voice"] as PFFile).getDataInBackgroundWithBlock {
@@ -159,7 +159,7 @@ import UIKit
                                                 }
                                             }
                                         case "voice":
-                                            let message = Message(voiceData: NSData(), voiceDuration: (msg as PFObject)["VoiceDuration"] as NSTimeInterval, isRead: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId, from: group.objectId, isDelay: false, isSentByMe: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId)
+                                            let message = Message(voiceData: nil, voiceDuration: (msg as PFObject)["VoiceDuration"] as NSTimeInterval, isRead: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId, from: group.objectId, isDelay: false, isSentByMe: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId)
                                             (conv as Conversation).add(message, isIncoming: false)
                                             
                                             (msg["Voice"] as PFFile).getDataInBackgroundWithBlock {
@@ -250,7 +250,7 @@ import UIKit
                                                         }
                                                     }
                                                 case "voice":
-                                                    let message = Message(voiceData: NSData(), voiceDuration: (msg as PFObject)["VoiceDuration"] as NSTimeInterval, isRead: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId, from: group.objectId, isDelay: false, isSentByMe: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId)
+                                                    let message = Message(voiceData: nil, voiceDuration: (msg as PFObject)["VoiceDuration"] as NSTimeInterval, isRead: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId, from: group.objectId, isDelay: false, isSentByMe: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId)
                                                     conversation.add(message, isIncoming: false)
                                                     
                                                     (msg["Voice"] as PFFile).getDataInBackgroundWithBlock {
@@ -436,7 +436,7 @@ class Message {
         }
     }
     
-    init(voiceData: NSData, voiceDuration: NSTimeInterval, isRead: Bool, from: NSString, isDelay: Bool, isSentByMe: Bool) {
+    init(voiceData: NSData?, voiceDuration: NSTimeInterval, isRead: Bool, from: NSString, isDelay: Bool, isSentByMe: Bool) {
         
         self.voiceData = voiceData
         self.voiceDuration = voiceDuration

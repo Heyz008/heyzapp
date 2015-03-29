@@ -72,22 +72,25 @@ class GroupChatViewController: UIViewController, MessageDelegate, UIImagePickerC
         let buttonPosition = sender.convertPoint(CGPointZero, toView: self.tblForChats)
         if let indexPath = self.tblForChats.indexPathForRowAtPoint(buttonPosition){
             let message = conversation.history.objectAtIndex(indexPath.row) as Message
-            let data = message.getContent() as NSData
             
-            UIView.animateWithDuration(1.5, delay: 0.0, options: .Autoreverse | .Repeat, animations: {
-                sender.alpha = 0.3
-            }, completion: nil)
-            AudioUtils.sharedUtils.playData(data, completion: {
-                sender.layer.removeAllAnimations()
-                sender.alpha = 1.0
-            })
-            
-            if !message.isSentByMe {
-                if !(message.isRead!) {
-                    message.isRead = true
-                    self.tblForChats.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+            if let data = message.voiceData {
+                UIView.animateWithDuration(1.5, delay: 0.0, options: .Autoreverse | .Repeat, animations: {
+                    sender.alpha = 0.3
+                    }, completion: nil)
+                AudioUtils.sharedUtils.playData(data, completion: {
+                    sender.layer.removeAllAnimations()
+                    sender.alpha = 1.0
+                })
+                
+                if !message.isSentByMe {
+                    if !(message.isRead!) {
+                        message.isRead = true
+                        self.tblForChats.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+                    }
                 }
             }
+            
+            
         }
     }
     
@@ -233,7 +236,7 @@ class GroupChatViewController: UIViewController, MessageDelegate, UIImagePickerC
                 timeLabel.text = timeArray.count > 1 ? timeArray[1] : ""
             }
         case "voice":
-            let voiceData = message.getContent() as NSData
+            
             let voiceDuration = Int(message.voiceDuration!)
             let sizeOfVoice = self.getSizeOfVoice(message.voiceDuration!)
             
