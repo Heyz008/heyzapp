@@ -7,7 +7,6 @@
 //
 
 #import "NewEventSecondViewController.h"
-#import "M13Checkbox.h"
 #import <Parse/Parse.h>
 #import "Heyz-Swift.h"
 
@@ -56,13 +55,10 @@
     self.payment.titleLabel.text = @"Payment Type";
     self.payment.titleLabel.textAlignment = UIControlContentHorizontalAlignmentLeft;
     
-    M13Checkbox *checkBox = [[M13Checkbox alloc] initWithTitle:@"加入event时需要二次确认"];
-    checkBox.titleLabel.font = [UIFont systemFontOfSize:12];
-    checkBox.strokeColor = [UIColor blackColor];
-    checkBox.checkColor = [UIColor blackColor];
-    [checkBox setCheckAlignment:M13CheckboxAlignmentLeft];
-    checkBox.frame = CGRectMake(self.privacy.frame.origin.x, self.privacy.frame.origin.y + self.privacy.frame.size.height + 6, self.privacy.frame.size.width, 16);
-    [self.view addSubview:checkBox];
+    self.switchView.layer.borderWidth = 1.0;
+    self.switchView.layer.borderColor = [UIColor blackColor].CGColor;
+    
+    self.eventSwitch.transform = CGAffineTransformMakeScale(0.75, 0.75);
     
 }
 
@@ -92,41 +88,52 @@
 }
 
 -(IBAction)createNewEvent:(id)sender {
-    PFObject *event = [PFObject objectWithClassName:@"Event"];
-    event[@"title"] = self.eName;
-    event[@"description"] = self.eDescription;
-    event[@"latitude"] = [NSString stringWithFormat:@"%f", self.eLatitude];
-    event[@"longitude"] = [NSString stringWithFormat:@"%f", self.eLongitude];
-    event[@"from"] = self.eStart;
-    event[@"to"] = self.eEnd;
-    event[@"address"] = self.eAddress;
-    event[@"category"] = categories[categoryIndex];
-    event[@"privacy"] = privacys[privacyIndex];
-    event[@"maximum"] = maximums[maximumIndex];
-    event[@"payment"] = payments[paymentIndex];
-    NSData *imageData = UIImagePNGRepresentation(self.eImage);
-    PFFile *imageFile = [PFFile fileWithName:@"eventImage.png" data:imageData];
-    event[@"image"] = imageFile;
-    event[@"ChatParticipants"] = @[];
-    event[@"ChatRound"] = @1;
-    event[@"isActive"] = @YES;
     
-    [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        [self.navigationController popToRootViewControllerAnimated:YES];
+    if (privacyIndex && maximumIndex && paymentIndex && categoryIndex) {
+        PFObject *event = [PFObject objectWithClassName:@"Event"];
+        event[@"title"] = self.eName;
+        event[@"description"] = self.eDescription;
+        event[@"latitude"] = [NSString stringWithFormat:@"%f", self.eLatitude];
+        event[@"longitude"] = [NSString stringWithFormat:@"%f", self.eLongitude];
+        event[@"from"] = self.eStart;
+        event[@"to"] = self.eEnd;
+        event[@"address"] = self.eAddress;
+        event[@"category"] = categories[categoryIndex];
+        event[@"privacy"] = privacys[privacyIndex];
+        event[@"maximum"] = maximums[maximumIndex];
+        event[@"payment"] = payments[paymentIndex];
+        NSData *imageData = UIImagePNGRepresentation(self.eImage);
+        PFFile *imageFile = [PFFile fileWithName:@"eventImage.png" data:imageData];
+        event[@"image"] = imageFile;
+        event[@"ChatParticipants"] = @[];
+        event[@"ChatRound"] = @1;
+        event[@"isActive"] = @YES;
         
-        PFUser *user = [PFUser currentUser];
-        [user addObject:event.objectId forKey:@"Events"];
-        [user saveInBackground];
-        
-        [PFCloud callFunctionInBackground:@"addToChat"
-           withParameters:@{@"event": event.objectId}
-                                    block:^(NSString *succeeded, NSError *error){
-                                        if (!error) {
-                                            ConversationManager *manager = [ConversationManager singleton];
-                                            manager.requireReload = YES;
-                                        }
-                                    }];
-    }];
+        [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            
+            PFUser *user = [PFUser currentUser];
+            [user addObject:event.objectId forKey:@"Events"];
+            [user saveInBackground];
+            [PFCloud callFunctionInBackground:@"addToChat"
+                               withParameters:@{@"event": event.objectId}
+                                        block:^(NSString *succeeded, NSError *error){
+                                            if (!error) {
+                                                ConversationManager *manager = [ConversationManager singleton];
+                                                manager.requireReload = YES;
+                                            }
+                                        }];
+        }];
+    } else {
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error!"
+                                                          message:@"Please fill in all the fields"
+                                                         delegate:nil
+                                                cancelButtonTitle:@"OK"
+                                                otherButtonTitles:nil];
+
+        [message show];
+    }
+
 }
 
 

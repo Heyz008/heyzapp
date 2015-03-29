@@ -20,8 +20,11 @@
 #import "WhoIsGoingViewController.h"
 #import "DescriptionDetailViewController.h"
 #import "CommentSummaryCell.h"
-
 #import "ProgramDescriptionViewController.h"
+#import "UIImage+MDQRCode.h"
+#import "QRViewController.h"
+#import "EventMapViewController.h"
+#import "Heyz-Swift.h"
 
 @interface AboutViewController ()
 {
@@ -51,20 +54,23 @@
 	// Do any additional setup after loading the view.
     [self initializeNavigationBar];
     
-    self.photos = [@[@"1.jpg", @"2.jpg", @"3.jpg", @"4.jpg", @"5.jpg"] mutableCopy];
-    
+    self.photos = [@[@"111.jpg", @"222.jpg", @"333.jpg", @"444.jpg", @"555.jpg"] mutableCopy];
+    self.galleries = [@[@"11.jpg", @"22.jpg", @"33.jpg", @"44.jpg", @"55.jpg", @"66.jpg"] mutableCopy];
     self.commentUsers = [@[@"You", @"MoMo", @"LuLu"] mutableCopy];
-    self.commentContents = [@[@"Very Good Event", @"I really want to go!!!", @"HeyHeyHey YoYoYo"] mutableCopy];
+    self.commentContents = [@[@"Very Good Event", @"I really want to go!!!", @"Gonna Be Fun!"] mutableCopy];
     self.comments.delegate = self;
     
     self.whoIsGoing.delegate = self;
+    self.whoIsGoing.tag = 11;
+    self.eventGallery.delegate = self;
+    self.eventGallery.tag = 22;
     
     self.eventName.text = self.eventObj[@"title"];
     self.eventOwner.text = [NSString stringWithFormat:@"Hosted by Heyz . %@ . %@", self.eventObj[@"privacy"], self.eventObj[@"payment"]];
     self.eventTime.font = [UIFont fontWithName:kFontAwesomeFamilyName size:12];
     self.eventAddress.font = [UIFont fontWithName:kFontAwesomeFamilyName size:12];
-    self.eventTime.text = [NSString stringWithFormat:@"%@  %@ - %@", [NSString fontAwesomeIconStringForIconIdentifier:@"fa-heart"], self.eventObj[@"from"], self.eventObj[@"to"]];
-    self.eventAddress.text = [NSString stringWithFormat:@"%@  %@", [NSString fontAwesomeIconStringForIconIdentifier:@"fa-heart"], self.eventObj[@"address"]];
+    self.eventTime.text = [NSString stringWithFormat:@"%@  %@ - %@", [NSString fontAwesomeIconStringForIconIdentifier:@"fa-clock-o"], self.eventObj[@"from"], self.eventObj[@"to"]];
+    self.eventAddress.text = [NSString stringWithFormat:@"%@  %@", [NSString fontAwesomeIconStringForIconIdentifier:@"fa-map-marker"], self.eventObj[@"address"]];
     PFFile *eventImageFile = self.eventObj[@"image"];
     [eventImageFile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
         if (!error) {
@@ -74,6 +80,7 @@
     
     self.aboutContent.text = self.eventObj[@"description"];
     
+    self.eventGallery.backgroundColor = [UIColor clearColor];
     
     self.whoMoreLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:12];
     self.whoMoreLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-angle-right"];
@@ -84,6 +91,27 @@
     self.commentMoreLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:12];
     self.commentMoreLabel.text = [NSString stringWithFormat:@"View All   %@", [NSString fontAwesomeIconStringForIconIdentifier:@"fa-angle-right"]];
     
+    UIColor *buttonColor = [UIColor colorWithRed:235.0/255 green:108.0/255 blue:118.0/255 alpha:1.0];
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithTitle:[NSString fontAwesomeIconStringForIconIdentifier:@"fa-share-square-o"] style:UIBarButtonItemStylePlain target:self action:@selector(shareEvent)];
+    [shareButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                         [UIFont fontWithName:kFontAwesomeFamilyName size:22], NSFontAttributeName,
+                                         buttonColor, NSForegroundColorAttributeName,
+                                         nil] forState:UIControlStateNormal];
+    UIBarButtonItem *actionButton = [[UIBarButtonItem alloc] initWithTitle:[NSString fontAwesomeIconStringForIconIdentifier:@"fa-ellipsis-h"] style:UIBarButtonItemStylePlain target:self action:@selector(eventAction)];
+    [actionButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                         [UIFont fontWithName:kFontAwesomeFamilyName size:22], NSFontAttributeName,
+                                         buttonColor, NSForegroundColorAttributeName,
+                                         nil] forState:UIControlStateNormal];
+    
+    UIBarButtonItem *fixedItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixedItem.width = 18.0f;
+    
+    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:shareButton, fixedItem, actionButton, nil]];
+    
+    self.addImageButton.titleLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:22];
+    [self.addImageButton setTitle:[NSString fontAwesomeIconStringForIconIdentifier:@"fa-plus"] forState:UIControlStateNormal];
+    
+    self.qrImage.image = [UIImage mdQRCodeForString:self.eventName.text size:self.qrImage.bounds.size.width fillColor:[UIColor lightGrayColor]];
     
     descriptionTextHeight = [Utility getTextSize:[self.eventObj objectForKey:@"description"]textWidth:300 fontSize:14.0f lineBreakMode:NSLineBreakByWordWrapping].height;
     
@@ -106,6 +134,101 @@
     CGRect joinFrame = self.joinView.frame;
     joinFrame.origin.y = self.scrollViewMain.frame.origin.y + self.scrollViewMain.frame.size.height;
     self.joinView.frame = joinFrame;
+    
+    //self.tabBarController.tabBar.frame = CGRectMake(0, 0, 0, 0);
+    
+    
+    
+}
+
+-(IBAction)joinEvent:(id)sender {
+        PFUser *user = [PFUser currentUser];
+        [user addObject:self.eventObj.objectId forKey:@"Events"];
+        [user saveInBackground];
+        [PFCloud callFunctionInBackground:@"addToChat"
+                           withParameters:@{@"event": self.eventObj.objectId}
+                                    block:^(NSString *succeeded, NSError *error){
+                                        if (!error) {
+                                            ConversationManager *manager = [ConversationManager singleton];
+                                            manager.requireReload = YES;
+                                        }
+                                    }];
+    
+    [self.tabBarController setSelectedIndex:1];
+}
+
+-(void)eventAction {
+    UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:@"ACTION" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:
+                            @"Invite",
+                            @"Report",
+                            nil];
+    popup.tag = 2;
+    [popup showInView:[UIApplication sharedApplication].keyWindow];
+}
+
+-(IBAction)addImageTapped:(id)sender {
+    
+    UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:@"Upload Photo" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:
+                            @"Choose Photo From Library",
+                            @"Take Photo",
+                            nil];
+    popup.tag = 1;
+    [popup showInView:[UIApplication sharedApplication].keyWindow];
+}
+
+- (void)actionSheet:(UIActionSheet *)popup clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    switch (popup.tag) {
+        case 1: {
+            switch (buttonIndex) {
+                case 0: {
+                    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+                        UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                        
+                        UIImagePickerController * picker = [[UIImagePickerController alloc]init];
+                        picker.delegate = self;
+                        picker.allowsEditing=YES;
+                        picker.sourceType = sourceType;
+                        [self presentViewController:picker animated:YES completion:nil];
+                    }
+                }
+                case 1:{
+                    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+                        UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
+                        
+                        UIImagePickerController * picker = [[UIImagePickerController alloc]init];
+                        picker.delegate = self;
+                        picker.allowsEditing=YES;
+                        picker.sourceType = sourceType;
+                        [self presentViewController:picker animated:YES completion:nil];
+                    }
+                }
+                default:
+                    break;
+            }
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+-(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    UIImage *galleryImage = [info objectForKey:UIImagePickerControllerEditedImage];
+    UIImage *originalImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+}
+
+-(void)shareEvent {
+    NSMutableArray *sharingItems = [NSMutableArray new];
+    
+    [sharingItems addObject:self.eventName.text];
+    [sharingItems addObject:self.eventImageView.image];
+    
+    UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:sharingItems applicationActivities:nil];
+    activityController.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypePrint];
+    [self presentViewController:activityController animated:YES completion:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -413,12 +536,23 @@
     } else if ([[segue identifier] isEqualToString:@"AboutDetail"]) {
         DescriptionDetailViewController *dd = [segue destinationViewController];
         dd.eventDescription = self.aboutContent.text;
+    } else if ([[segue identifier] isEqualToString:@"QRDetail"]) {
+        QRViewController *qr = [segue destinationViewController];
+        qr.eventName = self.eventName.text;
     }
     
 //    ProgramDescriptionViewController *programDescriptionView = [segue destinationViewController];
 //    programDescriptionView.strDescription = self.eventObj[@"description"];
     
 }
+
+-(IBAction)enterFullMap:(id)sender {
+    EventMapViewController *mvc = [[EventMapViewController alloc] init];
+    NSArray *eventList = [NSArray arrayWithObject:self.eventObj];
+    mvc.eventList = eventList;
+    [self.navigationController pushViewController:mvc animated:YES];
+}
+
 /**
  *  Show event location on map
  */
@@ -551,20 +685,31 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return [self.photos count];
+    if (collectionView.tag == 11) {
+        return [self.photos count];
+    } else {
+        return [self.galleries count];
+    }
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CellIdentifier = @"WhoIsGoing";
-    WhoIsGoingCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-    cell.photo.image = [UIImage imageNamed:[self.photos objectAtIndex:indexPath.row]];
-    cell.photo.layer.cornerRadius = cell.photo.frame.size.width / 2;
-    cell.photo.clipsToBounds = YES;
-    cell.backgroundColor = [UIColor whiteColor];
-    
-    
-    return cell;
+    static NSString *CellIdentifier;
+    if (collectionView.tag == 11) {
+        CellIdentifier = @"WhoIsGoing";
+        WhoIsGoingCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+        cell.photo.image = [UIImage imageNamed:[self.photos objectAtIndex:indexPath.row]];
+        cell.photo.layer.cornerRadius = cell.photo.frame.size.width / 2;
+        cell.photo.clipsToBounds = YES;
+        return cell;
+    } else {
+        CellIdentifier = @"ImageGallery";
+        WhoIsGoingCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+        cell.photo.image = [UIImage imageNamed:[self.galleries objectAtIndex:indexPath.row]];
+        cell.photo.layer.cornerRadius = cell.photo.frame.size.width / 2;
+        cell.photo.clipsToBounds = YES;
+        return cell;
+    }
 }
 
 @end

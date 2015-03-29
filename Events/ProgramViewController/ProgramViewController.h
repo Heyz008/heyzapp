@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "CHTCollectionViewWaterfallLayout.h"
+#import "QRCodeReaderViewController.h"
+#import "EventMapViewController.h"
 
-@interface ProgramViewController : UICollectionViewController<UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout>
+@interface ProgramViewController : UICollectionViewController<UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout, QRCodeReaderDelegate>
 
 @end

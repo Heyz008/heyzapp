@@ -22,7 +22,9 @@
 @property (strong, nonatomic) IBOutlet UITextField *eventTo;
 
 @property (strong, nonatomic) IBOutlet UIButton *uploadButton;
+@property (strong, nonatomic) IBOutlet UISwitch *eventSwitch;
 @property (strong, nonatomic) IBOutlet UITextField *eventDescription;
+@property (strong, nonatomic) IBOutlet UIView *onlineEventView;
 
 
 @property (nonatomic, copy) NSString *selectedOurImage;

@@ -17,6 +17,7 @@
 #import "NewEventViewController.h"
 #import <Parse/Parse.h>
 #import "NSString+FontAwesome.h"
+#import "EventSearchViewController.h"
 
 @interface ProgramViewController (){
     NSMutableArray *arrayEventList;
@@ -51,7 +52,90 @@ static NSString * const reuseIdentifier = @"Cell";
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     
+    UIColor *buttonColor = [UIColor colorWithRed:235.0/255 green:108.0/255 blue:118.0/255 alpha:1.0];
+    UIBarButtonItem *mapButton = [[UIBarButtonItem alloc] initWithTitle:[NSString fontAwesomeIconStringForIconIdentifier:@"fa-map-marker"] style:UIBarButtonItemStylePlain target:self action:@selector(showMapView)];
+    [mapButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                        [UIFont fontWithName:kFontAwesomeFamilyName size:20], NSFontAttributeName,
+                                        buttonColor, NSForegroundColorAttributeName,
+                                        nil] forState:UIControlStateNormal];
+    UIBarButtonItem *qrButton = [[UIBarButtonItem alloc] initWithTitle:[NSString fontAwesomeIconStringForIconIdentifier:@"fa-qrcode"] style:UIBarButtonItemStylePlain target:self action:@selector(qrScan)];
+    [qrButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                       [UIFont fontWithName:kFontAwesomeFamilyName size:20], NSFontAttributeName,
+                                       buttonColor, NSForegroundColorAttributeName,
+                                       nil] forState:UIControlStateNormal];
+    
+    UIBarButtonItem *fixedItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixedItem.width = 30.0f;
+    
+    [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:mapButton, fixedItem, qrButton, nil]];
+    
+    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithTitle:[NSString fontAwesomeIconStringForIconIdentifier:@"fa-search"] style:UIBarButtonItemStylePlain target:self action:@selector(searchEvent)];
+    [searchButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                          [UIFont fontWithName:kFontAwesomeFamilyName size:20], NSFontAttributeName,
+                                          buttonColor, NSForegroundColorAttributeName,
+                                          nil] forState:UIControlStateNormal];
+    
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:[NSString fontAwesomeIconStringForIconIdentifier:@"fa-plus"] style:UIBarButtonItemStylePlain target:self action:@selector(addEvent)];
+    [addButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                          [UIFont fontWithName:kFontAwesomeFamilyName size:20], NSFontAttributeName,
+                                          buttonColor, NSForegroundColorAttributeName,
+                                          nil] forState:UIControlStateNormal];
+    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:addButton, fixedItem, searchButton, nil]];
+    
     // Do any additional setup after loading the view.
+}
+
+-(void)qrScan {
+    if ([QRCodeReader supportsMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]]) {
+        static QRCodeReaderViewController *reader = nil;
+        static dispatch_once_t onceToken;
+        
+        dispatch_once(&onceToken, ^{
+            reader                        = [QRCodeReaderViewController new];
+            reader.modalPresentationStyle = UIModalPresentationFormSheet;
+        });
+        reader.delegate = self;
+        
+        [reader setCompletionWithBlock:^(NSString *resultAsString) {
+            NSLog(@"Completion with result: %@", resultAsString);
+        }];
+        
+        [self presentViewController:reader animated:YES completion:NULL];
+    }
+    else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Reader not supported by the current device" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        
+        [alert show];
+    }
+}
+
+- (void)reader:(QRCodeReaderViewController *)reader didScanResult:(NSString *)result
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"QRCodeReader" message:result delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }];
+}
+
+- (void)readerDidCancel:(QRCodeReaderViewController *)reader
+{
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+-(void)searchEvent {
+    EventSearchViewController *es = (EventSearchViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"EventSearch"];
+    [self.navigationController pushViewController:es animated:YES];
+}
+
+-(void)addEvent {
+    NewEventViewController *ne = (NewEventViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"NewEvent"];
+    [self.navigationController pushViewController:ne animated:YES];
+}
+
+-(void)showMapView {
+    EventMapViewController *mvc = [[EventMapViewController alloc] init];
+    mvc.eventList = arrayEventList;
+    [self.navigationController pushViewController:mvc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -157,6 +241,7 @@ static NSString * const reuseIdentifier = @"Cell";
         ProgramMainCell *cell = (ProgramMainCell*)sender;
         NSIndexPath *selectedRowIndex = [self.collectionView indexPathForCell:cell];
         AboutViewController *aboutVwController = [segue destinationViewController];
+        aboutVwController.hidesBottomBarWhenPushed = YES;
         PFObject *obj  =   [arrayEventList objectAtIndex:selectedRowIndex.row];
         
         aboutVwController.eventObj  =   obj;
