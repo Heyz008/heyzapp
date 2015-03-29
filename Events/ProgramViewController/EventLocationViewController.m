@@ -10,6 +10,7 @@
 #import "ASIHTTPRequest.h"
 #import "SBJSON.h"
 #import "LocationCell.h"
+#import "NSString+FontAwesome.h"
 
 @interface EventLocationViewController () {
     double longitude;
@@ -31,10 +32,12 @@
     longitude = -79.4000;
     latitude = 43.7000;
     
-    places = [NSMutableArray arrayWithArray:@[]];
+    places = [NSMutableArray arrayWithArray:@[@"University of Toronto", @"Chat Time Dundas", @"Guu Izakaya", @"Yorkdale Shopping Center", @"Lake of Ontario"]];
     placeIds = [NSMutableArray arrayWithArray:@[]];
     
-    self.userInput.delegate = self;
+    self.searchBar.delegate = self;
+    
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
 }
 
@@ -60,7 +63,7 @@
         selectedLatitude = [location[@"lat"] doubleValue];
         selectedLongitude = [location[@"lng"] doubleValue];
         if ([_delegate respondsToSelector:@selector(locationSeleted:latitude:longitude:)]) {
-            [_delegate locationSeleted:self.userInput.text latitude:selectedLatitude longitude:selectedLongitude];
+            [_delegate locationSeleted:self.searchBar.text latitude:selectedLatitude longitude:selectedLongitude];
             [self.navigationController popViewControllerAnimated:YES];
         }
     }
@@ -97,10 +100,9 @@
 //}
 
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+- (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     
-    NSString *allText = [textField.text stringByAppendingString:string];
-    NSLog(@"%f, %f", latitude, longitude);
+    NSString *allText = [searchBar.text stringByAppendingString:text];
     allText = [allText stringByReplacingOccurrencesOfString:@" " withString:@"+"];
     NSString *url = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/autocomplete/json?input=%@&location=%f,%f&radius=12000&key=AIzaSyCIctGj9IUky-uH1nSWdjY8XxSW05tvChA", allText, latitude, longitude];
     if ([allText length] > 3) {
@@ -112,6 +114,7 @@
     
     return YES;
 }
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger) section {
     return [places count];
@@ -127,12 +130,14 @@
                 initWithStyle:UITableViewCellStyleDefault reuseIdentifier:locationCell];
     }
     
-    cell.location.text = [places objectAtIndex:indexPath.row];
+    cell.location.font = [UIFont fontWithName:kFontAwesomeFamilyName size:12];
+    cell.location.text = [NSString stringWithFormat:@"%@  %@", [NSString fontAwesomeIconStringForIconIdentifier:@"fa-map-marker"], [places objectAtIndex:indexPath.row]];
+    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.userInput.text = [places objectAtIndex:indexPath.row];
+    self.searchBar.text = [places objectAtIndex:indexPath.row];
     
     NSString *url = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/details/json?placeid=%@&key=AIzaSyCIctGj9IUky-uH1nSWdjY8XxSW05tvChA", [placeIds objectAtIndex:indexPath.row]];
     ASIFormDataRequest *request = [[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:url]];

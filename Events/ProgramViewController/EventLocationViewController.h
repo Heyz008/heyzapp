@@ -15,10 +15,10 @@
 
 @end
 
-@interface EventLocationViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, CLLocationManagerDelegate>
+@interface EventLocationViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UISearchBarDelegate>
 
-@property (strong, nonatomic) IBOutlet UITextField *userInput;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) id<EventLocationViewControllerDelegate> delegate;
+@property (nonatomic, strong) IBOutlet UISearchBar *searchBar;
 
 @end

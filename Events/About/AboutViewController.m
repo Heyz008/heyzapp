@@ -68,8 +68,8 @@
     self.eventOwner.text = [NSString stringWithFormat:@"Hosted by Heyz . %@ . %@", self.eventObj[@"privacy"], self.eventObj[@"payment"]];
     self.eventTime.font = [UIFont fontWithName:kFontAwesomeFamilyName size:12];
     self.eventAddress.font = [UIFont fontWithName:kFontAwesomeFamilyName size:12];
-    self.eventTime.text = [NSString stringWithFormat:@"%@  %@ - %@", [NSString fontAwesomeIconStringForIconIdentifier:@"fa-heart"], self.eventObj[@"from"], self.eventObj[@"to"]];
-    self.eventAddress.text = [NSString stringWithFormat:@"%@  %@", [NSString fontAwesomeIconStringForIconIdentifier:@"fa-heart"], self.eventObj[@"address"]];
+    self.eventTime.text = [NSString stringWithFormat:@"%@  %@ - %@", [NSString fontAwesomeIconStringForIconIdentifier:@"fa-clock-o"], self.eventObj[@"from"], self.eventObj[@"to"]];
+    self.eventAddress.text = [NSString stringWithFormat:@"%@  %@", [NSString fontAwesomeIconStringForIconIdentifier:@"fa-map-marker"], self.eventObj[@"address"]];
     PFFile *eventImageFile = self.eventObj[@"image"];
     [eventImageFile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
         if (!error) {
