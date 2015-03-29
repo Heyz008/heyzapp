@@ -36,10 +36,15 @@ class ProfileViewController: UIViewController, UIPageViewControllerDataSource, U
     }
     private var _cyUser: CYUser?
     var cyUser : CYUser{
-        if let user = _cyUser{
-            return user
-        }else{
-            return CYUserSelf.currentCYUser()
+        set{
+            self.userDidSet()
+        }
+        get{
+            if let user = _cyUser{
+                return user
+            }else{
+                return CYUserSelf.currentCYUser()
+            }
         }
     }
     @IBOutlet weak var pageViewBar: UIView!
@@ -84,7 +89,15 @@ class ProfileViewController: UIViewController, UIPageViewControllerDataSource, U
         super.viewDidLoad()
         self.pageViewController?.delegate = self
         self.pageViewController?.dataSource = self
-        
+        self.userDidSet()
+
+        // Do any additional setup after loading the view.
+    }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()        // Dispose of any resources that can be recreated.
+    }
+    
+    func userDidSet(){
         self.setControllers()//获取collectionViewControllers
         self.arrageBasicInfoViews()
         
@@ -103,10 +116,7 @@ class ProfileViewController: UIViewController, UIPageViewControllerDataSource, U
             self.arrangeControllerButtons()//均匀分配button
         }
         self.setUpBasicInfo()
-        // Do any additional setup after loading the view.
-    }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()        // Dispose of any resources that can be recreated.
+
     }
 
 // MARK: PrepareViewControllers
@@ -116,6 +126,7 @@ class ProfileViewController: UIViewController, UIPageViewControllerDataSource, U
         }
         self.holdingEventsController = self.navigationController?.storyboard?.instantiateViewControllerWithIdentifier("ProgramViewController") as? ProgramViewController
         self.goingEventsController = self.navigationController?.storyboard?.instantiateViewControllerWithIdentifier("ProgramViewController") as? ProgramViewController
+        self.photosController = self.navigationController?.storyboard?.instantiateViewControllerWithIdentifier("Gallery") as? GalleryCollectionViewController
     }
     var controllerDict : [UIViewController: UIButton]?
     var controllerList : [UIViewController]?
@@ -271,15 +282,15 @@ class ProfileViewController: UIViewController, UIPageViewControllerDataSource, U
     func setUpBasicInfo(){
         self.statusLabel.text = "Single"
         self.profileImage.image = UIImage(named: "profile-pic2.c")
-        self.nameLabel.text = "Deniel"
+        self.nameLabel.text = "Daniel"
         self.locationLabel.text = "Toronto"
-        self.sexLabel.text = "M"
+        self.sexLabel.font = UIFont.fontAwesomeOfSize(15)
+        self.sexLabel.text = String.fontAwesomeIconWithName(FontAwesome.Male)
+        let attributes = [NSFontAttributeName: UIFont.fontAwesomeOfSize(15)] as Dictionary!
         self.signLabel.text = "PM"
         self.ageLabel.text = "?"
         self.favorateButton.titleLabel?.text = "F"
-    
     }
-    
 }
 
 
