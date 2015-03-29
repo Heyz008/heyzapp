@@ -134,7 +134,7 @@
     joinFrame.origin.y = self.scrollViewMain.frame.origin.y + self.scrollViewMain.frame.size.height;
     self.joinView.frame = joinFrame;
     
-    self.tabBarController.tabBar.frame = CGRectMake(0, 0, 0, 0);
+    //self.tabBarController.tabBar.frame = CGRectMake(0, 0, 0, 0);
     
     
     
