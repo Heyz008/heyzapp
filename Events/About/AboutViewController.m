@@ -140,6 +140,11 @@
     
 }
 
+-(IBAction)joinEvent:(id)sender {
+
+    [self.tabBarController setSelectedIndex:1];
+}
+
 -(void)eventAction {
     UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:@"ACTION" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:
                             @"Invite",

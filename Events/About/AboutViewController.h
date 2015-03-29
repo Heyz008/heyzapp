@@ -56,4 +56,5 @@
 
 -(IBAction)addImageTapped:(id)sender;
 -(IBAction)enterFullMap:(id)sender;
+-(IBAction)joinEvent:(id)sender;
 @end

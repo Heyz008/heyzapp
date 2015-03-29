@@ -38,7 +38,7 @@
     myImages = @[@"1.jpg", @"2.jpg", @"3.jpg", @"4.jpg", @"2.jpg", @"3.jpg", @"5.jpg"];
     friendActivities = @[@"Rocky Chen joined an event: Let's go Clubbing", @"Daniel Dai hosted an event: Let's Study", @"Joshua Jiang became friend with MoMo Guan", @"Jay Chou liked MoMo Guan's photo", @"Eric Liao post a new photo"];
     friendPhotos = @[@"111.jpg", @"222.jpg", @"444.jpg", @"555.jpg", @"333.jpg"];
-    friendImages = @[@"1.jpg", @"2.jpg", @"3.jpg", @"4.jpg", @"2.jpg"];
+    friendImages = @[@"5.jpg", @"5.jpg", @"4.jpg", @"3.jpg", @"4.jpg"];
     
     myTypes = @[@"1", @"2", @"1", @"1", @"2", @"2", @"2"];
     friendTypes = @[@"1", @"2", @"1", @"1", @"2", @"2", @"2"];
@@ -82,6 +82,13 @@
         cell.rejectButton.titleLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:22];
         
         cell.status.hidden = YES;
+        cell.acceptButton.tag = indexPath.row;
+        cell.rejectButton.tag = indexPath.row;
+        cell.acceptButton.hidden = NO;
+        cell.rejectButton.hidden = NO;
+        
+        [cell.acceptButton addTarget:self action:@selector(acceptButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.rejectButton addTarget:self action:@selector(rejectButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         
         return cell;
     } else {
@@ -98,8 +105,43 @@
     }
 }
 
+-(void)acceptButtonTapped:(id)sender {
+    UIButton *button = (UIButton *)sender;
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:button.tag inSection:0];
+    ActivityRequestCell *cell = (ActivityRequestCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    cell.acceptButton.hidden = YES;
+    cell.rejectButton.hidden = YES;
+    cell.status.text = @"Accepted";
+    cell.status.hidden = NO;
+    cell.status.textColor = [UIColor lightGrayColor];
+}
+
+-(void)rejectButtonTapped:(id)sender {
+    UIButton *button = (UIButton *)sender;
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:button.tag inSection:0];
+    ActivityRequestCell *cell = (ActivityRequestCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    cell.acceptButton.hidden = YES;
+    cell.rejectButton.hidden = YES;
+    cell.status.text = @"Rejected";
+    cell.status.hidden = NO;
+    cell.status.textColor = [UIColor lightGrayColor];
+}
+
 -(IBAction)segmentChanged:(id)sender {
-    
+    UISegmentedControl *seg = (UISegmentedControl *)sender;
+    if (seg.selectedSegmentIndex == 1) {
+        activities = friendActivities;
+        photos = friendPhotos;
+        images = friendImages;
+        types = friendTypes;
+        [self.tableView reloadData];
+    } else {
+        activities = myActivities;
+        photos = myPhotos;
+        images = myImages;
+        types = myTypes;
+        [self.tableView reloadData];
+    }
 }
 
 /*
