@@ -71,7 +71,7 @@ class ProfileViewController: UIViewController, UIPageViewControllerDataSource, U
     var _moreButton : UIBarButtonItem?
     var moreButton : UIBarButtonItem!{
         if _moreButton == nil{
-            _moreButton = UIBarButtonItem(title: "Continue", style: .Plain, target: self, action: "moreMenu")
+            _moreButton = UIBarButtonItem(title: String.fontAwesomeIconWithName(FontAwesome.EllipsisH), style: .Plain, target: self, action: "moreMenu")
             return _moreButton!
         }else{
             return _moreButton!
@@ -89,6 +89,10 @@ class ProfileViewController: UIViewController, UIPageViewControllerDataSource, U
         super.viewDidLoad()
         self.pageViewController?.delegate = self
         self.pageViewController?.dataSource = self
+        let attributes = [NSFontAttributeName: UIFont.fontAwesomeOfSize(20)] as Dictionary!
+        setting.setTitleTextAttributes(attributes, forState: .Normal)
+        setting.title = String.fontAwesomeIconWithName(FontAwesome.Cog)
+        moreButton.setTitleTextAttributes(attributes, forState: .Normal)
         self.userDidSet()
 
         // Do any additional setup after loading the view.

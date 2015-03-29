@@ -54,7 +54,8 @@ class GalleryCollectionViewController: UICollectionViewController {
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("GalleryCell", forIndexPath: indexPath) as GalleryCell
-        cell.photo.image = UIImage(named: "111.jpg")
+        let photo = indexPath.row + 1
+        cell.photo.image = UIImage(named: "\(photo)\(photo)\(photo).jpg")
         // Configure the cell
     
         return cell
