@@ -1522,7 +1522,7 @@
                     <navigationItem key="navigationItem" id="Grg-9j-Rei">
                         <barButtonItem key="leftBarButtonItem" title="Item" id="6Fp-Iy-8vH">
                             <connections>
-                                <segue destination="xJ5-JA-BiV" kind="push" id="Xjp-bk-TGm"/>
+                                <segue destination="UbB-4o-RvV" kind="push" id="nkO-Q7-icX"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" id="Ftp-kz-Km3">
@@ -1638,31 +1638,42 @@
             <point key="canvasLocation" x="-354" y="459"/>
         </scene>
         <!--Friends Table View Controller-->
-        <scene sceneID="qFd-9T-NRB">
+        <scene sceneID="Ufr-6y-eQB">
             <objects>
-                <tableViewController id="xJ5-JA-BiV" customClass="CYFriendsTableViewController" customModule="Heyz" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="OeB-R5-gbK">
+                <tableViewController id="UbB-4o-RvV" customClass="CYFriendsTableViewController" customModule="Heyz" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="lTm-xc-Kaa">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="friendCell" id="1bQ-hY-QXM">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="defaultCell" textLabel="IgJ-jp-KfF" imageView="mzS-2B-fWc" style="IBUITableViewCellStyleDefault" id="bIZ-S9-uYS" customClass="FriendCell" customModule="Heyz" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1bQ-hY-QXM" id="Ers-By-ncm">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bIZ-S9-uYS" id="YNG-hi-aRp">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IgJ-jp-KfF">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="profile-pic3" id="mzS-2B-fWc">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </imageView>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="xJ5-JA-BiV" id="MAb-ol-9ob"/>
-                            <outlet property="delegate" destination="xJ5-JA-BiV" id="hzN-1r-mGK"/>
+                            <outlet property="dataSource" destination="UbB-4o-RvV" id="HBh-Tg-ABg"/>
+                            <outlet property="delegate" destination="UbB-4o-RvV" id="DRq-G5-Pfg"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="VBx-ca-KFQ"/>
+                    <navigationItem key="navigationItem" id="bDt-KS-oiP"/>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Bee-3x-n9t" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iTG-1g-UVv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-841" y="400"/>
+            <point key="canvasLocation" x="-863" y="599"/>
         </scene>
         <!--Gallery Collection View Controller-->
         <scene sceneID="25q-Ee-GbR">
@@ -3186,6 +3197,7 @@
         <image name="profile-pic2.a" width="26" height="26"/>
         <image name="profile-pic2.b" width="26" height="26"/>
         <image name="profile-pic2.c" width="26" height="26"/>
+        <image name="profile-pic3" width="52" height="52"/>
         <image name="profile-pic4" width="52" height="52"/>
         <image name="register-btn.png" width="120" height="40"/>
     </resources>

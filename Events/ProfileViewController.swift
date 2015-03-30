@@ -93,7 +93,10 @@ class ProfileViewController: UIViewController, UIPageViewControllerDataSource, U
         let attributes = [NSFontAttributeName: UIFont.fontAwesomeOfSize(20)] as Dictionary!
         setting.setTitleTextAttributes(attributes, forState: .Normal)
         setting.title = String.fontAwesomeIconWithName(FontAwesome.Cog)
+        friendList.setTitleTextAttributes(attributes, forState: .Normal)
+        friendList.title = String.fontAwesomeIconWithName(FontAwesome.Users)
         moreButton.setTitleTextAttributes(attributes, forState: .Normal)
+        self.navigationItem.leftItemsSupplementBackButton = true
         self.userDidSet()
 
         // Do any additional setup after loading the view.
