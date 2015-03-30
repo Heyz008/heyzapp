@@ -21,7 +21,7 @@ class FakeUser {
             let data0 : [String: String] =
             [   "status" : "single",
                 "name" : "Yang",
-                "locaton" : "Toronto",
+                "location" : "Toronto",
                 "sex": "Male",
                 "sign": "Coding...",
                 "age" : "20",
@@ -32,7 +32,7 @@ class FakeUser {
             let data1 : [String: String] =
             [   "status" : "in relation",
                 "name" : "Jay",
-                "locaton" : "Toronto",
+                "location" : "Toronto",
                 "sex": "Male",
                 "sign": "Also Coding...",
                 "age" : "22",

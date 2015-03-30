@@ -9,6 +9,9 @@
 import UIKit
 
 class ProfileViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate{
+    @IBOutlet weak var friendOperation: UIView!
+    @IBOutlet weak var unFriend: UIButton!
+    @IBOutlet weak var startChat: UIButton!
     let tempViewController = UIViewController()
     var publishedEvent : ProgramViewController? {
         
@@ -26,8 +29,9 @@ class ProfileViewController: UIViewController, UIPageViewControllerDataSource, U
             return nil
         }
     }
+    var fakeUser : FakeUser? = nil
     var isCurrentUser: Bool{
-        return cyUser.isCurrentUser()
+        return fakeUser == nil && cyUser.isCurrentUser()
     }
     var user: PFUser{
         get{
@@ -280,24 +284,55 @@ class ProfileViewController: UIViewController, UIPageViewControllerDataSource, U
         ageLabel.hidden = isCurrentUser
         statusLabel.hidden = isCurrentUser
         favorateButton.hidden = isCurrentUser
+        self.friendOperation.hidden = isCurrentUser
+        self.tabBarController?.tabBar.hidden = !isCurrentUser
         if isCurrentUser{
+
             self.navigationItem.rightBarButtonItem = setting
         }else{
             self.navigationItem.rightBarButtonItem = moreButton
+            friendList.enabled = false
+            friendList.tintColor = UIColor.clearColor()
+        }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        if self.tabBarController?.tabBar.hidden == true{
+            self.tabBarController?.tabBar.hidden = false
         }
     }
 // MARK: set up some fake data
     func setUpBasicInfo(){
-        self.statusLabel.text = "Single"
-        self.profileImage.image = UIImage(named: "profile-pic2.c")
-        self.nameLabel.text = "Daniel"
-        self.locationLabel.text = "Toronto"
-        self.sexLabel.font = UIFont.fontAwesomeOfSize(15)
-        self.sexLabel.text = String.fontAwesomeIconWithName(FontAwesome.Male)
-        let attributes = [NSFontAttributeName: UIFont.fontAwesomeOfSize(15)] as Dictionary!
-        self.signLabel.text = "PM"
-        self.ageLabel.text = "?"
-        self.favorateButton.titleLabel?.text = "F"
+        let width = profileImage.frame.width
+        profileImage.layer.cornerRadius = width / 2
+        profileImage.clipsToBounds = true
+        if fakeUser == nil{
+            self.statusLabel.text = "Single"
+            self.profileImage.image = UIImage(named: "profile-pic2.c")
+            self.nameLabel.text = "Daniel"
+            self.locationLabel.text = "Toronto"
+            self.sexLabel.font = UIFont.fontAwesomeOfSize(15)
+            self.sexLabel.text = String.fontAwesomeIconWithName(FontAwesome.Male)
+            let attributes = [NSFontAttributeName: UIFont.fontAwesomeOfSize(15)] as Dictionary!
+            self.signLabel.text = "PM"
+            self.ageLabel.text = "?"
+            self.favorateButton.titleLabel?.text = "F"
+        }else{
+            let user = fakeUser!
+            self.statusLabel.text = user.info["status"]
+            self.profileImage.image = user.profileImage
+            self.nameLabel.text = user.info["name"]
+            self.locationLabel.text = user.info["location"]
+            self.sexLabel.font = UIFont.fontAwesomeOfSize(15)
+            self.sexLabel.text = String.fontAwesomeIconWithName(FontAwesome.Male)
+            self.signLabel.text = user.info["sign"]
+            self.ageLabel.text = user.info["age"]
+            
+            self.favorateButton.titleLabel?.font = UIFont.fontAwesomeOfSize(30)
+            let status = user.info["favorate"] == "true" ? String.fontAwesomeIconWithName(FontAwesome.Star) : String.fontAwesomeIconWithName(FontAwesome.StarO)
+            self.favorateButton.setTitle(status, forState: .Normal)
+        }
+
     }
 }
 

@@ -1394,7 +1394,7 @@
         <!--Profile View Controller-->
         <scene sceneID="dFh-dT-Lj3">
             <objects>
-                <viewController id="86D-Jl-IEN" customClass="ProfileViewController" customModule="Heyz" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileViewController" id="86D-Jl-IEN" customClass="ProfileViewController" customModule="Heyz" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xTy-ov-qEf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1431,24 +1431,25 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3DM-Af-WW0">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3DM-Af-WW0">
                                 <rect key="frame" x="262" y="74" width="42" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="05b-CJ-4uM">
-                                <rect key="frame" x="262" y="103" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="05b-CJ-4uM">
+                                <rect key="frame" x="212" y="103" width="92" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Tx2-7X-jL2">
-                                <rect key="frame" x="16" y="65" width="30" height="30"/>
+                                <rect key="frame" x="65" y="61" width="51" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button">
+                                    <color key="titleColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
@@ -1516,6 +1517,27 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" id="H0r-pt-X5T">
+                                <rect key="frame" x="0.0" y="430" width="320" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="e8g-f4-QyS">
+                                        <rect key="frame" x="8" y="10" width="120" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Start Chat">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="08k-cd-KPs">
+                                        <rect key="frame" x="192" y="10" width="120" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Unfriend">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -1536,6 +1558,7 @@
                         <outlet property="containerView" destination="CCm-3z-4Ta" id="MB2-89-UEW"/>
                         <outlet property="favorateButton" destination="Tx2-7X-jL2" id="eff-eS-7sV"/>
                         <outlet property="friendList" destination="6Fp-Iy-8vH" id="4bV-a7-gfP"/>
+                        <outlet property="friendOperation" destination="H0r-pt-X5T" id="hvK-Mg-bJf"/>
                         <outlet property="goingEvents" destination="J9i-Ts-uiS" id="Kbp-Fj-Do3"/>
                         <outlet property="holdingEvents" destination="v4p-Fq-zSS" id="hK2-G4-4A5"/>
                         <outlet property="likedEvets" destination="9P7-rn-2Hh" id="273-0E-qac"/>
@@ -1547,7 +1570,9 @@
                         <outlet property="setting" destination="Ftp-kz-Km3" id="K1p-Va-GSn"/>
                         <outlet property="sexLabel" destination="3DM-Af-WW0" id="r4E-Jk-lBf"/>
                         <outlet property="signLabel" destination="9md-6x-9By" id="k0d-dq-3N9"/>
+                        <outlet property="startChat" destination="e8g-f4-QyS" id="Hiw-VW-M1q"/>
                         <outlet property="statusLabel" destination="05b-CJ-4uM" id="5oo-gL-4b6"/>
+                        <outlet property="unFriend" destination="08k-cd-KPs" id="2Ke-xy-oa1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QqN-kX-OaC" userLabel="First Responder" sceneMemberID="firstResponder"/>

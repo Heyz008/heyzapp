@@ -90,6 +90,17 @@ class CYFriendsTableViewController: UITableViewController, UITableViewDataSource
         }
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let fakeUser = FakeUser.getFakeUser(indexPath.row)
+        let profile = self.navigationController?.storyboard?.instantiateViewControllerWithIdentifier("ProfileViewController") as? ProfileViewController
+        profile?.fakeUser = fakeUser
+        if let controller = profile{
+            self.navigationController?.pushViewController(controller, animated: true)
+
+        }
+
+    }
+    
 
     /*
     // Override to support conditional editing of the table view.
