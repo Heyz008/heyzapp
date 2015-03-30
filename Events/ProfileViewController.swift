@@ -78,6 +78,7 @@ class ProfileViewController: UIViewController, UIPageViewControllerDataSource, U
         }
     }
     @IBOutlet weak var setting: UIBarButtonItem!
+    @IBOutlet weak var friendList: UIBarButtonItem!
 
 
 
