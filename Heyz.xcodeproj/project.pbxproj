@@ -3025,7 +3025,7 @@
 				ORGANIZATIONNAME = "Teknowledge Software";
 				TargetAttributes = {
 					BB303D9518B863E300B6EBC9 = {
-						DevelopmentTeam = G7L2ZQ9K6L;
+						DevelopmentTeam = 2233ZR5623;
 					};
 					BB303DB918B863E300B6EBC9 = {
 						TestTargetID = BB303D9518B863E300B6EBC9;
@@ -3661,8 +3661,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_X86_VECTOR_INSTRUCTIONS = default;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEFINES_MODULE = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3687,7 +3687,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Heyz;
-				PROVISIONING_PROFILE = "E3CA86FE-1774-4F4F-B35E-B3E4F7166805";
+				PROVISIONING_PROFILE = "3a11bc3f-2518-47e2-93ce-1a8badaaa37f";
 				SWIFT_OBJC_BRIDGING_HEADER = "Events/Heyz-Swift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -3702,8 +3702,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_X86_VECTOR_INSTRUCTIONS = default;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEFINES_MODULE = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3728,7 +3728,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Heyz;
-				PROVISIONING_PROFILE = "E3CA86FE-1774-4F4F-B35E-B3E4F7166805";
+				PROVISIONING_PROFILE = "3a11bc3f-2518-47e2-93ce-1a8badaaa37f";
 				SWIFT_OBJC_BRIDGING_HEADER = "Events/Heyz-Swift-Bridging-Header.h";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
