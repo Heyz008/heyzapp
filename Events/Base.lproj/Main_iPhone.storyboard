@@ -1375,11 +1375,11 @@
             </objects>
             <point key="canvasLocation" x="-323" y="-1000"/>
         </scene>
-        <!--More-->
+        <!--Profile-->
         <scene sceneID="P2C-wx-DeA">
             <objects>
                 <navigationController definesPresentationContext="YES" id="7QV-MF-lRy" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="More" image="Listred.png" id="Whh-wp-Ei3"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="MyProgram.png" id="Whh-wp-Ei3"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="aeA-Xb-aZb">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1442,7 +1442,7 @@
                                 <rect key="frame" x="212" y="103" width="92" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Tx2-7X-jL2">
@@ -1586,7 +1586,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="4Ik-Sl-xBc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="NormalCell" id="BFS-FJ-RcG" customClass="NormalCell" customModule="Heyz" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -1603,7 +1603,7 @@
                                             <rect key="frame" x="237" y="11" width="42" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -1648,7 +1648,7 @@
                                         </button>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1679,7 +1679,7 @@
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IgJ-jp-KfF">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="profile-pic3" id="mzS-2B-fWc">
@@ -1707,7 +1707,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Zxp-PD-rN7">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="208"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CWz-ik-3ki">
                             <size key="itemSize" width="100" height="100"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -1777,11 +1777,11 @@
             </objects>
             <point key="canvasLocation" x="-2286" y="-2136"/>
         </scene>
-        <!--Program-->
+        <!--Events-->
         <scene sceneID="ceR-vN-lrW">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Mml-vq-zwo" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Program" image="Program.png" id="TWS-hq-3Im"/>
+                    <tabBarItem key="tabBarItem" title="Events" image="Program.png" id="TWS-hq-3Im"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vdo-nW-dZc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1859,11 +1859,11 @@
             </objects>
             <point key="canvasLocation" x="-827" y="-1716"/>
         </scene>
-        <!--Feed-->
+        <!--Activity-->
         <scene sceneID="MHz-ui-Bco">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wat-zQ-9t5" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Feed" image="Feed.png" id="O87-YX-pra"/>
+                    <tabBarItem key="tabBarItem" title="Activity" image="Feed.png" id="O87-YX-pra"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="2NW-qe-2Ra">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2007,11 +2007,11 @@
             </objects>
             <point key="canvasLocation" x="-765" y="-1094"/>
         </scene>
-        <!--My Program-->
+        <!--Calendar-->
         <scene sceneID="u2T-EW-rju">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Dlv-Lj-Hfo" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="My Program" image="MyProgram.png" id="oVN-HQ-A1h"/>
+                    <tabBarItem key="tabBarItem" title="Calendar" image="leave.png" id="oVN-HQ-A1h"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wyX-3r-IYA">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2580,11 +2580,11 @@
             </objects>
             <point key="canvasLocation" x="471" y="-4028"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Chat-->
         <scene sceneID="Rai-o6-eeJ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5H1-yh-Gst" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="mostViewed" id="0ya-WI-XyW"/>
+                    <tabBarItem key="tabBarItem" title="Chat" image="speech.png" id="0ya-WI-XyW"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="X6Z-zR-xxC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -3198,7 +3198,6 @@
         <image name="About.png" width="23" height="15"/>
         <image name="Action.png" width="20" height="20"/>
         <image name="Feed.png" width="22" height="22"/>
-        <image name="Listred.png" width="24" height="23"/>
         <image name="MyProgram.png" width="21" height="22"/>
         <image name="Program.png" width="22" height="22"/>
         <image name="Rettangolo.png" width="320" height="42"/>
@@ -3210,6 +3209,7 @@
         <image name="chat_send" width="232" height="51"/>
         <image name="chat_user_small" width="26" height="26"/>
         <image name="input.png" width="290" height="30"/>
+        <image name="leave.png" width="25" height="25"/>
         <image name="login-btn.png" width="120" height="40"/>
         <image name="login_facebook" width="125" height="56"/>
         <image name="login_forgot" width="117" height="10"/>
@@ -3225,6 +3225,7 @@
         <image name="profile-pic3" width="52" height="52"/>
         <image name="profile-pic4" width="52" height="52"/>
         <image name="register-btn.png" width="120" height="40"/>
+        <image name="speech.png" width="25" height="25"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -3232,7 +3233,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="irI-vS-uKx"/>
+        <segue reference="4KN-dH-TGf"/>
         <segue reference="RGa-7r-dfT"/>
         <segue reference="UJ5-b0-qFx"/>
     </inferredMetricsTieBreakers>

@@ -75,7 +75,8 @@
         annView = [[MKPinAnnotationView alloc] initWithAnnotation:delegate reuseIdentifier:@"eventloc"];
     }
     
-    annView.pinColor = MKPinAnnotationColorGreen;
+    annView.pinColor = MKPinAnnotationColorRed;
+    annView.image = [UIImage imageNamed:@"1.jpg"];
     annView.animatesDrop=TRUE;
     annView.canShowCallout = YES;
     

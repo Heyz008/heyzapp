@@ -73,6 +73,8 @@
 		20A901EB1AC8275D0007ED76 /* ActivityPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A901EA1AC8275D0007ED76 /* ActivityPhotoCell.m */; };
 		20A901EE1AC827840007ED76 /* ActivityRequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A901ED1AC827840007ED76 /* ActivityRequestCell.m */; };
 		20A901F11AC829A80007ED76 /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A901F01AC829A80007ED76 /* ActivityViewController.m */; };
+		20A901F31ACB9E3C0007ED76 /* speech.png in Resources */ = {isa = PBXBuildFile; fileRef = 20A901F21ACB9E3C0007ED76 /* speech.png */; };
+		20A901F51ACB9EBB0007ED76 /* leave.png in Resources */ = {isa = PBXBuildFile; fileRef = 20A901F41ACB9EBB0007ED76 /* leave.png */; };
 		52D9EA891AC8929900F6386D /* CYFriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D9EA871AC8929900F6386D /* CYFriendsTableViewController.swift */; };
 		52D9EA8A1AC8929900F6386D /* CYUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D9EA881AC8929900F6386D /* CYUser.swift */; };
 		52D9EA8C1AC8929E00F6386D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D9EA8B1AC8929E00F6386D /* ProfileViewController.swift */; };
@@ -578,6 +580,8 @@
 		20A901ED1AC827840007ED76 /* ActivityRequestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityRequestCell.m; sourceTree = "<group>"; };
 		20A901EF1AC829A80007ED76 /* ActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityViewController.h; sourceTree = "<group>"; };
 		20A901F01AC829A80007ED76 /* ActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityViewController.m; sourceTree = "<group>"; };
+		20A901F21ACB9E3C0007ED76 /* speech.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speech.png; sourceTree = "<group>"; };
+		20A901F41ACB9EBB0007ED76 /* leave.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leave.png; sourceTree = "<group>"; };
 		52D9EA871AC8929900F6386D /* CYFriendsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CYFriendsTableViewController.swift; sourceTree = "<group>"; };
 		52D9EA881AC8929900F6386D /* CYUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CYUser.swift; sourceTree = "<group>"; };
 		52D9EA8B1AC8929E00F6386D /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -2760,6 +2764,8 @@
 		BB303DA018B863E300B6EBC9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				20A901F41ACB9EBB0007ED76 /* leave.png */,
+				20A901F21ACB9E3C0007ED76 /* speech.png */,
 				20A901DF1AC7D3870007ED76 /* 555.jpg */,
 				20A901E01AC7D3870007ED76 /* 333.jpg */,
 				20A901E11AC7D3870007ED76 /* 111.jpg */,
@@ -3160,6 +3166,7 @@
 				7955F91E18F8626A00870734 /* country code.xml in Resources */,
 				BB303DB518B863E300B6EBC9 /* Images.xcassets in Resources */,
 				BB303E2418B879AA00B6EBC9 /* nearby@2x.png in Resources */,
+				20A901F31ACB9E3C0007ED76 /* speech.png in Resources */,
 				BB303E2B18B879AA00B6EBC9 /* Twitter.png in Resources */,
 				207208B41A7572DA008F167D /* 4.jpg in Resources */,
 				BB62B12118B8B529000DBDBC /* Next@2x.png in Resources */,
@@ -3186,6 +3193,7 @@
 				BB303DA418B863E300B6EBC9 /* InfoPlist.strings in Resources */,
 				BB303DFB18B86B3400B6EBC9 /* List.png in Resources */,
 				7112220518BCA62300E77A4A /* share.png in Resources */,
+				20A901F51ACB9EBB0007ED76 /* leave.png in Resources */,
 				207208B61A7572DA008F167D /* 2.jpg in Resources */,
 				BB303DF518B86B3400B6EBC9 /* Action.png in Resources */,
 				7972E977195355B100F25E4D /* icon-feed-instagram.png in Resources */,

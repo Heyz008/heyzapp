@@ -596,7 +596,7 @@
         annView = [[MKPinAnnotationView alloc] initWithAnnotation:delegate reuseIdentifier:@"eventloc"];
     }
     
-    annView.pinColor = MKPinAnnotationColorGreen;
+    annView.pinColor = MKPinAnnotationColorRed;
     annView.animatesDrop=TRUE;
     annView.canShowCallout = YES;
     
