@@ -13,7 +13,10 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
 
     @IBOutlet var btnForLogo : UIButton!
     @IBOutlet var tblForChat : UITableView!
+    @IBOutlet weak var hintWrapperView: UIView!
     
+    @IBOutlet weak var acknowledgeBtn: UIButton!
+    @IBOutlet weak var hintOuterWrapper: UIView!
     let conversationManager = ConversationManager.singleton
     var _selectedConversation: Conversation?
     var startChatWith: String?
@@ -71,6 +74,26 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
         NSTimer.scheduledTimerWithTimeInterval(refreshRate, target: self, selector: "fetchMessages", userInfo: nil, repeats: true)
         
         let utils = AudioUtils.sharedUtils
+        
+        let color = UIColor.grayColor().CGColor
+        
+        let shapeLayer: CAShapeLayer = CAShapeLayer()
+        let frameSize = hintWrapperView.frame.size
+        let shapeRect = CGRect(x: 0, y: 0, width: frameSize.width, height: frameSize.height)
+        
+        shapeLayer.bounds = shapeRect
+        shapeLayer.position = CGPoint(x: frameSize.width/2, y: frameSize.height/2)
+        shapeLayer.fillColor = UIColor.clearColor().CGColor
+        shapeLayer.strokeColor = color
+        shapeLayer.lineWidth = 0.8
+        shapeLayer.lineJoin = kCALineJoinRound
+        shapeLayer.lineDashPattern = [8,3]
+        shapeLayer.path = UIBezierPath(roundedRect: shapeRect, cornerRadius: 10).CGPath
+        
+        hintWrapperView.layer.addSublayer(shapeLayer)
+        
+        hintOuterWrapper.layer.borderColor = color
+        acknowledgeBtn.layer.borderColor = color
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -96,6 +119,10 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
         }
     }
     
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle:
+        UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return conversationManager.recentConversations.count
     }
@@ -111,6 +138,7 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
         var cell: UITableViewCell
         if conversation.isPrivate {
             cell = tblForChat.dequeueReusableCellWithIdentifier("ChatPrivateCell") as UITableViewCell
+            let profileImage = cell.viewWithTag(2) as UIView!
             let unreadLabel = cell.viewWithTag(3)
             let timeLabel = cell.viewWithTag(4) as UILabel
             let senderLabel = cell.viewWithTag(6) as UILabel
@@ -142,6 +170,9 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
             } else {
                 unreadLabel!.hidden = true
             }
+            
+            profileImage.layer.cornerRadius = profileImage.frame.size.width / 2
+            profileImage.clipsToBounds = true
             
         } else {
             cell = tblForChat.dequeueReusableCellWithIdentifier("ChatPublicCell") as UITableViewCell
@@ -180,7 +211,7 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
                 unreadLabel!.hidden = true
             }
             
-            roundLabel.text = "ROUND \(conversation.round)"
+            roundLabel.text = "第\(conversation.round)轮"
             
             if conversation.secs <= 60 {
                 timeLeftLabel.text = "1 mins left"
@@ -189,7 +220,7 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
             } else {
                 let hr = conversation.secs/3600
                 let mins = (conversation.secs - 3600 * hr)/60
-                timeLeftLabel.text = "\(hr) h \(mins) mins left"
+                timeLeftLabel.text = "还剩 \(hr) h \(mins) mins"
             }
             
             let SEC_PER_ROUND: Int = conversationManager.SEC_PER_ROUND

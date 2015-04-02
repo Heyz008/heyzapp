@@ -45,6 +45,9 @@ import UIKit
     func updateGroupConversations(sender: ChatViewController){
         
         for conv in recentConversations {
+            if (conv as Conversation).from == "Fake" {
+                continue
+            }
             
             let originalQuery = PFQuery(className: "ChatGroup")
             originalQuery.includeKey("Event")
@@ -241,6 +244,10 @@ import UIKit
                                     let conversation = Conversation(from: group.objectId, displayName: ((group["Event"] as PFObject)["title"] as String), round: round, secs: sec)
                                     self.recentConversations.insertObject(conversation, atIndex: 0)
                                     
+                                    if self.recentConversations.count == 3 {
+                                         self.addFakeData()
+                                    }
+                                    
                                     let predicate = NSPredicate(format: "ChatGroup = %@", PFObject(withoutDataWithClassName: "ChatGroup", objectId: (group as PFObject).objectId))
                                     let messageQuery = PFQuery(className: "GroupMessage", predicate: predicate)
                                     messageQuery.orderByAscending("createdAt")
@@ -296,7 +303,25 @@ import UIKit
                     
                 }
             }
+            
         }
+        
+        
+    }
+    
+    func addFakeData() {
+        
+        let conv1 = Conversation(from: "Fake", displayName: "Momo Guan")
+        let m1 = Message(text: "好的，明天见", from: "Momo Guan", isDelay: false, isSentByMe: false)
+        conv1.add(m1, isIncoming: true)
+        
+        recentConversations.insertObject(conv1, atIndex: 0)
+        
+        let conv2 = Conversation(from: "Fake", displayName: "Daniel Dai")
+        let m2 = Message(text: "sounds good!", from: "Daniel Dai", isDelay: false, isSentByMe: false)
+        conv2.add(m2, isIncoming: false)
+        
+        recentConversations.addObject(conv2)
         
         
     }
