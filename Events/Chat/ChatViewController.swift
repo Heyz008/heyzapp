@@ -144,7 +144,7 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
             let senderLabel = cell.viewWithTag(6) as UILabel
             let messageLabel = cell.viewWithTag(8) as UILabel
             
-            senderLabel.text = conversation.from
+            senderLabel.text = conversation.displayName
             
             if let lastMessage = (conversation.history.lastObject as? Message) {
                 
