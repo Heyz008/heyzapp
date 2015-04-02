@@ -15,6 +15,7 @@ class GroupChatViewController: UIViewController, MessageDelegate, UIImagePickerC
     @IBOutlet var chatComposeView : UIView!
     @IBOutlet weak var chatCommandView: UIView!
     @IBOutlet var txtFldMessage : UITextField!
+    @IBOutlet var viewForContent: UIView!
     
     let conversationManager: ConversationManager = ConversationManager.singleton
     var conversation: Conversation!
@@ -149,6 +150,7 @@ class GroupChatViewController: UIViewController, MessageDelegate, UIImagePickerC
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("willShowKeyBoard:"), name:UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("willHideKeyBoard:"), name:UIKeyboardWillHideNotification, object: nil)
         
@@ -212,11 +214,11 @@ class GroupChatViewController: UIViewController, MessageDelegate, UIImagePickerC
                 let timeLabel = cell.viewWithTag(11) as UILabel
                 let chatImage = cell.viewWithTag(1) as UIImageView
                 let profileImage = cell.viewWithTag(2) as UIImageView
-                let distanceFactor = (180.0 - sizeOFStr.width) < 140 ? (190.0 - sizeOFStr.width) : 140
+                let distanceFactor = (190.0 - sizeOFStr.width) < 140 ? (190.0 - sizeOFStr.width) : 140
                 
                 chatImage.frame = CGRectMake(30 + distanceFactor, chatImage.frame.origin.y, ((sizeOFStr.width + 50)  > 100 ? (sizeOFStr.width + 50) : 100), sizeOFStr.height + 30)
                 chatImage.image = UIImage(named: "chat_new_send")?.stretchableImageWithLeftCapWidth(30,topCapHeight: 20)
-                textLabel.frame = CGRectMake(41 + distanceFactor, textLabel.frame.origin.y, textLabel.frame.size.width, sizeOFStr.height)
+                textLabel.frame = CGRectMake(40 + distanceFactor, textLabel.frame.origin.y, textLabel.frame.size.width, sizeOFStr.height)
                 profileImage.center = CGPointMake(profileImage.center.x, textLabel.frame.origin.y + textLabel.frame.size.height - profileImage.frame.size.height/2 + 5)
                 timeLabel.frame = CGRectMake(41 + distanceFactor, timeLabel.frame.origin.y, timeLabel.frame.size.width, timeLabel.frame.size.height)
                 
@@ -314,33 +316,36 @@ class GroupChatViewController: UIViewController, MessageDelegate, UIImagePickerC
     }
     
     func willShowKeyBoard(notification : NSNotification){
-        
+
         var userInfo: NSDictionary!
         userInfo = notification.userInfo
         
-        var duration : NSTimeInterval = 0
+        var duration: NSTimeInterval = 0
         var curve = userInfo.objectForKey(UIKeyboardAnimationCurveUserInfoKey) as UInt
         duration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as NSTimeInterval
         var keyboardF:NSValue = userInfo.objectForKey(UIKeyboardFrameEndUserInfoKey) as NSValue
         var keyboardFrame = keyboardF.CGRectValue()
         
         UIView.animateWithDuration(duration, delay: 0, options:nil, animations: {
-            self.chatComposeView.frame = CGRectMake(self.chatComposeView.frame.origin.x, self.chatComposeView.frame.origin.y - keyboardFrame.size.height, self.chatComposeView.frame.size.width, self.chatComposeView.frame.size.height)
-            self.chatCommandView.frame = CGRectMake(self.chatCommandView.frame.origin.x, self.chatCommandView.frame.origin.y - keyboardFrame.size.height, self.chatCommandView.frame.size.width, self.chatCommandView.frame.size.height)
             
-            self.tblForChats.frame = CGRectMake(self.tblForChats.frame.origin.x, self.tblForChats.frame.origin.y, self.tblForChats.frame.size.width, self.tblForChats.frame.size.height - keyboardFrame.size.height);
-            }, completion: nil)
+            
+            self.chatComposeView.frame = CGRectMake(self.chatComposeView.frame.origin.x, self.viewForContent.frame.size.height - keyboardFrame.size.height - self.chatComposeView.frame.size.height, self.chatComposeView.frame.size.width, self.chatComposeView.frame.size.height)
+            self.chatCommandView.frame = CGRectMake(self.chatCommandView.frame.origin.x, self.viewForContent.frame.size.height - keyboardFrame.size.height, self.chatCommandView.frame.size.width, self.chatCommandView.frame.size.height)
+            
+            self.tblForChats.frame = CGRectMake(self.tblForChats.frame.origin.x, self.tblForChats.frame.origin.y, self.tblForChats.frame.size.width, self.viewForContent.frame.size.height - keyboardFrame.size.height - self.chatComposeView.frame.size.height + 1)
+            
+            if self.conversation.history.count > 0 {
+                var indexPath = NSIndexPath(forRow: self.conversation.history.count - 1, inSection: 0)
+                self.tblForChats.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
+            }
+        }, completion: nil)
         
-        if conversation.history.count > 0 {
-            var indexPath = NSIndexPath(forRow:conversation.history.count - 1, inSection: 0)
-            tblForChats.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
-        }
         
         
     }
     
     func willHideKeyBoard(notification : NSNotification){
-        
+
         var userInfo: NSDictionary!
         userInfo = notification.userInfo
         
@@ -351,9 +356,10 @@ class GroupChatViewController: UIViewController, MessageDelegate, UIImagePickerC
         var keyboardFrame = keyboardF.CGRectValue()
         
         UIView.animateWithDuration(duration, delay: 0, options:nil, animations: {
-            self.chatComposeView.frame = CGRectMake(self.chatComposeView.frame.origin.x, self.chatComposeView.frame.origin.y + keyboardFrame.size.height, self.chatComposeView.frame.size.width, self.chatComposeView.frame.size.height)
-            self.chatCommandView.frame = CGRectMake(self.chatCommandView.frame.origin.x, self.chatCommandView.frame.origin.y + keyboardFrame.size.height, self.chatCommandView.frame.size.width, self.chatCommandView.frame.size.height)
-            self.tblForChats.frame = CGRectMake(self.tblForChats.frame.origin.x, self.tblForChats.frame.origin.y, self.tblForChats.frame.size.width, self.tblForChats.frame.size.height + keyboardFrame.size.height);
+            self.chatComposeView.frame = CGRectMake(self.chatComposeView.frame.origin.x, self.viewForContent.frame.size.height - self.chatCommandView.frame.size.height - self.chatComposeView.frame.size.height, self.chatComposeView.frame.size.width, self.chatComposeView.frame.size.height)
+            self.chatCommandView.frame = CGRectMake(self.chatCommandView.frame.origin.x, self.viewForContent.frame.size.height - self.chatCommandView.frame.size.height, self.chatCommandView.frame.size.width, self.chatCommandView.frame.size.height)
+            
+            self.tblForChats.frame = CGRectMake(self.tblForChats.frame.origin.x, self.tblForChats.frame.origin.y, self.tblForChats.frame.size.width, self.viewForContent.frame.size.height - self.chatCommandView.frame.size.height - self.chatComposeView.frame.size.height + 1)
             }, completion: nil)
         
     }

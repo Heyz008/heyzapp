@@ -46,10 +46,10 @@ import UIKit
         
         for conv in recentConversations {
             
-            let query = PFQuery(className: "ChatGroup")
-            query.includeKey("Event")
+            let originalQuery = PFQuery(className: "ChatGroup")
+            originalQuery.includeKey("Event")
             
-            query.getObjectInBackgroundWithId((conv as Conversation).from, block: { (group: PFObject!, error: NSError!) -> Void in
+            originalQuery.getObjectInBackgroundWithId((conv as Conversation).from, block: { (group: PFObject!, error: NSError!) -> Void in
                 if error == nil {
                     
                     if (group["Event"] as PFObject)["ChatRound"] as Int > (conv as Conversation).round {
@@ -98,6 +98,8 @@ import UIKit
                                                             if error == nil {
                                                                 message.photo = UIImage(data: imageData)
                                                             }
+                                                            
+                                                            sender.tblForChat.reloadData()
                                                         }
                                                         
                                                     case "voice":
@@ -133,12 +135,15 @@ import UIKit
                         
                     } else {
                         
-                        (conv as Conversation).secs = (conv as Conversation).secs - Int(sender.refreshRate)
+                        let ev = ((group as PFObject)["Event"] as PFObject)
+                        let round = ev["ChatRound"] as Int
                         
-                        let predicate = NSPredicate(format: "ChatGroup = %@", PFObject(withoutDataWithClassName: "ChatGroup", objectId: group.objectId))
+                        (conv as Conversation).secs = round * self.SEC_PER_ROUND + Int(ev.createdAt.timeIntervalSinceNow)
+                        
+                        let predicate = NSPredicate(format: "ChatGroup = %@ && FromUser != %@", PFObject(withoutDataWithClassName: "ChatGroup", objectId: group.objectId), PFUser.currentUser())
                         let query = PFQuery(className: "GroupMessage", predicate: predicate)
-                        query.skip = (conv as Conversation).history.count
-                        query.orderByAscending("createdBy")
+                        query.whereKey("createdAt", greaterThan: (conv as Conversation).lastRefreshedAt)
+                        query.orderByAscending("createdAt")
                         
                         query.findObjectsInBackgroundWithBlock({ (messages: [AnyObject]!, error: NSError!) -> Void in
                             if error == nil {
@@ -157,6 +162,8 @@ import UIKit
                                                 if error == nil {
                                                     message.photo = UIImage(data: imageData)
                                                 }
+                                                
+                                                sender.tblForChat.reloadData()
                                             }
                                         case "voice":
                                             let message = Message(voiceData: nil, voiceDuration: (msg as PFObject)["VoiceDuration"] as NSTimeInterval, isRead: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId, from: group.objectId, isDelay: false, isSentByMe: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId)
@@ -180,10 +187,14 @@ import UIKit
                                     } else {
                                         sender.mDelegate!.onAfterMsgReceived(group.objectId)
                                     }
+                                    
+                                    
                                 }
                                 
                             }
                         })
+                        
+                        (conv as Conversation).lastRefreshedAt = NSDate()
                         
                     }
                     
@@ -248,6 +259,8 @@ import UIKit
                                                         if error == nil {
                                                             message.photo = UIImage(data: imageData)
                                                         }
+                                                        
+                                                        sender.tblForChat.reloadData()
                                                     }
                                                 case "voice":
                                                     let message = Message(voiceData: nil, voiceDuration: (msg as PFObject)["VoiceDuration"] as NSTimeInterval, isRead: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId, from: group.objectId, isDelay: false, isSentByMe: (msg as PFObject)["FromUser"].objectId == PFUser.currentUser().objectId)
@@ -348,6 +361,7 @@ class Conversation {
     var round: Int
     var secs: Int
     var displayName: String
+    var lastRefreshedAt: NSDate
     
     init(from: String, displayName: String){
         self.history = NSMutableArray()
@@ -357,6 +371,7 @@ class Conversation {
         self.round = 0
         self.secs = 0
         self.displayName = displayName
+        self.lastRefreshedAt = NSDate()
     }
     
     init(from: String, displayName: String, round: Int, secs: Int){
@@ -367,6 +382,7 @@ class Conversation {
         self.round = round
         self.secs = secs
         self.displayName = displayName
+        self.lastRefreshedAt = NSDate()
     }
     
     func resetUnread() {

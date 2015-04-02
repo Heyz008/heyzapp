@@ -23,7 +23,7 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
     let delegate = UIApplication.sharedApplication().delegate as AppDelegate
     
     let timer: NSTimer!
-    let refreshRate = 10.0
+    let refreshRate = 6.0
     
     //收到离线或者未读消息
 //    func onAfterMsgReceived(message: XMPPMessage) {
