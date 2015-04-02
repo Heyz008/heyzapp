@@ -73,6 +73,7 @@
 		20A901EB1AC8275D0007ED76 /* ActivityPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A901EA1AC8275D0007ED76 /* ActivityPhotoCell.m */; };
 		20A901EE1AC827840007ED76 /* ActivityRequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A901ED1AC827840007ED76 /* ActivityRequestCell.m */; };
 		20A901F11AC829A80007ED76 /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A901F01AC829A80007ED76 /* ActivityViewController.m */; };
+		52A1FB591ACDF64A00A9925D /* CYTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A1FB581ACDF64A00A9925D /* CYTabBarController.swift */; };
 		20A901F31ACB9E3C0007ED76 /* speech.png in Resources */ = {isa = PBXBuildFile; fileRef = 20A901F21ACB9E3C0007ED76 /* speech.png */; };
 		20A901F51ACB9EBB0007ED76 /* leave.png in Resources */ = {isa = PBXBuildFile; fileRef = 20A901F41ACB9EBB0007ED76 /* leave.png */; };
 		52D9EA891AC8929900F6386D /* CYFriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D9EA871AC8929900F6386D /* CYFriendsTableViewController.swift */; };
@@ -580,6 +581,7 @@
 		20A901ED1AC827840007ED76 /* ActivityRequestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityRequestCell.m; sourceTree = "<group>"; };
 		20A901EF1AC829A80007ED76 /* ActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityViewController.h; sourceTree = "<group>"; };
 		20A901F01AC829A80007ED76 /* ActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityViewController.m; sourceTree = "<group>"; };
+		52A1FB581ACDF64A00A9925D /* CYTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CYTabBarController.swift; sourceTree = "<group>"; };
 		20A901F21ACB9E3C0007ED76 /* speech.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speech.png; sourceTree = "<group>"; };
 		20A901F41ACB9EBB0007ED76 /* leave.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leave.png; sourceTree = "<group>"; };
 		52D9EA871AC8929900F6386D /* CYFriendsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CYFriendsTableViewController.swift; sourceTree = "<group>"; };
@@ -2928,6 +2930,7 @@
 			children = (
 				BB303E2E18B87FCE00B6EBC9 /* TabBarViewController.h */,
 				BB303E2F18B87FCE00B6EBC9 /* TabBarViewController.m */,
+				52A1FB581ACDF64A00A9925D /* CYTabBarController.swift */,
 			);
 			path = TabBarController;
 			sourceTree = "<group>";
@@ -3481,6 +3484,7 @@
 				6976BD641A82CD600023DB4F /* XMPPXFacebookPlatformAuthentication.m in Sources */,
 				6976C0071A8854040023DB4F /* XMPPIQ+LastActivity.m in Sources */,
 				79691CD318F0086100ABD52D /* Reachability.m in Sources */,
+				52A1FB591ACDF64A00A9925D /* CYTabBarController.swift in Sources */,
 				52D9EB451AC8AB7B00F6386D /* SDWebImagePrefetcher.m in Sources */,
 				6976C0511A8854040023DB4F /* XMPPMessage+XEP_0308.m in Sources */,
 				79691CAD18EFFF1F00ABD52D /* SBJsonParser.m in Sources */,

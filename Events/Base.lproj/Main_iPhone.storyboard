@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="DxO-cP-19h">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="DxO-cP-19h">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <scenes>
         <!--Login View Controller-->
@@ -69,7 +69,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="XhB-8n-zSN">
             <objects>
-                <tabBarController storyboardIdentifier="engtab" definesPresentationContext="YES" id="DxO-cP-19h" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="engtab" definesPresentationContext="YES" id="DxO-cP-19h" customClass="CYTabBarController" customModule="Heyz" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="tTe-dz-p6d"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
@@ -175,7 +175,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="afA-Kn-raX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-813" y="-1704"/>
+            <point key="canvasLocation" x="-765" y="-1664"/>
         </scene>
         <!--My Program-->
         <scene sceneID="NyL-Lg-yae">
@@ -1379,7 +1379,7 @@
         <scene sceneID="P2C-wx-DeA">
             <objects>
                 <navigationController definesPresentationContext="YES" id="7QV-MF-lRy" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" image="MyProgram.png" id="Whh-wp-Ei3"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="tab_profile" id="Whh-wp-Ei3"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="aeA-Xb-aZb">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1777,11 +1777,11 @@
             </objects>
             <point key="canvasLocation" x="-2286" y="-2136"/>
         </scene>
-        <!--Events-->
+        <!--Discover-->
         <scene sceneID="ceR-vN-lrW">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Mml-vq-zwo" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Events" image="Program.png" id="TWS-hq-3Im"/>
+                    <tabBarItem key="tabBarItem" title="Discover" image="tab_explore" id="TWS-hq-3Im"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vdo-nW-dZc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1863,7 +1863,7 @@
         <scene sceneID="MHz-ui-Bco">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wat-zQ-9t5" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Activity" image="Feed.png" id="O87-YX-pra"/>
+                    <tabBarItem key="tabBarItem" title="Activity" image="tab_activity" id="O87-YX-pra"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="2NW-qe-2Ra">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2007,11 +2007,11 @@
             </objects>
             <point key="canvasLocation" x="-765" y="-1094"/>
         </scene>
-        <!--Calendar-->
+        <!--Upcoming-->
         <scene sceneID="u2T-EW-rju">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Dlv-Lj-Hfo" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Calendar" image="leave.png" id="oVN-HQ-A1h"/>
+                    <tabBarItem key="tabBarItem" title="Upcoming" image="tab_upcoming" id="oVN-HQ-A1h"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wyX-3r-IYA">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2621,7 +2621,7 @@
         <scene sceneID="Rai-o6-eeJ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5H1-yh-Gst" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Chat" image="speech.png" id="0ya-WI-XyW"/>
+                    <tabBarItem key="tabBarItem" title="Chat" image="tab_chat" id="0ya-WI-XyW"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="X6Z-zR-xxC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -3236,9 +3236,6 @@
         <image name="333.jpg" width="638" height="618"/>
         <image name="About.png" width="23" height="15"/>
         <image name="Action.png" width="20" height="20"/>
-        <image name="Feed.png" width="22" height="22"/>
-        <image name="MyProgram.png" width="21" height="22"/>
-        <image name="Program.png" width="22" height="22"/>
         <image name="Rettangolo.png" width="320" height="42"/>
         <image name="chat_input_background" width="320" height="44"/>
         <image name="chat_input_textfield" width="221" height="29"/>
@@ -3248,7 +3245,6 @@
         <image name="chat_send" width="232" height="51"/>
         <image name="chat_user_small" width="26" height="26"/>
         <image name="input.png" width="290" height="30"/>
-        <image name="leave.png" width="25" height="25"/>
         <image name="login-btn.png" width="120" height="40"/>
         <image name="login_facebook" width="125" height="56"/>
         <image name="login_forgot" width="117" height="10"/>
@@ -3264,7 +3260,11 @@
         <image name="profile-pic3" width="52" height="52"/>
         <image name="profile-pic4" width="52" height="52"/>
         <image name="register-btn.png" width="120" height="40"/>
-        <image name="speech.png" width="25" height="25"/>
+        <image name="tab_activity" width="40" height="40"/>
+        <image name="tab_chat" width="40" height="40"/>
+        <image name="tab_explore" width="40" height="40"/>
+        <image name="tab_profile" width="40" height="40"/>
+        <image name="tab_upcoming" width="40" height="40"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -3273,7 +3273,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="4KN-dH-TGf"/>
-        <segue reference="RGa-7r-dfT"/>
+        <segue reference="IXO-5p-8wl"/>
         <segue reference="UJ5-b0-qFx"/>
     </inferredMetricsTieBreakers>
 </document>
