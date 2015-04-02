@@ -1,32 +1,31 @@
 //
-//  FriendsTableViewController.swift
+//  SettingViewController.swift
 //  Heyz
 //
-//  Created by Zhichao Yang on 2015-03-21.
+//  Created by Zhichao Yang on 2015-03-29.
 //  Copyright (c) 2015 Teknowledge Software. All rights reserved.
 //
 
 import UIKit
+let section1 = ["Edit Profile", "My Account", "Find Friends"]
+let section2 = ["Notifications", "Privacy", "Liked Account", "Language"]
+let section3 = ["Like Us on Facebook", "Like Us on Twitter"]
+let section4 = ["Rate Us", "Term of Use", "Privacy policy"]
+let section5 = ["Clear Cache"]
+let section6 = ["logout"]
 
-class CYFriendsTableViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate {
-    var currentCYUser = CYUserSelf.currentCYUser()
-    var idList : [String] = []{
-        didSet{
-            self.tableView.reloadData()
-        }
-    }
+let sections = [section1, section2, section3, section4, section5, section6]
+
+class SettingViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
+
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        currentCYUser.getFriendListInBackground(onFinish: { (list) -> Void in
-            self.idList = list
-        })
-        self.tableView.dataSource = self
-        self.tableView.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -39,68 +38,43 @@ class CYFriendsTableViewController: UITableViewController, UITableViewDataSource
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 3
+        return sections.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        if section == 0{
-            return 1
-        }else if section == 1{
-            return 2
-        }else{
-            return self.idList.count
-        }
+        return sections[section].count
     }
 
-    
+
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let label = sections[indexPath.section][indexPath.row]
+        var cell : UITableViewCell
+        switch label{
+            case "My Account":
+                cell = tableView.dequeueReusableCellWithIdentifier("AccountCell", forIndexPath: indexPath) as AccountCell
+                (cell as AccountCell).emailIndicator.font = UIFont.fontAwesomeOfSize(20)
+                (cell as AccountCell).emailIndicator.text = String.fontAwesomeIconWithName(FontAwesome.InfoCircle)
 
-        let cell = tableView.dequeueReusableCellWithIdentifier("defaultCell", forIndexPath: indexPath) as FriendCell
-
-        if indexPath.section == 2{
-            // Configure the cell...
-            var userForLine = PFUser(withoutDataWithObjectId: idList[indexPath.row])
-            userForLine.fetchIfNeededInBackgroundWithBlock { (user, error) -> Void in
-                if error != nil{
-                    println("friend fetch error.")
-                }else{
-                    cell.textLabel?.text = user.objectId
-                }
-            }
-            
-        }else{
-            cell.imageView?.image = FakeUser.getFakeUser(indexPath.row).profileImage
-            cell.textLabel?.text = FakeUser.getFakeUser(indexPath.row).info["name"]
+                    cell.textLabel?.text = label
+            case "Like Us on Facebook", "Like Us on Twitter":
+                cell = tableView.dequeueReusableCellWithIdentifier("LikeCell", forIndexPath: indexPath) as UITableViewCell
+                    cell.textLabel?.text = label
+            case "Clear Cache":
+                cell = tableView.dequeueReusableCellWithIdentifier("CacheCell", forIndexPath: indexPath) as UITableViewCell
+                    cell.textLabel?.text = label
+            case "logout":
+                cell = tableView.dequeueReusableCellWithIdentifier("LogoutCell", forIndexPath: indexPath) as UITableViewCell
+            default:
+                cell = tableView.dequeueReusableCellWithIdentifier("NormalCell", forIndexPath: indexPath) as UITableViewCell
+                    cell.textLabel?.text = label
         }
-        if let width = cell.imageView?.frame.width{
-            cell.imageView?.layer.cornerRadius = width / 2
-            cell.imageView?.clipsToBounds = true;
-        }
-
+        cell.textLabel?.layer.zPosition = -1
+        // Configure the cell...
         return cell
     }
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section{
-        case 0: return "Favorate"
-        case 1: return "All"
-        case 2: return "Blocked"
-        default: return ""
-        }
-    }
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let fakeUser = FakeUser.getFakeUser(indexPath.row)
-        let profile = self.navigationController?.storyboard?.instantiateViewControllerWithIdentifier("ProfileViewController") as? ProfileViewController
-        profile?.fakeUser = fakeUser
-        if let controller = profile{
-            self.navigationController?.pushViewController(controller, animated: true)
 
-        }
-
-    }
-    
 
     /*
     // Override to support conditional editing of the table view.
@@ -149,6 +123,23 @@ class CYFriendsTableViewController: UITableViewController, UITableViewDataSource
 
 }
 
-class FriendCell: UITableViewCell {
+class NormalCell : UITableViewCell {
+    
+}
+
+class CacheCell : UITableViewCell {
+    
+}
+
+class AccountCell : UITableViewCell{
+    @IBOutlet weak var emailIndicator: UILabel!
+    
+}
+
+class LogoutCell : UITableViewCell {
+    
+}
+
+class LikeCell : UITableViewCell{
     
 }

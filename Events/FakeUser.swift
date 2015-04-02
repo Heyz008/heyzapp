@@ -21,22 +21,24 @@ class FakeUser {
             let data0 : [String: String] =
             [   "status" : "single",
                 "name" : "Yang",
-                "locaton" : "Toronto",
+                "location" : "Toronto",
                 "sex": "Male",
                 "sign": "Coding...",
                 "age" : "20",
                 "favorate": "false"]
-            return FakeUser(info: data0, image: UIImage(named: "profile-pic2.c")!)
+            let image = UIImage(named: "profile-pic3")
+            return FakeUser(info: data0, image: image!)
         default:
             let data1 : [String: String] =
             [   "status" : "in relation",
                 "name" : "Jay",
-                "locaton" : "Toronto",
+                "location" : "Toronto",
                 "sex": "Male",
                 "sign": "Also Coding...",
                 "age" : "22",
                 "favorate": "true"]
-            return FakeUser(info: data1, image: UIImage(named: "profile-pic3")!)
+            let image = UIImage(named: "555.jpg")
+            return FakeUser(info: data1, image: image!)
             
         }
     }

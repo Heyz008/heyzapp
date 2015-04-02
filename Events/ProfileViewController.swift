@@ -9,6 +9,9 @@
 import UIKit
 
 class ProfileViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate{
+    @IBOutlet weak var friendOperation: UIView!
+    @IBOutlet weak var unFriend: UIButton!
+    @IBOutlet weak var startChat: UIButton!
     let tempViewController = UIViewController()
     var publishedEvent : ProgramViewController? {
         
@@ -26,8 +29,9 @@ class ProfileViewController: UIViewController, UIPageViewControllerDataSource, U
             return nil
         }
     }
+    var fakeUser : FakeUser? = nil
     var isCurrentUser: Bool{
-        return cyUser.isCurrentUser()
+        return fakeUser == nil && cyUser.isCurrentUser()
     }
     var user: PFUser{
         get{
@@ -36,10 +40,15 @@ class ProfileViewController: UIViewController, UIPageViewControllerDataSource, U
     }
     private var _cyUser: CYUser?
     var cyUser : CYUser{
-        if let user = _cyUser{
-            return user
-        }else{
-            return CYUserSelf.currentCYUser()
+        set{
+            self.userDidSet()
+        }
+        get{
+            if let user = _cyUser{
+                return user
+            }else{
+                return CYUserSelf.currentCYUser()
+            }
         }
     }
     @IBOutlet weak var pageViewBar: UIView!
@@ -66,13 +75,14 @@ class ProfileViewController: UIViewController, UIPageViewControllerDataSource, U
     var _moreButton : UIBarButtonItem?
     var moreButton : UIBarButtonItem!{
         if _moreButton == nil{
-            _moreButton = UIBarButtonItem(title: "Continue", style: .Plain, target: self, action: "moreMenu")
+            _moreButton = UIBarButtonItem(title: String.fontAwesomeIconWithName(FontAwesome.EllipsisH), style: .Plain, target: self, action: "moreMenu")
             return _moreButton!
         }else{
             return _moreButton!
         }
     }
     @IBOutlet weak var setting: UIBarButtonItem!
+    @IBOutlet weak var friendList: UIBarButtonItem!
 
 
 
@@ -84,7 +94,22 @@ class ProfileViewController: UIViewController, UIPageViewControllerDataSource, U
         super.viewDidLoad()
         self.pageViewController?.delegate = self
         self.pageViewController?.dataSource = self
-        
+        let attributes = [NSFontAttributeName: UIFont.fontAwesomeOfSize(20)] as Dictionary!
+        setting.setTitleTextAttributes(attributes, forState: .Normal)
+        setting.title = String.fontAwesomeIconWithName(FontAwesome.Cog)
+        friendList.setTitleTextAttributes(attributes, forState: .Normal)
+        friendList.title = String.fontAwesomeIconWithName(FontAwesome.Users)
+        moreButton.setTitleTextAttributes(attributes, forState: .Normal)
+        self.navigationItem.leftItemsSupplementBackButton = true
+        self.userDidSet()
+
+        // Do any additional setup after loading the view.
+    }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()        // Dispose of any resources that can be recreated.
+    }
+    
+    func userDidSet(){
         self.setControllers()//获取collectionViewControllers
         self.arrageBasicInfoViews()
         
@@ -103,10 +128,7 @@ class ProfileViewController: UIViewController, UIPageViewControllerDataSource, U
             self.arrangeControllerButtons()//均匀分配button
         }
         self.setUpBasicInfo()
-        // Do any additional setup after loading the view.
-    }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()        // Dispose of any resources that can be recreated.
+
     }
 
 // MARK: PrepareViewControllers
@@ -116,6 +138,7 @@ class ProfileViewController: UIViewController, UIPageViewControllerDataSource, U
         }
         self.holdingEventsController = self.navigationController?.storyboard?.instantiateViewControllerWithIdentifier("ProgramViewController") as? ProgramViewController
         self.goingEventsController = self.navigationController?.storyboard?.instantiateViewControllerWithIdentifier("ProgramViewController") as? ProgramViewController
+        self.photosController = self.navigationController?.storyboard?.instantiateViewControllerWithIdentifier("Gallery") as? GalleryCollectionViewController
     }
     var controllerDict : [UIViewController: UIButton]?
     var controllerList : [UIViewController]?
@@ -261,25 +284,56 @@ class ProfileViewController: UIViewController, UIPageViewControllerDataSource, U
         ageLabel.hidden = isCurrentUser
         statusLabel.hidden = isCurrentUser
         favorateButton.hidden = isCurrentUser
+        self.friendOperation.hidden = isCurrentUser
+        self.tabBarController?.tabBar.hidden = !isCurrentUser
         if isCurrentUser{
+
             self.navigationItem.rightBarButtonItem = setting
         }else{
             self.navigationItem.rightBarButtonItem = moreButton
+            friendList.enabled = false
+            friendList.tintColor = UIColor.clearColor()
+        }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        if self.tabBarController?.tabBar.hidden == true{
+            self.tabBarController?.tabBar.hidden = false
         }
     }
 // MARK: set up some fake data
     func setUpBasicInfo(){
-        self.statusLabel.text = "Single"
-        self.profileImage.image = UIImage(named: "profile-pic2.c")
-        self.nameLabel.text = "Deniel"
-        self.locationLabel.text = "Toronto"
-        self.sexLabel.text = "M"
-        self.signLabel.text = "PM"
-        self.ageLabel.text = "?"
-        self.favorateButton.titleLabel?.text = "F"
-    
+        let width = profileImage.frame.width
+        profileImage.layer.cornerRadius = width / 2
+        profileImage.clipsToBounds = true
+        if fakeUser == nil{
+            self.statusLabel.text = "Single"
+            self.profileImage.image = UIImage(named: "profile-pic2.c")
+            self.nameLabel.text = "Daniel"
+            self.locationLabel.text = "Toronto"
+            self.sexLabel.font = UIFont.fontAwesomeOfSize(15)
+            self.sexLabel.text = String.fontAwesomeIconWithName(FontAwesome.Male)
+            let attributes = [NSFontAttributeName: UIFont.fontAwesomeOfSize(15)] as Dictionary!
+            self.signLabel.text = "PM"
+            self.ageLabel.text = "?"
+            self.favorateButton.titleLabel?.text = "F"
+        }else{
+            let user = fakeUser!
+            self.statusLabel.text = user.info["status"]
+            self.profileImage.image = user.profileImage
+            self.nameLabel.text = user.info["name"]
+            self.locationLabel.text = user.info["location"]
+            self.sexLabel.font = UIFont.fontAwesomeOfSize(15)
+            self.sexLabel.text = String.fontAwesomeIconWithName(FontAwesome.Male)
+            self.signLabel.text = user.info["sign"]
+            self.ageLabel.text = user.info["age"]
+            
+            self.favorateButton.titleLabel?.font = UIFont.fontAwesomeOfSize(30)
+            let status = user.info["favorate"] == "true" ? String.fontAwesomeIconWithName(FontAwesome.Star) : String.fontAwesomeIconWithName(FontAwesome.StarO)
+            self.favorateButton.setTitle(status, forState: .Normal)
+        }
+
     }
-    
 }
 
 
