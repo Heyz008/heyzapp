@@ -286,11 +286,9 @@ import Foundation
                 
             } else {
                 
-//                NSUserDefaults.standardUserDefaults().setObject(user.objectId + xmppDomain, forKey: xmppDefaultIdKey)
-//                NSUserDefaults.standardUserDefaults().setObject(user.objectId, forKey: xmppDefaultPwdKey)
-//                
-//                let delegate = UIApplication.sharedApplication().delegate as AppDelegate
-//                delegate.connect()
+                let installation = PFInstallation.currentInstallation()
+                installation["User"] = PFUser.currentUser()
+                installation.saveInBackgroundWithBlock(nil)
                 
                 sender.dismissViewControllerAnimated(true, completion: nil)
             }
@@ -319,14 +317,12 @@ import Foundation
                         let vc = storyboard.instantiateViewControllerWithIdentifier("LoginViewController") as SigninViewController
                         sender.presentViewController(vc, animated: true, completion: nil)
                         
+                    } else {
+                        
+                        let installation = PFInstallation.currentInstallation()
+                        installation["User"] = PFUser.currentUser()
+                        installation.saveInBackgroundWithBlock(nil)
                     }
-//                    else {
-//                        
-//                        NSUserDefaults.standardUserDefaults().setObject(user.objectId + xmppDomain, forKey: xmppDefaultIdKey)
-//                        NSUserDefaults.standardUserDefaults().setObject(user.objectId, forKey: xmppDefaultPwdKey)
-//                        let delegate = UIApplication.sharedApplication().delegate as AppDelegate
-//                        delegate.connect()
-//                    }
                 })
             }
         }

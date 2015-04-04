@@ -9,7 +9,7 @@
 import Foundation
 
 //消息代理协议 
-protocol MessageDelegate {
+@objc protocol MessageDelegate {
     
     func onAfterMsgReceived(from: String)
     
