@@ -137,8 +137,6 @@
     
     //self.tabBarController.tabBar.frame = CGRectMake(0, 0, 0, 0);
     
-    
-    
 }
 
 -(IBAction)joinEvent:(id)sender {
@@ -234,7 +232,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:YES];
-    self.tabBarController.tabBar.hidden=NO;
+    [self.navigationController.tabBarController.tabBar setHidden:YES];
     /**
      *  get location using locationmanager singleton class
      */

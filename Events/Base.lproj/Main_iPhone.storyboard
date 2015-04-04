@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="DxO-cP-19h">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="DxO-cP-19h">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
@@ -1147,7 +1147,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="0HW-ez-1g9">
-                                                    <rect key="frame" x="6" y="-1" width="2284" height="344"/>
+                                                    <rect key="frame" x="6" y="-1" width="2604" height="387"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
                                             </subviews>
@@ -1379,7 +1379,9 @@
         <scene sceneID="P2C-wx-DeA">
             <objects>
                 <navigationController definesPresentationContext="YES" id="7QV-MF-lRy" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" image="tab_profile" id="Whh-wp-Ei3"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="tab_profile" id="Whh-wp-Ei3">
+                        <inset key="imageInsets" minX="2" minY="2" maxX="2" maxY="2"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="aeA-Xb-aZb">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1781,7 +1783,9 @@
         <scene sceneID="ceR-vN-lrW">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Mml-vq-zwo" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Discover" image="tab_explore" id="TWS-hq-3Im"/>
+                    <tabBarItem key="tabBarItem" title="Discover" image="tab_explore" id="TWS-hq-3Im">
+                        <inset key="imageInsets" minX="1" minY="3" maxX="1" maxY="-1"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vdo-nW-dZc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2011,7 +2015,9 @@
         <scene sceneID="u2T-EW-rju">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Dlv-Lj-Hfo" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Upcoming" image="tab_upcoming" id="oVN-HQ-A1h"/>
+                    <tabBarItem key="tabBarItem" title="Upcoming" image="tab_upcoming" id="oVN-HQ-A1h">
+                        <inset key="imageInsets" minX="3" minY="-4" maxX="3" maxY="3"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wyX-3r-IYA">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2621,7 +2627,9 @@
         <scene sceneID="Rai-o6-eeJ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5H1-yh-Gst" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Chat" image="tab_chat" id="0ya-WI-XyW"/>
+                    <tabBarItem key="tabBarItem" title="Chat" image="tab_chat" id="0ya-WI-XyW">
+                        <inset key="imageInsets" minX="2" minY="2" maxX="2" maxY="2"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="X6Z-zR-xxC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -3286,8 +3294,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="4KN-dH-TGf"/>
-        <segue reference="IXO-5p-8wl"/>
         <segue reference="UJ5-b0-qFx"/>
         <segue reference="4KN-dH-TGf"/>
         <segue reference="IXO-5p-8wl"/>

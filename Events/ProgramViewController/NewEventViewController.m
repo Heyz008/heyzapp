@@ -94,6 +94,12 @@
     self.eventSwitch.transform = CGAffineTransformMakeScale(0.75, 0.75);
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:YES];
+    [self.navigationController.tabBarController.tabBar setHidden:YES];
+}
+
 -(void)tapReceived:(UITapGestureRecognizer *)tapGestureRecognizer
 {
     [self.eventName resignFirstResponder];
