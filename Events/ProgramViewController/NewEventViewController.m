@@ -92,6 +92,15 @@
     self.onlineEventView.layer.borderColor = [UIColor blackColor].CGColor;
     
     self.eventSwitch.transform = CGAffineTransformMakeScale(0.75, 0.75);
+    
+    self.eventName.layer.cornerRadius = 6.0;
+    self.eventLocationButton.layer.cornerRadius = 6.0;
+    self.onlineEventView.layer.cornerRadius = 6.0;
+    self.eventDescription.layer.cornerRadius = 6.0;
+    self.eventName.layer.borderColor = [UIColor blackColor].CGColor;
+    self.eventDescription.layer.borderColor = [UIColor blackColor].CGColor;
+    self.eventDescription.layer.borderWidth = 1.0f;
+    self.eventName.layer.borderWidth = 1.0f;
 }
 
 -(void)viewWillAppear:(BOOL)animated{

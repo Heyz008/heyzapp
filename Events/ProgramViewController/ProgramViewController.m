@@ -152,6 +152,8 @@ static NSString * const reuseIdentifier = @"Cell";
 {
     [super viewWillAppear:YES];
     
+    [self.navigationController.tabBarController.tabBar setHidden:NO];
+    
     [Utility afterDelay:0.01 withCompletion:^{
         [DSBezelActivityView newActivityViewForView:self.view.window];
         [self getEventListFromServer];
