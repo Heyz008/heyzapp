@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
+class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate, MessageDelegate {
 
     @IBOutlet var btnForLogo : UIButton!
     @IBOutlet var tblForChat : UITableView!
@@ -29,28 +29,53 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
     let refreshRate = 6.0
     
     //收到离线或者未读消息
-//    func onAfterMsgReceived(message: XMPPMessage) {
-//        
-//        
-//        let from = "\(message.from().user)@\(message.from().domain)" as NSString
-//        let body = message.elementForName("body").stringValue() as NSString
-//        let delay = message.elementForName("delay") != nil
-//        
-//        let unread = Message(text: body, from: from, isDelay: delay, isSentByMe: false)
-//        
-//        conversationManager.addIncoming(unread, isPrivate: true)
-//        
-//        if mDelegate == nil {
-//            tblForChat.reloadData()
-//        } else {
-//            mDelegate!.onAfterMsgReceived(message)
-//        }
-//        
-//    }
+    func onAfterMsgReceived(from: String) {
+        
+        fetchMessages()
+        
+    }
     
     func fetchMessages(){
         
-        conversationManager.updateGroupConversations(self)
+        conversationManager.updateGroupConversations(
+            { (id: String) -> Void in
+                if self.mDelegate != nil {
+                    if (self.mDelegate! as GroupChatViewController).conversation.from == id {
+                        (self.mDelegate! as GroupChatViewController).performSegueWithIdentifier("unwindFromGroup", sender: self)
+                    }
+                }
+            }, onAfterGroupCreated: {
+                self.tblForChat.reloadData()
+                
+                var tabArray = self.tabBarController?.tabBar.items as NSArray!
+                var tabItem = tabArray.objectAtIndex(1) as UITabBarItem
+                let count = self.conversationManager.countUnread()
+                if count > 0 {
+                    tabItem.badgeValue = "\(count)"
+                } else {
+                    tabItem.badgeValue = nil
+                }
+                
+            
+            }, onAfterMsgFetched: { (id: String) -> Void in
+                if self.mDelegate == nil {
+                    
+                    self.tblForChat.reloadData()
+                    
+                    var tabArray = self.tabBarController?.tabBar.items as NSArray!
+                    var tabItem = tabArray.objectAtIndex(1) as UITabBarItem
+                    let count = self.conversationManager.countUnread()
+                    if count > 0 {
+                        tabItem.badgeValue = "\(count)"
+                    } else {
+                        tabItem.badgeValue = nil
+                    }
+                    
+                } else {
+                    self.mDelegate!.onAfterMsgReceived(id)
+                }
+            }
+        )
     }
     
     
@@ -67,11 +92,23 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        conversationManager.loadAllGroupConversations({
+            
+            self.tblForChat.reloadData()
+            
+            var tabArray = self.tabBarController?.tabBar.items as NSArray!
+            var tabItem = tabArray.objectAtIndex(1) as UITabBarItem
+            let count = self.conversationManager.countUnread()
+            if count > 0 {
+                tabItem.badgeValue = "\(count)"
+            } else {
+                tabItem.badgeValue = nil
+            }
+        })
 
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: btnForLogo)
         self.tabBarController?.tabBar.tintColor = UIColor.greenColor()
-
-        NSTimer.scheduledTimerWithTimeInterval(refreshRate, target: self, selector: "fetchMessages", userInfo: nil, repeats: true)
         
         let utils = AudioUtils.sharedUtils
         
@@ -100,10 +137,21 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
         
         super.viewWillAppear(animated)
         
-        conversationManager.loadGroupConversations(self)
+        conversationManager.loadAllGroupConversations({
+            self.tblForChat.reloadData()
+        })
         
         tblForChat.reloadData()
         mDelegate = nil
+        
+        var tabArray = self.tabBarController?.tabBar.items as NSArray!
+        var tabItem = tabArray.objectAtIndex(1) as UITabBarItem
+        let count = self.conversationManager.countUnread()
+        if count > 0 {
+            tabItem.badgeValue = "\(count)"
+        } else {
+            tabItem.badgeValue = nil
+        }
         
     }
     
@@ -216,7 +264,7 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate {
             if conversation.secs <= 60 {
                 timeLeftLabel.text = "1 mins left"
             } else if conversation.secs <= 3600 {
-                timeLeftLabel.text = "\(conversation.secs/60 + 1) mins left"
+                timeLeftLabel.text = "还剩 \(conversation.secs/60 + 1) mins"
             } else {
                 let hr = conversation.secs/3600
                 let mins = (conversation.secs - 3600 * hr)/60

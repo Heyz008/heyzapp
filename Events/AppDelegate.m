@@ -41,30 +41,59 @@
     [MMdbsupport MMinitializeDb];
     [MMdbsupport MMOpenDataBase];
     
-//    self.isRegistering = NO;
-//    self.isFromFacebook = NO;
+    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    } else {
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    }
+    
+    NSArray *viewControllerArray = [(UITabBarController *) self.window.rootViewController childViewControllers];
+    ChatViewController *chatViewController = [[[ viewControllerArray objectAtIndex:1] childViewControllers] objectAtIndex:0];
+    [chatViewController view];
+    [chatViewController viewDidLoad];
     
     UserManager *userManager = UserManager.singleton;
-    
-//        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.0 * NSEC_PER_SEC);
-//        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
-//            SigninViewController *signinViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-//            [self.window makeKeyAndVisible];
-//            [self.window.rootViewController presentViewController:signinViewController animated:YES completion:NULL];
-//            
-//        });
-//    [self setupStream];
+
     [self.window makeKeyAndVisible];
     [userManager loginInBackground:self.window.rootViewController];
 
     return YES;
 }
 
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+//    [application registerForRemoteNotifications];
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    // Store the deviceToken in the current installation and save it to Parse.
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    [currentInstallation setDeviceTokenFromData:deviceToken];
+    [currentInstallation saveInBackground];
+
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    
+    NSArray *viewControllerArray = [(UITabBarController *) self.window.rootViewController childViewControllers];
+    ChatViewController *chatViewController = [[[ viewControllerArray objectAtIndex:1] childViewControllers] objectAtIndex:0];
+    [chatViewController fetchMessages];
+    
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    ConversationManager *conversationManager = [ConversationManager singleton];
+    int count = [conversationManager countUnread];
+    if (currentInstallation.badge != count) {
+        currentInstallation.badge = count;
+        [currentInstallation saveEventually];
+    }
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -83,6 +112,11 @@
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     
     [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
+    
+    NSArray *viewControllerArray = [(UITabBarController *) self.window.rootViewController childViewControllers];
+    ChatViewController *chatViewController = [[[ viewControllerArray objectAtIndex:1] childViewControllers] objectAtIndex:0];
+    [chatViewController fetchMessages];
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

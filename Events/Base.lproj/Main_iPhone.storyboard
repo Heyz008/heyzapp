@@ -3191,6 +3191,19 @@
                                     <outlet property="delegate" destination="WtP-N5-kh1" id="QPv-OM-zsg"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="bw0-Pu-9S0">
+                                <rect key="frame" x="85" y="0.0" width="150" height="30"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.9137254901960784" green="0.91764705882352937" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <state key="normal" title="^ 100 条新消息">
+                                    <color key="titleColor" red="0.30980392156862746" green="0.68627450980392157" blue="0.32156862745098042" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="1"/>
+                                </userDefinedRuntimeAttributes>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -3203,6 +3216,7 @@
                     <connections>
                         <outlet property="chatCommandView" destination="xiF-ST-CVz" id="zoe-03-iTE"/>
                         <outlet property="chatComposeView" destination="Gzd-6c-aiL" id="aEF-OX-W6y"/>
+                        <outlet property="scrollTopBtn" destination="bw0-Pu-9S0" id="8xC-8M-SMm"/>
                         <outlet property="tblForChats" destination="3eP-LN-Pex" id="zM3-dC-Vhl"/>
                         <outlet property="txtFldMessage" destination="SQY-Ee-q81" id="zPL-EA-KUc"/>
                         <outlet property="viewForContent" destination="vLJ-4B-H6e" id="Ejk-7a-WLc"/>

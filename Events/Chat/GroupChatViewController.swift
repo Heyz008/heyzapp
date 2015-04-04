@@ -16,6 +16,7 @@ class GroupChatViewController: UIViewController, MessageDelegate, UIImagePickerC
     @IBOutlet weak var chatCommandView: UIView!
     @IBOutlet var txtFldMessage : UITextField!
     @IBOutlet var viewForContent: UIView!
+    @IBOutlet weak var scrollTopBtn: UIButton!
     
     let conversationManager: ConversationManager = ConversationManager.singleton
     var conversation: Conversation!
@@ -153,6 +154,9 @@ class GroupChatViewController: UIViewController, MessageDelegate, UIImagePickerC
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("willShowKeyBoard:"), name:UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("willHideKeyBoard:"), name:UIKeyboardWillHideNotification, object: nil)
+        
+        let color = UIColor.grayColor().CGColor
+        scrollTopBtn.layer.borderColor = color
         
     }
     
