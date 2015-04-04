@@ -73,9 +73,9 @@
 		20A901EB1AC8275D0007ED76 /* ActivityPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A901EA1AC8275D0007ED76 /* ActivityPhotoCell.m */; };
 		20A901EE1AC827840007ED76 /* ActivityRequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A901ED1AC827840007ED76 /* ActivityRequestCell.m */; };
 		20A901F11AC829A80007ED76 /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A901F01AC829A80007ED76 /* ActivityViewController.m */; };
-		52A1FB591ACDF64A00A9925D /* CYTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A1FB581ACDF64A00A9925D /* CYTabBarController.swift */; };
 		20A901F31ACB9E3C0007ED76 /* speech.png in Resources */ = {isa = PBXBuildFile; fileRef = 20A901F21ACB9E3C0007ED76 /* speech.png */; };
 		20A901F51ACB9EBB0007ED76 /* leave.png in Resources */ = {isa = PBXBuildFile; fileRef = 20A901F41ACB9EBB0007ED76 /* leave.png */; };
+		52A1FB591ACDF64A00A9925D /* CYTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A1FB581ACDF64A00A9925D /* CYTabBarController.swift */; };
 		52D9EA891AC8929900F6386D /* CYFriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D9EA871AC8929900F6386D /* CYFriendsTableViewController.swift */; };
 		52D9EA8A1AC8929900F6386D /* CYUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D9EA881AC8929900F6386D /* CYUser.swift */; };
 		52D9EA8C1AC8929E00F6386D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D9EA8B1AC8929E00F6386D /* ProfileViewController.swift */; };
@@ -581,9 +581,9 @@
 		20A901ED1AC827840007ED76 /* ActivityRequestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityRequestCell.m; sourceTree = "<group>"; };
 		20A901EF1AC829A80007ED76 /* ActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityViewController.h; sourceTree = "<group>"; };
 		20A901F01AC829A80007ED76 /* ActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityViewController.m; sourceTree = "<group>"; };
-		52A1FB581ACDF64A00A9925D /* CYTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CYTabBarController.swift; sourceTree = "<group>"; };
 		20A901F21ACB9E3C0007ED76 /* speech.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speech.png; sourceTree = "<group>"; };
 		20A901F41ACB9EBB0007ED76 /* leave.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leave.png; sourceTree = "<group>"; };
+		52A1FB581ACDF64A00A9925D /* CYTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CYTabBarController.swift; sourceTree = "<group>"; };
 		52D9EA871AC8929900F6386D /* CYFriendsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CYFriendsTableViewController.swift; sourceTree = "<group>"; };
 		52D9EA881AC8929900F6386D /* CYUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CYUser.swift; sourceTree = "<group>"; };
 		52D9EA8B1AC8929E00F6386D /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -3699,7 +3699,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Heyz;
-				PROVISIONING_PROFILE = "3a11bc3f-2518-47e2-93ce-1a8badaaa37f";
+				PROVISIONING_PROFILE = "483382c3-cade-44f4-9bcf-e2e6a736f52c";
 				SWIFT_OBJC_BRIDGING_HEADER = "Events/Heyz-Swift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -3740,7 +3740,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Heyz;
-				PROVISIONING_PROFILE = "3a11bc3f-2518-47e2-93ce-1a8badaaa37f";
+				PROVISIONING_PROFILE = "483382c3-cade-44f4-9bcf-e2e6a736f52c";
 				SWIFT_OBJC_BRIDGING_HEADER = "Events/Heyz-Swift-Bridging-Header.h";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
