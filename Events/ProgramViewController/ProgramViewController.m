@@ -21,6 +21,8 @@
 
 @interface ProgramViewController (){
     NSMutableArray *arrayEventList;
+    NSArray *likes;
+    NSArray *joins;
 }
 
 @end
@@ -46,6 +48,9 @@ static NSString * const reuseIdentifier = @"Cell";
     layout.minimumColumnSpacing = 7; // space between columns
     layout.minimumInteritemSpacing = 7; // space between rows
     layout.columnCount = 2;
+    
+    joins = @[@"15", @"36", @"78", @"99", @"22", @"67"];
+    likes = @[@"6", @"8", @"9", @"6", @"10", @"5"];
     
     self.collectionView.collectionViewLayout = layout;
     self.collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -202,7 +207,7 @@ static NSString * const reuseIdentifier = @"Cell";
             cell.eventImage.image = [UIImage imageWithData:imageData];
         }
     }];
-    cell.eventDescription.text = [[arrayEventList objectAtIndex:indexPath.row] objectForKey:@"description"];
+    cell.eventDescription.text = [[arrayEventList objectAtIndex:indexPath.row] objectForKey:@"title"];
     CGRect labelFrame = cell.eventDescription.frame;
     labelFrame.size.height = [self getLabelHeight:labelFrame.size.width withText:cell.eventDescription.text];
     cell.eventDescription.frame = labelFrame;
@@ -212,8 +217,12 @@ static NSString * const reuseIdentifier = @"Cell";
     cell.layer.borderColor=[UIColor colorWithRed:222.0/255 green:222.0/255 blue:222.0/255 alpha:1.0f].CGColor;
     
     cell.eventInfo.font = [UIFont fontWithName:kFontAwesomeFamilyName size:12];
-    cell.eventInfo.text = [NSString stringWithFormat:@"%@ %d        %@ %d", [NSString fontAwesomeIconStringForIconIdentifier:@"fa-heart"], 100, [NSString fontAwesomeIconStringForIconIdentifier:@"fa-user"], 36];
-    cell.eventInfo.textColor = [UIColor colorWithRed:220/255.0 green:20/255.0 blue:60/255.0 alpha:1.0];
+    cell.eventInfo.text = [NSString stringWithFormat:@"%@ %@        %@ %@", [NSString fontAwesomeIconStringForIconIdentifier:@"fa-heart"], joins[indexPath.row], [NSString fontAwesomeIconStringForIconIdentifier:@"fa-user"], likes[indexPath.row]];
+    if ([likes[indexPath.row] isEqualToString:@"6"]) {
+        cell.eventInfo.textColor = [UIColor colorWithRed:220/255.0 green:20/255.0 blue:60/255.0 alpha:1.0];
+    } else {
+        cell.eventInfo.textColor = [UIColor grayColor];
+    }
     
     CGRect cFrame = cell.eventInfo.frame;
     cFrame.origin.y = cell.eventDescription.frame.origin.y + cell.eventDescription.frame.size.height + 3;
@@ -252,7 +261,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    return CGSizeMake(100, 112 + [self getLabelHeight:140 withText:[arrayEventList objectAtIndex:indexPath.row][@"description"]]);
+    return CGSizeMake(100, 112 + [self getLabelHeight:140 withText:[arrayEventList objectAtIndex:indexPath.row][@"title"]]);
 }
 
 

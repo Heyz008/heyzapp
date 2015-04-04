@@ -75,6 +75,7 @@
 		20A901F11AC829A80007ED76 /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A901F01AC829A80007ED76 /* ActivityViewController.m */; };
 		20A901F31ACB9E3C0007ED76 /* speech.png in Resources */ = {isa = PBXBuildFile; fileRef = 20A901F21ACB9E3C0007ED76 /* speech.png */; };
 		20A901F51ACB9EBB0007ED76 /* leave.png in Resources */ = {isa = PBXBuildFile; fileRef = 20A901F41ACB9EBB0007ED76 /* leave.png */; };
+		20A901FD1ACEE4270007ED76 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20A901FC1ACEE4270007ED76 /* Images.xcassets */; };
 		52D9EA891AC8929900F6386D /* CYFriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D9EA871AC8929900F6386D /* CYFriendsTableViewController.swift */; };
 		52D9EA8A1AC8929900F6386D /* CYUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D9EA881AC8929900F6386D /* CYUser.swift */; };
 		52D9EA8C1AC8929E00F6386D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D9EA8B1AC8929E00F6386D /* ProfileViewController.swift */; };
@@ -582,6 +583,7 @@
 		20A901F01AC829A80007ED76 /* ActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityViewController.m; sourceTree = "<group>"; };
 		20A901F21ACB9E3C0007ED76 /* speech.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speech.png; sourceTree = "<group>"; };
 		20A901F41ACB9EBB0007ED76 /* leave.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leave.png; sourceTree = "<group>"; };
+		20A901FC1ACEE4270007ED76 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Heyz/Images.xcassets; sourceTree = "<group>"; };
 		52D9EA871AC8929900F6386D /* CYFriendsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CYFriendsTableViewController.swift; sourceTree = "<group>"; };
 		52D9EA881AC8929900F6386D /* CYUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CYUser.swift; sourceTree = "<group>"; };
 		52D9EA8B1AC8929E00F6386D /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -2667,6 +2669,7 @@
 		BB303D8D18B863E300B6EBC9 = {
 			isa = PBXGroup;
 			children = (
+				20A901FC1ACEE4270007ED76 /* Images.xcassets */,
 				52D9EB531AC8BBD700F6386D /* FontAwesome.otf */,
 				203EB1241ABF0D51001CF3D7 /* QRCodeEncoder */,
 				20568EB51ABBCAA40004C041 /* QRCodeReaderViewController */,
@@ -3179,6 +3182,7 @@
 				79736F08191EAD13005BA69B /* fb_logo.png in Resources */,
 				79E815651953481800E58344 /* Icon120.png in Resources */,
 				BB303DAD18B863E300B6EBC9 /* Main_iPhone.storyboard in Resources */,
+				20A901FD1ACEE4270007ED76 /* Images.xcassets in Resources */,
 				7112221918BCC14B00E77A4A /* arrow@2x.png in Resources */,
 				7972E97B195355B100F25E4D /* white-cell.png in Resources */,
 				BB303E2A18B879AA00B6EBC9 /* strip@2x.png in Resources */,
@@ -3666,6 +3670,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_X86_VECTOR_INSTRUCTIONS = default;
@@ -3707,6 +3712,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_X86_VECTOR_INSTRUCTIONS = default;
