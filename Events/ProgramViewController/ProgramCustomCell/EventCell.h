@@ -14,5 +14,7 @@
 @property (nonatomic,strong) IBOutlet UILabel *end;
 @property (nonatomic,strong) IBOutlet UILabel *eventName;
 @property (nonatomic,strong) IBOutlet UIView *seperator;
+@property (nonatomic,strong) IBOutlet UIImageView *eventPoster;
+@property (nonatomic,strong) IBOutlet UIImageView *eventQR;
 
 @end

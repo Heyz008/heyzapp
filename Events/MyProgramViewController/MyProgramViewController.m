@@ -18,6 +18,7 @@
 #import "EventList.h"
 #import "EventCell.h"
 #import "AboutViewController.h"
+#import "UIImage+MDQRCode.h"
 
 @interface MyProgramViewController () 
 {
@@ -99,20 +100,31 @@
         cell.seperator.backgroundColor = [UIColor colorWithRed:192.0/255 green:192.0/255 blue:192.0/255 alpha:1.0];
     }
     cell.eventName.text = event[@"title"];
+    PFFile *eventImageFile = event[@"image"];
+    [eventImageFile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+        if (!error) {
+            cell.eventPoster.image = [UIImage imageWithData:imageData];
+        }
+    }];
+    cell.eventQR.image = [UIImage mdQRCodeForString:event[@"title"] size:cell.eventQR.frame.size.width fillColor:[UIColor darkGrayColor]];
+    CGRect qrFrame = cell.eventQR.frame;
+    qrFrame.origin.x = cell.frame.size.width - qrFrame.size.width;
+    qrFrame.origin.y = cell.frame.size.height - qrFrame.size.height - 3;
+    cell.eventQR.frame = qrFrame;
     
     return cell;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 10)];
     /* Create custom view to display section header... */
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 2, tableView.frame.size.width, 18)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 2, tableView.frame.size.width, 13)];
     [label setFont:[UIFont systemFontOfSize:12]];
     NSArray *keys = [events allKeys];
     [label setText:keys[section]];
     [view addSubview:label];
-    [view setBackgroundColor:[UIColor colorWithRed:166/255.0 green:177/255.0 blue:186/255.0 alpha:1.0]]; //your background color...
+    [view setBackgroundColor:[UIColor colorWithRed:233/255.0 green:233/255.0 blue:233/255.0 alpha:1.0]]; //your background color...
     return view;
 }
 
