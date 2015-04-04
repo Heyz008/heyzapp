@@ -41,8 +41,11 @@ class CYUser {
         return
         }){
         var image = UIImage()
-        var imgFile = user.objectForKey(key) as PFFile
-        imgFile.getDataInBackgroundWithBlock({ (data: NSData!, error: NSError!) -> Void in
+        var imgFile = user.objectForKey(key) as PFFile?
+            if imgFile == nil{
+                onError(errorMsg: "no profile photo")
+            }
+        imgFile?.getDataInBackgroundWithBlock({ (data: NSData!, error: NSError!) -> Void in
             if error != nil{
                 onError(errorMsg: error.description)
                 //println(error.description)

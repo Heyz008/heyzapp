@@ -1670,6 +1670,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="qWQ-rZ-A5G">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="UbB-4o-RvV" id="CPb-7B-84u"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="defaultCell" textLabel="IgJ-jp-KfF" imageView="mzS-2B-fWc" style="IBUITableViewCellStyleDefault" id="bIZ-S9-uYS" customClass="FriendCell" customModule="Heyz" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -1695,6 +1703,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="bDt-KS-oiP"/>
+                    <connections>
+                        <outlet property="friendSearchBar" destination="qWQ-rZ-A5G" id="b0H-zZ-ury"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iTG-1g-UVv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

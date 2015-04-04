@@ -37,11 +37,19 @@ class ProfileViewController: UIViewController, UIPageViewControllerDataSource, U
         get{
             return cyUser.user
         }
+        set{
+            if newValue.objectId == PFUser.currentUser().objectId{
+                self.cyUser = CYUserSelf(fromPFUser: newValue)
+            }else{
+                self.cyUser = CYUserOther(fromPFUser: newValue)
+            }
+        }
     }
     private var _cyUser: CYUser?
     var cyUser : CYUser{
         set{
-            self.userDidSet()
+            self._cyUser = newValue
+            //self.userDidSet()
         }
         get{
             if let user = _cyUser{
@@ -100,7 +108,7 @@ class ProfileViewController: UIViewController, UIPageViewControllerDataSource, U
         friendList.setTitleTextAttributes(attributes, forState: .Normal)
         friendList.title = String.fontAwesomeIconWithName(FontAwesome.Users)
         moreButton.setTitleTextAttributes(attributes, forState: .Normal)
-        self.navigationItem.leftItemsSupplementBackButton = true
+
         self.userDidSet()
 
         // Do any additional setup after loading the view.
@@ -281,6 +289,7 @@ class ProfileViewController: UIViewController, UIPageViewControllerDataSource, U
     }
     
     func arrageBasicInfoViews(){
+        self.navigationItem.leftItemsSupplementBackButton = !isCurrentUser
         ageLabel.hidden = isCurrentUser
         statusLabel.hidden = isCurrentUser
         favorateButton.hidden = isCurrentUser
@@ -306,29 +315,47 @@ class ProfileViewController: UIViewController, UIPageViewControllerDataSource, U
         let width = profileImage.frame.width
         profileImage.layer.cornerRadius = width / 2
         profileImage.clipsToBounds = true
+        self.sexLabel.font = UIFont.fontAwesomeOfSize(15)
+
+        self.favorateButton.titleLabel?.font = UIFont.fontAwesomeOfSize(30)
+        self.statusLabel.text = cyUser.getStringForKey("status")
+        cyUser.getImgForKeyInBackground(onFinish: { (img) -> Void in
+                self.profileImage.image = img
+                })
+        self.nameLabel.text = self.cyUser.getStringForKey("username")
+        self.locationLabel.text = self.cyUser.getStringForKey("location")
+        let gender = self.cyUser.getStringForKey("sex")
+        if gender == "male"{
+                self.sexLabel.text = String.fontAwesomeIconWithName(FontAwesome.Male)
+            }else if gender == "female"{
+                self.sexLabel.text = String.fontAwesomeIconWithName(FontAwesome.Female)
+        }else{
+            self.sexLabel.text = ""
+        }
+        
+        self.signLabel.text = self.cyUser.getStringForKey("sign")
+        self.ageLabel.text = self.cyUser.getStringForKey("age")
+        let favorate = self.cyUser.getStringForKey("favorate")
+        if favorate == "true"{
+            self.favorateButton.setTitle(String.fontAwesomeIconWithName(FontAwesome.Star), forState: .Normal)
+        }else{
+            self.favorateButton.setTitle(String.fontAwesomeIconWithName(FontAwesome.StarO), forState: .Normal)
+        }
+
         if fakeUser == nil{
-            self.statusLabel.text = "Single"
-            self.profileImage.image = UIImage(named: "profile-pic2.c")
-            self.nameLabel.text = "Daniel"
-            self.locationLabel.text = "Toronto"
-            self.sexLabel.font = UIFont.fontAwesomeOfSize(15)
-            self.sexLabel.text = String.fontAwesomeIconWithName(FontAwesome.Male)
-            let attributes = [NSFontAttributeName: UIFont.fontAwesomeOfSize(15)] as Dictionary!
-            self.signLabel.text = "PM"
-            self.ageLabel.text = "?"
-            self.favorateButton.titleLabel?.text = "F"
+
         }else{
             let user = fakeUser!
             self.statusLabel.text = user.info["status"]
             self.profileImage.image = user.profileImage
             self.nameLabel.text = user.info["name"]
             self.locationLabel.text = user.info["location"]
-            self.sexLabel.font = UIFont.fontAwesomeOfSize(15)
             self.sexLabel.text = String.fontAwesomeIconWithName(FontAwesome.Male)
+
             self.signLabel.text = user.info["sign"]
             self.ageLabel.text = user.info["age"]
             
-            self.favorateButton.titleLabel?.font = UIFont.fontAwesomeOfSize(30)
+
             let status = user.info["favorate"] == "true" ? String.fontAwesomeIconWithName(FontAwesome.Star) : String.fontAwesomeIconWithName(FontAwesome.StarO)
             self.favorateButton.setTitle(status, forState: .Normal)
         }

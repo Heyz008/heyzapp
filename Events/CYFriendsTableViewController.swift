@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CYFriendsTableViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate {
+class CYFriendsTableViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     var currentCYUser = CYUserSelf.currentCYUser()
     var idList : [String] = []{
         didSet{
@@ -16,6 +16,7 @@ class CYFriendsTableViewController: UITableViewController, UITableViewDataSource
         }
     }
 
+    @IBOutlet weak var friendSearchBar: UISearchBar!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Uncomment the following line to preserve selection between presentations
@@ -99,6 +100,24 @@ class CYFriendsTableViewController: UITableViewController, UITableViewDataSource
 
         }
 
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        let query = PFUser.query()
+        query.whereKey("username", equalTo: searchBar.text)
+        query.findObjectsInBackgroundWithBlock { (result, error) -> Void in
+            if error != nil{
+                print(error)
+            }else{
+                if result.count  > 0{
+                    let profileController = self.navigationController?.storyboard?.instantiateViewControllerWithIdentifier("ProfileViewController") as? ProfileViewController
+                    if let vc = profileController{
+                        vc.user = result.first as PFUser
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }
+                }
+            }
+        }
     }
     
 
