@@ -201,16 +201,11 @@ import Foundation
                 if user.isNew {
                     println("User signed up and logged in through Twitter!")
                     
-//                    delegate.isRegistering = true
-//                    delegate.isFromFacebook = true
-                    
                     NSUserDefaults.standardUserDefaults().setObject(user.username, forKey: appDefaultIdKey)
                     NSUserDefaults.standardUserDefaults().setObject(user.password, forKey: appDefaultPwdKey)
                     
-//                    NSUserDefaults.standardUserDefaults().setObject(user.objectId + xmppDomain, forKey: xmppDefaultIdKey)
-//                    NSUserDefaults.standardUserDefaults().setObject(user.objectId, forKey: xmppDefaultPwdKey)
-//                    
-//                    delegate.connect()
+                    user["Events"] = [String]()
+                    user.saveInBackgroundWithBlock(nil)
                     
                     sender.dismissViewControllerAnimated(true, completion: nil)
                 } else {
@@ -218,11 +213,6 @@ import Foundation
                     
                     NSUserDefaults.standardUserDefaults().setObject(user.username, forKey: appDefaultIdKey)
                     NSUserDefaults.standardUserDefaults().setObject(user.password, forKey: appDefaultPwdKey)
-                    
-//                    NSUserDefaults.standardUserDefaults().setObject(user.objectId + xmppDomain, forKey: xmppDefaultIdKey)
-//                    NSUserDefaults.standardUserDefaults().setObject(user.objectId, forKey: xmppDefaultPwdKey)
-//                    
-//                    delegate.connect()
                     
                     sender.dismissViewControllerAnimated(true, completion: nil)
                 }
@@ -243,16 +233,11 @@ import Foundation
                 if user.isNew {
                     println("User signed up and logged in through Facebook!")
                     
-//                    delegate.isRegistering = true
-//                    delegate.isFromFacebook = true
-                    
                     NSUserDefaults.standardUserDefaults().setObject(user.username, forKey: appDefaultIdKey)
                     NSUserDefaults.standardUserDefaults().setObject(user.password, forKey: appDefaultPwdKey)
                     
-//                    NSUserDefaults.standardUserDefaults().setObject(user.objectId + xmppDomain, forKey: xmppDefaultIdKey)
-//                    NSUserDefaults.standardUserDefaults().setObject(user.objectId, forKey: xmppDefaultPwdKey)
-                    
-//                    delegate.connect()
+                    user["Events"] = [String]()
+                    user.saveInBackgroundWithBlock(nil)
                     
                     sender.dismissViewControllerAnimated(true, completion: nil)
                 } else {
@@ -260,11 +245,6 @@ import Foundation
                     
                     NSUserDefaults.standardUserDefaults().setObject(user.username, forKey: appDefaultIdKey)
                     NSUserDefaults.standardUserDefaults().setObject(user.password, forKey: appDefaultPwdKey)
-                    
-//                    NSUserDefaults.standardUserDefaults().setObject(user.objectId + xmppDomain, forKey: xmppDefaultIdKey)
-//                    NSUserDefaults.standardUserDefaults().setObject(user.objectId, forKey: xmppDefaultPwdKey)
-//                    
-//                    delegate.connect()
                     
                     sender.dismissViewControllerAnimated(true, completion: nil)
                 }
@@ -355,14 +335,6 @@ import Foundation
                 friendsList["relations"] = [String]()
                 
                 friendsList.saveInBackgroundWithBlock(nil)
-                
-//                let delegate = UIApplication.sharedApplication().delegate as AppDelegate
-//                delegate.isRegistering = true
-//                
-//                NSUserDefaults.standardUserDefaults().setObject(user.objectId + xmppDomain, forKey: xmppDefaultIdKey)
-//                NSUserDefaults.standardUserDefaults().setObject(user.objectId, forKey: xmppDefaultPwdKey)
-//                
-//                delegate.connect()
                 
                 sender.dismissViewControllerAnimated(true, completion: nil)
                 

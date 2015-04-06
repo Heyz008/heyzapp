@@ -248,8 +248,9 @@ import UIKit
                         if self.recentConversations.count == 3 {
                             self.addFakeData()
                         }
-                        
                         onAfterConvLoaded()
+                        println(self.recentConversations.count)
+                        
                     })
                     
                 }

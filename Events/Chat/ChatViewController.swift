@@ -26,7 +26,7 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate, 
     let delegate = UIApplication.sharedApplication().delegate as AppDelegate
     
     let timer: NSTimer!
-    let refreshRate = 6.0
+    let refreshRate = 60.0
     
     //收到离线或者未读消息
     func onAfterMsgReceived(from: String) {
@@ -105,8 +105,11 @@ class ChatViewController: UIViewController, NSFetchedResultsControllerDelegate, 
             } else {
                 tabItem.badgeValue = nil
             }
+            
         })
 
+        NSTimer.scheduledTimerWithTimeInterval(refreshRate, target: self, selector: "fetchMessages", userInfo: nil, repeats: true)
+        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: btnForLogo)
         self.tabBarController?.tabBar.tintColor = UIColor.greenColor()
         

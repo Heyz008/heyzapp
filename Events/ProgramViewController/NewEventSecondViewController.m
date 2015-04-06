@@ -110,7 +110,6 @@
         event[@"isActive"] = @YES;
         
         [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            [self.navigationController popToRootViewControllerAnimated:YES];
             
             PFUser *user = [PFUser currentUser];
             [user addObject:event.objectId forKey:@"Events"];
@@ -121,6 +120,8 @@
                                             if (!error) {
                                                 ConversationManager *manager = [ConversationManager singleton];
                                                 manager.requireReload = YES;
+                                                
+                                                [self.navigationController popToRootViewControllerAnimated:YES];
                                             }
                                         }];
         }];

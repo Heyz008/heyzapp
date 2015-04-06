@@ -35,7 +35,6 @@ class GroupChatViewController: UIViewController, MessageDelegate, UIImagePickerC
             
         }
         
-        
     }
     
     func addMessage(message: Message) {
@@ -97,6 +96,16 @@ class GroupChatViewController: UIViewController, MessageDelegate, UIImagePickerC
     }
     
     @IBAction func onAfterCameraTapped(sender: UIButton) {
+        
+        if UIImagePickerController.isSourceTypeAvailable(.Camera){
+            let imagePicker = UIImagePickerController()
+            imagePicker.allowsEditing = false
+            imagePicker.sourceType = .Camera
+            imagePicker.delegate = self
+            
+            self.presentViewController(imagePicker, animated: true, completion: nil)
+            
+        }
     }
     
     @IBAction func onAfterPhotoTapped(sender: UIButton) {
@@ -157,6 +166,7 @@ class GroupChatViewController: UIViewController, MessageDelegate, UIImagePickerC
         
         let color = UIColor.grayColor().CGColor
         scrollTopBtn.layer.borderColor = color
+        title = conversation.displayName
         
     }
     
