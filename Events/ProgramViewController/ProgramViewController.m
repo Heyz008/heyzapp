@@ -152,6 +152,8 @@ static NSString * const reuseIdentifier = @"Cell";
 {
     [super viewWillAppear:YES];
     
+    [self.navigationController.tabBarController.tabBar setHidden:NO];
+    
     [Utility afterDelay:0.01 withCompletion:^{
         [DSBezelActivityView newActivityViewForView:self.view.window];
         [self getEventListFromServer];
@@ -250,7 +252,7 @@ static NSString * const reuseIdentifier = @"Cell";
         ProgramMainCell *cell = (ProgramMainCell*)sender;
         NSIndexPath *selectedRowIndex = [self.collectionView indexPathForCell:cell];
         AboutViewController *aboutVwController = [segue destinationViewController];
-        aboutVwController.hidesBottomBarWhenPushed = YES;
+        //aboutVwController.hidesBottomBarWhenPushed = YES;
         PFObject *obj  =   [arrayEventList objectAtIndex:selectedRowIndex.row];
         
         aboutVwController.eventObj  =   obj;

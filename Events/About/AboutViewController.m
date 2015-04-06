@@ -25,6 +25,7 @@
 #import "QRViewController.h"
 #import "EventMapViewController.h"
 #import "Heyz-Swift.h"
+#import "ImageGalleryViewController.h"
 
 @interface AboutViewController ()
 {
@@ -55,7 +56,27 @@
     [self initializeNavigationBar];
     
     self.photos = [@[@"111.jpg", @"222.jpg", @"333.jpg", @"444.jpg", @"555.jpg"] mutableCopy];
-    self.galleries = [@[@"11.jpg", @"22.jpg", @"33.jpg", @"44.jpg", @"55.jpg", @"66.jpg"] mutableCopy];
+    
+    
+    
+    if ([self.eventObj[@"title"] isEqualToString:@"不眠之夜"]) {
+        self.galleries = [@[@"11.jpg", @"22.jpg", @"33.jpg", @"44.jpg", @"55.jpg", @"66.jpg"] mutableCopy];
+    } else if ([self.eventObj[@"title"] isEqualToString:@"密室逃脱"]) {
+        self.galleries = [@[@"e11.jpg", @"e12.jpg", @"e13.jpg", @"e14.jpg", @"e15.jpg", @"e16.jpg"] mutableCopy];
+    } else if ([self.eventObj[@"title"] isEqualToString:@"Let's Go For Dinner"]) {
+        self.galleries = [@[@"e21.jpg", @"e22.jpg", @"e23.jpg", @"e24.jpg", @"e25.jpg", @"e26.jpg"] mutableCopy];
+    } else if ([self.eventObj[@"title"] isEqualToString:@"KTV"]) {
+        self.galleries = [@[@"e31.jpg", @"e32.jpg", @"e33.jpg", @"e34.jpg", @"e35.jpg", @"e36.jpg"] mutableCopy];
+    } else if ([self.eventObj[@"title"] isEqualToString:@"我们女生下午茶的时间到咯"]) {
+        self.galleries = [@[@"e41.jpg", @"e42.jpg", @"e43.jpg", @"e44.jpg", @"e45.jpg", @"e46.jpg"] mutableCopy];
+    } else if ([self.eventObj[@"title"] isEqualToString:@"久石让大型音乐会, 千万不要错过"]) {
+        self.galleries = [@[@"e51.jpg", @"e52.jpg", @"e53.jpg", @"e54.jpg", @"e55.jpg", @"e56.jpg"] mutableCopy];
+    }
+    
+    
+    
+    
+    
     self.commentUsers = [@[@"You", @"MoMo", @"LuLu"] mutableCopy];
     self.commentContents = [@[@"Very Good Event", @"I really want to go!!!", @"Gonna Be Fun!"] mutableCopy];
     self.comments.delegate = self;
@@ -137,22 +158,24 @@
     
     //self.tabBarController.tabBar.frame = CGRectMake(0, 0, 0, 0);
     
-    
-    
 }
 
 -(IBAction)joinEvent:(id)sender {
-        PFUser *user = [PFUser currentUser];
-        [user addObject:self.eventObj.objectId forKey:@"Events"];
-        [user saveInBackground];
-        [PFCloud callFunctionInBackground:@"addToChat"
-                           withParameters:@{@"event": self.eventObj.objectId}
-                                    block:^(NSString *succeeded, NSError *error){
-                                        if (!error) {
-                                            ConversationManager *manager = [ConversationManager singleton];
-                                            manager.requireReload = YES;
-                                        }
-                                    }];
+    NSLog(@"pressed");
+}
+
+-(IBAction)groupChat:(id)sender {
+    PFUser *user = [PFUser currentUser];
+    [user addObject:self.eventObj.objectId forKey:@"Events"];
+    [user saveInBackground];
+    [PFCloud callFunctionInBackground:@"addToChat"
+                       withParameters:@{@"event": self.eventObj.objectId}
+                                block:^(NSString *succeeded, NSError *error){
+                                    if (!error) {
+                                        ConversationManager *manager = [ConversationManager singleton];
+                                        manager.requireReload = YES;
+                                    }
+                                }];
     
     [self.tabBarController setSelectedIndex:1];
 }
@@ -234,7 +257,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:YES];
-    self.tabBarController.tabBar.hidden=NO;
+    [self.navigationController.tabBarController.tabBar setHidden:YES];
     /**
      *  get location using locationmanager singleton class
      */
@@ -539,6 +562,9 @@
     } else if ([[segue identifier] isEqualToString:@"QRDetail"]) {
         QRViewController *qr = [segue destinationViewController];
         qr.eventName = self.eventName.text;
+    } else if ([[segue identifier] isEqualToString:@"GalleryDetail"]) {
+        ImageGalleryViewController *ig = [segue destinationViewController];
+        ig.galleries = self.galleries;
     }
     
 //    ProgramDescriptionViewController *programDescriptionView = [segue destinationViewController];

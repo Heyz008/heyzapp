@@ -18,7 +18,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.galleries = @[@"11.jpg", @"22.jpg", @"33.jpg", @"44.jpg", @"55.jpg", @"66.jpg"];
     for (int i = 0; i < self.galleries.count; i++) {
         CGRect frame;
         frame.origin.x = self.scrollView.frame.size.width * i;

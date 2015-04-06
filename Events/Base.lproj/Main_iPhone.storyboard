@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="DxO-cP-19h">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="DxO-cP-19h">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
@@ -216,17 +216,27 @@
                                                     <color key="backgroundColor" red="0.79978049949999996" green="0.9217171717" blue="0.24356168910000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Z5d-5c-8By">
-                                                    <rect key="frame" x="66" y="0.0" width="246" height="39"/>
+                                                    <rect key="frame" x="110" y="0.0" width="202" height="23"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="7y1-K8-l5n">
+                                                    <rect key="frame" x="62" y="2" width="40" height="40"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="VoF-Jh-iaO">
+                                                    <rect key="frame" x="264" y="15" width="28" height="28"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="end" destination="l7L-7n-fde" id="k4I-RB-3ys"/>
                                             <outlet property="eventName" destination="Z5d-5c-8By" id="IEy-Hd-GPd"/>
+                                            <outlet property="eventPoster" destination="7y1-K8-l5n" id="YNb-24-dIN"/>
+                                            <outlet property="eventQR" destination="VoF-Jh-iaO" id="nPn-2a-Qbr"/>
                                             <outlet property="seperator" destination="uCN-aj-Eff" id="LSv-oA-f2y"/>
                                             <outlet property="start" destination="UL8-G9-FGS" id="R5K-r8-RLS"/>
                                             <segue destination="GJ5-Ez-Ag6" kind="push" id="IXO-5p-8wl"/>
@@ -517,7 +527,7 @@
                                                 </view>
                                                 <connections>
                                                     <outlet property="photo" destination="DRP-pS-eh3" id="1Fa-fi-uc6"/>
-                                                    <segue destination="cZY-DP-YOY" kind="push" id="OaN-eG-qPR"/>
+                                                    <segue destination="cZY-DP-YOY" kind="push" identifier="GalleryDetail" id="OaN-eG-qPR"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
@@ -560,6 +570,9 @@
                                         <state key="normal" title="GROUP">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="groupChat:" destination="GJ5-Ez-Ag6" eventType="touchUpInside" id="0ce-P2-KX6"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wWZ-DE-hW3">
                                         <rect key="frame" x="187" y="5" width="125" height="30"/>
@@ -956,7 +969,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="rzO-Ho-R6Y">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Event Name" minimumFontSize="17" id="xah-4g-n4d">
@@ -966,7 +979,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PYM-F5-ODZ">
-                                        <rect key="frame" x="8" y="46" width="304" height="38"/>
+                                        <rect key="frame" x="8" y="49" width="304" height="38"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <inset key="contentEdgeInsets" minX="2" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -979,7 +992,7 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" id="evi-TL-A7M">
-                                        <rect key="frame" x="8" y="210" width="304" height="243"/>
+                                        <rect key="frame" x="8" y="231" width="304" height="243"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Description (500)" minimumFontSize="17" id="ZAG-ZC-uIi">
@@ -1005,7 +1018,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="e1J-SQ-8Xx">
-                                        <rect key="frame" x="8" y="124" width="304" height="35"/>
+                                        <rect key="frame" x="8" y="133" width="304" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1015,7 +1028,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6gl-D9-dDi">
-                                        <rect key="frame" x="8" y="157" width="304" height="35"/>
+                                        <rect key="frame" x="8" y="172" width="304" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1035,7 +1048,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <view contentMode="scaleToFill" id="tPA-qn-Hc7">
-                                        <rect key="frame" x="8" y="78" width="304" height="38"/>
+                                        <rect key="frame" x="8" y="89" width="304" height="38"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="AEL-Fy-lnf">
@@ -1092,7 +1105,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" id="me7-eM-0n8">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="435"/>
+                                <rect key="frame" x="0.0" y="-49" width="320" height="529"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </scrollView>
@@ -1147,7 +1160,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="0HW-ez-1g9">
-                                                    <rect key="frame" x="6" y="-1" width="2284" height="344"/>
+                                                    <rect key="frame" x="6" y="-1" width="2604" height="387"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
                                             </subviews>
@@ -1379,7 +1392,9 @@
         <scene sceneID="P2C-wx-DeA">
             <objects>
                 <navigationController definesPresentationContext="YES" id="7QV-MF-lRy" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" image="tab_profile" id="Whh-wp-Ei3"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="tab_profile" id="Whh-wp-Ei3">
+                        <inset key="imageInsets" minX="2" minY="2" maxX="2" maxY="2"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="aeA-Xb-aZb">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1781,7 +1796,9 @@
         <scene sceneID="ceR-vN-lrW">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Mml-vq-zwo" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Discover" image="tab_explore" id="TWS-hq-3Im"/>
+                    <tabBarItem key="tabBarItem" title="Discover" image="tab_explore" id="TWS-hq-3Im">
+                        <inset key="imageInsets" minX="1" minY="3" maxX="1" maxY="-1"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vdo-nW-dZc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2011,7 +2028,9 @@
         <scene sceneID="u2T-EW-rju">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Dlv-Lj-Hfo" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Upcoming" image="tab_upcoming" id="oVN-HQ-A1h"/>
+                    <tabBarItem key="tabBarItem" title="Upcoming" image="tab_upcoming" id="oVN-HQ-A1h">
+                        <inset key="imageInsets" minX="3" minY="-4" maxX="3" maxY="3"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wyX-3r-IYA">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2621,7 +2640,9 @@
         <scene sceneID="Rai-o6-eeJ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5H1-yh-Gst" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Chat" image="tab_chat" id="0ya-WI-XyW"/>
+                    <tabBarItem key="tabBarItem" title="Chat" image="tab_chat" id="0ya-WI-XyW">
+                        <inset key="imageInsets" minX="2" minY="2" maxX="2" maxY="2"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="X6Z-zR-xxC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
